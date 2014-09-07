@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaType", "MetaType\MetaType.csproj", "{04B9792B-1DA6-4AD9-8A5F-21BCC7E15AC5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaType.Tests", "MetaType.Tests\MetaType.Tests.csproj", "{583CFE4A-523C-4DAD-A306-FBC8D8508316}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{04B9792B-1DA6-4AD9-8A5F-21BCC7E15AC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04B9792B-1DA6-4AD9-8A5F-21BCC7E15AC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04B9792B-1DA6-4AD9-8A5F-21BCC7E15AC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04B9792B-1DA6-4AD9-8A5F-21BCC7E15AC5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{583CFE4A-523C-4DAD-A306-FBC8D8508316}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{583CFE4A-523C-4DAD-A306-FBC8D8508316}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{583CFE4A-523C-4DAD-A306-FBC8D8508316}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{583CFE4A-523C-4DAD-A306-FBC8D8508316}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

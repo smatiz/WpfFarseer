@@ -1,0 +1,48 @@
+#!flame/0/--
+--NoneExec
+SISTEMATO : sulla cell tipo testo, shift + invio non deve dare errore di Null
+--NoneExec
+SISTEMATO : ogni tanto il menu Cell da un errore con l'AutoStart
+--NoneExec
+SISTEMATO : quando autocompletamento non e' disponibile non deve dare errore di Null
+--NoneExec
+SISTEMATO : rotellina non funziona bene
+--NoneExec;a
+SISTEMATO : rimane uno spazietto grigio nello spazio a sinistra quando si fa invio 
+* aggiunto un + 100 in InfoPanel.Height = _textInput.Control.Height + 100;
+--NoneExec
+SISTEMATO : autocompletamento per c#
+--NoneExec
+SISTEMATO : non si puo far ridiventare una cella casella di testo
+--NoneExec
+SISTEMATO : aggiunta panel out[33]:
+--NoneExec
+
+--NoneExec
+PERFEZIONARE autocompletamento 
+--NoneExec
+creare e perfezionare diagrammi uml, eventi ecc
+--NoneExec
+HELP PER CODEPLEX
+--NoneExec
+->>>> CODE PROJECT
+--NoneExec
+
+--NoneExec
+
+--NoneExec
+inputtext.OnLeave += { risistemare la cella..   }
+--NoneExec
+un po fastidioso quando la frase va fuori contesto, provare a rimpicciolire la cella in width quando c'e' la verticalscroll
+--NoneExec
+dopo il shift+ enter la casella sotto deve avere lo stesso linguaggio
+--NoneExec
+
+--NoneExec
+cambiare inputtext con avalonedit
+--IronPythonExec
+
+--IronPythonExec
+
+--IronPythonExec
+

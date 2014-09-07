@@ -1,0 +1,113 @@
+#!flame/0/--
+
+--Ruby
+methods - Object.instance_methods
+
+--Ruby
+System.methods
+
+--py
+def mydir(s):
+ eval("dir(" + s + ")")
+eval("dir(System." + dir(System)[0] + ")")[0].GetType()
+
+--py
+eval("dir(System." + dir(System)[0] + ")")[0].GetType()
+
+--py
+s = eval("dir(System." + dir(System)[0] + ")")[0]
+s
+
+--py
+System.Data.GetType()
+
+--py
+eval("System." + s + ".GetType()")
+
+--py
+# istanza 
+System.String().GetType()
+
+--py
+# tipo
+clr.GetClrType(System.String)
+
+--py
+# namespace
+eval("clr.GetClrType(System." + s + ")")
+
+--CSharpScript
+typeof(System.String)
+
+--py
+class classObject:
+ Parent = None
+ Name = ""
+ __init__(self, name, parent = None):
+  Parent = parent
+  Name = name
+
+def mydir(s):
+ return eval("dir(" + s + ")")
+def mychilddir(s):
+ return mydir(s + "." + mydir(s)[0])
+mydir("System." + mydir("System")[0])
+
+--py
+class ClassObject(System.Object):
+ Parent = None
+ Name = ""
+ def __init__(self, name, parent = None):
+  self.Parent = parent
+  self.Name = name
+
+--py
+System.GetType()
+
+--py
+__builtins__.GetType()
+
+--py
+ClassObject.GetType()
+
+--py
+help(ClassObject)
+
+--py
+callable(ClassObject)
+
+--py
+callable(System)
+
+--py
+from System.Windows.Forms import *
+MessageBox.Show("AAA")
+
+
+--py
+dir()
+
+--py
+(dir(getattr(System,"Windows")))
+
+--py
+getattr(clr,"System")
+
+--py
+dir()
+0
+
+--py
+help("System")
+
+--py
+import this
+
+--py
+globals()
+
+--py
+
+
+--py
+

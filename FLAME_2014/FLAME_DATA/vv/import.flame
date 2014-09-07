@@ -1,0 +1,75 @@
+#!flame-0
+
+--Python
+flame.OutputStreamWindow.Show()
+--Python
+
+
+--Python
+clr.AddReference("IronPython")
+clr.AddReference("IronPython.Modules")
+import IronPython
+import IronPython.Modules
+--Python
+
+
+--Python
+import itertools
+--Python
+
+
+--Python
+l = [1,2,3]
+itertools.
+--Python
+
+
+--Python
+IronPython.Modules.PythonIterTools.repeat(l)
+--Python
+
+
+--Python
+a = IronPython.Modules.PythonIterTools.chain([1,2,3],[5,6,7])
+--Python
+
+
+--Python
+a.GetType()
+--Python
+
+
+--Python
+a.from_iterable(l)
+--Python
+
+
+--Python
+itertools.count(10)
+--Python
+
+
+--Python
+(i for i in itertools.repeat('example', 5))
+--Python
+
+
+--Python
+b = list(a)
+--Python
+
+
+--Python
+b.GetType()
+--Python
+
+
+--Python
+
+--Python
+
+
+--Python
+
+--Python
+

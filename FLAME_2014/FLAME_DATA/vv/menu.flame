@@ -1,0 +1,86 @@
+#!flame-0
+
+--Python
+from System.Windows.Forms import *
+flame.ScripterControlForm.Menu = MainMenu()
+
+menu_file = MenuItem()
+menu_file.Text = "File"
+
+menu_file_child = MenuItem()
+menu_file_child.Text = "New"
+menu_file_child.ShowShortcut = True
+menu_file_child.Shortcut =  Shortcut.CtrlN
+menu_file_child.Click += lambda s,e : flame.ScripterControlForm.ScripterLoaderControl.NewDialog() 
+menu_file.MenuItems.Add(menu_file_child)
+
+menu_file_child = MenuItem()
+menu_file_child.Text = "Open"
+menu_file_child.ShowShortcut = True
+menu_file_child.Shortcut =  Shortcut.CtrlO
+menu_file_child.Click += lambda s,e : flame.ScripterControlForm.ScripterLoaderControl.LoadDialog() 
+menu_file.MenuItems.Add(menu_file_child)
+
+menu_file_child = MenuItem()
+menu_file_child.Text = "Save"
+menu_file_child.ShowShortcut = True
+menu_file_child.Shortcut =  Shortcut.CtrlS
+menu_file_child.Click += lambda s,e : flame.ScripterControlForm.ScripterLoaderControl.SaveDialog() 
+menu_file.MenuItems.Add(menu_file_child)
+
+menu_file_child = MenuItem()
+menu_file_child.Text = "Save As"
+menu_file_child.ShowShortcut = True
+menu_file_child.Shortcut =  Shortcut.CtrlShiftS
+menu_file_child.Click += lambda s,e : flame.ScripterControlForm.ScripterLoaderControl.SaveAsDialog() 
+menu_file.MenuItems.Add(menu_file_child)
+
+
+flame.ScripterControlForm.Menu.MenuItems.Add(menu_file)
+--Python
+
+
+--Python
+m.Shortcut = System.Windows.Forms.Shortcut()
+--Python
+
+
+--Python
+m.ShowShortcut = True
+--Python
+
+
+--Python
+m.Shortcut =  System.Windows.Forms.Shortcut.ShiftF2
+--Python
+
+
+--Python
+from System.Windows.Forms import *
+--Python
+
+
+--Python
+MainMenu()
+--Python
+
+
+--Python
+
+--Python
+
+
+--Python
+
+--Python
+
+
+--Python
+
+--Python
+
+
+--Python
+
+--Python
+

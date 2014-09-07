@@ -1,0 +1,17 @@
+#!flame/0/--
+--HttpServerExec
+UnityEngine.Debug.Log("gggggggggg");
+--HttpServerExec
+UnityEngine.GameObject gameObject_rope_piece = (UnityEngine.GameObject)UnityEngine.Object.Instantiate(UnityEngine.Resources.Load("rope_piece"));
+gameObject_rope_piece.transform.localPosition = new UnityEngine.Vector3(0, 0, 0);
+--HttpServerExec
+GameObject gameObject_rope_piece = (GameObject)Object.Instantiate(Resources.Load("rope_piece"));
+gameObject_rope_piece.transform.localPosition = new Vector3(0, 0, 0);
+--HttpServerExec
+gameObject_rope_piece.transform.position = new Vector3(10, 10, 10);
+--HttpServerExec
+((Rigidbody)gameObject_rope_piece.GetComponent(typeof(Rigidbody))).AddForce(new Vector3(10, 0, 0), ForceMode.Impulse);
+--NoneExec
+
+--NoneExec
+

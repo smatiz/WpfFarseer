@@ -1,0 +1,9 @@
+#!flame/0/--
+--IronPythonExec
+123
+--IronPythonExec
+flame.Out(0)
+--IronPythonExec
+flame.Out(-1)
+--NoneExec
+

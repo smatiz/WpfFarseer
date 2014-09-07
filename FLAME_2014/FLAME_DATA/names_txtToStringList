@@ -1,0 +1,38 @@
+#!flame/0/--
+--CSharpExec
+var text = System.IO.File.ReadAllText(@"S:\ROOT\DROPBOX\Dropbox\WOLFRAM_WORK\FLAME_DATA\names.txt");
+--CSharpExec
+var lines = text.Replace("\r","").Split('\n');
+--CSharpExec
+lines.Length
+--CSharpExec
+using System.Linq;
+--CSharpExec
+System.Tuple<string, string> getFirstAndLastName(string s)
+{
+	var x = s.Split(' ');
+	return new System.Tuple<string, string>(x[0],x[1]);
+}
+--CSharpExec
+var names = (from x in lines select getFirstAndLastName(x)).ToList();
+--CSharpExec
+var firstNames = (from x in names select x.Item1).ToList();
+var lastNames = (from x in names select x.Item2).ToList();
+--CSharpExec
+string s = "";
+foreach(var x in firstNames)
+{
+	s += "\"" + x + "\",";
+}
+--CSharpExec
+string s = "";
+foreach(var x in lastNames)
+{
+	s += "\"" + x + "\",";
+}
+--CSharpExec
+s
+--CSharpExec
+
+--CSharpExec
+

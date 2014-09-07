@@ -1,0 +1,79 @@
+#!flame/0/--
+--CSharpExec
+using System.Linq;
+using FarseerPhysics;
+using FarseerPhysics.Dynamics;
+using FarseerPhysics.Factories;
+using Microsoft.Xna.Framework;
+using FarseerPhysics.Samples.Demos.Prefabs;
+
+var _border = new Border(World, ScreenManager, Camera);
+--CSharpExec
+var p1 = new Vector2(-10f, -10f);
+var _chiodo = BodyFactory.CreateCircle(World, 3f, 100f);
+--CSharpExec
+World.Gravity = new Vector2(0, 10);
+--CSharpExec
+_chiodo.BodyType = BodyType.Dynamic;
+--CSharpExec
+_chiodo.Position = p1;
+_chiodo.Restitution = .99f;
+--CSharpExec
+var v = new Vector2(10,-10);
+--CSharpExec
+_chiodo.LinearVelocity = v
+--CSharpExec
+_chiodo.Restitution = 0.7f;
+
+--CSharpExec
+_chiodo.AngularVelocity = -3;
+--CSharpExec
+_chiodo.LinearVelocity = v
+--CSharpExec
+_chiodo.BodyType = BodyType.Dynamic;
+--CSharpExec
+
+var _chiodo2 = BodyFactory.CreateCircle(World, 3f, 100f);
+_chiodo2.Position = p1;
+_chiodo2.BodyType = BodyType.Dynamic;
+_chiodo.Position = p1;
+_chiodo.CollidesWith
+--CSharpExec
+_chiodo.ApplyForce(v* 1000000);
+_chiodo2.ApplyLinearImpulse(v * 10000);
+--CSharpExec
+_chiodo.ApplyLinearImpulse(-v * 10000)
+--CSharpExec
+_chiodo.BodyType = BodyType.Kinematic;
+--CSharpExec
+_chiodo.Position =  new Vector2(-10, -100);
+--CSharpExec
+_chiodo.Position 
+--CSharpExec
+var f = _chiodo.FixtureList[0];
+--CSharpExec
+f.FixtureId
+--CSharpExec
+
+--CSharpExec
+
+--CSharpExec
+
+--CSharpExec
+
+--CSharpExec
+
+--CSharpExec
+from x in  _chiodo.FixtureList select x
+--CSharpExec
+
+--CSharpExec
+
+--CSharpExec
+
+--CSharpExec
+
+--CSharpExec
+
+--CSharpExec
+

@@ -1,0 +1,16 @@
+#!flame-0
+
+--Ruby
+System::Windows::Forms::MessageBox.
+--Ruby
+
+
+--Python
+System.Windows.Forms.MessageBox.S
+--Python
+
+
+--None
+
+--None
+

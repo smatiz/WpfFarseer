@@ -1,0 +1,110 @@
+#!flame/0/--
+
+--txt
+
+
+--py
+flame.ScripterTabbedControl.ScripterLoaderControl.ScripterControl.Manager.GetEngine(Flame.Dlr.Languages.Python).ClearScope()
+
+--py
+flame.ScripterControlForm.OutputStreamWindow.Show()
+
+--py
+flame.ScripterTabbedControl.ScripterLoaderControl.ScripterControl.Manager.AddAssembly(Flame.Dlr.AssemblyWrapper(r"C:\Work\Code\CuboEmail\CuboEmailGui\CuboEmailGui\bin\Debug\abot.dll"))
+flame.ScripterTabbedControl.ScripterLoaderControl.ScripterControl.Manager.AddAssembly(Flame.Dlr.AssemblyWrapper(r"C:\Work\Code\CuboEmail\CuboEmailGui\CuboEmailGui\bin\Debug\HtmlAgilityPack.dll"))
+flame.ScripterTabbedControl.ScripterLoaderControl.ScripterControl.Manager.AddAssembly(Flame.Dlr.AssemblyWrapper(r"C:\Work\Code\CuboEmail\CuboEmailGui\CuboEmailGui\bin\Debug\CuboEmailGui.exe"))
+
+--py
+def lprint(s):
+ print s
+
+--py
+def htmlTest(uri):
+ text = HtmlAgilityPack.Samples_.HtmlToText.ConvertFromUri(uri)
+ System.Windows.Forms.WebBrowser
+
+--py
+wb
+
+--py
+def buildWebBrowser():
+	wb = System.Windows.Forms.WebBrowser()
+	wb_progress = System.Windows.Forms.ProgressBar()
+	wb_progress.Maximum = 100
+	def wb_ProgressChanged(s, e):
+	 wb_progress.Maximum = e.MaximumProgress
+	 #lprint("***" + e.CurrentProgress.ToString())
+	 #lprint("---" + wb_progress.ToString())
+	 wb_progress.Value = e.CurrentProgress
+	wb.ProgressChanged += wb_ProgressChanged
+	wb.DocumentCompleted += lambda s,e : lprint("loaded: " + e.Url.ToString())
+	return [wb_progress, wb]
+def build(wb, uripath):
+ text = HtmlAgilityPack.Samples_.HtmlToText.ConvertFromUri(uripath)
+ wb.Navigate ( uripath )
+ return text
+ 
+ 
+ 
+
+--py
+def buildWebBrowser():
+	wb = System.Windows.Forms.WebBrowser()
+	wb_progress = System.Windows.Forms.ProgressBar()
+	wb_progress.Maximum = 100
+	def wb_ProgressChanged(s, e):
+	 wb_progress.Maximum = e.MaximumProgress
+	 wb_progress.Value = e.CurrentProgress
+	wb.ProgressChanged += wb_ProgressChanged
+	wb.DocumentCompleted += lambda s,e : lprint("loaded: " + e.Url.ToString())
+	return [wb_progress, wb]
+def build(wb, uripath):
+ text = HtmlAgilityPack.Samples_.HtmlToText.ConvertFromUri(uripath)
+ wb.Navigate ( uripath )
+ return text
+
+wb.Document.ExecCommand("SelectAll", False, None);
+wb.Document.ExecCommand("Copy", False, None);
+System.Windows.Forms.Clipboard.GetText()
+ 
+
+--py
+wb.Navigate ( "http://stackoverflow.com/questions/2970858/python-lambda-with-print-statement")
+
+--py
+print "ll"
+
+--py
+e = System.Windows.Forms.WebBrowserDocumentCompletedEventArgs(System.Uri("http://it.wikipedia.org/"))
+
+--py
+e.Url
+
+--py
+wb_progress.Maximum
+
+--py
+wb_progress.Value
+
+--py
+a = buildWebBrowser()
+wb = a[1]
+wb.Width = 800
+wb.Height = 800
+a
+
+--py
+build(wb, "http://www.sia.ch/it/affiliazione/elenco-dei-membri/socii-individuali/m/104928/")
+
+--py
+wb.ShowSaveAsDialog()
+
+--py
+wb.Document.ExecCommand("SelectAll", False, None);
+wb.Document.ExecCommand("Copy", False, None);
+
+--py
+
+
+--py
+

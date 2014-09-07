@@ -1,0 +1,8 @@
+#!flame/0/--
+--IronPythonExec
+ass = Flame.Dlr.AssemblyWrapper()
+ass.Location = "System.Reactive"
+--IronPythonExec
+flame.AddAssembly(
+--IronPythonExec
+

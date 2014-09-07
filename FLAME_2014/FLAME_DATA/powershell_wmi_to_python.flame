@@ -1,0 +1,110 @@
+#!flame/0/--
+
+--Ruby
+share = flame.ScripterTabbedControl.ScripterLoaderControl.ScripterControl.Manager
+
+--Powershell
+$share = $flame.ScripterTabbedControl.ScripterLoaderControl.ScripterControl.Manager
+
+--py
+share = flame.ScripterTabbedControl.ScripterLoaderControl.ScripterControl.Manager
+
+--Powershell
+$a = Get-WmiObject win32_Product -ComputerName (Get-Item Env:\COMPUTERNAME).Value
+
+--Powershell
+$b = Get-WmiObject win32_Product -ComputerName (Get-Item Env:\COMPUTERNAME).Value | Select Name,Version,PackageName,Installdate,Vendor
+
+--Powershell
+$f = { Get-WmiObject win32_Product -ComputerName (Get-Item Env:\COMPUTERNAME).Value | Select Name,Version,PackageName,Installdate,Vendor }
+
+--Powershell
+$eventsBoot = Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Diagnostics-Performance/Operational'; ID=100} -MaxEvents 10 
+
+--Powershell
+$flame.Dlr.Share.appInstalled = $a
+
+--Powershell
+$flame.Dlr.Share.appInstalled = $b
+
+--Powershell
+$flame.Dlr.Share.appInstalledF = $f
+
+--py
+dir(flame.Dlr.Share.appInstalled[0])
+
+--py
+flame.Dlr.Share.appInstalled[0].Name
+
+--Ruby
+§(flame.Dlr.Share.appInstalled[0]).GetType()
+
+--py
+a = flame.Dlr.Share.appInstalledF.Invoke()
+
+--py
+flame.Dlr.Share.a0 = a[0]
+
+--py
+flame.Dlr.Share.a0.Name
+
+--Ruby
+flame.Dlr.Share.a0.Name
+
+--py
+flame.Dlr.Share.appInstalled = a
+
+--Ruby
+"*** #{flame.Dlr.Share.appInstalled[0].Name} ***"
+
+--Ruby
+flame.Dlr.Share.appInstalled[0].Name
+
+--py
+flame.Dlr.Share.appInstalled[0].Name
+
+--Ruby
+a = flame.Dlr.Share.appInstalledF.Invoke()
+nil
+
+--Ruby
+a[0]
+
+--py
+a[0]
+
+--Ruby
+a[0].to_d.Version
+
+--Ruby
+a.to_a[0].to_hash["Name"]
+
+--py
+class aaa:
+ def xxx(self):
+  return "cia"
+bbb = aaa()
+bbb.xxx()
+flame.Dlr.Share.bbb = bbb
+flame.Dlr.Share.aaa = lambda : aaa() 
+
+--Ruby
+flame.Dlr.Share.bbb.xxx()
+
+--Ruby
+flame.Dlr.Share.aaa().xxx()
+
+--py
+flame.Dlr.Share.appsInstalled = [ { 'Name': i.Name, 'Version': i.Version, 'PackageName': i.PackageName, 'Installdate': i.Installdate, 'Vendor': i.Vendor} for i in flame.Dlr.Share.appInstalledF.Invoke() ]
+
+--py
+
+
+--Ruby
+flame.Dlr.Share.appsInstalled[0]["Name"]
+
+--Ruby
+
+
+--Ruby
+

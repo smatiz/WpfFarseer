@@ -1,0 +1,42 @@
+#!flame/0/--
+
+--py
+flame.Dlr.CompilersManager.Rebuild()
+
+--py
+clr.AddReference("System.Core")
+from System.Linq import Enumerable
+from System import Linq
+startFolder = "c:\\Team17"
+clr.ImportExtensions(Enumerable)
+clr.ImportExtensions(Linq)
+
+--py
+dir = System.IO.DirectoryInfo(startFolder)
+
+--py
+fileList = dir.GetFiles("*.*", System.IO.SearchOption.AllDirectories)
+
+--py
+fileList.GetType()
+
+--py
+fileList.
+
+--py
+Enumerable.Where(fileList, lambda x :  x.FullName.Contains(".ws"))
+
+--py
+a = System.Collections.Generic.List[int]()
+
+--py
+listoffiles[90].FullName
+
+--py
+
+
+--py
+
+
+--py
+

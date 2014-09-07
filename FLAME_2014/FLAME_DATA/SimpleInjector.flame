@@ -1,0 +1,22 @@
+#!flame/0/--
+
+--txt
+
+
+--txt
+
+
+--py
+clr.AddReferenceToFileAndPath(r"S:\ROOT\DROPBOX\Dropbox\WOLFRAM_WORK\Flame\DLLS\SimpleInjector.dll")
+
+--py
+import SimpleInjector
+
+--py
+SimpleInjector.
+
+--py
+
+
+--py
+

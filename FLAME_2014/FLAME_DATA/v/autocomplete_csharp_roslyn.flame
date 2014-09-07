@@ -1,0 +1,13 @@
+#!flame/0/--
+--CSharpExec
+var b = new System.Windows.Forms.Button();
+--CSharpExec
+typeof(System.Windows.Forms.Button)
+--CSharpExec
+b
+--CSharpExec
+b.Height = 10;
+--NoneExec
+
+--NoneExec
+

@@ -1,0 +1,19 @@
+#!flame/0/--
+--IronPythonExec
+import clr 
+import sys
+sys.path.append(r"S:\ROOT\DROPBOX\Dropbox\WOLFRAM_WORK\Flame\bin\Data\libs")
+clr.AddReference("Facebook.dll")
+
+from Facebook import *
+
+client = FacebookClient();
+me = client.Get("totten");
+--IronPythonExec
+me = client.Get("stephane.matiz");
+--IronPythonExec
+me.Values
+--NoneExec
+
+--NoneExec
+

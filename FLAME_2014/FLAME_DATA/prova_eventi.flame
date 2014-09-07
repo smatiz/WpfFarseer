@@ -1,0 +1,56 @@
+#!flame/0/--
+
+--py
+x = None
+def oninput(o, e):
+ global x
+ #System.Windows.Forms.MessageBox.Show(str(dir(e)))
+ x = e
+
+
+--py
+oninput(None, "ciao")
+
+--py
+flame.Dlr.CompilersManager.OnInput += oninput
+
+--py
+flame.Dlr.CompilersManager.OnInput -= oninput
+
+--py
+flame.Dlr.CompilersManager.OnInput.Clear()
+
+--py
+3+3
+
+--py
+
+import 'sys'
+import 'clr'
+
+
+--py
+x
+
+--py
+x = 3
+def aaa(e):
+ x = e
+
+--py
+x.Input
+
+--py
+aaa(4)
+
+--py
+System.Delegate.RemoveAll( flame.Dlr.CompilersManager.OnInput, flame.Dlr.CompilersManager.OnInput)
+
+--py
+1
+
+--py
+
+
+--py
+

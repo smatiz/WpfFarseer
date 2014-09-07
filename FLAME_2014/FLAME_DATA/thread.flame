@@ -1,0 +1,91 @@
+#!flame/0/--
+--py
+import sys
+import clr
+clr.AddReference("System.Windows.Forms")
+from System.Windows.Forms import *
+f = Form()
+b = Button()
+b.Text = "Wait"
+f.Controls.Add(b)
+f.Show()
+
+--py
+import sys
+import clr
+clr.AddReference("System.Windows.Forms")
+clr.AddReference("System.Threading")
+from System.Windows.Forms import *
+from System.Threading import *
+
+
+def doitAsync(method):
+ def doit():
+  method()
+  
+ f = Form()
+ b = Button()
+ b.Text = "Wait"
+ f.Controls.Add(b)
+ t = Thread(ThreadStart((lambda : doit())))
+ f.Show()
+ t.Start()
+
+
+--py
+def x():
+ MessageBox.Show("coo")
+
+doitAsync(x)
+
+--CSharp
+using System;
+namespace Flame
+{
+	public class ThreadInfo
+	{
+		public int I { get; set; }
+		public int N { get; set; }
+		public string Info { get; set; }
+		
+		public string FullInfo { get{ return String.Format("{0}: {1}/{2}", Info, I, N);} }
+		public ThreadInfo() { I = 0; N = 100; Info = ""; } 
+	}
+}
+
+--py
+import sys
+import clr
+clr.AddReference("System.Windows.Forms")
+clr.AddReference("System.Threading")
+from System.Windows.Forms import *
+from System.Threading import *
+
+
+def doitAsync(method):
+ ti = Flame.ThreadInfo()
+ def doit():
+  method(ti)
+ timer = System.Windows.Forms.Timer()
+ b = Button()
+ timer.Interval = 1000
+ def set(s,e):
+  b.Text = ti.FullInfo
+ timer.Tick += set
+ b.Text = "Abort"
+ t = Thread(ThreadStart((lambda : doit())))
+ b.Click += lambda s,e : t.Abort()
+ t.Start()
+ return b
+
+--py
+def xxx():
+ MessageBox.Show("coo")
+ MessageBox.Show("coo2")
+doitAsync(xxx)
+
+--txt
+
+
+--txt
+

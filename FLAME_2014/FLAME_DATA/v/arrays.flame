@@ -1,0 +1,17 @@
+#!flame/0/--
+--IronPythonExec
+
+--CSharpExec
+int[] ints = new int[3]{1,2,3};
+string[] strings = new string[3]{"b","a","c"};
+
+System.Array.Sort(ints, strings);
+System.Array.Sort(strings, ints);
+--CSharpExec
+ints
+--CSharpExec
+strings
+--CSharpExec
+
+--CSharpExec
+

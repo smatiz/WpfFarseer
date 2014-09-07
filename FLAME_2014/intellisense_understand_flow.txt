@@ -1,0 +1,11 @@
+
+         AAutoComplete                               AAutoComplete                                      Intellisense
+
+if (!showAutocomplete(text))                  _show(autocomplete(text));        GetListOfMembers(text, _currentIntellisenseEngine)
+{
+    if (!showInfoTips(text))                                                    GetListMethodsInfo(text, _currentIntellisenseEngine)
+    {
+        showAutocompleteNames(text);          _show(autocompleteNames(text));   GetListOfNames(text, _currentIntellisenseEngine)
+    }
+}
+

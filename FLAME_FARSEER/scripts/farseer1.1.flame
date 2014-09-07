@@ -1,0 +1,34 @@
+#!flame/0/--
+--CSharpExec
+var path = @"C:\Users\Developer\Desktop\Farseer Physics Engine 3.5 Samples\Farseer Physics Samples 3.5\bin\x86\Debug\";
+
+flame.AddAssembly(Flame.Dlr.AssemblyManager.FromPath(path + @"FarseerPhysics XNA.dll"));
+flame.AddAssembly(Flame.Dlr.AssemblyManager.FromPath(path + @"DebugView XNA.dll"));
+flame.AddAssembly(Flame.Dlr.AssemblyManager.FromPath(path + @"Samples XNA.exe"));
+
+--CSharpExec
+flame.AddAssembly(Flame.Dlr.AssemblyManager.FromPath(@"C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.dll"));
+flame.AddAssembly(Flame.Dlr.AssemblyManager.FromPath(@"C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Game.dll"));
+--CSharpExec
+using FarseerPhysics;
+using FarseerPhysics.Samples;
+--CSharpExec
+FarseerPhysicsGame game;
+new System.Threading.Thread(new System.Threading.ThreadStart(() => 
+{ 
+	game = new FarseerPhysicsGame("flame");
+	game.Content.RootDirectory = path + @"Content\";
+	//System.Diagnostics.Debugger.Launch();
+	game.Run(); 
+})).Start();
+--CSharpExec
+System.Diagnostics.Debugger.Launch();
+--CSharpExec
+game.Exit()
+--CSharpExec
+
+--CSharpExec
+
+--CSharpExec
+var game = new FarseerPhysicsGame("flame");
+game.Content.RootDirectory = path + @"Content\"

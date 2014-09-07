@@ -1,0 +1,27 @@
++++[Powershell]
+$x = Get-ChildItem "c:\" |? { $_.Extension -eq ".txt" } |% { $_.FullName }
+$flame.share.set("x",$x)
+$x
++++[Ruby]
+a = flame.share.get(flame.share.keys[0])
++++[Python]
+a = flame.Share.get(flame.Share.keys[0])
+a
++++[Javascript]
+f_share
++++[Ruby]
+a = flame.share.get(System::String.new("x"))
+nil
++++[Ruby]
+a.Length
++++[Ruby]
+b = a[3]
+nil
++++[Ruby]
+b
++++[Ruby]
+a
++++[Ruby]
+5
++++[Ruby]
+System::Drawing::Point.new(1,34)

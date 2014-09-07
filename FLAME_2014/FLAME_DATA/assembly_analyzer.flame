@@ -1,0 +1,12 @@
+#!flame/0/--
+--CSharpExec
+System.Reflection.Assembly a = System.Reflection.Assembly.LoadFrom( @"S:\ROOT\DROPBOX\Dropbox\DATI\SMS\WORK\sharp-0\TryWpfAdvanced2DGraphic\bin\Debug\TryWpfAdvanced2DGraphic.exe"); 
+--CSharpExec
+System.Reflection.AssemblyName [] an = a.GetReferencedAssemblies(); 
+--CSharpExec
+foreach (var name in an) 
+	System.Windows.Forms.MessageBox.Show(name.ToString());
+--CSharpExec
+
+--CSharpExec
+

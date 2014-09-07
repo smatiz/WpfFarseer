@@ -1,0 +1,30 @@
+#!flame/0/--
+--CSharpExec
+System.Console.WriteLine("ciiii");
+--IronPythonExec
+flame.ShowOutputStream()
+--IronPythonExec
+print "cio"
+--IronPythonExec
+def pyprint(s):
+ print s
+actionpyprint = System.Action[System.String]( lambda s : pyprint(s))
+flame.Dlr.Share.set("actionpyprint", actionpyprint)
+--CSharpExec
+var print = (System.Action<System.String>)flame.Dlr.Share.get("actionpyprint");
+--IronPythonExec
+pyprint("ccc")
+--IronPythonExec
+actionpyprint = System.Action[System.String]( lambda s : pyprint(s))
+--IronPythonExec
+actionpyprint("ccccc")
+--IronPythonExec
+flame.Dlr.Share.set("actionpyprint", actionpyprint)
+--CSharpExec
+var print = (System.Action<System.String>)flame.Dlr.Share.get("actionpyprint");
+--CSharpExec
+print("ppp")
+--IronPythonExec
+
+--IronPythonExec
+

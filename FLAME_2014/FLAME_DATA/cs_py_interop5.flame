@@ -1,0 +1,84 @@
+#!flame/0/--
+--CSharpExec
+var share = ((Flame.Controls.ScripterControlFormInfo)Get("flame")).Dlr.Share;
+--IronPythonExec
+share = flame.ScripterTabbedControl.ScripterLoaderControl.ScripterControl.Manager.Share
+--CSharpExec
+
+--CSharpExec
+share.set("csharpLamda", new System.Func<int, int>((int i) => { return i + 5;}));
+--IronPythonExec
+share.get("csharpLamda")(4)
+--IronPythonExec
+share.set("pythonLamda", System.Func[int,int](lambda x : x + 3) )
+
+--CSharpExec
+((System.Func<int, int>)share.get("pythonLamda"))(42);
+
+
+--IronRubyExec
+flame.Dlr.DShare.x = 32
+--IronPythonExec
+flame.Dlr.DShare.x
+--CSharpExec
+
+--CSharpExec
+var x = 1 + 1;
+--CSharpExec
+System.Math.Sqrt(x)
+--CSharpExec
+
+--IronPythonExec
+b = System.Windows.Forms.Button()
+b.Text = "Hello World"
+b.Click += lambda x, y : System.Windows.Forms.MessageBox.Show("my first event handler")
+b
+--IronPythonExec
+
+--IronPythonExec
+System.Win
+--IronPythonExec
+
+--CSharpCompiler
+
+
+--CSharpCompiler
+
+public interface ICharp
+{
+	int sumwith(int x);
+}
+
+--IronPythonExec
+import ICharp
+class ICharp_PythonImplemetation(ICharp):
+ def sumwith(self, x):
+  return x + 123
+
+share.set("ICharp_PythonImplemetationCostructor", System.Func[ICharp](lambda  : ICharp_PythonImplemetation() ))
+
+--CSharpExec
+((System.Func<ICharp>)share.get("ICharp_PythonImplemetationCostructor"))().sumwith(5)
+--CSharpExec
+
+public class CharpClass
+{
+	public int sumwith12(int x) { return x + 12; }
+}
+share.set("CharpClassCostructor", new System.Func<CharpClass>( () => { return new CharpClass(); }));
+
+--IronPythonExec
+share.get("CharpClassCostructor")().sumwith12(5)
+--CSharpExec
+
+--IronPythonExec
+# linq
+share.set("listPython", System.Collections.Generic.List[int]( [i % 2 for i in range(1,10)  if i != 3 ]))
+--CSharpExec
+using System.Linq;
+var listPython = (System.Collections.Generic.List<int>)share.get("listPython");
+from i in listPython  where i != 0 select i + 10
+--IronPythonExec
+System.Win
+--IronPythonExec
+

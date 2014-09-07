@@ -1,0 +1,10 @@
+#!flame/0/--
+--IronPythonExec
+a = Flame.Socket.AsyncTest()
+a.Test()
+--IronPythonExec
+a.server.Ready
+--IronPythonExec
+
+--NoneExec
+

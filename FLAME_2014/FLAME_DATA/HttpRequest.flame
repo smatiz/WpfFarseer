@@ -1,0 +1,45 @@
+#!flame/0/--
+--Flame.Dlr.CSharpExec
+
+using System;
+using System.Text;
+using System.Net;
+using System.IO;
+public static string Get(string url, params string[] arguments)
+        {
+            HttpWebRequest httpWReq = (HttpWebRequest)WebRequest.Create(url);
+            ASCIIEncoding encoding = new ASCIIEncoding();
+            string postdata = "";
+            foreach (var s in arguments)
+            {
+                postdata += s + "&";
+            }
+            postdata = postdata.TrimEnd('&');
+
+            byte[] data = encoding.GetBytes(postdata);
+
+            httpWReq.Method = "POST";
+            httpWReq.ContentType = "application/x-www-form-urlencoded";
+            httpWReq.ContentLength = data.Length;
+
+            using (Stream stream = httpWReq.GetRequestStream())
+            {
+                stream.Write(data, 0, data.Length);
+            }
+
+            HttpWebResponse response = (HttpWebResponse)httpWReq.GetResponse();
+
+            string r;
+            using (StreamReader sr = new StreamReader(response.GetResponseStream()))
+            {
+                r = sr.ReadToEnd();
+            }
+
+            return r;
+        }
+--Flame.Dlr.CSharpExec
+Get("http://www.geomorfo.com/virtualgeo/identification.php");
+--Flame.Dlr.NoneExec
+
+--Flame.Dlr.NoneExec
+

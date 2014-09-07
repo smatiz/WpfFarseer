@@ -1,0 +1,128 @@
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+  </head>
+  <body><span style="font-weight: bold;">Flame </span>is a library and an IDE
+    whose aim is to improve and make easier to write code with <span style="font-weight: bold;">IronRuby</span>,
+    <span style="font-weight: bold;"> IronPython</span>, <span style="font-weight: bold;">IronJS</span>,
+    <span style="font-weight: bold;">Powershell</span>, <span style="font-weight: bold;">C#</span>
+    and potentially any .Net language. <br>
+    I <span style="font-weight: bold;"></span>created <span style="font-weight: bold;">Flame
+      ..for..</span><br>
+    <br>
+    Flame can be used :<br>
+    <ul>
+      <li>for creating <span style="font-weight: bold;">simple gui</span> with
+        scripting languages</li>
+    </ul>
+    <img style="width: 819px; height: 562px;" title="example gui" alt="[screenshot]"
+
+      src="https://googledrive.com/host/0Bypl4GyDNIeAOTZ3Z2ZFSlFSTnc/Flame_CodePlex/ex_gui.png">
+    <ul>
+      <li>for simple <span style="font-weight: bold;">iteractive drawing</span></li>
+    </ul>
+    <img style="width: 819px; height: 478px;" title="example drawing" alt="[screenshot]"
+
+      src="https://googledrive.com/host/0Bypl4GyDNIeAOTZ3Z2ZFSlFSTnc/Flame_CodePlex/ex_draw.png">
+    <ul>
+      <li>for making <span style="font-weight: bold;">LINQ queries </span></li>
+    </ul>
+    <img style="width: 819px; height: 393px;" title="example linq" alt="[screenshot]"
+
+      src="https://googledrive.com/host/0Bypl4GyDNIeAOTZ3Z2ZFSlFSTnc/Flame_CodePlex/ex_linq.png">
+    <ul>
+      <li>for quickly testing or learning a new .NET assembly </li>
+    </ul>
+    <img style="width: 819px; height: 531px;" title="example assembly" alt="[screenshot]"
+
+      src="https://googledrive.com/host/0Bypl4GyDNIeAOTZ3Z2ZFSlFSTnc/Flame_CodePlex/ex_gmap.png">
+    <ul>
+      <li>for adding scripting enhancement for the users of your own application</li>
+    </ul>
+    <img alt="[screenshot]" src="https://googledrive.com/host/0Bypl4GyDNIeAOTZ3Z2ZFSlFSTnc/Flame_CodePlex/ex_form.png">
+    <ul>
+      <li>as a flexible debug and test system for your own application</li>
+      <li>as a calculator, you can do iteractive math and even plots</li>
+      <li>or a mix of some of this!</li>
+    </ul>
+    It has the following advantages:<br>
+    <ul>
+      <li> you can use different languages</li>
+      <li> you have access to all .net assemblies</li>
+      <li> sintax highlighting, autocompletition and shortcut</li>
+    </ul>
+    <h3> It is easy to start playing with Flame:</h3>
+    Download the latest release. <br>
+    Link reference to dlls from .\WinFlame\DLLS\ directory into your C#
+    WindowFormApplication project. <br>
+    Write and execute somewhere in your code<br>
+    [<br>
+    &nbsp;&nbsp;&nbsp; System.Windows.Forms.Form f =
+    Flame.Controls.ScripterControlForm.ShowForm(".\\one.bin", new
+    Flame.Dlr.CompilersManager.Parameters()) <br>
+    &nbsp;&nbsp;&nbsp; f.Show();<br>
+    ]<br>
+    <br>
+    Now you get a window and you can start coding in IronRuby:<br>
+    <br>
+    <img title="help" alt="[screenshot]" src="https://googledrive.com/host/0Bypl4GyDNIeAOTZ3Z2ZFSlFSTnc/Flame_CodePlex/help_empty.png"> <br>
+    <br>
+    Write [ "Hello world" ] into the first cell and press Shift + Enter.<br>
+    <br>
+    <img title="help hello world" alt="[screenshot]" src="https://googledrive.com/host/0Bypl4GyDNIeAOTZ3Z2ZFSlFSTnc/Flame_CodePlex/help_helloworld.png"><br>
+    <br>
+    Let's give some explanations.<br>
+    <br>
+    Flame.Controls.ScripterControlForm.ShowForm is a static function that return
+    a Flame Window Form. We create this static function just for simplifying
+    first approach to Flame, and as an example of use. <br>
+    The first argument is a string: the path to a file that will be used for
+    saving and loading your code. The second argument is a class we will fill
+    later to give more flexibility and to extend Flame.<br>
+    <br>
+    Now write[System::Windows::Forms::MessageBox.Show("Hello world")] and press
+    Shift + Enter.<br>
+    <br>
+    <img title="help message box" alt="[screenshot]" src="https://googledrive.com/host/0Bypl4GyDNIeAOTZ3Z2ZFSlFSTnc/Flame_CodePlex/help_msgbox.png"><br>
+    <br>
+    as we can see, when we execute the code, a MessageBox appears, and when we
+    close MessageBox the output in the comand window is [OK]. <br>
+    Behind the scenes Flame takes the output of
+    [System::Windows::Forms::MessageBox.Show("Hello world")], and gives you back
+    the object (of type System.Windows.Forms.DialogResult) as a String. <br>
+    We will see later that this is not exactly true.<br>
+    <br>
+    Too easy, let's make some math!<br>
+    Try [ a = 7 - 5 ] and [b = System::Math.Sqrt(a)] Shift + Enter.<br>
+    <br>
+    <img title="help math" alt="[screenshot]" src="https://googledrive.com/host/0Bypl4GyDNIeAOTZ3Z2ZFSlFSTnc/Flame_CodePlex/help_math.png"><br>
+    <br>
+    The output of Flame is always given by the output of last line of code. <br>
+    At this point we should understand that the output is always a string,
+    right? Wrong! <br>
+    The output is always a System::Windows::Forms::Control (or a list of
+    Control)! <br>
+    <br>
+    NOTE: When it requires to show a string, actually, it shows a
+    System::Windows::Forms::Label which Text property is equal to the required
+    string.<br>
+    <br>
+    Try <br>
+    [<br>
+    &nbsp;&nbsp;&nbsp; b = System::Windows::Forms::Button.new()<br>
+    &nbsp;&nbsp;&nbsp; b.Text = "Hello World"<br>
+    &nbsp;&nbsp;&nbsp; b <br>
+    ] <br>
+    and add an event to the button<br>
+    [<br>
+    &nbsp;&nbsp;&nbsp; b.Click do |s, o|
+    System::Windows::Forms::MessageBox.Show("my first event handler") end<br>
+    ] <br>
+    <img title="help gui" alt="[screenshot]" src="https://googledrive.com/host/0Bypl4GyDNIeAOTZ3Z2ZFSlFSTnc/Flame_CodePlex/help_gui.png"><br>
+    <br>
+    Click the button! <br>
+    <br>
+    With the source code there are some more examples.<br>
+    Happy coding.<br>
+  </body>
+</html>

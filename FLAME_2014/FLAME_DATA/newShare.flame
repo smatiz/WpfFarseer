@@ -1,0 +1,16 @@
+#!flame/0/--
+
+--py
+flame.Dlr.Share.x = 324
+
+--Ruby
+flame.Dlr.Share.x
+
+--Powershell
+$flame.Dlr.Share.x
+
+--Ruby
+
+
+--Powershell
+

@@ -1,0 +1,171 @@
+#!flame-0
+
+--Ruby
+methods - Object.instance_methods
+--Ruby
+
+
+--Ruby
+System.methods
+--Ruby
+
+
+--Python
+def mydir(s):
+ eval("dir(" + s + ")")
+eval("dir(System." + dir(System)[0] + ")")[0].GetType()
+--Python
+
+
+--Python
+eval("dir(System." + dir(System)[0] + ")")[0].GetType()
+--Python
+
+
+--Python
+s = eval("dir(System." + dir(System)[0] + ")")[0]
+s
+--Python
+
+
+--Python
+System.Data.GetType()
+--Python
+
+
+--Python
+eval("System." + s + ".GetType()")
+--Python
+
+
+--Python
+# istanza 
+System.String().GetType()
+--Python
+
+
+--Python
+# tipo
+clr.GetClrType(System.String)
+--Python
+
+
+--Python
+# namespace
+eval("clr.GetClrType(System." + s + ")")
+--Python
+
+
+--CSharpScript
+typeof(System.String)
+--CSharpScript
+
+
+--Python
+class classObject:
+ Parent = None
+ Name = ""
+ __init__(self, name, parent = None):
+  Parent = parent
+  Name = name
+
+def mydir(s):
+ return eval("dir(" + s + ")")
+def mychilddir(s):
+ return mydir(s + "." + mydir(s)[0])
+mydir("System." + mydir("System")[0])
+--Python
+
+
+--Python
+class ClassObject(System.Object):
+ Parent = None
+ Name = ""
+ def __init__(self, name, parent = None):
+  self.Parent = parent
+  self.Name = name
+--Python
+
+
+--Python
+System.GetType()
+--Python
+
+
+--Python
+__builtins__.GetType()
+--Python
+
+
+--Python
+ClassObject.GetType()
+--Python
+
+
+--Python
+help(ClassObject)
+--Python
+
+
+--Python
+callable(ClassObject)
+--Python
+
+
+--Python
+callable(System)
+--Python
+
+
+--Python
+from System.Windows.Forms import *
+MessageBox.Show("AAA")
+
+--Python
+
+
+--Python
+dir()
+--Python
+
+
+--Python
+(dir(getattr(System,"Windows")))
+--Python
+
+
+--Python
+getattr(clr,"System")
+--Python
+
+
+--Python
+dir()
+0
+--Python
+
+
+--Python
+help("System")
+--Python
+
+
+--Python
+import this
+--Python
+
+
+--Python
+globals()
+--Python
+
+
+--Python
+
+--Python
+
+
+--Python
+
+--Python
+

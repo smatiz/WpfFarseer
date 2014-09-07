@@ -1,0 +1,180 @@
+#!flame/0/--
+--CSharpExec
+using System.Linq;
+using FarseerPhysics;
+using FarseerPhysics.Dynamics;
+using FarseerPhysics.Dynamics.Joints;
+using FarseerPhysics.Factories;
+using Microsoft.Xna.Framework;
+using FarseerPhysics.Common;
+using FarseerPhysics.Collision.Shapes;
+using FarseerPhysics.Samples.Demos.Prefabs;
+
+using System.Collections.Generic;
+
+
+
+--CSharpExec
+World.Clear();
+var _border = new Border(World, ScreenManager, Camera);
+float Density = 1;
+--CSharpExec
+BodyFactory.CreateCompoundPolygon(World, new List<Vertices>() {
+                new Vertices(new Vector2[]{
+                    new Vector2(0, 0), 
+                    new Vector2(1, 0), 
+                    new Vector2(1, 1), 
+                    new Vector2(2, 2), 
+                    new Vector2(3, 3), 
+                    new Vector2(4, 4), 
+                    new Vector2(4, 10), 
+                }),
+                new Vertices(new Vector2[]{
+                    new Vector2(10, 10), 
+                    new Vector2(10, 20), 
+                    new Vector2(20, 20), 
+                    new Vector2(20, 10), 
+                })
+            }, Density);
+
+--CSharpExec
+private List<Body> _ropeBodies;
+List<RevoluteJoint> _ropeJoints;
+Body _chiodo;
+Body _carrucolaRightRot;
+
+World.Gravity = new Vector2(0, 9.82f);
+var HiddenBody = BodyFactory.CreateBody(World, Vector2.Zero);
+
+const int PieceCount = 35;
+
+var p1 = new Vector2(-10f, -10f);
+var p2 = new Vector2(-10f, 8f);
+var dl = (p2 - p1).Length() / (2f * PieceCount);// 0.5f;
+var ropeThickness = 0.1f;
+
+
+_chiodo = BodyFactory.CreateCircle(World, ropeThickness * 0.5f, 100f);
+_chiodo.Position = p1;
+_chiodo.BodyType = BodyType.Kinematic;
+
+Path ropePath = new Path();
+ropePath.Add(p1);
+ropePath.Add(p2);
+ropePath.Closed = false;
+
+Vertices box = PolygonTools.CreateRectangle(ropeThickness, dl);
+PolygonShape shape = new PolygonShape(box, PieceCount);
+
+_ropeBodies = PathManager.EvenlyDistributeShapesAlongPath(World, ropePath, shape, BodyType.Dynamic, PieceCount);
+
+null
+--CSharpExec
+using FarseerPhysics.Samples.ScreenSystem;
+
+public void HandleInput(InputHelper input, GameTime gameTime)
+{
+
+	if (input.KeyboardState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.A))
+	{
+		_carrucolaRightRot.ApplyAngularImpulse(100);
+	}
+
+	if (input.KeyboardState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Z))
+	{
+		_carrucolaRightRot.ApplyAngularImpulse(-100);
+
+	}
+}
+
+Actions.HandleInput = HandleInput;
+--CSharpExec
+var hZone = 1f;
+var wZone = 10;
+var zoneUp = BodyFactory.CreateRectangle(World, 5, 1, 1f);
+zoneUp.Position = p1;// +new Vector2(-wZone * 0.5f, hZone);
+zoneUp.IsSensor = true;
+//zoneUp.OnCollision += zoneUp_OnCollision;
+
+
+var zoneBottom = BodyFactory.CreateRectangle(World, 5, 1, 1f);
+zoneBottom.Position = zoneUp.Position + new Vector2(0, hZone * 2.5f);
+zoneBottom.IsSensor = true;
+//zoneBottom.OnCollision += zoneBottom_OnCollision;
+
+var carrucolaRadius = 1;
+
+_carrucolaRightRot = BodyFactory.CreateCircle(World, carrucolaRadius, 1f);
+_carrucolaRightRot.Position = p1 + new Vector2(carrucolaRadius + ropeThickness * 1.1f, 0 );
+_carrucolaRightRot.CollisionCategories = Category.Cat1;
+_carrucolaRightRot.Friction = 0;
+_carrucolaRightRot.Restitution = 0;
+_carrucolaRightRot.BodyType = BodyType.Dynamic;
+
+
+var leftVincolo = BodyFactory.CreateCircle(World, carrucolaRadius, 1f);
+leftVincolo.Position = _carrucolaRightRot.Position + new Vector2(-2f * carrucolaRadius - ropeThickness, 2f * carrucolaRadius + 2f * ropeThickness);
+leftVincolo.CollisionCategories = Category.Cat1;
+leftVincolo.Friction = 0;
+leftVincolo.Restitution = 1;
+leftVincolo.BodyType = BodyType.Kinematic;
+
+
+var rightVincolo = BodyFactory.CreateCircle(World, carrucolaRadius, 1f);
+rightVincolo.Position = _carrucolaRightRot.Position + new Vector2(ropeThickness, 2f * carrucolaRadius + 2f * ropeThickness);
+rightVincolo.CollisionCategories = Category.Cat1;
+rightVincolo.Friction = 0;
+rightVincolo.Restitution = 1;
+rightVincolo.BodyType = BodyType.Kinematic;
+
+
+JointFactory.CreateRevoluteJoint(World, HiddenBody, _carrucolaRightRot, _carrucolaRightRot.Position, Vector2.Zero);
+--CSharpExec
+foreach (var b in _ropeBodies)
+{
+	//b.CollisionCategories = Category.None;
+	b.CollidesWith = Category.Cat1;
+	
+	//b.IgnoreGravity = true;
+	//b.Inertia = 0.001f;
+	b.Friction = 0;
+	b.Restitution = 1;
+
+	//b.DestroyFixture(b.FixtureList[0]);
+	//b.BodyType = BodyType.Kinematic;?
+	//b.density?
+   // b.Mass = 10f;
+	
+}
+
+
+int wormPos = 0;
+
+var worm = BodyFactory.CreateCircle(World, 0.3f, 1f);
+worm.Position = _ropeBodies[PieceCount - wormPos - 2].Position;
+worm.BodyType = BodyType.Dynamic;
+worm.CollidesWith = Category.None;
+
+_ropeBodies = _ropeBodies.Take(PieceCount - wormPos - 1).ToList();//.Skip(wormPos).ToList()
+
+JointFactory.CreateRevoluteJoint(World, worm, _ropeBodies[PieceCount - wormPos - 2], Vector2.Zero, Vector2.Zero);
+
+
+JointFactory.CreateRevoluteJoint(World, _carrucolaRightRot, _ropeBodies[0], new Vector2(-carrucolaRadius - ropeThickness, 0) ,new Vector2(0, -dl - 0.01f));
+_ropeJoints = PathManager.AttachBodiesWithRevoluteJoint(World, _ropeBodies, new Vector2(0f, -dl - 0.01f), new Vector2(0f, dl + 0.01f), false, true);
+
+
+
+null
+
+--CSharpExec
+foreach( var b in _ropeBodies)
+{
+	b.CollisionGroup = -1;
+}
+--CSharpExec
+_carrucolaRightRot.Friction = 1;
+--CSharpExec
+
+--CSharpExec
+

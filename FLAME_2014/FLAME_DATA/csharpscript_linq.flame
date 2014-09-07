@@ -1,0 +1,25 @@
+#!flame/0/--
+
+--CSharpScript
+var l = new System.Collections.Generic.List<int>() { 1,2,3};
+
+--CSharpScript
+using System.Linq;
+
+--CSharpScript
+l
+
+--CSharpScript
+var a = from x in l select x + 1;
+
+--CSharpScript
+a
+
+--CSharpScript
+from x in l select x + 1
+
+--py
+
+
+--CSharpScript
+

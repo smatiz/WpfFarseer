@@ -1,0 +1,89 @@
+#!flame/0/--
+--CSharpExec
+GUI.WPF.MainWindow w = new GUI.WPF.MainWindow();
+w.Show();
+--CSharpExec
+var dummybar = (GUI.WPF.DummyBarControl)Get("dummybar");
+--CSharpExec
+dummybar.Width = 1000
+--CSharpExec
+dummybar.MouseDoubleClick += (o, e) => {
+		System.Windows.Forms.MessageBox.Show("ciao");
+} ;
+--CSharpExec
+
+--CSharpExec
+w.Width = 100
+--CSharpExec
+
+--CSharpExec
+var f = SimCCM.Program.GetMainForm();
+--CSharpExec
+f.Show();
+--CSharpExec
+var sim = ( Process.Threads.Simulator)Get("sim");
+--CSharpExec
+using CcmProcess.Simulation;
+--CSharpExec
+var strand = ((SimCaster)sim._simulationAggregate).Strands[1];
+--CSharpExec
+var quencherdata = strand.Quencher.SimData as CcmProcess.Simulation.SimQuencherData;
+var stranddata = strand.SimData as CcmProcess.Simulation.SimStrandData;
+var lifterdata = strand.Lifter.SimData as CcmProcess.Simulation.SimLifterData;
+var cutterdata = strand.Cutter.SimData as CcmProcess.Simulation.SimCutterData;
+--CSharpExec
+strand.Cutter
+--CSharpExec
+var propertygrid = new System.Windows.Forms.PropertyGrid();
+--CSharpExec
+propertygrid.SelectedObject = cutterdata;
+--CSharpExec
+propertygrid
+--CSharpExec
+propertygrid.Height  = 500;
+propertygrid.Width  = 500;
+--CSharpExec
+new object[] { 
+	stranddata.CurrStockBackOffset,
+	stranddata.CurrStockFrontOffset,
+	stranddata.CurrHeadCropLength,
+	stranddata.CurrDummyBarHeadOffset,
+	stranddata.CurrWithdrawalTargetSpeed,
+	stranddata.CurrWithdrawalActualSpeed,
+	stranddata.CurrDummyBarInStrand,
+	stranddata.CurrDummyBarConnected,
+	stranddata.CurrDummyBarAutomaticPositioning,
+	stranddata.CurrDummyBarAutomaticPositioningCompleted,
+	stranddata.CurrWithdrawalJogModeSpeed,
+	stranddata.CurrMouldLevel,
+	stranddata.CurrMouldDeltaT,
+	stranddata.CurrMouldFilled,
+	stranddata.CurrCastingSectionCode,
+	stranddata.CurrCastingPaused,
+	stranddata.CurrCastingEnded,
+	stranddata.PrevStockBackOffset,
+	stranddata.PrevStockFrontOffset,
+	stranddata.DummyBarLength
+}
+--CSharpExec
+var simulationFrame = ( SimCCM.Frames.CasterOverviewFrame)Get("simulationFrame");
+--CSharpExec
+sim._simulationAggregate
+--CSharpExec
+var quencher = ((CcmProcess.Simulation.SimQuencher)strand.Lifter.Quencher);
+--CSharpExec
+quencher.
+--CSharpExec
+[1].StrandNo
+--CSharpExec
+typeof(CcmProcess.Simulation.SimStrands)
+--CSharpExec
+simulationFrame.GetCasterAggregate()
+--CSharpExec
+sim.BeginSynchronizedSection();
+--CSharpExec
+((SimCaster)sim._simulationAggregate).Strands
+--CSharpExec
+
+--CSharpExec
+

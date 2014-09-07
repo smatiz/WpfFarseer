@@ -1,0 +1,15 @@
+#!flame/0/--
+--IronPythonExec
+System.W
+--IronPythonExec
+a = 3
+--IronPythonExec
+a.T
+--IronPythonExec
+a.ToString(
+--IronPythonExec
+System.String.
+--IronPythonExec
+System.String.Format(
+--IronPythonExec
+

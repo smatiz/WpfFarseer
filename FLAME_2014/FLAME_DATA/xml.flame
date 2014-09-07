@@ -1,0 +1,74 @@
+#!flame/0/--
+--CSharpExec
+using System.Xml;
+--CSharpExec
+XmlDocument xml = new XmlDocument();
+var s = System.IO.File.ReadAllText(@"S:\ROOT\DROPBOX\Dropbox\UNITY_ALL\PROJECTS\Unity_ShinobiRoper\Assets\Mine\Resources\map.xml");
+xml.LoadXml(s);
+--CSharpExec
+xml.SelectNodes("//rect").Count
+--CSharpExec
+xml.SelectNodes("//rect")[0].Attributes["fill"].Value
+--IronPythonExec
+xml = System.Xml.XmlDocument()
+s = System.IO.File.ReadAllText(r"S:\ROOT\DROPBOX\Dropbox\UNITY_ALL\PROJECTS\Unity_ShinobiRoper\Assets\Mine\Resources\map.xml");
+xml.LoadXml(s);
+--IronPythonExec
+s
+--IronPythonExec
+a = xml.
+
+--CSharpExec
+xml.SelectNodes("*")[0].SelectNodes("*").Count
+--CSharpExec
+xml.SelectNodes("*")[0].SelectNodes("*")[0].Name
+--CSharpExec
+xml.SelectNodes("g")[0].SelectNodes("rect").Count
+--CSharpExec
+xml.SelectSingleNode("xml")
+--CSharpExec
+XmlNode root = xml.DocumentElement;
+--CSharpExec
+XmlElement root = xml.DocumentElement;
+--CSharpExec
+root.SelectNodes("xml/g/rect").Count
+--CSharpExec
+xml.SelectNodes("xml/g").Count
+--CSharpExec
+string xmlText = @"
+    <parent>
+      <child>
+        <nested />
+      </child>
+      <child>
+        <other>
+        </other>
+      </child>
+    </parent>
+    ";
+--CSharpExec
+XmlDocument xml = new XmlDocument();
+xml.LoadXml(xmlText);
+--CSharpExec
+xml.SelectNodes("//child").Count
+--CSharpExec
+xml.SelectNodes("//other").Count
+--CSharpExec
+XmlDocument xml = new XmlDocument();
+var xmlText = @"
+<xml width=""640"" height=""480"" >
+  <g>
+    <title>Layer 1</title>
+    <rect id=""svg_1"" height=""33"" width=""541"" y=""419"" x=""32"" stroke-width=""5"" stroke=""#000000"" fill=""#00ff00"" />
+    <rect stroke=""#000000"" id=""svg_2"" height=""384"" width=""30.000001"" y=""67"" x=""574.999999"" stroke-width=""5"" fill=""#00ff00"" />
+    <rect id=""svg_3"" stroke=""#000000"" height=""384"" width=""30.000001"" y=""67"" x=""-2.000001"" stroke-width=""5"" fill=""#00ff00"" />
+  </g>
+</xml>
+";
+xml.LoadXml(xmlText);
+--CSharpExec
+xml.SelectNodes("//rect").Count
+--CSharpExec
+
+--CSharpExec
+

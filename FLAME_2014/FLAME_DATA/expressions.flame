@@ -1,0 +1,15 @@
+#!flame/0/--
+--IronPythonExec
+def pymethod(i):
+ return i + 1
+pymethodW = System.Func[int,int](lambda i : pymethod(i))
+--IronPythonExec
+flame.Dlr.Share.set("pymethod", pymethodW);
+--CSharpExec
+var pymethod = (System.Func<int, int>)flame.Dlr.Share.get("pymethod");
+--CSharpExec
+pymethod(1)
+--IronPythonExec
+
+--IronPythonExec
+

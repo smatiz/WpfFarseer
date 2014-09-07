@@ -1,0 +1,78 @@
+#!flame/0/--
+--CSharpExec
+using System.Linq;
+flame.Dlr.AddAssembly(Flame.Dlr.AssemblyManager.FromFullName("PresentationCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35"));
+flame.Dlr.AddAssembly(Flame.Dlr.AssemblyManager.FromFullName("WindowsBase, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35"));
+--CSharpExec
+print("cio")
+--CSharpExec
+flame.ShowOutputStream()
+--CSharpExec
+var w = new GUI.WPF.MainWindow();
+--CSharpExec
+w.Show();
+--CSharpExec
+void refreshWater(double dropSize, int dropCount)
+{
+	var dl = 100.0/ (double)waterDropLines.Count;
+	var l = dropSize * 0.5;
+
+	foreach(var x in waterDropLines)
+	{
+		x.DropSize = dropSize;
+		x.DropCount = dropCount;
+		x.TopPos = l;
+		l += dl;
+	}
+	refresh();
+	w.Focus();
+}
+--CSharpExec
+refreshWater(4,10)
+--CSharpExec
+var slider1 = new System.Windows.Forms.TrackBar();
+slider1.Minimum = 0;
+slider1.Maximum = 40;
+slider1.ValueChanged += (o, e) => 
+{
+	refreshWater(slider1.Value, slider2.Value);
+};
+
+var slider2 = new System.Windows.Forms.TrackBar();
+slider2.Minimum = 0;
+slider2.Maximum = 40;
+slider2.ValueChanged += (o, e) => 
+{
+	refreshWater(slider1.Value, slider2.Value);
+};
+--CSharpExec
+new []{ slider1, slider2 }
+--CSharpExec
+a.
+--CSharpExec
+class aaa
+{
+	public event System.EventHandler ddd;
+	private void callback()
+	{
+		if(ddd!= null)
+		{
+			ddd(null, null);
+		}
+	}
+	public string bbb(string s) { return System.String.Format("_{0}_", s); callback(); }
+	public double bbb(int i) { return System.Math.Sqrt((double)i); callback(); }
+	public void bbb(int i, string s) { System.Windows.Forms.MessageBox.Show(System.String.Format("{0}_{1}", s, i)) ; callback(); }
+	public string ccc { get;set; }
+}
+var a = new aaa();
+--CSharpExec
+a.bbb(3, "ciao");
+--CSharpExec
+a.ddd += (o, e)=> {  flame.ScripterControlForm.Width = 100; };
+--CSharpExec
+a.bbb(4);
+--CSharpExec
+
+--CSharpExec
+

@@ -1,0 +1,128 @@
++++[Ruby:A]
+run
++++[Python:A]
+run
++++[Python]
+"Hello world"
++++[Python]
+System.Windows.Forms.MessageBox.Show("Hello world")
++++[Python]
+System.Windows.Forms.MessageBox.Show("Hello world").GetType()
++++[Python]
+import json
++++[Python]
+sys.version 
++++[Python]
+a = 7 - 5
+System.Math.Sqrt(a)
++++[Python]
+b = System.Windows.Forms.Button()
+b.Text = "Hello World"
+b
++++[Python]
+b.Click += lambda x, y : System.Windows.Forms.MessageBox.Show("my first event handler")
++++[Python]
+panel = System.Windows.Forms.Panel()
+panel.Width = 400
+panel.Height = 400
+panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+g = panel.CreateGraphics();
+
+
+t = System.Windows.Forms.TrackBar()
+bitmap = System.Drawing.Bitmap("C:\\aaa.jpg")
+
+def valueChangedEvent(s, o):
+	g.Clear(System.Drawing.Color.LightBlue);
+	g.DrawLine(System.Drawing.Pen(System.Drawing.Brushes.Red),  System.Drawing.Point(10, 10), System.Drawing.Point(400, 300));
+	g.DrawImage(bitmap, System.Drawing.Rectangle( 50 , 20, 300, 200));
+	g.DrawRectangle(System.Drawing.Pen(System.Drawing.Brushes.Blue, 2),  System.Drawing.Rectangle( 10 + t.Value * 2, 10, 100, 100));
+
+t.ValueChanged += valueChangedEvent
+
+t.Width = 500
+t.Maximum = 100
+
+[ panel, t]
++++[Python]
+#LINQ
+
+from System.Linq import *
+from System.Linq import Enumerable
+
+# Linq Helpers
+
+class Object
+  def to_seq(type = Object)
+    System::Linq::Enumerable.method(:of_type).of(type).call(self.to_a)
+  end
+end
+
+make_pair = lambda { |a,b| [a,b] }
+identity = lambda { |a| a }
+
+Product = Struct.new(:product_name, :category, :units_in_stock, :unit_price)
+products = [ 
+    Product["product 1", "foo", 4, 1.3],
+    Product["product 2", "bar", 3, 10.0],
+    Product["product 3", "baz", 0, 4.0],
+    Product["product 4", "foo", 1, 2.5],
+].to_seq
+nil
++++[Python]
+clr.AddReference("System.Core")
+
+from System.Linq import Enumerable
+from System import Func
+from System import Int64
+from System import String
+ 
+# get all projects
+projects = ["a", "T", "Ta", "aT"]
+ 
+# filter (in memory) all projects with a name beginning with T
+resultProjectsWithT = Enumerable.Where(projects, lambda p: p.StartsWith("T"))
+resultProjectsWithT
++++[Python]
+projects
++++[Powershell]
+$s = Get-ChildItem "s:" -recurse
+$flame.Share.set("ps", $s) 
++++[Python]
+flame.Share.get("ps")
++++[Python]
+flame.Share.keys
++++[Python]
+flame.CompilerParameters.Preprocessor = lambda s : s.Replace("%", "flame.Share")
++++[Ruby]
+puts "ciao"
++++[Python]
+print "abcd"
++++[Python]
+flame.CompilersManager.ReadOutput()
++++[Python]
+ms = System.IO.MemoryStream()
+s = System.IO.StreamWriter(ms)
+io.SetOutput(ms, s)
++++[Python]
+ms.CanRead
++++[Python]
+System.IO.StreamReader(ms).ReadToEnd()
++++[Python]
+s = "ciao\""
++++[Python]
+s.GetType()
++++[Python]
+s.ToString()
++++[Python]
+s = """
+asf\"dsffd"dkfjs
+"""
++++[Python]
+str(s)
++++[Python]
+str({'a': s})
++++[Python]
+
++++[Python]
+

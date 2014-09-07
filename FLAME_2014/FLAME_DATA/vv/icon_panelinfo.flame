@@ -1,0 +1,70 @@
+#!flame-0
+
+--Python
+def x(s, e):
+ if e.TextInput.Language == Flame.Dlr.Languages.Powershell:
+  e.InfoPanel.BackColor = System.Drawing.Color.Red
+ else:
+  e.InfoPanel.BackColor = System.Drawing.Color.Blue
+--Python
+
+
+--Python
+flame.ScripterControlForm.ScripterControl.InfoRePaint += lambda s,e : x(s,e)
+--Python
+
+
+--Powershell
+
+--Powershell
+
+
+--Powershell
+
+--Powershell
+
+
+--Powershell
+
+--Powershell
+
+
+--Powershell
+
+--Powershell
+
+
+--Python
+p = Panel()
+--Python
+
+
+--Python
+p.BackColor
+--Python
+
+
+--Python
+System.Drawing.Color.Blue
+--Python
+
+
+--Python
+
+--Python
+
+
+--Python
+
+--Python
+
+
+--Python
+
+--Python
+
+
+--Python
+
+--Python
+

@@ -1,0 +1,20 @@
+#!flame/0/--
+--IronPythonExec
+
+--CSharpExec
+using System.Collections.Generic;
+using System.Linq;
+--CSharpExec
+IEnumerable<int> xable = new List<int>() { 1,2,3};
+--CSharpExec
+IEnumerator<int> xor__ = new List<int>() { 1,2,3};
+--CSharpExec
+IEnumerator<int> xor = xable.GetEnumerator();
+--CSharpExec
+from x in xable select x
+--CSharpExec
+from x in xor select x
+--CSharpExec
+
+--CSharpExec
+

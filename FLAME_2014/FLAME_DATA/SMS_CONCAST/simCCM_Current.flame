@@ -1,0 +1,264 @@
+#!flame/0/--
+--CSharpExec
+using System;
+using System.Linq;
+using CcmProcess.Simulation;
+using CcmProcess.Control;
+using System.Windows.Forms;
+SimCCM.Program.Flame();
+--IronPythonExec
+def pyprint(s):
+ print s
+actionpyprint = System.Action[System.String]( lambda s : pyprint(s))
+flame.Dlr.Share.set("actionpyprint", actionpyprint)
+--CSharpExec
+var print = (System.Action<System.String>)flame.Dlr.Share.get("actionpyprint");
+--CSharpExec
+startFieldSimulation();
+--CSharpExec
+var strand = ((SimCaster)sim._simulationAggregate).Strands[1];
+var quencherdata = strand.Quencher.SimData as CcmProcess.Simulation.SimQuencherData;
+var stranddata = strand.SimData as CcmProcess.Simulation.SimStrandData;
+var lifterdata = strand.Lifter.SimData as CcmProcess.Simulation.SimLifterData;
+var cutterdata = strand.Cutter.SimData as CcmProcess.Simulation.SimCutterData;
+
+//var floor = sim.
+--CSharpExec
+var t = stranddata.GetType();
+
+
+public static string getFriendlyName(System.Type type)
+{
+	try
+	{
+		if (type.IsGenericType)
+			return string.Format("{0}<{1}>", type.FullName.Split('`')[0], string.Join(", ", type.GetGenericArguments().Select(x => getFriendlyName(x))));
+		else
+			return type.FullName.Replace("+", ".");
+	}
+	catch
+	{
+		return null;
+	}
+}
+//where x.FieldType == typeof(double)
+var y = from x in t.GetFields()  select new string[] { getFriendlyName(x.FieldType), x.Name} ;
+
+public static string getprop(string t, string n)
+{
+	return "public _T_ _N_ { get { return _data._N_; } }".Replace("_T_", t).Replace("_N_", n);
+}
+
+
+
+var props = (from z in y where z != null select getprop(z[0], z[1])).ToList().Aggregate((i, j) => i + "\n" + j);
+
+var main = (
+@"
+public class _N_Wrapper
+{
+	_T_ _data;
+	
+	public _N_Wrapper(_T_ x) { _data = x; }
+	
+	_P_
+	
+}
+").Replace("_T_", "CcmProcess.Simulation.SimStrandData").Replace("_N_", "SimStrandData").Replace("_P_", props);
+
+var r = flame.Dlr.Execute(new Flame.Dlr.Script(typeof(Flame.Dlr.CSharpExec),main)); 
+
+r.Data
+
+--CSharpExec
+var simStrandDataW = new SimStrandDataWrapper(stranddata);
+var propertygrid = new System.Windows.Forms.PropertyGrid();
+
+propertygrid.Height  = 500;
+propertygrid.Width  = 500;
+
+propertygrid.SelectedObject = simStrandDataW;
+
+var timer = new System.Windows.Forms.Timer();
+timer.Interval = 100;
+timer.Tick += (o, e) => 
+{ 
+	propertygrid.Refresh(); 
+};
+--CSharpExec
+timer.Start();
+propertygrid
+--CSharpExec
+new System.Threading.Thread(() => 
+{
+	Caster.SetCastingModePlcCode(2); // Caster.SetCastingModeId("SUBM.");
+
+Caster.SetCastingSectionPlcCodeOnStrand(1, 1); // or  Caster.SetCastingSectionIdOnStrand(1, "SIZE1");
+Caster.SetCastingSectionPlcCodeOnStrand(2, 1); // or Caster.SetCastingSectionIdOnStrand(2, "SIZE1");
+Caster.SetCastingSectionPlcCodeOnStrand(3, 1); // or Caster.SetCastingSectionIdOnStrand(3, "SIZE1");
+
+// Insert dummy bars
+Caster.PerformDummyBarInsertingFromBottomOnStrand(1);
+Caster.PerformDummyBarInsertingFromBottomOnStrand(2);
+Caster.PerformDummyBarInsertingFromBottomOnStrand(3);
+
+// Simulate tundish arrival and preheating
+Caster.PlaceTundishOnCar(1);
+Caster.StartTundishPreheatingOnCar(1);
+Caster.RunForSeconds(15);
+Caster.StopTundishPreheatingOnCar(1);
+
+Caster.TimeFactor = 100; 
+Caster.RunForMinutes(60);
+Caster.TimeFactor = 1;
+
+// TODO.. simulate casting simulation
+
+// Simulate ladle arrival and positioning
+Caster.RunForSeconds(1);
+
+Caster.PlaceLadleOnOuterArm(110000, 30000); // [kg]
+Caster.RunForSeconds(1);
+Caster.PerformTurretSwinging();
+
+// Simulate tundish positioning and tare measurement
+Caster.PerformTundishCarPositioning(1);
+Caster.RunForSeconds(1);
+Caster.MeasureTundishTare();
+
+// Activate the ladle slide gate control and set the target for tundish weight 
+Caster.SetTundishTargetWeight(21000); // [kg]
+Caster.ActivateLadleSlideGateControl();
+
+// Start casting on strand 1 
+Caster.StartCastingOnStrand(1);
+Caster.SetTargetSpeedOnStrand(1, 0.6); // [m/min]
+
+// Define the cut plan for next piece on strand 1 (bloom + sample)
+Caster.ResetNextPieceOnStrand(1);
+Caster.AddBloomAsLengthToNextPieceOnStrand(1, 4.0, "MARK-1");
+Caster.AddSampleAsLengthToNextPieceOnStrand(1, 0.2);
+
+// Start casting on strand 3, after 1 meter cast on strand 1
+Caster.RunForLengthCastOnStrand(1, 1.0); // [m]
+Caster.StartCastingOnStrand(3);
+Caster.SetTargetSpeedOnStrand(3, 0.6); // [m/min] 
+
+// Define the cut plan for next piece on strand 3 (bloom + sample)
+Caster.ResetNextPieceOnStrand(3);
+Caster.AddBloomAsLengthToNextPieceOnStrand(3, 5.0, "MARK-3");
+Caster.AddSampleAsLengthToNextPieceOnStrand(3, 0.2);
+
+// Start casting on strand 2, after 1 meter cast on strand 3
+Caster.RunForLengthCastOnStrand(3, 1.0); // [m]
+Caster.StartCastingOnStrand(2);
+Caster.SetTargetSpeedOnStrand(2, 0.6); // [m/min] 
+
+// Define the cut plan for next piece on strand 2 (only bloom)
+Caster.ResetNextPieceOnStrand(2);
+Caster.AddBloomAsLengthToNextPieceOnStrand(2, 4.0, "MARK-2");
+
+Caster.RunForMinutes(1);
+
+// Simulate tundish arrival on car 2 and preheating
+Caster.PlaceTundishOnCar(2);
+Caster.StartTundishPreheatingOnCar(2);
+
+Caster.RunForMinutes(2);
+
+// Simulate new ladle arrival
+Caster.PlaceLadleOnOuterArm(100000, 31000); // [kg]
+
+// Do the standard heat change cycle
+Caster.PerformHeatChangingInStandardMode();
+
+// After 30 minutes from casting start, close strand 1
+// TODO..
+Caster.EndCastingOnStrand(1);
+
+// Simulate new ladle arrival
+Caster.PlaceLadleOnOuterArm(105000, 31000); // [kg]
+
+// Do a fly tundish cycle
+Caster.PerformHeatChangingWithFlyTundish();
+
+// Simulate new ladle arrival
+Caster.PlaceLadleOnOuterArm(101000, 31000); // [kg]
+
+// Do a tundish level lowering cycle
+Caster.PerformHeatChangingWithTundishLevelLowering(2500); // [kg]
+
+// Simulate new ladle arrival
+Caster.PlaceLadleOnOuterArm(103000, 31000); // [kg]
+
+// Do a tundish reuse cycle
+Caster.PerformHeatChangingWithTundishReuse();
+}).Start();
+--CSharpExec
+Caster.EndCastingOnStrand(2);
+--CSharpExec
+Button buildButton(string text, EventHandler click)
+{
+	var button = new Button(){Text = text, AutoSize = true};
+	button.Click += click;
+	return button;
+}
+--CSharpExec
+var indexes = Enumerable.Range(1,3);
+indexes
+--CSharpExec
+var buttons = from x in indexes select 
+	buildButton(System.String.Format("Run Out Strand {0}", x),
+			(o, e) => Caster.EndCastingOnStrand(x)
+			);
+new object[]{buttons}
+--CSharpExec
+strand.SimulateDummyBarInsertionFromTop();
+--CSharpExec
+strand.SimulateDummyBarInsertionFromBottom();
+--CSharpExec
+Caster.StartCastingOnStrand(3)
+--CSharpExec
+flame.ShowOutputStream()
+--CSharpExec
+flame.Out(9)
+--CSharpExec
+var x = "cjlkj";
+--CSharpExec
+var i = 324;
+--CSharpExec
+bool parsing(string name, string spartialvalue)
+{
+	int _startingWithCount = 0;
+	string nameLower = name.ToLower();
+	string spartialvalueLower = spartialvalue.ToLower();
+	if (nameLower.StartsWith(spartialvalueLower))
+	{
+		_startingWithCount++;
+		return true;
+	}
+	return nameLower.Contains(spartialvalue.ToLower());
+}
+
+bool methodcondition(MethodInfo m, string spartialvalue, bool all)
+{
+	return (m.IsPublic || all) && !m.IsSpecialName && parsing(m.Name, spartialvalue);
+}
+--CSharpExec
+using System.Reflection;
+var t = Caster.GetType();
+BindingFlags flags = BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance; 
+--CSharpExec
+var methods = t.GetMethods(flags);
+--CSharpExec
+var m = methods[41];
+--CSharpExec
+methodcondition(m, ".", true)
+--CSharpExec
+m.Name
+--CSharpExec
+m.Name.Contains("Perform")
+--CSharpExec
+Caster.
+--CSharpExec
+

@@ -1,0 +1,43 @@
+#!flame-0
+
+--CSharpScript
+int i = 1230;
+i
+--CSharpScript
+
+
+--Python
+flame.Dlr.Share.a = [1,2,3]
+--Python
+
+
+--CSharpScript
+var l = new System.Collections.Generic.List<int>() { 1,2,3};
+from x in l select x
+--CSharpScript
+
+
+--CSharpScript
+from x in l select x
+--CSharpScript
+
+
+--CSharpScript
+flame.Dlr.Share.a
+--CSharpScript
+
+
+--Python
+System.Collections.Generic.List
+--Python
+
+
+--CSharpScript
+var wwwww = new System.Collections.Generic.List<int>();
+--CSharpScript
+
+
+--Python
+
+--Python
+

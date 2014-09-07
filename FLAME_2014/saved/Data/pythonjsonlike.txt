@@ -1,0 +1,16 @@
++++[Python]
+a = dict([
+('Language', Flame.Dlr.Languages.Python), ('Auto', False), ('Code',
+"""
+System.Windows.Forms.MessageBox.Show("ciaoooo")
+""")
+])
++++[Python]
+for x in a:
+ print "::" + x
++++[Python]
+flame.CompilersManager.ReadOutput()
++++[Python]
+
++++[Python]
+

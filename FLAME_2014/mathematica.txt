@@ -1,0 +1,68 @@
+What is the largest project you have completed?
+
+One of the projects that have given me the most satisfaction was a little software written in C++/qt/opengl. Starting from selected points on a 3d model and corresponding points on a picture, the software identifies the point (in the 3d model coordinates) and the looking direction in which the photographer takes his picture. It Works with orthophoto, classic photo, and equirectangular panoramic photo. This data is then automatically used to texturize the model. I worked at the interface (snaping, serialization, undo) and at mathematical problems (resolution of simple quadratic equations).
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+What kinds of positions interest you?*
+
+I like so many things about Wolfram Mathematica and Wolfram Alpha, I prefer not to exclude interesting opportunities.
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+How did you hear about careers at Wolfram Research?*
+
+I didn't.
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+What do you think you could contribute to the future of Wolfram Research, and why?
+
+I am particularly skilled with object oriented programming and I have an extensive training in math. I am very agile in solving new problems, and I really like the challenges.  Not least I think I can contribute with great enthusiasm!
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+What is your personal career plan?*
+
+Honestly, I try to do my best for me and my family and I am interested, first of all, in doing things that give me satisfaction.
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+Have you used Mathematica? If so, how?*
+
+I used the software for years to collaborate with my professor at the university. We have also implemented two libraries: the first allowed you to create svg animations with Mathematica 5 (you find the code below), the other worked with Mathematica 6 and allowed to add LaTex characters  (vector format) within a Graphics[] of Mathematica "capturing" the pdf obtained from pdfLaTex (please see http://river-valley.tv/tag/stephane-matiz/).
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+In what location(s) are you interested in working?*
+
+Near where I live now would be ideal for sure. But I'm willing to move anywhere.
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+Is there someone at a Wolfram company whom we can consult about you?*
+
+no, there is not.
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+If offered a position, what is the earliest date you would be available to start?*
+
+A week would be great to get organized.
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+Are you applying for a full-time or part-time position?*
+
+full-time
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+Are you authorized to work in the United States? If not, what is your current status?*
+
+I guess not. I'm european citizen. I have Swiss and Italian nationality.
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+FLAME_ALL
+MCNET
+I
+
+
+
+
+I like programming and I like math and I especially love to create and see my creations being used (as libraries or software).  
+Ho usato per anni il software per collaborare con il mio professore all'interno dell'università, e ha contribuito in modo significativo alla mia virata verso la programmazione.
+Years ago I also created a small language that the c# and played it allowed me to automate some repetitive tasks. 

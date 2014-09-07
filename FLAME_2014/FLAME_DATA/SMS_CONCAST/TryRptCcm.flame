@@ -1,0 +1,11 @@
+#!flame/0/--
+--CSharpExec
+using Common.Database;
+--CSharpExec
+rptccm.Issues
+--CSharpExec
+var x = Get("rptccm");
+--CSharpExec
+
+--CSharpExec
+

@@ -1,0 +1,18 @@
+#!flame/0/--
+--CSharpExec
+flame.AddAssembly(new Flame.Dlr.AssemblyWrapper( "WindowsBase, Version=4.0.0.0, culture=neutral, PublicKeyToken=31bf3856ad364e35"))
+--CSharpExec
+flame.AddAssembly(new Flame.Dlr.AssemblyWrapper( "PresentationCore, Version=4.0.0.0, culture=neutral, PublicKeyToken=31bf3856ad364e35"))
+--CSharpExec
+
+--CSharpExec
+var x = new System.Windows.Media.Effects.BlurEffect();
+--CSharpExec
+using System.Linq;
+var y = from x in Flame.Dlr.AssemblyHelper.Assemblies where x.FullName.Contains("PresentationCore") select x;
+--CSharpExec
+flame.AddAssembly(new Flame.Dlr.AssemblyWrapper(y.First().FullName))
+--CSharpExec
+
+--CSharpExec
+

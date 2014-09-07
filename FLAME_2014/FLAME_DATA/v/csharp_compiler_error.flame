@@ -1,0 +1,23 @@
+#!flame/0/--
+--CSharpCompiler
+namespace nnn
+{
+	public class aaa
+	{
+		public int bbb(int i)
+		{
+			return 5 + i;
+		}
+	}
+}
+--IronPythonExec
+from nnn import aaa
+--IronPythonExec
+ccc = aaa().bbb(5)
+ccc
+--IronPythonExec
+234
+--CSharpExec
+
+--NoneExec
+

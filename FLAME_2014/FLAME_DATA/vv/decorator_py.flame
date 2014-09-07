@@ -1,0 +1,171 @@
+#!flame-0
+
+--None
+
+--None
+
+
+--Python
+def calledCells():
+ return flame.ScripterTabbedControl.ScripterLoaderControl.ScripterControl.CalledCells
+def lastCalledCells():
+ cs = calledCells()
+ return cs[cs.Count - 1]
+--Python
+
+
+--Python
+def addmore(some_func):
+ def inner(a,b):
+  print "before some_func"
+  ret = some_func(a, b) # 1
+  return ret + 1
+ return inner
+ 
+# add = wrapper(add)
+@addmore
+def add(a, b):
+ return a+b
+--Python
+
+
+--Python
+add(1, 2)
+--Python
+
+
+--CSharp
+namespace ns
+{
+	public class cl
+	{
+		public int sum(int i, int j){return i + j + 3;}
+	}
+}
+--CSharp
+
+
+--Python
+lcs = lastCalledCells()
+--Python
+
+
+--Python
+lcs.Result.Data.Location
+--Python
+
+
+--Python
+import ns
+ns.cl().sum(1,2)
+--Python
+
+
+--CSharpScript
+(new ns.cl()).sum(1,2)
+--CSharpScript
+
+
+--Python
+nscl = ns.cl()
+--Python
+
+
+--Python
+nscl.sum(1,2)
+--Python
+
+
+--Python
+sum = nscl.sum
+--Python
+
+
+--Python
+sum(1,2)
+--Python
+
+
+--Python
+nscl.sum = sum
+--Python
+
+
+--Python
+sum.__call__ = sum.__call__
+--Python
+
+
+--Python
+class ooo:
+ def sum(self, i, j):
+  return i + j
+--Python
+
+
+--Python
+ppp = ooo()
+--Python
+
+
+--Python
+ppp.sum(1,2)
+--Python
+
+
+--Python
+ppp.sum = sum
+--Python
+
+
+--Python
+sum.Overloads.Functions.Count
+--Python
+
+
+--Python
+dir(sum)
+--Python
+
+
+--Python
+System.Reflection.Ref
+--Python
+
+
+--Python
+nscl.sum.__call__ = addmore(nscl.sum).__call__
+--Python
+
+
+--Python
+dir(nscl)
+--Python
+
+
+--Python
+nscl.__setattr__("sum",  addmore(nscl.sum))
+--Python
+
+
+--Python
+addmore(nscl.sum)(1,2)
+--Python
+
+
+--Python
+x  = aaa.rrr()
+x.ccc(1,2)
+--Python
+
+
+--Ruby
+a = "ciao"
+"ooo&{a}"
+--Ruby
+
+
+--None
+
+--None
+

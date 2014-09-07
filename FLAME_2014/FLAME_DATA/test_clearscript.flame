@@ -1,0 +1,11 @@
+#!flame/0/--
+--IronPythonExec
+flame.ScripterControlForm.Text
+--IronPythonExec
+"flame"
+--Javascript_ClearScript_Exex
+flame.ScripterControlForm.Text
+--NoneExec
+
+--NoneExec
+

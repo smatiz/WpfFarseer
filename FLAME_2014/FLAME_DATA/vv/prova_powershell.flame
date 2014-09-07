@@ -1,0 +1,309 @@
+#!flame-0
+
+--Powershell
+$findallfilesin = 
+{
+    param($dir)
+    
+    get-childitem $dir -Recurse 
+    #|% { $_.FullName }
+}
+
+$xx = $findallfilesin.Invoke("T:\FOTO_FIERA_UDINE")
+$x = $xx[0]
+
+$flame.Dlr.Share.set("findallfilesin", $findallfilesin)
+$flame.Dlr.Share.set("xx", $xx)
+$flame.Dlr.Share.set("x", $x)
+
+
+--Powershell
+
+
+--Python
+clr.AddReference("System.Management.Automation")
+import System.Management.Automation.PSObject
+import System.Management.Automation.PSMethod
+from System.Management.Automation import PSMethod, RunspaceInvoke
+--Python
+
+
+--Python
+import clr
+import sys
+import System.IO
+--Python
+
+
+--Python
+from System.Collections.Generic import List, Dictionary
+from System.Collections.ObjectModel import Collection
+--Python
+
+
+--Python
+a1 = flame.Dlr.Share.get("findallfilesin")
+a2 = a1.InvokeReturnAsIs("T:\FOTO_FIERA_UDINE")
+a3 = a2[0]
+--Python
+
+
+--Python
+hasattr(a3, "ToString")
+--Python
+
+
+--Python
+help(a3)
+--Python
+
+
+--Python
+yy = flame.Dlr.Share.get("findallfilesin").Invoke("T:\FOTO_FIERA_UDINE")
+z = yy[0]
+#z.ToString()
+print yy
+print z
+--Python
+
+
+--Python
+flame.Dlr.Share.get("x").GetType()
+--Python
+
+
+--Python
+flame.Dlr.Share.get("xx")[0].GetType()
+--Python
+
+
+--Python
+clr.GetPythonType(System.IO.FileInfo)
+--Python
+
+
+--Python
+z3 = System.Management.Automation.PSObject.AsPSObject(z)
+--Python
+
+
+--Python
+dir(z).GetType()
+--Python
+
+
+--Python
+
+--Python
+
+
+--Python
+z.PSDrive
+--Python
+
+
+--Python
+dir(z)
+--Python
+
+
+--Python
+clr.Convert(z, System.Management.Automation.PsPath)
+--Python
+
+
+--Python
+clr.Convert(a3, System.IO.FileInfo)
+--Python
+
+
+--Python
+z2 = clr.Convert(z, System.Management.Automation.PSObject)
+--Python
+
+
+--Python
+z2.GetType()
+--Python
+
+
+--Python
+clr.Convert(z, clr.GetPythonType(System.IO.FileInfo))
+--Python
+
+
+--Python
+z = xx[0]
+--Python
+
+
+--Python
+z.FullName
+--Python
+
+
+--Python
+for x in xx:
+ if not isinstance(x, PSMethod):
+	print x
+        continue
+ System.Windows.Forms.MessageBox.Show(x.ToString())
+
+--Python
+
+
+--Powershell
+$findallfilesin = 
+{
+    return "abc"
+}
+
+$findallfilesin.Invoke()
+
+$flame.Dlr.Share.set("a", $findallfilesin)
+
+--Powershell
+
+
+--Powershell
+$a = New-Object Flame.Dlr.Variable
+--Powershell
+
+
+--Python
+flame startingPath = "c:\"
+--Python
+
+
+--Python
+flame.Dlr.Share.get("findallfilesin").Invoke("T:\FOTO_FIERA_UDINE").GetType()
+--Python
+
+
+--Python
+xx.GetType()
+--Python
+
+
+--Python
+eval('xx[0].ToString()')
+--Python
+
+
+--Python
+z.Implicit()
+--Python
+
+
+--Python
+d = System.Management.Automation.PSMethod
+--Python
+
+
+--Python
+a = flame.Dlr.Share.get("a")
+--Python
+
+
+--Python
+a.Invoke()
+--Python
+
+
+--Powershell
+$findallfilesin.Invoke("T:\FOTO_FIERA_UDINE")
+--Powershell
+
+
+--Powershell
+$findallfilesin.Invoke()
+--Powershell
+
+
+--Powershell
+Show-Command
+--Powershell
+
+
+--Powershell
+$a.
+--Powershell
+
+
+--Python
+flame.OutputStreamWindow.Show()
+--Python
+
+
+--Python
+import clr
+clr.AddReference('System.Management.Automation')
+from System.Management.Automation import PSMethod, RunspaceInvoke
+
+runspace = RunspaceInvoke()
+psobjects = runspace.Invoke("Get-WmiObject Win32_VideoController")
+video = psobjects[0]
+
+print
+print 'Video controller properties'
+for prop in video.Properties:
+    print prop.Name, prop.Value
+
+psobjects = runspace.Invoke("Get-WmiObject Win32_Processor")
+cpu = psobjects[0]
+
+print
+print 'CPU properties'
+for prop in cpu.Properties:
+    print prop.Name, prop.Value
+
+--Python
+
+
+--Powershell
+
+--Powershell
+
+
+--Python
+cpu
+--Python
+
+
+--Python
+xx[0].Properties
+--Python
+
+
+--Python
+video
+--Python
+
+
+--Python
+psobjects = runspace.Invoke("""{
+param($dir)
+    return get-childitem $dir -Recurse 
+}""")
+--Python
+
+
+--Python
+psobjects[0].Invoke("T:\FOTO_FIERA_UDINE")
+--Python
+
+
+--Python
+psobjects.Invoke("T:\FOTO_FIERA_UDINE")
+--Python
+
+
+--Python
+
+--Python
+
+
+--Python
+
+--Python
+

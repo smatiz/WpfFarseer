@@ -1,0 +1,178 @@
+#!flame-0
+
+--Ruby
+share = flame.ScripterTabbedControl.ScripterLoaderControl.ScripterControl.Manager
+--Ruby
+
+
+--Powershell
+$share = $flame.ScripterTabbedControl.ScripterLoaderControl.ScripterControl.Manager
+--Powershell
+
+
+--Python
+share = flame.ScripterTabbedControl.ScripterLoaderControl.ScripterControl.Manager
+--Python
+
+
+--Powershell
+$a = Get-WmiObject win32_Product -ComputerName (Get-Item Env:\COMPUTERNAME).Value
+--Powershell
+
+
+--Powershell
+$b = Get-WmiObject win32_Product -ComputerName (Get-Item Env:\COMPUTERNAME).Value | Select Name,Version,PackageName,Installdate,Vendor
+--Powershell
+
+
+--Powershell
+$f = { Get-WmiObject win32_Product -ComputerName (Get-Item Env:\COMPUTERNAME).Value | Select Name,Version,PackageName,Installdate,Vendor }
+--Powershell
+
+
+--Powershell
+$eventsBoot = Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Diagnostics-Performance/Operational'; ID=100} -MaxEvents 10 
+--Powershell
+
+
+--Powershell
+$flame.Dlr.Share.appInstalled = $a
+--Powershell
+
+
+--Powershell
+$flame.Dlr.Share.appInstalled = $b
+--Powershell
+
+
+--Powershell
+$flame.Dlr.Share.appInstalledF = $f
+--Powershell
+
+
+--Python
+dir(flame.Dlr.Share.appInstalled[0])
+--Python
+
+
+--Python
+flame.Dlr.Share.appInstalled[0].Name
+--Python
+
+
+--Ruby
+§(flame.Dlr.Share.appInstalled[0]).GetType()
+--Ruby
+
+
+--Python
+a = flame.Dlr.Share.appInstalledF.Invoke()
+--Python
+
+
+--Python
+flame.Dlr.Share.a0 = a[0]
+--Python
+
+
+--Python
+flame.Dlr.Share.a0.Name
+--Python
+
+
+--Ruby
+flame.Dlr.Share.a0.Name
+--Ruby
+
+
+--Python
+flame.Dlr.Share.appInstalled = a
+--Python
+
+
+--Ruby
+"*** #{flame.Dlr.Share.appInstalled[0].Name} ***"
+--Ruby
+
+
+--Ruby
+flame.Dlr.Share.appInstalled[0].Name
+--Ruby
+
+
+--Python
+flame.Dlr.Share.appInstalled[0].Name
+--Python
+
+
+--Ruby
+a = flame.Dlr.Share.appInstalledF.Invoke()
+nil
+--Ruby
+
+
+--Ruby
+a[0]
+--Ruby
+
+
+--Python
+a[0]
+--Python
+
+
+--Ruby
+a[0].to_d.Version
+--Ruby
+
+
+--Ruby
+a.to_a[0].to_hash["Name"]
+--Ruby
+
+
+--Python
+class aaa:
+ def xxx(self):
+  return "cia"
+bbb = aaa()
+bbb.xxx()
+flame.Dlr.Share.bbb = bbb
+flame.Dlr.Share.aaa = lambda : aaa() 
+--Python
+
+
+--Ruby
+flame.Dlr.Share.bbb.xxx()
+--Ruby
+
+
+--Ruby
+flame.Dlr.Share.aaa().xxx()
+--Ruby
+
+
+--Python
+flame.Dlr.Share.appsInstalled = [ { 'Name': i.Name, 'Version': i.Version, 'PackageName': i.PackageName, 'Installdate': i.Installdate, 'Vendor': i.Vendor} for i in flame.Dlr.Share.appInstalledF.Invoke() ]
+--Python
+
+
+--Python
+
+--Python
+
+
+--Ruby
+flame.Dlr.Share.appsInstalled[0]["Name"]
+--Ruby
+
+
+--Ruby
+
+--Ruby
+
+
+--Ruby
+
+--Ruby
+

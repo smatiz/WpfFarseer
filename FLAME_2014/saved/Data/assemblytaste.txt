@@ -1,0 +1,107 @@
++++[CSharp:A]
+/// 
+
+using GMap.NET;
+using GMap.NET.MapProviders;
+using GMap.NET.WindowsForms;
+
+public class MyMap : GMapControl
+{
+	public MyMap()
+	{
+		/*SetCurrentPositionByKeywords("Timau");
+		MapProvider  =  GMapProviders.YahooMap;
+		Zoom = 15;*/
+		MapProvider  =  GMapProviders.BingMap;
+		MinZoom = 3;
+		MaxZoom = 17;
+		Manager.Mode = AccessMode.ServerAndCache;
+	}
+}
++++[Ruby:A]
+## Create the GMap panel
+## 
+
+controlMap = MyMap.new
+controlMapPanel = System::Windows::Forms::Panel.new
+controlMapPanel.Controls.Add(controlMap)
+controlMap.Dock = System::Windows::Forms::DockStyle.Fill
+controlMapPanel.Width = 400
+controlMapPanel.Height = 400
+
+
+##
+##  Create a combobox for choosing the map provider
+##
+comboGMapProviders = System::Windows::Forms::ComboBox.new
+comboGMapProviders.Items.Add(GMap::NET::MapProviders::GMapProviders.BingMap);
+comboGMapProviders.Items.Add(GMap::NET::MapProviders::GMapProviders.YahooMap);
+comboGMapProviders.Items.Add(GMap::NET::MapProviders::GMapProviders.GoogleMap);
+comboGMapProviders.Items.Add(GMap::NET::MapProviders::GMapProviders.OpenStreetMap);
+comboGMapProviders.SelectedIndex = 0;
+#controlMap.MapProvider = comboGMapProviders.Items[comboGMapProviders.SelectedIndex];
+comboGMapProviders.SelectedIndexChanged  do | s, e|
+	controlMap.MapProvider  = comboGMapProviders.Items[comboGMapProviders.SelectedIndex]
+end
+
+##
+## Create a textbox for changing the map position
+##
+
+controlMap.SetCurrentPositionByKeywords("Timau");
+textboxCurrentPosition = System::Windows::Forms::TextBox.new
+textboxCurrentPosition.Width = 500
+buttonCurrentPosition = System::Windows::Forms::Button.new
+buttonCurrentPosition.Text = "Go"
+buttonCurrentPosition.Click do | s, e|
+	controlMap.SetCurrentPositionByKeywords(textboxCurrentPosition.Text);
+end
+
+##
+##  Other buttons
+##
+
+controlMap.Zoom = 15
+timerDraw = System::Windows::Forms::Timer.new
+button = System::Windows::Forms::Button.new
+button.Text = "start zoom in"
+button.Click do | s, e|
+	timerDraw.Enabled = true
+	timerDraw.Interval = 100;
+	timerDraw.Tick do | s, e|
+		controlMap.Zoom += 0.001;
+	end
+end
+button2 = System::Windows::Forms::Button.new
+button2.Text = "stop zoom in"
+button2.Click do | s, e|
+	timerDraw.stop()
+end
+# last line gives output
+
+
+
+[
+controlMapPanel, 
+comboGMapProviders, 
+[textboxCurrentPosition, buttonCurrentPosition],
+[button, button2]
+]
++++[Ruby]
+
++++[Python]
+controlMap.Zoom = 11;
++++[Ruby]
+GMap::NET::MapProviders::GMapProviders.BingMap
++++[Ruby]
+controlMap.MapProvider = GMap::NET::MapProviders::GMapProviders.BingMap.WebProxy
++++[Ruby]
+GMap::NET::MapProviders::GMapProviders.BingMap.WebProxy
++++[Ruby]
+System::Windows::Forms::MessageBox.Show("cjk")
++++[Ruby]
+controlMap.MapProvider.GetType()
++++[Ruby]
+controlMap.MapProvider = GMap::NET::MapProviders::GMapProviders.BingMap
++++[Ruby]
+controlMap.MapProvider.GetType()

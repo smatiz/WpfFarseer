@@ -1,0 +1,69 @@
+#!flame/0/--
+--CSharpExec
+using System.Linq;
+using FarseerPhysics;
+using FarseerPhysics.Dynamics;
+using FarseerPhysics.Factories;
+using Microsoft.Xna.Framework;
+using FarseerPhysics.Samples.Demos.Prefabs;
+
+--CSharpExec
+World.Clear();
+var _border = new Border(World, ScreenManager, Camera);
+World.Gravity = new Vector2(0, 0);
+--CSharpExec
+var b = BodyFactory.CreateCircle(World, 3f, 100f);
+b.BodyType = BodyType.Dynamic;
+b.Position =  new Vector2(-10f, -10f);
+new object[] { b.FixtureList.Count, b.FixtureList[0].CollisionCategories, b.FixtureList[0].CollidesWith }
+--CSharpExec
+var b1 = BodyFactory.CreateCircle(World, 3f, 100f);
+b1.BodyType = BodyType.Kinematic;
+b1.Position = new Vector2(10f, -10f);
+--CSharpExec
+var b2 = BodyFactory.CreateCircle(World, 3f, 100f);
+b2.BodyType = BodyType.Kinematic;
+b2.Position = new Vector2(10f, -2f);
+--CSharpExec
+b.CollisionCategories = Category.Cat1;
+b.CollidesWith = Category.Cat2;
+
+b1.CollisionCategories = Category.Cat2;
+b1.CollidesWith = Category.Cat1;
+
+b2.CollisionCategories = Category.Cat1;
+b2.CollidesWith = Category.Cat2;
+
+// b collides with b1
+// b do not collides with b2
+
+
+new object[] { b.FixtureList.Count, b.FixtureList[0].CollisionCategories, b.FixtureList[0].CollidesWith }
+--CSharpExec
+// due oggetti kinetici non collidono mai
+
+b1.CollisionCategories = Category.All;
+b1.CollidesWith = Category.All;
+
+b2.CollisionCategories = Category.All;
+b2.CollidesWith = Category.All;
+
+b2.LinearVelocity = new Vector2(0,-10)
+--CSharpExec
+b.CollisionGroup = 1;
+
+b1.CollisionGroup = 1;
+
+b2.CollisionGroup = 2;
+
+// b collides with b1
+// b do not collides with b2
+
+
+new object[] { b.FixtureList.Count, b.FixtureList[0].CollisionCategories, b.FixtureList[0].CollidesWith }
+--CSharpExec
+new object[] { b.FixtureList.Count, b.FixtureList[0].CollisionGroup, b.FixtureList[0].CollisionCategories, b.FixtureList[0].CollidesWith }
+--CSharpExec
+
+--CSharpExec
+

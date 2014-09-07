@@ -1,0 +1,119 @@
++++[Ruby]
+"Hello world"
++++[Ruby]
+System::Windows::Forms::MessageBox.Show("Hello world")
++++[Ruby]
+System::Windows::Forms::MessageBox.Show("Hello world").GetType()
++++[Ruby]
+a = 7 - 5
+System::Math.Sqrt(a)
++++[Ruby]
+b = System::Windows::Forms::Button.new()
+b.Text = "Hello World"
+b
++++[Ruby]
+b.Click do |s, o|
+	System::Windows::Forms::MessageBox.Show("my first event handler")
+end
++++[Ruby]
+panel = System::Windows::Forms::Panel.new()
+panel.Width = 400
+panel.Height = 400
+panel.BorderStyle = System::Windows::Forms::BorderStyle.FixedSingle
+g = panel.CreateGraphics();
+
+
+t = System::Windows::Forms::TrackBar.new()
+bitmap = System::Drawing::Bitmap.new("C:\\Users\\VGU_21.SBS\\Pictures\\800x600.jpg")
+t.ValueChanged do |s, o|
+
+	g.Clear(System::Drawing::Color.LightBlue);
+	g.DrawLine(System::Drawing::Pen.new(System::Drawing::Brushes.Red),  System::Drawing::Point.new(10, 10), System::Drawing::Point.new(400, 300));
+	g.DrawImage(bitmap, System::Drawing::Rectangle.new( 50 , 20, 300, 200));
+	g.DrawRectangle(System::Drawing::Pen.new(System::Drawing::Brushes.Blue, 2),  System::Drawing::Rectangle.new( 10 + t.Value * 2, 10, 100, 100));
+
+end
+t.Width = 500
+t.Maximum = 100
+[ panel, t]
++++[Ruby]
+#LINQ
+# https://github.com/IronLanguages/main/blob/master/Languages/Ruby/Samples/Linq/101samples.rb
+
+load_assembly 'System.Core'
+using_clr_extensions System::Linq
+
+# Linq Helpers
+
+class Object
+  def to_seq(type = Object)
+    System::Linq::Enumerable.method(:of_type).of(type).call(self.to_a)
+  end
+end
+
+make_pair = lambda { |a,b| [a,b] }
+identity = lambda { |a| a }
+
+Product = Struct.new(:product_name, :category, :units_in_stock, :unit_price)
+products = [ 
+    Product["product 1", "foo", 4, 1.3],
+    Product["product 2", "bar", 3, 10.0],
+    Product["product 3", "baz", 0, 4.0],
+    Product["product 4", "foo", 1, 2.5],
+].to_seq
+nil
++++[Ruby]
+products.where(lambda { |p| p.units_in_stock > 0 and p.unit_price > 2.00 }).each { |x| puts x.product_name }
++++[Ruby]
+panel =  System::Windows::Forms::Panel.new();
+
+listBox1 =  System::Windows::Forms::ListBox.new();
+button1 = System::Windows::Forms::Button.new();
+progressBar1 = System::Windows::Forms::ProgressBar.new();
+comboBox1 = System::Windows::Forms::ComboBox.new();
+
+listBox1.FormattingEnabled = true;
+listBox1.Items.Add("cat");listBox1.Items.Add("dog");listBox1.Items.Add("pig");
+listBox1.Location =  System::Drawing::Point.new(13, 13);
+listBox1.Name = "listBox1";
+listBox1.Size = System::Drawing::Size.new(103, 134);
+listBox1.TabIndex = 0;
+
+button1.Location = System::Drawing::Point.new(123, 13);
+button1.Name = "button1";
+button1.Size = System::Drawing::Size.new(75, 23);
+button1.TabIndex = 1;
+button1.Text = "Add";
+button1.UseVisualStyleBackColor = true;
+
+progressBar1.Location = System::Drawing::Point.new(12, 184);
+progressBar1.Name = "progressBar1";
+progressBar1.Size = System::Drawing::Size.new(185, 23);
+progressBar1.TabIndex = 2;
+progressBar1.Value = 33;
+
+comboBox1.FormattingEnabled = true;
+comboBox1.Items.Add("one");
+comboBox1.Location = System::Drawing::Point.new(13, 15yjufgj7);
+comboBox1.Name = "comboBox1";
+comboBox1.Size = System::Drawing::Size.new(184, 21);
+comboBox1.TabIndex = 3;
+comboBox1.Text = "choose..";
+
+panel.Size = System::Drawing::Size.new(554, 412);
+panel.Controls.Add(comboBox1);
+panel.Controls.Add(progressBar1);
+panel.Controls.Add(button1);
+panel.Controls.Add(listBox1);
+
+panel
++++[Ruby]
+#throwerror
+fskj{laksdfjas{
+lkfj
++++[Ruby]
+4
++++[Ruby]
+
++++[Ruby]
+

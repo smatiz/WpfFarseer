@@ -1,0 +1,76 @@
+#!flame/0/--
+--CSharpExec
+using System.Linq;
+--CSharpExec
+using FarseerPhysics;
+using FarseerPhysics.Dynamics;
+using FarseerPhysics.Factories;
+using Microsoft.Xna.Framework;
+--CSharpExec
+using FarseerPhysics.Samples.Demos.Prefabs;
+--CSharpExec
+new Border(World, ScreenManager, Camera);
+--CSharpExec
+ int PieceCount = 20;
+var p1 = new Vector2(-10f, -10f);
+var p2 = new Vector2(-10f, 8f);
+var dl = (p2 - p1).Length() / (2f * PieceCount);// 0.5f;
+var ropeThickness = 0.1f;
+
+
+var _chiodo = BodyFactory.CreateCircle(World, 3f, 100f);
+_chiodo.Position = p1;
+_chiodo.BodyType = BodyType.Kinematic;
+--CSharpExec
+World.Gravity = new Vector2(0, 10);
+--CSharpExec
+_chiodo.BodyType = BodyType.Dynamic;
+--CSharpExec
+_chiodo.Position = p1;
+_chiodo.Restitution = .2f;
+--CSharpExec
+var v = new Vector2(10,-10);
+--CSharpExec
+_chiodo.LinearVelocity = v
+--CSharpExec
+_chiodo.Restitution = 0f;
+--CSharpExec
+_chiodo.AngularVelocity = -3;
+--CSharpExec
+_chiodo.BodyType = BodyType.Dynamic;
+--CSharpExec
+_chiodo.ApplyForce(new Vector2(10
+--CSharpExec
+_chiodo.BodyType = BodyType.Kinematic;
+--CSharpExec
+_chiodo.Position =  new Vector2(-10, -100);
+--CSharpExec
+_chiodo.Position 
+--CSharpExec
+var f = _chiodo.FixtureList[0];
+--CSharpExec
+f.FixtureId
+--CSharpExec
+
+--CSharpExec
+
+--CSharpExec
+
+--CSharpExec
+
+--CSharpExec
+
+--CSharpExec
+from x in  _chiodo.FixtureList select x
+--CSharpExec
+
+--CSharpExec
+
+--CSharpExec
+
+--CSharpExec
+
+--CSharpExec
+
+--CSharpExec
+

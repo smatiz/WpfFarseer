@@ -1,0 +1,189 @@
+#!flame/0/--
+--CSharpExec
+var treeAssDirPath = @"S:\ROOT\DROPBOX\Dropbox\DATI\PROGRAMMAZIONE\CSHARP\PROGETTI\DIGINED\WFA_Mysql_EntityDataModel\SM.Controls.Tree\bin\Debug\";
+flame.Dlr.AddAssembly(Flame.Dlr.AssemblyManager.FromPath( treeAssDirPath + "SM.Tree.dll"));
+flame.Dlr.AddAssembly(Flame.Dlr.AssemblyManager.FromPath(treeAssDirPath + "SM.Controls.Tree.dll"));
+--CSharpExec
+using Roslyn.Compilers.CSharp;
+using System.Linq;
+using System.Collections.Generic;
+using System.Windows.Forms;
+using SM.Tree;
+using SM.Controls.Tree;
+--CSharpExec
+public class SyntaxExpressionTreeInfo : ITreeInfo
+{
+	SyntaxNode _node;
+	public SyntaxExpressionTreeInfo(SyntaxNode node)
+	{
+		_node = node;
+	}
+	public IEnumerable<ITreeInfo> Children
+		{
+			get
+			{
+				return from x in _node.ChildNodes() select new SyntaxExpressionTreeInfo(x);
+			}
+		}
+		public string Info
+		{
+			get
+			{
+				return _node.ToString();
+			}
+		}
+}
+
+public class SyntaxTreeInfo : ITreeInfo
+{
+	List<SyntaxNode> _nodes = new List<SyntaxNode>();
+	
+	public SyntaxTreeInfo(string text)
+	{
+		int lastLength = -1;
+		while(text.Length > 0 && lastLength != text.Length && text.Trim('\t',' ','\n','\r').Length > 0)
+		{
+			//MessageBox.Show("*" + text + "*");
+			var syntax = Syntax.ParseStatement(text);
+			_nodes.Add(syntax);
+			lastLength = text.Length;
+			text = text.Substring(syntax.Span.End);
+			//MessageBox.Show((new { l = syntax.ToString().Length, s = syntax.ToString(), t = text}).ToString());
+		}
+	}
+	
+	public IEnumerable<ITreeInfo> Children
+	{
+		get
+		{
+			return from x in _nodes select new SyntaxExpressionTreeInfo(x);
+		}
+	}
+	public string Info
+	{
+		get
+		{
+			return _nodes.ToString();
+		}
+	}
+}
+--CSharpExec
+var treeControl = new SM.Controls.Tree.TreeViewEnumators();
+void AddRoot(string text)
+{
+	treeControl.AddRoot(new SyntaxTreeInfo(text));
+}
+treeControl
+--CSharpExec
+AddRoot(@"
+
+instance
+.Property.
+
+getsomething(""xx)"")
+
+
+;
+
+	pippo.ciao();
+
+
+");
+--CSharpExec
+AddRoot(@"
+
+instance
+.Property.
+
+getsomething(""xx)"");
+if(true)
+{
+	pippo.ciao();
+}
+
+");
+--CSharpExec
+var text = @"
+
+instance
+.Property.
+
+getsomething(""xx)"")
+
+;if(true)
+{
+	pippo.ciao();
+}
+
+";
+var x = Syntax.ParseStatement(text);
+--CSharpExec
+x.Span
+--CSharpExec
+text.Substring(x.Span.End);
+--CSharpExec
+x.FullSpan
+--CSharpExec
+SyntaxTree tree = SyntaxTree.ParseText(@"
+var x = new System.Collections.Generic.List<string>();
+foreach(var y in x)
+{
+	y.
+}
+");
+--CSharpExec
+SyntaxTree tree = SyntaxTree.ParseText(@"instance.Property.getsomething(""xx)""");
+--CSharpExec
+var root = (result.ChildNodes().ToArray()[0]).ChildNodes().ToArray()[0].ChildNodes().ToArray()[0];
+root
+--CSharpExec
+root.Parent.ChildNodes().ToArray()[1]
+--CSharpExec
+treeControl.AddRoot(new SyntaxTreeInfo(result));
+--CSharpExec
+var t = root.GetType();
+t.GetInterfaces();
+t
+--CSharpExec
+
+--CSharpExec
+var root = tree.GetRoot();
+--CSharpExec
+var field = root.Members.Count;
+field
+--CSharpExec
+var field = root.AttributeLists.Count;
+field
+--CSharpExec
+var field = root.ChildNodes().ToArray();
+field[0].ToString()
+--CSharpExec
+var field = root.ChildNodesAndTokens().ToArray();
+field[0].ToString()
+--CSharpExec
+var field = root.FullSpan;
+field
+--CSharpExec
+field.Span
+--CSharpExec
+SyntaxNode anroot = (root as SyntaxNode);
+root.DescendentNodes()
+--CSharpExec
+ tree.Root.DescendantNodes().OfType<IfStatementSyntax>();
+--CSharpExec
+.Ancestors()
+--CSharpExec
+root.Members[1].Token
+--CSharpExec
+var x = new System.Collections.Generic.List<string>();
+foreach(var usingBlock in root.AttributeLists) 
+{     
+	x.Add("Using block:"+ usingBlock.Name); 
+}
+x
+--CSharpExec
+x.Count
+--CSharpExec
+
+--CSharpExec
+

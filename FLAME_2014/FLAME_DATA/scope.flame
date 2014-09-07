@@ -1,0 +1,32 @@
+#!flame/0/--
+--IronPythonExec
+
+Flame.Dlr.AssemblyHelper.AddDirectory(r"S:\ROOT\DROPBOX\Dropbox\Pinta-master\bin", flame.Dlr.Scope.Assemblies)
+--IronPythonExec
+def saveVar(name):
+ v = Flame.Dlr.Variable()
+ v.Name = name
+ v.Data = eval(name)
+ flame.Dlr.Scope.Variables.Add(v)
+saveVar("saveVar")
+--IronPythonExec
+ciao = 1234
+saveVar("ciao")
+--IronPythonExec
+flame.Dlr.Clear()
+--IronPythonExec
+ciao
+--IronPythonExec
+flame.Dlr.Scope.Variables.Clear()
+--IronPythonExec
+Pinta.
+--IronPythonExec
+bye
+--IronPythonExec
+eval("ciao")
+--IronPythonExec
+saveVar("ciao")
+--IronPythonExec
+
+--NoneExec
+

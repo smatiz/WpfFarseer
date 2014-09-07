@@ -1,0 +1,140 @@
+#!flame-0
+
+--CSharpScript
+var share = ((Flame.Controls.ScripterControlFormVariable)Get("flame")).ScripterTabbedControl.ScripterLoaderControl.ScripterControl.Manager.Share;
+--CSharpScript
+
+
+--Python
+share = flame.ScripterTabbedControl.ScripterLoaderControl.ScripterControl.Manager.Share
+--Python
+
+
+--CSharpScript
+ string MatchEmailPattern = 
+			@"(([\w-]+\.)+[\w-]+|([a-zA-Z]{1}|[\w-]{2,}))@"
+     + @"((([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\.([0-1]?
+				[0-9]{1,2}|25[0-5]|2[0-4][0-9])\."
+     + @"([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\.([0-1]?
+				[0-9]{1,2}|25[0-5]|2[0-4][0-9])){1}|"
+     + @"([a-zA-Z]+[\w-]+\.)+[a-zA-Z]{2,4})";
+share.set("MatchEmailPattern", MatchEmailPattern);
+--CSharpScript
+
+
+--Python
+flame.ScripterControlForm.OutputStreamWindow.Show()
+--Python
+
+
+--Python
+MatchEmailPattern = share.get("MatchEmailPattern")
+files = System.IO.Directory.EnumerateFiles(r"C:\Users\VGU_21.SBS\Desktop\aaa", "*.*", System.IO.SearchOption.AllDirectories)
+file = System.IO.StreamWriter("t:\\aaa2.txt")
+#l = []
+for f in files:
+ text = System.IO.File.ReadAllText(f)
+ m = System.Text.RegularExpressions.Regex.Matches(text, MatchEmailPattern)
+ for x in m:
+  for x2 in m.Captures:
+   s = x2.ToString()
+   if not l.Contains(s):
+    #l.Add(s)
+    f.WriteLine(s)
+    print s
+f.Close()
+#System.IO.File.WriteAllLines("t:\\aaa.txt", System.Collections.Generic.List[System.String](l));
+--Python
+
+
+--Python
+l.Contains("feiner.fotografie@bluewin.ch2")
+--Python
+
+
+--Python
+
+--Python
+
+
+--Python
+
+
+--Python
+
+
+--Python
+f.WriteLine("asa")
+--Python
+
+
+--Python
+f.Close()
+--Python
+
+
+--Python
+
+--Python
+
+
+--Python
+
+--Python
+
+
+--CSharpScript
+var f = System.IO.File.ReadAllText(@"K:\03_VIRTUALGEO-INFORMATICA\VGU_12 Stephane Matiz\BDA 39.txt");
+--CSharpScript
+
+
+--CSharpScript
+var m = System.Text.RegularExpressions.Regex.Matches(f, MatchEmailPattern);
+--CSharpScript
+
+
+--CSharpScript
+
+--CSharpScript
+
+
+--CSharpScript
+from x in m.GetEnumerator().ToList() select m.Captures[0]
+--CSharpScript
+
+
+--Python
+MatchEmailPattern = share.get("MatchEmailPattern")
+--Python
+
+
+--Python
+m[0].Captures[0]
+--Python
+
+
+--CSharpScript
+m.GetEnumerator()
+--CSharpScript
+
+
+--Powershell
+$files = Get-ChildItem "K:\03_VIRTUALGEO-INFORMATICA\VGU_12 Stephane Matiz\txts"
+$flame.ScripterTabbedControl.ScripterLoaderControl.ScripterControl.Manager.Share.set("files", $files)
+--Powershell
+
+
+--Python
+
+--Python
+
+
+--CSharpScript
+
+--CSharpScript
+
+
+--CSharpScript
+
+--CSharpScript
+

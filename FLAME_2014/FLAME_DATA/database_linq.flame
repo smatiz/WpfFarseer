@@ -1,0 +1,27 @@
+#!flame/0/--
+--CSharpExec
+AddReference(System.Reflection.Assembly.Load("System.Data.Linq, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"));
+--CSharpExec
+using System.Data.Linq;
+--CSharpExec
+var x = new System.Data.Linq.DataContext(@"S:\ROOT\DROPBOX\Dropbox\TESTS_ALL\TEST_THUNDERTECHNOLOGIES\WpfApplication1\WpfApplication1\Northwind.sdf");
+--CSharpExec
+x.Customers.Count()
+--CSharpExec
+Set("x", x);
+--CSharpExec
+((Flame.Controls.ScripterControlFormInfo)Get("flame")).Dlr.Share.set("x", x)
+--IronPythonExec
+flame.Dlr.Share.keys
+--IronPythonExec
+x = flame.Dlr.Share.get("x")
+--CSharpExec
+x.GetTable(typeof(Customers))
+--CSharpExec
+
+--NoneExec
+
+--NoneExec
+
+--NoneExec
+

@@ -1,0 +1,93 @@
+#!flame/0/--
+--IronPythonExec
+
+def print_(a):
+ print a
+ 
+x = System.Action[System.String]( lambda s : print_(s))
+
+flame.Dlr.Share.set("print", x)
+--CSharpExec
+((System.Action<string>)flame.Dlr.Share.get("print")).Invoke("ciaeeeeeeeeeeeeeee")
+--CSharpExec
+var print = ((System.Action<string>)flame.Dlr.Share.get("print"));
+flame.ShowOutputStream()
+--CSharpExec
+
+using System.IO;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+
+bool isNotLongDirPaths(string s)
+{
+	return s.Length < 248;
+}
+bool isNotLongFilePaths(string s)
+{
+	return s.Length < 260 ;
+}
+
+
+IEnumerable<string> getAllDirectoryRecursively(string dir, Func<string, bool> takeDir)
+{
+	IEnumerable<IEnumerable<string>> dirsList = (from x in Directory.GetDirectories(dir) where isNotLongDirPaths(x) && takeDir(x) select  getAllDirectoryRecursively(x, takeDir));
+	var dirs = dirsList.SelectMany<IEnumerable<string>,string>( i => i );
+	dirs = dirs.Concat(new[] { dir });
+	return dirs;
+}
+
+IEnumerable<string> getFiles(string dir, Func<string, bool> takeFile)
+{
+	return from x in Directory.GetFiles(dir) where isNotLongFilePaths(x) && takeFile(x) select x;
+}
+
+IEnumerable<string> getFilesRecursively(string dir, Func<string, bool> takeFile,  Func<string, bool> takeDir)
+{
+	return (from x in getAllDirectoryRecursively(dir, takeDir) select getFiles(x, takeFile)).SelectMany<IEnumerable<string>,string>( i => i );
+}
+
+IEnumerable<string> getAll(string dir, Func<string, bool> takeFile,  Func<string, bool> takeDir)
+{
+	return getFilesRecursively(dir, takeFile, takeDir);
+}
+
+
+--CSharpExec
+System.Text.RegularExpressions.Regex rsln = new System.Text.RegularExpressions.Regex(@"\.sln$");
+getAll(@"F:\DA_SISTEMARE_IN_DROPBOX\", (s) => {return rsln.IsMatch(s);}, (s) => {return true ;})
+--CSharpExec
+getAll(@"S:\DCIM", (s) => {return s.Contains("DSCN60");}, (s) => {return true ;})
+--CSharpExec
+getAll(@"S:\ROOT\DROPBOX\Dropbox\DATI\PROGRAMMAZIONE\Aptana Studio 3 Workspace\panoramaview_STUFF\WebGL Google Street Viewer\", (s) => { 
+	var b = (new FileInfo(s)).Extension ==".sln";  return b;
+	}, (s) => {return true ;})
+--CSharpExec
+getAll(@"S:\ROOT\DROPBOX\Dropbox\", (s) => { var b = (new FileInfo(s)).Extension ==".sln"; return b;}, 
+	(s) => 
+	{
+		return !s.Contains(@"PROGRAMMAZIONE\CSHARP")  && !s.Contains(@"MAIN_PROJECTS") && !s.Contains(@"UNITY_ALL") && !s.Contains(@"WOLFRAM_WORK");
+	})
+--CSharpExec
+flame.ShowOutputStream()
+--CSharpExec
+Console.WriteLine("ooo");
+--IronPythonExec
+
+--CSharpExec
+System.Diagnostics.Debug.WriteLine("cccc");
+--CSharpExec
+System.Diagnostics.Trace.WriteLine("cccc");
+--CSharpExec
+Directory.GetFiles(@"S:\ROOT\DROPBOX\Dropbox\DATI\PROGRAMMAZIONE\Aptana Studio 3 Workspace\panoramaview_STUFF\WebGL Google Street Viewer\WebGL Google Street Viewer_files")
+--CSharpExec
+Directory.GetDirectories(@"S:\ROOT\DROPBOX\Dropbox\DATI\PROGRAMMAZIONE\Aptana Studio 3 Workspace\panoramaview_STUFF\WebGL Google Street Viewer\WebGL Google Street Viewer_files")
+--CSharpExec
+new FileInfo(@"S:\ROOT\DROPBOX\Dropbox\DATI\PROGRAMMAZIONE\Aptana Studio 3 Workspace\panoramaview_STUFF\WebGL Google Street Viewer\WebGL Google Street Viewer_files\687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67");
+--CSharpExec
+(@"S:\ROOT\DROPBOX\Dropbox\DATI\PROGRAMMAZIONE\Aptana Studio 3 Workspace\panoramaview_STUFF\WebGL Google Street Viewer\").Length
+--CSharpExec
+
+--CSharpExec
+

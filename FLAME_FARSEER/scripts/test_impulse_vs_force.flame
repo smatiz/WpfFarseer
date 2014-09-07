@@ -1,0 +1,66 @@
+#!flame/0/--
+--CSharpExec
+using System.Linq;
+--CSharpExec
+using FarseerPhysics;
+using FarseerPhysics.Dynamics;
+using FarseerPhysics.Factories;
+using Microsoft.Xna.Framework;
+--CSharpExec
+using FarseerPhysics.Samples.Demos.Prefabs;
+--CSharpExec
+var border = new Border(World, ScreenManager, Camera);
+
+--CSharpExec
+World.Clear();
+
+var p = new Vector2(-10f, 0f);
+var v = new Vector2(10,0)* 1000;
+
+// basso
+var b1 = BodyFactory.CreateCircle(World, 3f, 100f);
+b1.Position = p + new Vector2(0,5);
+b1.BodyType = BodyType.Dynamic;
+b1.CollidesWith = Category.None;
+
+//alto
+var b2 = BodyFactory.CreateCircle(World, 3f, 100f);
+b2.Position = p;
+b2.BodyType = BodyType.Dynamic;
+b2.CollidesWith = Category.None;
+
+
+// basso
+b1.ApplyForce(v*60);
+//alto
+b2.ApplyLinearImpulse(v);
+--NoneExec
+ApplyForce * 60 = ApplyLinearImpulse
+--CSharpExec
+World.Clear();
+
+var p = new Vector2(-10f, 0f);
+var v = 10000;
+
+// basso
+var b1 = BodyFactory.CreateCircle(World, 3f, 100f);
+b1.Position = p + new Vector2(0,5);
+b1.BodyType = BodyType.Dynamic;
+b1.CollidesWith = Category.None;
+
+//alto
+var b2 = BodyFactory.CreateCircle(World, 3f, 100f);
+b2.Position = p;
+b2.BodyType = BodyType.Dynamic;
+b2.CollidesWith = Category.None;
+
+// basso
+b1.ApplyTorque(v*60);
+//alto
+b2.ApplyAngularImpulse(v);
+--NoneExec
+ApplyTorque * 60 = ApplyAngularImpulse
+--CSharpExec
+
+--CSharpExec
+

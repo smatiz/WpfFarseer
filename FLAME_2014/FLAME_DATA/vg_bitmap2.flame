@@ -1,0 +1,35 @@
+#!flame/0/--
+--IronPythonExec
+def divideBitmap(b, fraction):
+ b2 = System.Drawing.Bitmap(b.Width / fraction, b.Height / fraction)
+ g2 = System.Drawing.Graphics.FromImage(b2)
+ g2.DrawImage(b, System.Drawing.Rectangle(0,0, b2.Width, b2.Height ))
+ return b2
+
+def halfBitmaps(path, halfs):
+ fi = System.IO.FileInfo(path)
+ if fi.Extension != ".jpg":
+  return false
+ directory = fi.Directory.FullName
+ name = "www_" + fi.Name.Substring(0, fi.Name.Length - 4)
+ b = System.Drawing.Bitmap(path)
+ b.Save(System.IO.Path.Combine(directory, name + "_" + halfs.ToString() + ".jpg"))
+ fraction = 1.0
+ for i in range(halfs - 1, 0, -1):
+  fraction = fraction * 2;
+  b2 = divideBitmap(b, fraction)
+  if i == 1:
+   b2.Save(System.IO.Path.Combine(directory, name + ".jpg"))
+  else:
+   b2.Save(System.IO.Path.Combine(directory, name + "_" + i.ToString() + ".jpg"))
+ 
+--IronPythonExec;a
+fs = System.IO.Directory.GetFiles(r"C:\Work\Code\UNITY\Vari_tests\imm_to_www", "*.jpg")
+for f in fs:
+ halfBitmaps(f, 5)
+--IronPythonExec;a
+None
+--NoneExec
+
+--NoneExec
+

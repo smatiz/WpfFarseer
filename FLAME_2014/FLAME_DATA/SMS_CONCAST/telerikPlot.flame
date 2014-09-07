@@ -1,0 +1,308 @@
+#!flame/0/--
+--CSharpExec
+using System;
+using System.Windows.Forms;
+using System.Linq;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using Telerik.WinControls;
+using Telerik.WinControls.UI;
+using Telerik.Charting;
+--CSharpExec
+var f = new TryExtOxyPlot.Form2();
+f.Show();
+--CSharpExec
+AreaSeries areaSeries = new AreaSeries();
+areaSeries.DataPoints.Add(new CategoricalDataPoint(13, "Jan"));
+areaSeries.DataPoints.Add(new CategoricalDataPoint(20, "Apr"));
+areaSeries.DataPoints.Add(new CategoricalDataPoint(15, "Jul"));
+areaSeries.DataPoints.Add(new CategoricalDataPoint(16, "Oct"));
+plotTelerik.Series.Add(areaSeries);
+
+AreaSeries areaSeries2 = new AreaSeries(); 
+areaSeries2.DataPoints.Add(new CategoricalDataPoint(15, "Jan"));
+areaSeries2.DataPoints.Add(new CategoricalDataPoint(25, "Apr"));
+areaSeries2.DataPoints.Add(new CategoricalDataPoint(27, "Jul"));
+areaSeries2.DataPoints.Add(new CategoricalDataPoint(18, "Oct"));
+plotTelerik.Series.Add(areaSeries2);
+--CSharpExec
+typeof(LineSeries).FullName
+--CSharpExec
+Telerik.WinControls.UI.Line
+--CSharpExec
+plotTelerik.
+--CSharpExec
+var x = new Telerik.WinControls.RadControl();
+--CSharpExec
+var plotTelerick = (Telerik.WinControls.UI.RadChartView)Get("plotTelerik");
+--CSharpExec
+flame.Dlr.Share.keys
+--CSharpExec
+public PlotModel plotModel { get { return f.Plot.Model; } set { f.Plot.Model = value; } }
+--CSharpExec
+plotModel = new PlotModel();
+//plotModel.Background = OxyColors.Green;
+//plotModel.PlotType = PlotType.Cartesian;
+
+
+
+// Time Axe
+plotModel.Axes.Add(new LinearAxis
+{
+	Position = AxisPosition.Bottom,
+	MajorGridlineStyle = LineStyle.Solid,
+	MinorGridlineStyle = LineStyle.Dot
+});
+
+
+
+// Value Axe 1
+plotModel.Axes.Add(new LinearAxis
+{
+	Title = "[g]",
+	Position = AxisPosition.Left,
+	Key = "x1",
+	MajorGridlineStyle = LineStyle.Solid,
+	MinorGridlineStyle = LineStyle.Dot,
+	MinorGridlineColor = OxyColor.FromRgb(0,0,255),
+	MajorGridlineColor = OxyColor.FromRgb(0,0,255),
+});
+
+// Value Axe 2
+plotModel.Axes.Add(new LinearAxis
+{
+	Title = "[km]",
+	Position = AxisPosition.Right,
+	MajorGridlineStyle = LineStyle.Solid,
+	MinorGridlineStyle = LineStyle.Dot,
+	MinorGridlineColor = OxyColor.FromRgb(255,0,0),
+	MajorGridlineColor = OxyColor.FromRgb(255,0,0),
+	Key = "x2"
+});
+
+
+var m = 1.0;
+
+var fs1 = new FunctionSeries(
+new Func<double, double>((d)=>m * d), 0.0, 10.0, 1000, null)
+{
+	YAxisKey = "x1"
+};
+var fs2 = new FunctionSeries(
+new Func<double, double>((d)=>d*d), 0.0, 10.0, 1000, null)
+{
+	YAxisKey = "x2"
+};
+
+plotModel.Series.Add(fs1);
+plotModel.Series.Add(fs2);
+
+var fs3 = new LineSeries("xxxx")
+{
+	YAxisKey = "x2"
+};
+fs3.Points = new List<OxyPlot.IDataPoint>();
+fs3.Points.Add(new DataPoint(0,1));
+fs3.Points.Add(new  DataPoint(1,2));
+fs3.Points.Add(new  DataPoint(3,1));
+fs3.Points.Add(new  DataPoint(4,5));
+fs3.Points.Add(new  DataPoint(5,10));
+fs3.Points.Add(new  DataPoint(6,100));
+fs3.Points.Add(new  DataPoint(7,110));
+fs3.Points.Add(new  DataPoint(8,50));
+fs3.Points.Add(new  DataPoint(9,70));
+fs3.Points.Add(new  DataPoint(10,10));
+
+plotModel.Series.Add(fs3);
+
+f.Plot.RefreshPlot(true);
+--CSharpExec
+var xPoints = new List<OxyPlot.DataPoint>()
+{
+	new DataPoint(0,1),
+	new DataPoint(1,2),
+	new DataPoint(3,1),
+	new DataPoint(4,5),
+	new DataPoint(5,10),
+	new DataPoint(6,100),
+	new DataPoint(7,110),
+};
+List<OxyPlot.IDataPoint> y = xPoints as List<OxyPlot.IDataPoint>;
+
+
+y == null
+--CSharpExec
+fs3.Points == null
+--CSharpExec
+f.Plot.RefreshPlot(true);
+--CSharpExec
+var timer = new Timer();
+timer.Tick += (o,e)=>
+{
+	m = m * 0.99;
+	plotModel.Series[0] = new FunctionSeries(
+	new Func<double, double>((d)=>m * d), 0.0, 10.0, 1000, null)
+	{
+		YAxisKey = "x1"
+	};
+	f.Plot.RefreshPlot(true);
+};
+timer.Interval = 1000;
+timer.Start();
+--CSharpExec
+
+timer.Interval = 10000;
+--CSharpExec
+
+--CSharpExec
+
+--CSharpExec
+Plot.Model = new PlotModel(); 
+Model.Title = "None";
+LinearAxis linearAxis = new LinearAxis();
+linearAxis.TickStyle = TickStyle.None;
+Plot.Model.Axes.Add(linearAxis);
+LinearAxis linearAxis2 = new LinearAxis();
+linearAxis2.Position = AxisPosition.Bottom;
+linearAxis2.TickStyle = TickStyle.None;
+Plot.Model.Axes.Add(linearAxis2);
+Plot.RefreshPlot(true);
+--CSharpExec
+Plot.Model = new PlotModel(); 
+Plot.Model.Title = "Both";
+LinearAxis linearAxis = new LinearAxis();
+linearAxis.MajorGridlineStyle = LineStyle.Solid;
+linearAxis.MinorGridlineStyle = LineStyle.Dot;
+Plot.Model.Axes.Add(linearAxis);
+LinearAxis linearAxis2 = new LinearAxis();
+linearAxis2.MajorGridlineStyle = LineStyle.Solid;
+linearAxis2.MinorGridlineStyle = LineStyle.Dot;
+linearAxis2.Position = AxisPosition.Bottom;
+Plot.Model.Axes.Add(linearAxis2);
+
+Plot.Model.Series.Add(CreateSerie("x", (d) => d*d*d*d));
+
+Plot.RefreshPlot(true);
+--CSharpExec
+plotModel = new PlotModel(); 
+plotModel.PlotMargins = new OxyThickness(40.0, 40.0, 40.0, 40.0);
+
+
+LinearAxis linearAxis = new LinearAxis();
+linearAxis.MajorGridlineStyle = LineStyle.Solid;
+linearAxis.MinorGridlineStyle = LineStyle.Dot;
+linearAxis.Position = AxisPosition.Right;
+linearAxis.Title = "Right";
+linearAxis.MinorGridlineColor = OxyColor.FromRgb(255,0,0);
+linearAxis.MajorGridlineColor = OxyColor.FromRgb(255,0,0);
+
+var linearAxis2 = new LinearAxis();
+linearAxis2.MajorGridlineStyle = LineStyle.Solid;
+linearAxis2.MinorGridlineStyle = LineStyle.Dot;
+linearAxis2.Position = AxisPosition.Top;
+linearAxis2.Title = "Top";
+
+plotModel.Axes.Add(linearAxis2);
+
+var linearAxis3 = new LinearAxis();
+linearAxis3.MajorGridlineStyle = LineStyle.Solid;
+linearAxis3.MinorGridlineStyle = LineStyle.Dot;
+linearAxis3.Position = AxisPosition.Left;
+linearAxis3.Title = "Left";
+
+
+linearAxis3.MinorGridlineColor = OxyColor.FromRgb(0, 0,255);
+linearAxis3.MajorGridlineColor = OxyColor.FromRgb(0,0,255);
+
+linearAxis3.MajorGridlineThickness = 1;
+linearAxis3.MinorGridlineThickness = 1;
+
+plotModel.Axes.Add(linearAxis2);
+plotModel.Axes.Add(linearAxis3);
+plotModel.Axes.Add(linearAxis);
+
+Plot.Model.Series.Add(CreateSerie("200 * x", (d) => 200 *d));
+Plot.Model.Series.Add(CreateSerie("x^4", (d) => d*d*d*d));
+
+
+Plot.RefreshPlot(true);
+linearAxis.Minimum = linearAxis3.ActualMinimum * 0.435;
+linearAxis.Maximum = linearAxis3.ActualMaximum* 0.2345;
+Plot.RefreshPlot(true);
+
+--CSharpExec
+linearAxis3.Angle = 45
+--CSharpExec
+plotModel.Axes[0] == linearAxis3
+--CSharpExec
+plotModel.Axes[1] == linearAxis3
+--CSharpExec
+plotModel.Axes[2] == linearAxis3
+--CSharpExec
+plotModel.Axes[3] == linearAxis
+--CSharpExec
+linearAxis == plotModel.DefaultXAxis
+--CSharpExec
+static OxyPlot.Series.Series CreateSerie(string tooltip, Func<double, double> func)
+{
+	return new FunctionSeries(func, -10, 10, 0.1, tooltip);
+}
+--CSharpExec
+
+linearAxis2.Minimum = linearAxis2.ActualMinimum * 0.435;
+linearAxis2.Maximum = linearAxis3.ActualMaximum* 0.2345;
+--CSharpExec
+linearAxis.Minimum = linearAxis3.ActualMinimum * 0.435;
+linearAxis.Maximum = linearAxis3.ActualMaximum* 0.2345;
+Plot.RefreshPlot(true);
+--CSharpExec
+new object[]{linearAxis3.ActualMinimum, linearAxis3.ActualMaximum}
+--CSharpExec
+new object[]{linearAxis.ActualMinimum, linearAxis.ActualMaximum}
+--CSharpExec
+new object[]{linearAxis.Minimum, linearAxis.Maximum}
+--CSharpExec
+linearAxis.MinorStep = 100
+--CSharpExec
+Plot.RefreshPlot(true);
+--CSharpExec
+5/4
+--CSharpExec
+5/(double)4
+--CSharpExec
+Model.Series.Clear()
+--CSharpExec
+Model.Series.Add(CreateSerie("x", (d) => d*d*d*d));
+--CSharpExec
+Plot.RefreshPlot(true);
+--CSharpExec
+Model.ActualPlotMargins.ToString()
+--CSharpExec
+Model.Axes.Clear()
+--CSharpExec
+Plot.Model = new 
+--CSharpExec
+var s = "ciao";
+--CSharpExec
+this.s
+--CSharpExec
+host.s
+--IronPythonExec
+a=234
+--IronPythonExec
+a="lkjl"
+--IronPythonExec
+a = "ciao23
+--CSharpExec
+string a = "ciao";
+--CSharpExec
+string b = a;
+--CSharpExec
+a == b
+--CSharpExec
+(object)a == (object)b
+--CSharpExec
+
+--CSharpExec
+

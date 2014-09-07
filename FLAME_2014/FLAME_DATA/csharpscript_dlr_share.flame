@@ -1,0 +1,56 @@
+#!flame/0/--
+
+--CSharpScript
+(Get("flame") as Flame.Controls.SystemFormVariables).Dlr.DShare
+
+--CSharpScript
+Get("flame").GetType()
+
+--CSharpScript
+((Get("flame") as Flame.Controls.SystemFormVariables).Dlr.DShare as System.Dynamic.ExpandoObject).systemvariables
+
+--CSharpScript
+((Get("flame") as Flame.Controls.SystemFormVariables).Dlr.DShare).systemvariables
+
+--py
+flame.Dlr.DShare.systemvariables
+
+--CSharpScript
+var x = (Get("flame") as Flame.Controls.SystemFormVariables).Dlr.Share;
+
+--CSharpScript
+x.get("a")
+
+--py
+def ooo(x):
+ return x + 23
+flame.Dlr.Share.set("a", ooo);
+ooo.__call__(23)
+
+--CSharpScript
+(x.get("a") as IronPython.Runtime.PythonFunction).__call__(23)
+
+--py
+flame.Dlr.Share.set("c", System.Collections.Generic.List[int]([1,2,3]));
+
+--CSharpScript
+using System.Linq;
+var l = (System.Collections.Generic.List<int>)(x.get("c"));
+from u in l select u + 2
+
+--CSharpScript
+x.get("b").GetType()
+
+--CSharpScript
+var l = new System.Collections.Generic.List<int>();
+
+--CSharpScript
+using System.Linq;
+var l = (System.Collections.Generic.List<int>)(x.get("c"));
+from u in l select u + 2
+
+--py
+
+
+--py
+

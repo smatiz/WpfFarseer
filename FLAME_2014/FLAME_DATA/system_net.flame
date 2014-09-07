@@ -1,0 +1,8 @@
+#!flame/0/--
+--Flame.Dlr.CSharpExec
+using System.Net;
+
+WebClient webClient = new WebClient();
+webClient.DownloadFile("http://www.ccsg.it/Dixan1.jpg", @"t:\myfile.jpg");
+--Flame.Dlr.NoneExec
+

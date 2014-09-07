@@ -1,0 +1,121 @@
+#!flame/0/--
+
+--CSharpScript
+var share = ((Flame.Controls.SystemFormVariables)Get("flame")).Dlr.Share;
+
+--CSharpScript
+
+
+
+
+
+
+
+--CSharpScript
+// scambio di lambda
+System.Func<int, int> a = (int i) => { return i + 5;} ;
+share.set("fcs", a);
+
+--py
+flame.Dlr.Share.get("fcs")(4)
+
+--py
+flame.Dlr.Share.set("fpy", System.Func[int,int](lambda x : x + 3) )
+flame.Dlr.Share.get("fpy")(34)
+
+--CSharpScript
+var fpyincs = (System.Func<int, int>)share.get("fpy");
+fpyincs(42)
+
+--CSharpScript
+
+
+
+
+
+
+--CSharp
+namespace ooo
+{
+	public interface ccc
+	{
+			void eee();
+	}
+}
+
+--CSharpScript
+
+	public class ttt : ooo.ccc
+	{
+			public void eee(){}
+	}
+
+
+--CSharpScript
+ooo.ccc x = new ooo.ccc();
+
+--py
+# scambio di oggetti
+import ooo
+class aaa(ooo.ccc):
+ def bbb(x):
+  return x + 123
+ def eee():
+  return 123
+flame.Dlr.Share.set("ccc", System.Func[aaa](lambda  : aaa() ))
+
+--CSharpScript
+var ddd = (System.Func<object>)share.get("ccc");
+var x = ddd();
+
+--CSharpScript
+((aaa)x).bbb()
+
+--CSharpScript
+public class aaa
+{
+	public int bbb(int x) { return x; }
+}
+share.set("ccc", new System.Func<aaa>( () => { return new aaa(); }));
+
+--py
+x = flame.Dlr.Share.get("ccc")()
+x.bbb(1)
+
+--CSharpScript
+
+
+
+
+
+
+
+--py
+# linq
+flame.Dlr.Share.set("lll", System.Collections.Generic.List[int]( [i % 2 for i in range(1,10)  if i != 3 ]))
+
+--CSharpScript
+var lll = (System.Collections.Generic.List<int>)share.get("lll");
+
+--CSharpScript
+using System.Linq;
+var lll2 = from i in lll  where i != 0 select i + 10;
+lll2
+
+--py
+
+
+--CSharpScript
+
+
+--py
+
+
+--py
+flame.ScripterTabbedControl.ScripterLoaderControl.ScripterControl.Manager.S
+
+--py
+
+
+--py
+

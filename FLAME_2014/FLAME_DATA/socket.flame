@@ -1,0 +1,11 @@
+#!flame/0/--
+--IronPythonExec
+socket = Flame.Socket.TcpServer("127.0.0.1", 8000);
+--IronPythonExec
+_myListener = System.Net.Sockets.TcpClient("127.0.0.1", 8000)
+--IronPythonExec
+System.Net.IPAddress.Parse("127.0.0.1")
+--NoneExec
+
+--NoneExec
+

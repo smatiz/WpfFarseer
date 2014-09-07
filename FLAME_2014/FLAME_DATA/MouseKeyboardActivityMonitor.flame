@@ -1,0 +1,213 @@
+#!flame/0/--
+
+--ipy
+sys.path.Add(System.IO.DirectoryInfo("..\\..\\Data\\libs").FullName)
+clr.AddReference("System.Core")
+clr.AddReference("Castle.Core")
+clr.AddReference("TestStack.White")
+clr.AddReference("MouseKeyboardActivityMonitor")
+flame.ScripterControlForm.OutputStreamWindow.Show()
+
+--ipy
+from MouseKeyboardActivityMonitor import *
+
+--ipy
+
+
+--CSharpScript
+
+public class EmailFound 
+{
+	const string MatchEmailPattern =
+				@"(([\w-]+\.)+[\w-]+|([a-zA-Z]{1}|[\w-]{2,}))@"
+		 + @"((([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\.([0-1]?
+						[0-9]{1,2}|25[0-5]|2[0-4][0-9])\."
+		 + @"([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\.([0-1]?
+						[0-9]{1,2}|25[0-5]|2[0-4][0-9])){1}|"
+		 + @"([a-zA-Z]+[\w-]+\.)+[a-zA-Z]{2,4})";
+      
+	public static System.Collections.Generic.IEnumerable<string> Found(string plainText)
+	{
+		var emailRegexMatches = System.Text.RegularExpressions.Regex.Matches(plainText, MatchEmailPattern);
+
+		foreach (System.Text.RegularExpressions.Match emailRegexMatch in emailRegexMatches)
+		{
+			foreach (System.Text.RegularExpressions.Capture capture in emailRegexMatch.Captures)
+			{
+				yield return capture.Value;
+			}
+		}
+	}
+}
+Set("emailFound", new System.Func<string,System.Collections.Generic.IEnumerable<string>>( (string s) => EmailFound.Found(s)));
+
+--CSharp
+namespace Email
+{
+	public class EmailFound 
+{
+	const string MatchEmailPattern =
+				@"(([\w-]+\.)+[\w-]+|([a-zA-Z]{1}|[\w-]{2,}))@"
+		 + @"((([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\.([0-1]?
+						[0-9]{1,2}|25[0-5]|2[0-4][0-9])\."
+		 + @"([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\.([0-1]?
+						[0-9]{1,2}|25[0-5]|2[0-4][0-9])){1}|"
+		 + @"([a-zA-Z]+[\w-]+\.)+[a-zA-Z]{2,4})";
+      
+	public static System.Collections.Generic.IEnumerable<string> Found(string plainText)
+	{
+		var emailRegexMatches = System.Text.RegularExpressions.Regex.Matches(plainText, MatchEmailPattern);
+
+		foreach (System.Text.RegularExpressions.Match emailRegexMatch in emailRegexMatches)
+		{
+			foreach (System.Text.RegularExpressions.Capture capture in emailRegexMatch.Captures)
+			{
+				yield return capture.Value;
+			}
+		}
+	}
+}
+
+}
+
+--CSharpScript
+
+
+--ipy
+f = flame.ScripterTabbedControl.ScripterLoaderControl.ScripterControl.Manager.Share.get("emailFound")
+f("kjkj")
+
+--ipy
+import Email
+
+--ipy
+gh = WinApi.GlobalHooker();
+k = KeyboardHookListener(gh)
+m = MouseHookListener(gh)
+k.Enabled = True
+m.Enabled = True
+
+--ipy
+def captureAllText(s, e):
+ print e.KeyCode
+ if e.KeyCode == System.Windows.Forms.Keys.F2:
+  print "F2"
+  e.Handled = True
+  System.Windows.Forms.SendKeys.SendWait("^a")
+  System.Windows.Forms.SendKeys.SendWait("^c")
+  for i in Email.EmailFound.Found(System.Windows.Forms.Clipboard.GetText()):
+   System.Windows.Forms.MessageBox.Show(i.ToString())
+k.KeyDown += captureAllText
+
+--ipy
+m.MouseDownExt += lambda s,e : System.Windows.Forms.MessageBox.Show("ciao") 
+
+--ipy
+def gettypeforkey(s, e):
+ k.Enabled = False
+ System.Windows.Forms.MessageBox.Show(e.GetType().ToString())
+
+k.KeyDown += gettypeforkey
+
+--ipy
+jpanel = Panel()
+b = Core.Desktop.Instance.CaptureScreenshot()
+panel.BackgroundImage = b
+panel
+
+--ipy
+m.Enabled = False
+k.Enabled = False
+
+--ipy
+
+
+--ipy
+a = KeyEventArgsExt(System.Windows.Forms.Keys.A)
+a.Handled
+
+--ipy
+aattttrr
+a.KeyCode.GetType()
+
+--ipy
+
+
+
+
+
+
+
+
+
+
+--ipy
+from White import *
+from MouseKeyboardActivityMonitor import *
+from System.Windows.Forms import *
+
+--ipy
+gdgdfgkkyyy6
+
+--ipy
+
+
+--ipy
+
+
+--ipy
+clr.AddReference("System.Windows.Forms")
+
+--ipy
+for r in clr.References: print r
+
+--ipy
+flame.Dlr.CompilersManager.ReadOutput()
+
+--ipy
+sys.__str__
+
+--ipy
+d = Core.Desktop.Instance.CaptureScreenshot()
+
+--ipy
+print "ciao"
+
+--ipy
+sys.path.Add(".\\libs")
+
+--ipy
+sys.path
+
+--ipy
+sys.
+
+--ipy
+import os
+
+--ipy
+dir()
+
+--ipy
+__file__
+
+--ipy
+__name__
+
+--ipy
+__doc__
+
+--ipy
+__builtins__
+
+--ipy
+vars()
+
+--ipy
+System.IO.DirectoryInfo(".\\libs").FullName
+
+--ipy
+
+
+--ipy
+

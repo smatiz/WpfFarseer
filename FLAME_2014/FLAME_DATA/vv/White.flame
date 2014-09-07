@@ -1,0 +1,176 @@
+#!flame-0
+
+--Python
+sys.path.Add(System.IO.DirectoryInfo("..\\..\\Data\\libs").FullName)
+clr.AddReference("System.Core")
+clr.AddReference("Castle.Core")
+clr.AddReference("TestStack.White")
+clr.AddReference("MouseKeyboardActivityMonitor")
+--Python
+
+
+--Python
+from MouseKeyboardActivityMonitor import *
+--Python
+
+
+--Python
+gh = WinApi.GlobalHooker();
+k = KeyboardHookListener(gh)
+m = MouseHookListener(gh)
+k.Enabled = True
+m.Enabled = True
+--Python
+
+
+--Python
+m.MouseDownExt += lambda s,e : MessageBox.Show("ciao") 
+--Python
+
+
+--Python
+k.KeyDown += lambda s,e : (
+ if e.KeyCode == 10:
+  MessageBox.Show("ciao"))
+--Python
+
+
+--Python
+panel = Panel()
+b = Core.Desktop.Instance.CaptureScreenshot()
+panel.BackgroundImage = b
+panel
+--Python
+
+
+--Python
+
+--Python
+
+
+--Python
+
+--Python
+
+
+--Python
+from White import *
+from MouseKeyboardActivityMonitor import *
+from System.Windows.Forms import *
+--Python
+
+
+--Python
+gdgdfg
+--Python
+
+
+--Python
+
+--Python
+
+
+--Python
+
+--Python
+
+
+--Python
+
+--Python
+
+
+--Python
+clr.AddReference("System.Windows.Forms")
+--Python
+
+
+--Python
+for r in clr.References: print r
+--Python
+
+
+--Python
+flame.Dlr.CompilersManager.ReadOutput()
+--Python
+
+
+--Python
+sys.__str__
+--Python
+
+
+--Python
+d = Core.Desktop.Instance.CaptureScreenshot()
+--Python
+
+
+--Python
+print "ciao"
+--Python
+
+
+--Python
+sys.path.Add(".\\libs")
+--Python
+
+
+--Python
+sys.path
+--Python
+
+
+--Python
+sys.
+--Python
+
+
+--Python
+import os
+--Python
+
+
+--Python
+dir()
+--Python
+
+
+--Python
+__file__
+--Python
+
+
+--Python
+__name__
+--Python
+
+
+--Python
+__doc__
+--Python
+
+
+--Python
+__builtins__
+--Python
+
+
+--Python
+vars()
+--Python
+
+
+--Python
+System.IO.DirectoryInfo(".\\libs").FullName
+--Python
+
+
+--Python
+
+--Python
+
+
+--Python
+
+--Python
+

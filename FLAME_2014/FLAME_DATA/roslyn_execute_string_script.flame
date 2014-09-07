@@ -1,0 +1,22 @@
+#!flame/0/--
+--CSharpExec
+public class Ciao
+{
+	public double Miao { get;set;}
+}
+--CSharpExec
+var a = new Ciao();
+--CSharpExec
+a.Miao
+--CSharpExec
+var script = new Flame.Dlr.Script(typeof(Flame.Dlr.CSharpExec),"var x = 100;");
+--CSharpExec
+flame.AddScript(script);
+--CSharpExec
+x
+--CSharpExec
+Keys
+--CSharpExec
+
+--CSharpExec
+

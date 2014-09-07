@@ -1,0 +1,13 @@
++++[Python]
+a = dict([
+('Language', Flame.Dlr.Languages.Python), ('Auto', False), ('Code',
+"""
+System.Windows.Forms.MessageBox.Show("ciaoooo")
+""")
+])
++++[Python]
+
++++[Python]
+
++++[Python]
+

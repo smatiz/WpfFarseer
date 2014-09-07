@@ -1,0 +1,35 @@
+#!flame/0/--
+--CSharpExec
+using System.Windows.Forms;
+using System.Collections.Generic;
+--CSharpExec
+var dgv = new DataGridView();
+--CSharpExec
+class dato
+{
+	public int N{ get;set;}
+	public string S{ get;set;}
+	public float F{ get;set;}
+}
+--CSharpExec
+var l = new List<int>{ 1,2,3,4,5};
+--CSharpExec
+var dati = new List<dato>{ 
+	new dato() { N = 1, S = "ciao", F = 1f},
+	new dato() { N = 2, S = "sdfsdf", F = 1.123f},
+	new dato() { N = 4, S = "33333", F = 1.0f},
+	new dato() { N = 12354, S = "ad asd a", F = 234.324f}
+	
+	
+	};
+--CSharpExec
+dgv
+--CSharpExec
+dgv.DataSource = dati;
+--CSharpExec
+dgv.DataSource = l;
+null
+--CSharpExec
+
+--CSharpExec
+

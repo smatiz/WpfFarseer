@@ -1,0 +1,20 @@
++++[Python]
+import yalm
++++[Python]
+import json
++++[None]
+
++++[Python]
+a={'uno': True, 'due': 245}
++++[Python]
+a.ToString()
++++[Python]
+b = str(a)
++++[Python]
+c = eval(b)
++++[Python]
+c
++++[Python]
+
++++[Python]
+

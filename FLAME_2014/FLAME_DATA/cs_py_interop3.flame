@@ -1,0 +1,102 @@
+#!flame/0/--
+
+--CSharpScript
+var share = ((Flame.Controls.ScripterControlFormVariable)Get("flame")).ScripterTabbedControl.ScripterLoaderControl.ScripterControl.Manager.Share;
+
+--py
+share = flame.ScripterTabbedControl.ScripterLoaderControl.ScripterControl.Manager.Share
+
+--CSharpScript
+
+
+
+
+
+
+
+--CSharpScript
+// scambio di lambda
+
+share.set("csharpLamda", new System.Func<int, int>((int i) => { return i + 5;}));
+
+--py
+share.get("csharpLamda")(4)
+
+--py
+# scambio di lambda
+
+share.set("pythonLamda", System.Func[int,int](lambda x : x + 3) )
+
+--CSharpScript
+((System.Func<int, int>)share.get("pythonLamda"))(42);
+
+--CSharpScript
+
+
+
+
+
+
+--CSharp
+// scambio di oggetti
+
+public interface ICharp
+{
+	int sumwith(int x);
+}
+
+--py
+import ICharp
+class ICharp_PythonImplemetation(ICharp):
+ def sumwith(self, x):
+  return x + 123
+
+share.set("ICharp_PythonImplemetationCostructor", System.Func[ICharp](lambda  : ICharp_PythonImplemetation() ))
+
+--CSharpScript
+((System.Func<ICharp>)share.get("ICharp_PythonImplemetationCostructor"))().sumwith(5)
+
+--CSharpScript
+// scambio di oggetti
+
+public class CharpClass
+{
+	public int sumwith12(int x) { return x + 12; }
+}
+share.set("CharpClassCostructor", new System.Func<CharpClass>( () => { return new CharpClass(); }));
+
+--py
+share.get("CharpClassCostructor")().sumwith12(5)
+
+--CSharpScript
+
+
+
+
+
+
+
+--py
+# linq
+
+share.set("listPython", System.Collections.Generic.List[int]( [i % 2 for i in range(1,10)  if i != 3 ]))
+
+--CSharpScript
+using System.Linq;
+var listPython = (System.Collections.Generic.List<int>)share.get("listPython");
+from i in listPython  where i != 0 select i + 10
+
+--py
+
+
+--CSharpScript
+
+
+--py
+
+
+--py
+
+
+--py
+

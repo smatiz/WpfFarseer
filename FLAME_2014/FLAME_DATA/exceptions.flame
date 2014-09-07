@@ -1,0 +1,17 @@
+#!flame/0/--
+--py
+print "biiii"
+--py
+flame.OutputStreamWindow.Show()
+--Ruby
+puts a
+--py
+raise Exception('spam', 'eggs')
+--py
+assert type(flame) is type(""), "requires a string"
+--Ruby
+a = 234
+--Ruby
+except Exception,e: print str(e)
+--Ruby
+

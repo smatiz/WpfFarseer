@@ -1,0 +1,13 @@
++++[Ruby]
+x = AAA::BBB.new
+x.CCC()
++++[Python]
+from AAA import *
+y = BBB()
+y.CCC()
++++[None]
+function ciao()
+{
+	return "xxx";
+}
+ciao()

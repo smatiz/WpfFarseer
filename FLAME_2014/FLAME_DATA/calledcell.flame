@@ -1,0 +1,20 @@
+#!flame/0/--
+--NoneExec
+
+
+--IronPythonExec
+def calledCells():
+ return flame.ScripterTabbedControl.ScripterLoaderControl.ScripterControl.CalledCells
+
+--IronPythonExec
+5 +3
+
+--IronPythonExec
+cs = calledCells()
+cs[cs.Count - 1].Result.Data +2
+
+--NoneExec
+
+
+--NoneExec
+

@@ -1,0 +1,40 @@
+#!flame-0
+
+--Powershell
+$f_findallfile = 
+{
+    param($dir)
+    
+    get-childitem $dir -Recurse |? { 
+    #|% { $_.FullName }
+}
+
+
+$flame.Dlr.Share.set("findallfilesin", $f_findallfile)
+--Powershell
+
+
+--Python
+
+--Python
+
+
+--Powershell
+$f_findallfile = 
+{
+	param (
+	[parameter(Mandatory=$true)]
+	[String]$dir,
+        [parameter(Mandatory=$true)]
+        $func
+    )
+     get-childitem $dir -Recurse |? { $func.Invoke() }
+}
+$flame.Dlr.Share.set("findallfiles", $f_findallfile)
+--Powershell
+
+
+--Powershell
+
+--Powershell
+

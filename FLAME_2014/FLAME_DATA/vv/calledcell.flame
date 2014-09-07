@@ -1,0 +1,33 @@
+#!flame-0
+
+--None
+
+--None
+
+
+--Python
+def calledCells():
+ return flame.ScripterTabbedControl.ScripterLoaderControl.ScripterControl.CalledCells
+--Python
+
+
+--Python
+5 +3
+--Python
+
+
+--Python
+cs = calledCells()
+cs[cs.Count - 1].Result.Data +2
+--Python
+
+
+--None
+
+--None
+
+
+--None
+
+--None
+

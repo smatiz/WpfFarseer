@@ -1,0 +1,46 @@
+#!flame/0/--
+--IronPythonExec
+engine = flame.Dlr.GetEngine(flame.Languages.Get("ipy"))
+--IronPythonExec
+def GetListOfNames(s):
+	r = Flame.Reflection.Intellisense.Instance.GetListOfNames(s, engine.Intellisense)
+	l = []
+	for ii in r.List:
+	 l.Add(ii.Name)
+	return l
+def GetListMethodsInfo(s):
+	r = Flame.Reflection.Intellisense.Instance.GetListMethodsInfo(s, engine.Intellisense)
+	l = []
+	for ii in r.List:
+	 l.Add(ii.Name)
+	return l
+def GetListOfMembers(s):
+	r = Flame.Reflection.Intellisense.Instance.GetListOfMembers(s, engine.Intellisense)
+	l = []
+	for ii in r.List:
+	 l.Add(ii.Name)
+	return l
+--IronPythonExec
+GetListOfNames("System.Win")
+--IronPythonExec
+GetListMethodsInfo("ii")
+--IronPythonExec
+GetListOfMembers("ii")
+--IronPythonExec
+ii = r.List[8]
+ii.Name
+--IronPythonExec
+l = []
+for ii in r.List:
+ l.Add(ii.Name)
+l
+--IronPythonExec
+l
+--CSharpExec
+var engine = Get("flame").Dlr.GetEngine(flame.Languages.Get("ipy"));
+--CSharpExec
+var x = Get("flame");
+--NoneExec
+
+--NoneExec
+

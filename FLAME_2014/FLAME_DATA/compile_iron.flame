@@ -1,0 +1,33 @@
+#!flame/0/--
+--IronPythonExec
+import clr
+path_py = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "foo.py")
+path_dll = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "foo4.dll")
+flame.Dlr.Share.path_py = path_py
+flame.Dlr.Share.path_dll = path_dll
+[path_py, path_dll]
+
+--IronPythonExec
+script = "class aaa(System.Object):\n def bbb(self, a):\n  return 5 + a\n"
+System.IO.File.WriteAllText(path_py, script);
+clr.CompileModules(path_dll,path_py)
+
+--IronRubyExec
+require flame.Dlr.Share.path_dll
+x = aaa.new()
+
+--IronRubyExec
+class Rrr
+   def sss(x)
+      return x + 4
+   end
+end
+flame.Dlr.Share.rrr = Rrr
+nil
+
+--IronPythonExec
+rp = flame.Dlr.Share.rrr.new()
+rp.sss(53)
+
+--IronPythonExec
+

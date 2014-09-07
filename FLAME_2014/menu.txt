@@ -1,0 +1,20 @@
+
+menu con script (shortcut?)
+icone con script?
+
+______________________________________________________
+
+
+scripterControl:
+
+DefaultLanguage
+
+
+
+-----------------------
+NON nel menu:
+Invio
+Invio Parziale
+AutoComplete
+-----------------------
+tutto scintillanet?

@@ -1,0 +1,128 @@
+#!flame/0/--
+--CSharpExec
+using System;
+using System.Linq;
+using FarseerPhysics;
+using FarseerPhysics.Dynamics;
+using FarseerPhysics.Dynamics.Joints;
+using FarseerPhysics.Factories;
+using Microsoft.Xna.Framework;
+using FarseerPhysics.Common;
+using FarseerPhysics.Collision.Shapes;
+using FarseerPhysics.Samples.Demos.Prefabs;
+
+using System.Collections.Generic;
+--CSharpExec
+
+float Density = 1;
+float l = 2;
+//Vector2 o;
+Vector2 v(float x, float y)
+{
+	return l * new Vector2(x, y);
+}
+Vertices vs(params float[] xy)
+{
+	if(xy.Length % 2 != 0) throw new Exception();
+	var vs = new Vertices();
+	int n = xy.Length / 2;
+	for(int i = 0; i < n; i++)
+	{
+		vs.Add(v(xy[i*2] , xy[i*2 + 1]));
+	}
+	
+	return vs;
+}
+--CSharpExec
+World.Clear();
+--CSharpExec
+var bpol = BodyFactory.CreatePolygon(World, 
+                vs(0, 0,
+					1, 0,
+					1, 1,
+					0, 1), 
+					Density
+				);
+bpol.Position = v(-10, -5);
+bpol.BodyType = BodyType.Dynamic;
+--CSharpExec
+// CreatePolygon => CONVEX
+var bpol2 = BodyFactory.CreatePolygon(World, 
+                vs(0, 0,
+					1, 0,
+					0.5f, 0.5f,
+					1, 1,
+					0, 1), 
+					Density
+				);
+bpol2.Position =  v(-8, -5);
+--CSharpExec
+
+var bedge = BodyFactory.CreateEdge(World, 
+                v(0, 0),
+					v(1, 0)
+				);
+bedge.Position =  v(-6, -5);
+--CSharpExec
+
+
+var bedges = BodyFactory.CreateChainShape(World, 
+                 vs(0, 0,
+					1, 0,
+					1, 1,
+					0, 1)
+				);
+bedges.Position =  v(-4, -5);
+
+--CSharpExec
+// avoid to use edge as dynamic body
+
+var bedgesLoop = BodyFactory.CreateLoopShape(World, 
+                 vs(0, 0,
+					1, 0,
+					1, 1,
+					0, 1), 
+					Density
+				);
+var c = BodyFactory.CreateCircle(World, 
+                 0.3f, Density
+				);
+bedgesLoop.Position =  v(-2, -5);
+c.Position =  v(-1.5f, -4.5f);
+bedgesLoop.BodyType = BodyType.Dynamic;
+c.BodyType = BodyType.Dynamic;
+
+--CSharpExec
+var bPolComp = BodyFactory.CreateCompoundPolygon(World, new List<Vertices>() {
+                new Vertices(new Vector2[]{
+                    new Vector2(0, 0), 
+                    new Vector2(1, 0), 
+                    new Vector2(1, 1), 
+                    new Vector2(0, 1)
+                }),
+                new Vertices(new Vector2[]{
+                    new Vector2(0.7f, 0.7f), 
+                    new Vector2(2.1f, 0.7f), 
+                    new Vector2(2.1f, 2.1f), 
+                    new Vector2(0.7f, 2.1f)
+                })
+            }, Density);
+bPolComp.Position =  v(0f, -5f);
+bPolComp.BodyType = BodyType.Dynamic;
+--CSharpExec
+var bGear = BodyFactory.CreateGear(World, 1, 10, 100f, 0.2f, Density);
+bGear.Position =  v(2f, -5f);
+bGear.BodyType = BodyType.Dynamic;
+
+--CSharpExec
+var bBreak = BodyFactory.CreateBreakableBody(World, vs(0, 0,
+					1, 0,
+					1, 1,
+					0, 1), 
+					Density);
+bBreak.Strength = 1;
+bBreak.MainBody.Position =  v(4f, -5f);
+--CSharpExec
+
+--CSharpExec
+

@@ -1,0 +1,22 @@
+#!flame/0/--
+--CSharpExec
+var ass = System.Reflection.Assembly.GetEntryAssembly();
+--CSharpExec
+ass.GetLoadedModules()
+--CSharpExec
+string typeName = "Flame.Debug";
+string methodName = "Register";
+--CSharpExec
+var t = ass.GetType(typeName);
+--CSharpExec
+t == null
+--CSharpExec
+System.Reflection.Assembly.GetExecutingAssembly().GetType(typeName);
+--CSharpExec
+ass.GetExportedTypes()
+--CSharpExec
+var assname = ass.GetReferencedAssemblies()[6];
+--CSharpExec
+Assembly
+--CSharpExec
+

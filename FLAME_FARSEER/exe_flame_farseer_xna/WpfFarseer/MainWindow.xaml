@@ -1,0 +1,10 @@
+﻿<Window x:Class="WpfFarseer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:l="clr-namespace:WpfFarseer"
+        Title="MainWindow" Height="350" Width="525">
+    <Canvas>
+        <l:FarseerCircle Radius="20" X="60"  Y="20" BodyType="Dynamic"></l:FarseerCircle>
+        <l:FarseerCircle Radius="20" X="70"  Y="70" BodyType="Kinematic"></l:FarseerCircle>
+    </Canvas>
+</Window>

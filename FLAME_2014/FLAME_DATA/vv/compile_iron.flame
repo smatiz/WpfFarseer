@@ -1,0 +1,105 @@
+#!flame-0
+
+--Python
+import clr
+path_py = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "foo.py")
+path_dll = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "foo4.dll")
+flame.Dlr.Share.path_py = path_py
+flame.Dlr.Share.path_dll = path_dll
+[path_py, path_dll]
+--Python
+
+
+--Python
+script = "class aaa(System.Object):\n def bbb(self, a):\n  return 5 + a\n"
+System.IO.File.WriteAllText(path_py, script);
+clr.CompileModules(path_dll,path_py)
+--Python
+
+
+--Ruby
+require flame.Dlr.Share.path_dll
+x = aaa.new()
+--Ruby
+
+
+--Ruby
+class Rrr
+   def sss(x)
+      return x + 4
+   end
+end
+flame.Dlr.Share.rrr = Rrr
+nil
+--Ruby
+
+
+--Python
+rp = flame.Dlr.Share.rrr.new()
+rp.sss(53)
+--Python
+
+
+--Powershell
+S:\ROOT\DROPBOX\Dropbox\MAIN_PROJECTS\_DLL_ALL_\IL_SPY\ILSpy.exe $flame.Dlr.Share.path_dll
+--Powershell
+
+
+--Powershell
+notepad $flame.Dlr.Share.path_py
+--Powershell
+
+
+--Python
+class ooo(System.Object):
+ def bbb(self, a):
+  return 5 + a
+flame.Dlr.Share.ooo = ooo
+--Python
+
+
+--Python
+exec(script)
+--Python
+
+
+--Powershell
+
+--Powershell
+
+
+--Ruby
+x = flame.Dlr.Share.ooo()
+x.bbb(8)
+--Ruby
+
+
+--Python
+x = flame.Dlr.Share.Customer.new()
+--Python
+
+
+--Python
+x.
+--Python
+
+
+--Python
+dir(x)
+--Python
+
+
+--Ruby
+Rrr
+--Ruby
+
+
+--Python
+
+--Python
+
+
+--Ruby
+
+--Ruby
+

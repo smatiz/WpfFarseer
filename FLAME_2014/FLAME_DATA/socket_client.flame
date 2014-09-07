@@ -1,0 +1,21 @@
+#!flame/0/--
+--IronPythonExec
+_myListener = System.Net.Sockets.TcpClient("127.0.0.1", 8000)
+--IronPythonExec
+stream = _myListener.GetStream();
+--IronPythonExec
+data = System.Text.Encoding.ASCII.GetBytes("ciao")
+stream.Write(data, 0, data.Length);
+--IronPythonExec
+
+stream.Read(data, 0 , 1)
+--IronPythonExec
+data
+--IronPythonExec
+System.Text.Encoding.ASCII.GetString(data, 0 , data.Length)
+--IronPythonExec
+j
+--NoneExec
+
+--NoneExec
+

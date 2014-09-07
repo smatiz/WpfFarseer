@@ -1,0 +1,79 @@
+#!flame-0
+
+--None
+
+--None
+
+
+--Python
+clr.AddReferenceToFileAndPath(r"S:\ROOT\DROPBOX\Dropbox\WOLFRAM_WORK\Flame\DLLS\Castle.Core.dll")
+--Python
+
+
+--Python
+clr.AddReferenceToFileAndPath(r"S:\ROOT\DROPBOX\Dropbox\WOLFRAM_WORK\Flame\DLLS\mono.cecil_net4\Mono.Cecil.dll")
+--Python
+
+
+--Python
+import Mono
+import Mono.Cecil
+from Mono.Cecil import *
+--Python
+
+
+--CSharp
+namespace ns
+{
+	public class cl
+	{
+		public int sum(int i, int j){return i + j + 3;}
+	}
+}
+--CSharp
+
+
+--Python
+AssemblyDefinition.ReadAssembly(assemblyPath);
+--Python
+
+
+--Python
+t.HasMethods
+--Python
+
+
+--Python
+import aaa
+--Python
+
+
+--Python
+t  = Mono.Cecil.TypeDefinition("aaa", "MainCase", Mono.Cecil.TypeAttributes.Class )
+--Python
+
+
+--Python
+t.Methods
+--Python
+
+
+--Python
+x = aaa.MainCase()
+--Python
+
+
+--Python
+ from Mono.Cecil import *
+--Python
+
+
+--Python
+
+--Python
+
+
+--Python
+
+--Python
+

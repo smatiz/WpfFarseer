@@ -1,0 +1,38 @@
+#!flame/0/--
+
+--txt
+
+
+--py
+
+
+--py
+
+
+--py
+p = System.Windows.Forms.Panel()
+
+--py
+b = System.Drawing.Bitmap(System.IO.FileInfo("..\\..\\Data\\icon_python.png").FullName)
+
+--py
+p.BackgroundImage = System.Drawing.Image.FromFile(System.IO.FileInfo("..\\..\\Data\\icon_python.png").FullName)
+
+--py
+#p.BackColor = System.Drawing.Color.Red
+
+--py
+p.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+
+--py
+p.Width = 20
+p.Height = 20
+
+--py
+p
+
+--py
+
+
+--py
+

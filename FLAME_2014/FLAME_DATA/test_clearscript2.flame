@@ -1,0 +1,9 @@
+#!flame/0/--
+--Javascript_ClearScript_Exex
+var MB = System_Windows_Forms_MessageBox;
+--Javascript_ClearScript_Exex
+MB.Show("ccc");
+--NoneExec
+
+--NoneExec
+

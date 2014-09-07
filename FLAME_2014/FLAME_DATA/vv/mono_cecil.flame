@@ -1,0 +1,99 @@
+#!flame-0
+
+--None
+
+--None
+
+
+--Python
+clr.AddReferenceToFileAndPath(r"S:\ROOT\DROPBOX\Dropbox\WOLFRAM_WORK\Flame\DLLS\Castle.Core.dll")
+--Python
+
+
+--Python
+clr.AddReferenceToFileAndPath(r"S:\ROOT\DROPBOX\Dropbox\WOLFRAM_WORK\Flame\DLLS\mono.cecil_net4\Mono.Cecil.dll")
+--Python
+
+
+--Python
+import Mono
+import Mono.Cecil
+from Mono.Cecil import *
+--Python
+
+
+--CSharp
+public class MainCase
+{
+	public void PublicMethod()
+	{
+		System.Windows.Forms.MessageBox.Show("Hello");
+		PrivateMethod();
+
+		new SecondCase().Help("Help me");
+	}
+
+	public void AddMethod()
+	{
+	}
+
+	private void PrivateMethod()
+	{
+	}
+
+	public void MethodWithArgument(string name)
+	{
+		System.Windows.Forms.MessageBox.Show(name);
+	}
+}
+
+// SecondCase.cs
+class SecondCase
+{
+	public void Help(string message)
+	{
+		System.Windows.Forms.MessageBox.Show(message);
+	}
+}
+--CSharp
+
+
+--Python
+System.Windows.Forms.Mess
+--Python
+
+
+--Python
+
+--Python
+
+
+--Python
+
+--Python
+
+
+--Python
+
+--Python
+
+
+--Python
+dir()
+--Python
+
+
+--Python
+dir(Mono.Cecil)
+--Python
+
+
+--Python
+
+--Python
+
+
+--Python
+
+--Python
+

@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{17CD61F9-4103-4780-B7E8-EA95F439DE18}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>exe_flame_farseer_xna</RootNamespace>
+    <AssemblyName>exe_flame_farseer_xna</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
+    <Reference Include="Microsoft.Xna.Framework.Game, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Farseer Physics Engine 3.5 Samples\Farseer Physics DebugView 3.5\DebugView XNA.csproj">
+      <Project>{fc7845fa-13fe-4ff8-822a-a577f3f59b00}</Project>
+      <Name>DebugView XNA</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Farseer Physics Engine 3.5 Samples\Farseer Physics Engine 3.5\Farseer Physics XNA.csproj">
+      <Project>{0a850700-1abb-4288-a391-6726b90ebeb9}</Project>
+      <Name>Farseer Physics XNA</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Farseer Physics Engine 3.5 Samples\Farseer Physics Samples 3.5\Samples XNA.csproj">
+      <Project>{3681ada2-b2f3-4157-a603-82c742379856}</Project>
+      <Name>Samples XNA</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\FLAME_2014\Flame\Flame.Base\Flame.Base.csproj">
+      <Project>{6e8df0fa-f9d6-496d-ae08-99c3b7ec757c}</Project>
+      <Name>Flame.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\FLAME_2014\Flame\Flame.Controls.Common\Flame.Controls.Common.csproj">
+      <Project>{d327180b-6d7a-4461-8ce0-64bf9cc0a809}</Project>
+      <Name>Flame.Controls.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\FLAME_2014\Flame\Flame.Controls\Flame.Controls.csproj">
+      <Project>{b0f5bb4e-8391-40e3-b2bd-af8eebde05e4}</Project>
+      <Name>Flame.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\FLAME_2014\Flame\Flame.Debug\Flame.Debug.csproj">
+      <Project>{167938e9-7883-4d27-a78a-3a1c20f0fe90}</Project>
+      <Name>Flame.Debug</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\FLAME_2014\Flame\Flame.Dlr.Roslyn\Flame.Dlr.Roslyn.csproj">
+      <Project>{a41c2cc3-053d-4c52-ae99-ed7d9c43e7dc}</Project>
+      <Name>Flame.Dlr.Roslyn</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\FLAME_2014\Flame\Flame.Reflection\Flame.Reflection.csproj">
+      <Project>{88c1a100-a8c6-4c06-ae37-ea5163f57344}</Project>
+      <Name>Flame.Reflection</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\FLAME_2014\Flame\Flame.Scintilla\Flame.Scintilla.csproj">
+      <Project>{35da336c-e235-484c-90da-8cd5c71997ff}</Project>
+      <Name>Flame.Scintilla</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\FLAME_2014\Flame\ScintillaNET\ScintillaNET.csproj">
+      <Project>{f9b6dabd-bbc1-4638-8ce6-a5c9506bfdcb}</Project>
+      <Name>ScintillaNET</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

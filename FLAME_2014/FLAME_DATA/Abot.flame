@@ -1,0 +1,85 @@
+#!flame/0/--
+--py
+s = r"S:\ROOT\DROPBOX\Dropbox\Abotv1.1.1_Bin" + "\\"
+flame.ScripterControlForm.OutputStreamWindow.Show()
+
+
+--py
+import clr
+import sys
+sys.path.Add(s)
+for dll in System.IO.DirectoryInfo(s).GetFiles("*.dll"):
+ clr.AddReference (dll.Name)
+ print dll.Name
+import Abot
+from Abot import *
+
+
+--py
+crawlConfig = Abot.Poco.CrawlConfiguration()
+crawlConfig.CrawlTimeoutSeconds = 10
+# Altrimenti si blocca
+crawlConfig.MaxConcurrentThreads = 1
+#crawlConfig.MaxConcurrentThreads = 2
+crawlConfig.MaxCrawlDepth = 3
+
+
+--py
+crawler = Abot.Crawler.PoliteWebCrawler(crawlConfig, None, None, None, None, None, None, None, None)
+
+
+--py
+def crawler_ProcessPageCrawlCompleted(s, e):
+ print e.CrawledPage.Uri.AbsoluteUri
+crawler.PageCrawlCompleted += crawler_ProcessPageCrawlCompleted
+
+
+--py
+result = crawler.Crawl(System.Uri("http://www.serialmente.com"))
+
+
+--py
+
+
+
+
+
+
+
+--py
+result = crawler.Crawl(System.Uri("https://code.google.com/p/abot/wiki/v1d1QuickStart"))
+
+
+--py
+def crawler_ProcessPageCrawlCompleted(s, e):
+ #System.Windows.Forms.MessageBox.Show("ppp");
+ print "##1"
+def crawler_ProcessPageCrawlCompletedA(s, e):
+ print "##2"
+crawler.PageCrawlCompleted += crawler_ProcessPageCrawlCompleted
+#crawler.PageCrawlCompletedAsync += crawler_ProcessPageCrawlCompletedA
+
+
+
+--py
+print "##1"
+
+
+--py
+result = crawler.Crawl(System.Uri("https://www.google.it/"))
+
+
+--py
+result.Elapsed
+
+
+--py
+result.CrawlContext.CrawledUrls
+
+
+--py
+Abot
+
+
+--py
+

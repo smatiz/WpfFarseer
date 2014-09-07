@@ -1,0 +1,94 @@
+#!flame/0/--
+--CSharpExec
+using System;
+using System.Collections.Generic;
+
+using System.Text;
+using System.CodeDom.Compiler;
+using Microsoft.CSharp;
+
+var Source = @"
+using System.Diagnostics;
+public class aaa
+{
+	public void bbb()
+	{
+		StackTrace stackTrace = new StackTrace();
+		//System.Diagnostics.Debugger.Launch();
+		System.Windows.Forms.MessageBox.Show(System.Environment.StackTrace);
+		System.Windows.Forms.MessageBox.Show(stackTrace.GetFrame(1).GetMethod().Name);
+	}
+}
+";
+
+CSharpCodeProvider codeProvider = new CSharpCodeProvider(new Dictionary<string, string>() { { "CompilerVersion", "v3.5" } });
+//codeProvider.
+ICodeCompiler icc = codeProvider.CreateCompiler();
+
+CompilerParameters parameters = new CompilerParameters();
+parameters.GenerateExecutable = false;
+parameters.GenerateInMemory = true;
+//parameters.CompilerOptions = string.Format("/lib:\"{0}\"", Application.StartupPath);
+parameters.ReferencedAssemblies.Add("System.dll");
+parameters.ReferencedAssemblies.Add("System.Core.dll");
+parameters.ReferencedAssemblies.Add("System.Windows.Forms.dll");
+parameters.GenerateInMemory = false; //default
+parameters.TempFiles.KeepFiles = true;
+parameters.TempFiles = new TempFileCollection(Environment.GetEnvironmentVariable("TEMP"), true);
+parameters.IncludeDebugInformation = true;
+
+CompilerResults results = icc.CompileAssemblyFromSource(parameters, Source);
+--CSharpExec
+string s;
+if(results.Errors.Count == 0)
+{
+	s = "ok";
+}
+else
+{
+ s = results.Errors[0].ToString();
+}
+s
+--CSharpExec
+var type = results.CompiledAssembly.GetType("aaa");
+var obj = Activator.CreateInstance(type);
+var method = type.GetMethod("bbb");
+var thread = new System.Threading.Thread(() =>
+	{
+		method.Invoke(obj, new object[] { });
+	}
+);
+--CSharpExec
+thread.Start();
+--CSharpExec
+System.Diagnostics.Debugger.Launch();
+--CSharpExec
+results.CompiledAssembly.
+--CSharpExec
+System.Diagnostics. 
+--CSharpExec
+thread.Suspend()
+--CSharpExec
+
+using System.Diagnostics;
+StackTrace stackTrace = new StackTrace(thread, true);
+--CSharpExec
+
+--CSharpExec
+stackTrace
+--CSharpExec
+var f = stackTrace.GetFrames()[10];
+--CSharpExec
+f.GetFileLineNumber()
+--CSharpExec
+f.GetFileName()
+--CSharpExec
+f.GetMethod()
+--CSharpExec
+f.GetFileColumnNumber()
+--CSharpExec
+System.Environment.StackTrace
+--CSharpExec
+
+--CSharpExec
+

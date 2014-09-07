@@ -1,0 +1,46 @@
+#!flame/0/--
+
+--py
+print "ciao"
+
+--py
+for i in range(10,1400):
+	print i
+
+--py
+flame.OutputStreamWindow.Show()
+
+--Ruby
+puts "ciao"
+
+--py
+
+
+--Ruby
+a = flame.Dlr.CompilersManager.GetCompilerEngine(Flame::Dlr::Languages.Ruby)
+
+--Ruby
+a.Language
+
+--py
+help(1)
+
+--py
+print "ciao1"
+flame.Dlr.CompilersManager.LastOutput
+
+--Ruby
+puts "ciao2"
+flame.Dlr.CompilersManager.LastOutput
+
+--py
+345 +32
+
+--py
+print "ciao"
+
+--py
+
+
+--py
+

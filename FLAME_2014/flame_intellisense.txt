@@ -1,0 +1,16 @@
+instance.Property.get(i).someco[CTRL+T]
+[______________________] [____]
+            v               V
+          Type             Names
+          
+          
+inst[CTRL+T]
+[__]
+  v
+Names
+
+
+instance.Property.getsomething( "xx)[CTRL+T]
+[_______________] [__________]
+         v              V
+        Type          method

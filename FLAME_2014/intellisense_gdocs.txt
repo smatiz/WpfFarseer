@@ -1,0 +1,10 @@
+
+Type GetType(string)
+IntellisenseResult Parse(string)
+
+
+IntellisenseResult
+string FullName
+string[] Names
+string Partialname
+ResultType  { InsideMethod, Type }

@@ -1,0 +1,21 @@
+#!flame/0/--
+--NoneExec
+Hello World
+--IronPythonExec
+123 + 456
+--IronPythonExec
+print "ciao"
+--NoneExec
+
+--IronPythonExec
+flame.ScripterControlForm.OutputStreamWindow.Show()
+--NoneExec
+
+--NoneExec
+
+--NoneExec
+
+--NoneExec
+
+--NoneExec
+

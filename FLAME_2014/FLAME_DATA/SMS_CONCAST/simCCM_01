@@ -1,0 +1,129 @@
+#!flame/0/--
+--CSharpExec
+var f = (SimCCM.SimCcmMain)SimCCM.Program.GetMainForm();
+--CSharpExec
+f.Show();
+--CSharpExec
+foreach(var k in Keys)
+{
+	object o = null;
+	if(k != "flame")
+	{
+		o = Get(k);
+		var code = "var " + k + " = (" + o.GetType() + " )Get(\"" + k  + "\");";
+		flame.AddScript(new Flame.Dlr.Script(typeof(Flame.Dlr.CSharpExec),code));
+	}
+}
+--CSharpExec
+using System;
+using System.Linq;
+--CSharpExec
+using CcmProcess.Simulation;
+--CSharpExec
+var strand = ((SimCaster)sim._simulationAggregate).Strands[1];
+--CSharpExec
+var quencherdata = strand.Quencher.SimData as CcmProcess.Simulation.SimQuencherData;
+var stranddata = strand.SimData as CcmProcess.Simulation.SimStrandData;
+var lifterdata = strand.Lifter.SimData as CcmProcess.Simulation.SimLifterData;
+var cutterdata = strand.Cutter.SimData as CcmProcess.Simulation.SimCutterData;
+--CSharpExec
+var t = stranddata.GetType();
+--CSharpExec
+var y = from x in t.GetFields() select x;
+--CSharpExec
+var y = from x in t.GetFields() where x.FieldType == typeof(double) select new { T = x.FieldType.FullName, N = x.Name} ;
+--CSharpExec
+var t = stranddata.GetType();
+
+var y = from x in t.GetFields() where x.FieldType == typeof(double) select new { T = x.FieldType.Name, N = x.Name} ;
+
+public string getprop(string t, string n)
+{
+	return "public _T_ _N_ { get { return _data._N_; } }".Replace("_T_", t).Replace("_N_", n);
+}
+
+
+var props = "";
+
+var main = (
+@"""
+public class _N_
+{
+	_T_ _data;
+	
+	public _N_(_T_ x) { _data = x; }
+	
+	_P_
+	
+	public Double CurrStockBackOffset { get { return _data.CurrStockBackOffset; } }
+}
+""").Replace("_T_", "CcmProcess.Simulation.SimStrandData").Replace("_N_", "SimStrandData").Replace("_P_", props);
+--CSharpExec
+var x = t.GetFields()[0];
+x.FieldType == typeof(double)
+--CSharpExec
+x.Name
+--CSharpExec
+x.FieldType.
+--CSharpExec
+var propertygrid = new System.Windows.Forms.PropertyGrid();
+--CSharpExec
+propertygrid.SelectedObject = cutterdata;
+--CSharpExec
+propertygrid
+--CSharpExec
+propertygrid.Height  = 500;
+propertygrid.Width  = 500;
+--CSharpExec
+strand.SimulateDummyBarInsertionFromBottom();
+--CSharpExec
+stranddata.CurrDummyBarInStrand
+--CSharpExec
+new object[] { 
+	stranddata.CurrStockBackOffset,
+	stranddata.CurrStockFrontOffset,
+	stranddata.CurrHeadCropLength,
+	stranddata.CurrDummyBarHeadOffset,
+	stranddata.CurrWithdrawalTargetSpeed,
+	stranddata.CurrWithdrawalActualSpeed,
+	stranddata.CurrDummyBarInStrand,
+	stranddata.CurrDummyBarConnected,
+	stranddata.CurrDummyBarAutomaticPositioning,
+	stranddata.CurrDummyBarAutomaticPositioningCompleted,
+	stranddata.CurrWithdrawalJogModeSpeed,
+	stranddata.CurrMouldLevel,
+	stranddata.CurrMouldDeltaT,
+	stranddata.CurrMouldFilled,
+	stranddata.CurrCastingSectionCode,
+	stranddata.CurrCastingPaused,
+	stranddata.CurrCastingEnded,
+	stranddata.PrevStockBackOffset,
+	stranddata.PrevStockFrontOffset,
+	stranddata.DummyBarLength
+}
+--CSharpExec
+var quencher = ((CcmProcess.Simulation.SimQuencher)strand.Lifter.Quencher);
+--CSharpExec
+var timer = new System.Windows.Forms.Timer();
+timer.Interval = 1000;
+timer.Tick += (o, e) => {
+		if(stranddata.DummyBarLength > 0)
+		{
+			System.Windows.Forms.MessageBox.Show(stranddata.DummyBarLength.ToString());
+		}
+};
+timer.Start();
+--CSharpExec
+[1].StrandNo
+--CSharpExec
+typeof(CcmProcess.Simulation.SimStrands)
+--CSharpExec
+simulationFrame.GetCasterAggregate()
+--CSharpExec
+sim.BeginSynchronizedSection();
+--CSharpExec
+((SimCaster)sim._simulationAggregate).Strands
+--CSharpExec
+
+--CSharpExec
+

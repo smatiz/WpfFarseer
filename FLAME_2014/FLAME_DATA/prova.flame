@@ -1,0 +1,22 @@
+#!flame/0/--
+
+--py
+sys.path.append("t:\\aaa")
+
+--py
+clr.AddReferenceToFile("MouseKeyboardActivityMonitor")
+
+--py
+sys.path
+
+--py
+MouseHookListener
+
+--py
+a = UserActivityHook()
+
+--py
+MouseKeyboardActivityMonitor.WinApi.
+
+--py
+

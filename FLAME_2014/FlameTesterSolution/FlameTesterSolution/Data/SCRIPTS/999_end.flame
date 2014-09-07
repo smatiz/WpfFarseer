@@ -1,0 +1,7 @@
+#!flame/0/--
+
+--IronPythonExec
+
+
+
+flame.ScripterTabbedControl.NewTab()
