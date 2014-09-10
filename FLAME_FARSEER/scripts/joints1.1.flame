@@ -1,0 +1,96 @@
+#!flame/0/--
+--CSharpExec
+using System.Linq;
+using FarseerPhysics;
+using FarseerPhysics.Dynamics;
+using FarseerPhysics.Dynamics.Joints;
+using FarseerPhysics.Factories;
+using Microsoft.Xna.Framework;
+using FarseerPhysics.Common;
+using FarseerPhysics.Collision.Shapes;
+using FarseerPhysics.Samples.Demos.Prefabs;
+using FarseerPhysics.Samples.ScreenSystem;
+
+using System.Collections.Generic;
+
+--CSharpExec
+Body b1, b2, HiddenBody;
+float Density = 1;
+Border _border;
+void clear()
+{
+	World.Clear();
+	World.Gravity = Vector2.Zero;
+	//_border = new Border(World, ScreenManager, Camera);
+	HiddenBody = BodyFactory.CreateBody(World, Vector2.Zero);
+	b1 = BodyFactory.CreateCircle(World, 1, Density);
+	b1.BodyType = BodyType.Dynamic;
+	b2 = BodyFactory.CreateCircle(World, 1, Density);
+	b2.BodyType = BodyType.Dynamic;
+	b2.Position = b1.Position + new Vector2(4, 0);
+}
+--CSharpExec
+clear();
+--CSharpExec
+var motorJoint = JointFactory.CreateMotorJoint(World, b1, b2);
+--CSharpExec
+motorJoint.MaxForce = 100;
+motorJoint.MaxTorque = 100;
+motorJoint.AngularOffset = 10;
+--CSharpExec
+motorJoint.Enabled = false;
+--CSharpExec
+var distanceJoint = JointFactory.CreateDistanceJoint(World, b1, b2);
+--CSharpExec
+distanceJoint.Enabled = false;
+--CSharpExec
+var weldJoint = JointFactory.CreateWeldJoint(World, b1, b2, new Vector2(2,0),  new Vector2(-2,0));
+--CSharpExec
+weldJoint.Enabled = false;
+--CSharpExec
+var ropeJoint = JointFactory.CreateRopeJoint(World, b1, b2, Vector2.Zero, Vector2.Zero);
+--CSharpExec
+ropeJoint.Enabled = false;
+--CSharpExec
+var revoluteJoint = JointFactory.CreateRevoluteJoint(World, b1, b2, new Vector2(1,0));
+--CSharpExec
+revoluteJoint.Enabled = false;
+--CSharpExec
+var prismaticJoint = JointFactory.CreatePrismaticJoint(World, b1, b2, new Vector2(3,1), new Vector2(1,0));
+
+--CSharpExec
+prismaticJoint.Enabled = false;
+--CSharpExec
+var pulleyJoint = JointFactory.CreatePulleyJoint(World, b1, b2, Vector2.Zero, Vector2.Zero, b1.Position + new Vector2(0,-10),  b2.Position + new Vector2(0,-10),1);
+--CSharpExec
+pulleyJoint.Enabled = false;
+--CSharpExec
+var frictionJoint = JointFactory.CreateFrictionJoint(World, b1, b2, Vector2.Zero);
+--CSharpExec
+frictionJoint.MaxForce = 100;
+--CSharpExec
+frictionJoint.Enabled = false;
+--CSharpExec
+clear();
+--CSharpExec
+var mouseJoint = JointFactory.CreateFixedMouseJoint(World, b1, new Vector2(10,10));
+--CSharpExec
+mouseJoint.DampingRatio = 0;
+--CSharpExec
+mouseJoint. ???
+--CSharpExec
+mouseJoint.Enabled = false;
+--CSharpExec
+var revoluteJoint = JointFactory.CreateRevoluteJoint(World, b2, HiddenBody, new Vector2(4,0));
+var prismaticJoint = JointFactory.CreatePrismaticJoint(World, b1, HiddenBody, Vector2.Zero, new Vector2(0,1));
+var gearJoint = JointFactory.CreateGearJoint(World, b1, b2, revoluteJoint, prismaticJoint,1);
+--CSharpExec
+revoluteJoint.Enabled = false;
+prismaticJoint.Enabled = false;
+gearJoint.Enabled = false;
+--CSharpExec
+
+--CSharpExec
+
+--CSharpExec
+

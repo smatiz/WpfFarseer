@@ -1,4 +1,0 @@
-
-
-
-flame.ScripterTabbedControl.NewTab()

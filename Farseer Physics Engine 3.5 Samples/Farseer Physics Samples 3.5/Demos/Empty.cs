@@ -61,6 +61,7 @@ namespace FarseerPhysics.Samples.Demos
 
             //Flame.Debug.Register("ScreenManager", ScreenManager);
             Flame.Debug.Register("Actions", _actions);
+
             Flame.Debug.Register("ScreenManager", ScreenManager);
             Flame.Debug.Register("Camera", Camera);
             Flame.Debug.Register("World", World);

@@ -1,6 +1,0 @@
-+++[Python]
-flame.Share.get("scriptercontrolform").AutoSaveOnClose = False
-+++[None]
-
-+++[Python]
-

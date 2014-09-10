@@ -1,0 +1,67 @@
+#!flame/0/--
+--CSharpExec
+using System.Linq;
+using FarseerPhysics;
+using FarseerPhysics.Dynamics;
+using FarseerPhysics.Dynamics.Joints;
+using FarseerPhysics.Factories;
+using Microsoft.Xna.Framework;
+using FarseerPhysics.Common;
+using FarseerPhysics.Collision.Shapes;
+using FarseerPhysics.Samples.Demos.Prefabs;
+
+using System.Collections.Generic;
+
+--CSharpExec
+World.Clear();
+World.Gravity = Vector2.Zero;
+var _border = new Border(World, ScreenManager, Camera);
+float Density = 1;
+var HiddenBody = BodyFactory.CreateBody(World, Vector2.Zero);
+--CSharpExec
+var b1 = BodyFactory.CreateCircle(World, 1, Density);
+b1.BodyType = BodyType.Dynamic;
+var b2 = BodyFactory.CreateCircle(World, 1, Density);
+b2.BodyType = BodyType.Dynamic;
+b2.Position = b1.Position + new Vector2(4, 0);
+--CSharpExec
+var distanceJoint = JointFactory.CreateDistanceJoint(World, b1, b2);
+--CSharpExec
+distanceJoint.Enabled = false;
+--CSharpExec
+var revoluteJoint = JointFactory.CreateRevoluteJoint(World, b1, b2, new Vector2(1,0));
+--CSharpExec
+revoluteJoint.Enabled = false;
+--CSharpExec
+var prismaticJoint = JointFactory.CreatePrismaticJoint(World, b1, b2, new Vector2(3,1), new Vector2(1,0));
+--CSharpExec
+prismaticJoint.Enabled = false;
+--CSharpExec
+var pulleyJoint = JointFactory.CreatePulleyJoint(World, b1, b2, Vector2.Zero, Vector2.Zero, b1.Position + new Vector2(0,-10),  b2.Position + new Vector2(0,-10),1);
+--CSharpExec
+pulleyJoint.Enabled = false;
+--CSharpExec
+var revoluteJoint = JointFactory.CreateRevoluteJoint(World, b1, HiddenBody, new Vector2(1,0));
+var prismaticJoint = JointFactory.CreatePrismaticJoint(World, b2, HiddenBody, new Vector2(3,1), new Vector2(1,0));
+--CSharpExec
+
+--CSharpExec
+
+--CSharpExec
+
+--CSharpExec
+
+--CSharpExec
+var gearJoint = JointFactory.CreateGearJoint(World, b1, b2, Vector2.Zero, Vector2.Zero,1);
+--CSharpExec
+gearJoint.Enabled = false;
+--CSharpExec
+
+--CSharpExec
+
+--CSharpExec
+
+--CSharpExec
+
+--CSharpExec
+

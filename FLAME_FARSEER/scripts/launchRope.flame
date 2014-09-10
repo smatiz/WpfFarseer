@@ -1,0 +1,80 @@
+#!flame/0/--
+--CSharpExec
+using System.Linq;
+using FarseerPhysics;
+using FarseerPhysics.Dynamics;
+using FarseerPhysics.Dynamics.Joints;
+using FarseerPhysics.Factories;
+using Microsoft.Xna.Framework;
+using FarseerPhysics.Common;
+using FarseerPhysics.Collision.Shapes;
+using FarseerPhysics.Samples.Demos.Prefabs;
+
+using System.Linq;
+using System.Collections;
+using System.Collections.Generic;
+
+--CSharpExec
+World.Clear();
+var _border = new Border(World, ScreenManager, Camera);
+float Density = 1;
+World.Gravity = new Vector2(0, 10);
+--CSharpExec
+Body R()
+{
+	var b1 = BodyFactory.CreateRectangle(World, 1, 2,  Density);
+	b1.BodyType = BodyType.Dynamic;
+	b1.CollisionGroup = -1;
+	return b1;
+}
+--CSharpExec
+
+var rectList = (from x in  Enumerable.Range(0,10) select R()).ToArray();
+bool even = true;
+for(int i = 1; i < rectList.Length; i++)
+{
+	Vector2 anchorA, anchorB;
+	//if(i % 2 == 0)
+	{
+		anchorA = new Vector2(0, 0.5f);
+		anchorB = new Vector2(0, -0.5f);
+	}
+	/*else
+	{
+		anchorA = new Vector2(0, -1);
+		anchorB = new Vector2(0, 1);
+	}*/
+	var ropeJoint = JointFactory.CreateRopeJoint(World, rectList[i-1], rectList[i], anchorA, anchorB);
+}
+
+var arrowBody =  BodyFactory.CreateCircle(World, 0.1f,  Density);
+arrowBody.BodyType= BodyType.Dynamic;
+arrowBody.Position = new Vector2(0, -1f);
+var motor = JointFactory.CreateWeldJoint(World, rectList[0],  arrowBody, new Vector2(0, -1f), Vector2.Zero); 
+--CSharpExec
+
+var targetBody =  BodyFactory.CreateCircle(World,0.1f,  Density);
+targetBody.Position = new Vector2(0,-10);
+var motor = JointFactory.CreateMotorJoint(World, arrowBody, targetBody); 
+//motor.LinearOffset = new Vector2(10,10);
+//motor.AngularOffset = 1;
+motor.MaxForce= 1000;
+motor.MaxTorque = 0;
+motor.LinearOffset = Vector2.Zero;
+--CSharpExec
+targetBody.Position = new Vector2(0,-10);
+--CSharpExec
+motor.Enabled = true;
+--CSharpExec
+motor.Enabled = false;
+--CSharpExec
+motor.MaxForce= 500;
+--CSharpExec
+motor.LinearOffset = Vector2.Zero;
+--CSharpExec
+var ropeJoint = JointFactory.CreateRopeJoint(World, rectList[0], rectList[1], Vector2.Zero, Vector2.Zero);
+	
+--CSharpExec
+ropeJoint.
+--CSharpExec
+

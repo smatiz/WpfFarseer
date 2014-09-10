@@ -1,0 +1,66 @@
+#!flame/0/--
+--CSharpExec
+using System.Linq;
+using FarseerPhysics;
+using FarseerPhysics.Dynamics;
+using FarseerPhysics.Dynamics.Joints;
+using FarseerPhysics.Factories;
+using Microsoft.Xna.Framework;
+using FarseerPhysics.Common;
+using FarseerPhysics.Collision.Shapes;
+using FarseerPhysics.Samples.Demos.Prefabs;
+
+using System.Collections.Generic;
+
+--NoneExec
+http://roy-t.nl/index.php/2012/09/06/farseer-physics-3-3-1-and-xna-joints/
+--CSharpExec
+World.Clear();
+World.Gravity = Vector2.Zero;
+var _border = new Border(World, ScreenManager, Camera);
+float Density = 1;
+var HiddenBody = BodyFactory.CreateBody(World, Vector2.Zero);
+--CSharpExec
+public static class CoordinateHelper
+{
+    // Because Farseer uses 1 unit = 1 meter we need to convert
+    // between pixel coordinates and physics coordinates.
+    // I've chosen to use the rule that 100 pixels is one meter.
+    // We have to take care to convert between these two
+    // coordinate-sets wherever we mix them!
+ 
+    public const float unitToPixel = 100.0f;
+    public const float pixelToUnit = 1 / unitToPixel;
+ 
+    public static Vector2 ToScreen(Vector2 worldCoordinates)
+    {
+        return worldCoordinates * unitToPixel;
+    }
+ 
+    public static Vector2 ToWorld(Vector2 screenCoordinates)
+    {
+        return screenCoordinates * pixelToUnit;
+    }
+}
+--CSharpExec
+var simplePaddle = BodyFactory.CreateCircle
+(
+    World,
+    1,
+    10
+);
+simplePaddle.Position =  new Vector2(128, 16);
+JointFactory.CreateRevoluteJoint
+(
+    World,
+    simplePaddle,
+	HiddenBody,
+    CoordinateHelper.ToWorld(new Vector2(0, 0)),
+    CoordinateHelper.ToWorld(new Vector2(ScreenManager.GraphicsDevice.Viewport.Width / 2.0f - 150,
+                                         ScreenManager.GraphicsDevice.Viewport.Height - 300))
+);
+ 
+--CSharpExec
+
+--CSharpExec
+
