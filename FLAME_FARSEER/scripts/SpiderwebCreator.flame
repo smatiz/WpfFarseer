@@ -31,18 +31,31 @@ World.Clear()
 var spider = new FarseerPhysics.Samples.Demos.Prefabs.SpiderwebCreator(World);
 spider.Breakpoint = 1000;
 var l = 3f;
-var line1 = new Vertices(new Vector2[] { v(0, 0), v(l, 0), v(2 * l, 0) });
-var line2 = new Vertices(new Vector2[] { v(0, l), v(l, l), v(2 * l, l) });
-var line3 = new Vertices(new Vector2[] { v(0, 2 * l), v(l, 2 * l), v(2 * l, 2* l) });
 
-var bodyLine1 = spider.CreateDistanceJoint(line1);
-var bodyLine2 = spider.CreateDistanceJoint(line2);
-var bodyLine3 = spider.CreateDistanceJoint(line3);
+var l = 3f;
+var line1 = new Vertices(from x in Enumerable.Range(0, 5) select v(x * l,0));
 
-spider.CreateDistanceJoint(bodyLine1, bodyLine2);
-spider.CreateDistanceJoint(bodyLine2, bodyLine3);
+Body[] bodyLine1;
+DistanceJoint[] distanceJoints;
 
+ spider.CreateDistanceJoint(line1, out bodyLine1, out distanceJoints);
+//var bodyLine2 = spider.CreateDistanceJoint(line2);
+//var bodyLine3 = spider.CreateDistanceJoint(line3);
 
+//spider.CreateDistanceJoint(bodyLine1, bodyLine2);
+//spider.CreateDistanceJoint(bodyLine2, bodyLine3);
+
+var HiddenBody = BodyFactory.CreateBody(World, Vector2.Zero);
+
+JointFactory.CreateRevoluteJoint(World, bodyLine1[0], HiddenBody, Vector2.Zero, Vector2.Zero);
+
+--CSharpExec
+from d in distanceJoints select d.Length
+--CSharpExec
+foreach(var d in distanceJoints)
+{
+	d.Length = d.Length * 0.5f;
+}
 --CSharpExec
  World.Clear();
  World.Gravity = Vector2.Zero;
@@ -53,12 +66,12 @@ var line1 = new Vertices(from x in Enumerable.Range(0, 10) select v(x * l,0));
 
 var bodyLine1 = spider.CreateDistanceJoint(line1);
 
-//var HiddenBody = BodyFactory.CreateBody(World, Vector2.Zero);
+var HiddenBody = BodyFactory.CreateBody(World, Vector2.Zero);
 
-//JointFactory.CreateRevoluteJoint(World, bodyLine1[0], HiddenBody, Vector2.Zero, Vector2.Zero);
+JointFactory.CreateRevoluteJoint(World, bodyLine1[0], HiddenBody, Vector2.Zero, Vector2.Zero);
 
 --CSharpExec
-
+bodyLine1
 --CSharpExec
 var targetBody =  BodyFactory.CreateCircle(World,0.1f,  Density);
 targetBody.Position = new Vector2(-10,-10);

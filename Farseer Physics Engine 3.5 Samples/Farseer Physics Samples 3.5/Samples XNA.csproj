@@ -141,6 +141,8 @@
     <Compile Include="Demos\SimpleDemo9.cs" />
     <Compile Include="ScreenSystem\VirtualButton.cs" />
     <Compile Include="ScreenSystem\VirtualStick.cs" />
+    <Compile Include="SM\RopeCreator2.cs" />
+    <Compile Include="SM\RopeCreator1.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

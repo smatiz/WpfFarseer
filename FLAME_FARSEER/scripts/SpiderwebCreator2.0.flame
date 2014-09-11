@@ -1,0 +1,27 @@
+#!flame/0/--
+--CSharpExec
+using System.Linq;
+using FarseerPhysics;
+using FarseerPhysics.Dynamics;
+using FarseerPhysics.Dynamics.Joints;
+using FarseerPhysics.Factories;
+using Microsoft.Xna.Framework;
+using FarseerPhysics.Common;
+using FarseerPhysics.Collision.Shapes;
+using FarseerPhysics.Samples.Demos.Prefabs;
+
+using System.Collections.Generic;
+
+
+float Density = 1;
+--CSharpExec
+ Vector2 v(float x, float y)
+{
+	return new Vector2(x, y);
+}
+--CSharpExec
+ (new FarseerPhysics.Samples.SM.RopeCreator1(World)).Test2();
+--CSharpExec
+
+--CSharpExec
+
