@@ -21,6 +21,8 @@ namespace FarseerPhysics.Samples.SM
         const float Density = 1f;
         const float Radius = 0.5f;
 
+
+
         DistanceJoint CreateDistanceJoint(Body b1, Body b2)
         {
             DistanceJoint dj = JointFactory.CreateDistanceJoint(_world, b1, b2, Vector2.Zero, Vector2.Zero);
@@ -81,22 +83,7 @@ namespace FarseerPhysics.Samples.SM
             return new Vector2(x, y);
         }
 
-        public void Test()
-        {
-            var l = 3f;
-            var line1 = new Vertices(new Vector2[] { v(0, 0), v(l, 0), v(2 * l, 0) });
-            var line2 = new Vertices(new Vector2[] { v(0, l), v(l, l), v(2 * l, l) });
-            var line3 = new Vertices(new Vector2[] { v(0, 2 * l), v(l, 2 * l), v(2 * l, 2) });
-
-            Body[] bodyLine1, bodyLine2, bodyLine3;
-            CreateDistanceJoint(line1, out bodyLine1);
-            CreateDistanceJoint(line2, out bodyLine2);
-            CreateDistanceJoint(line3, out bodyLine3);
-
-            CreateDistanceJoint(bodyLine1, bodyLine2);
-            CreateDistanceJoint(bodyLine2, bodyLine3);
-
-        }
+   
 
         DistanceJoint[] distanceJoints;
         Body[] bodyLine;
@@ -138,17 +125,7 @@ namespace FarseerPhysics.Samples.SM
           }
 
 
-          //foreach (var b in bodyLine)
-          //{
-          //    b.OnCollision += (x1, x2, x3) =>
-          //    {
-          //        foreach (var bb in bodyLine)
-          //        {
-          //            _world.RemoveBody(bb);
-          //        }
-          //        return false;
-          //    };
-          //}
+        
 
           JointFactory.CreateRevoluteJoint(_world, bodyLine[bodyLine.Length - 1], wall, wallLink, wallLink, true);
 
@@ -175,18 +152,7 @@ namespace FarseerPhysics.Samples.SM
 
       Body _worm;
 
-      public void Test2()
-        {
-            _world.Clear();
-            _world.Gravity = v(0, 10);
-
-            
-            var wall = BodyFactory.CreateRectangle(_world, 10, 1, Density);
-            wall.Position = v(0, -10);
-
-            LinkWithElastic(_worm, wall, wall.Position, 10f);
-        }
-
+    
         public RopeCreator1(World world)
         {
             _world = world;

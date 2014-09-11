@@ -78,6 +78,7 @@ namespace FarseerPhysics.Samples
             MenuScreen menuScreen = new MenuScreen("Farseer Samples");
 
 
+            menuScreen.AddMenuItem("", EntryType.Screen, new Worm());
             menuScreen.AddMenuItem("", EntryType.Screen, new Empty());
 
 

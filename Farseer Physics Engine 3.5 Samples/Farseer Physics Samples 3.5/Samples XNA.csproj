@@ -92,6 +92,7 @@
   <ItemGroup>
     <Compile Include="Demos\AdvancedDemo2B.cs" />
     <Compile Include="Demos\AdvancedDemo5B.cs" />
+    <Compile Include="Demos\Worm.cs" />
     <Compile Include="Demos\Empty.cs" />
     <Compile Include="Demos\GameDemo2.cs" />
     <Compile Include="Demos\Rope.cs" />
@@ -141,6 +142,8 @@
     <Compile Include="Demos\SimpleDemo9.cs" />
     <Compile Include="ScreenSystem\VirtualButton.cs" />
     <Compile Include="ScreenSystem\VirtualStick.cs" />
+    <Compile Include="SM\Elastic.cs" />
+    <Compile Include="SM\HookableWalls.cs" />
     <Compile Include="SM\RopeCreator2.cs" />
     <Compile Include="SM\RopeCreator1.cs" />
   </ItemGroup>

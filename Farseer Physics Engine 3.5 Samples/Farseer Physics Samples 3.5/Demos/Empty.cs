@@ -65,9 +65,10 @@ namespace FarseerPhysics.Samples.Demos
     internal class Empty : PhysicsGameScreen, IDemoScreen
     {
 
+        Actions _actions = new Actions();
+
 
         DeferedLoopActions _deferedLoopActions = new DeferedLoopActions();
-
 
 
         public string GetTitle()
@@ -80,15 +81,12 @@ namespace FarseerPhysics.Samples.Demos
             return GetTitle();
         }
 
-        Actions _actions = new Actions();
-
 
         Vector2 v(float x, float y)
         {
             return new Vector2(x, y);
         }
         const float Density = 1f;
-        List<Body> walls = new List<Body>();
         
         public override void LoadContent()
         {
@@ -96,30 +94,6 @@ namespace FarseerPhysics.Samples.Demos
             DebugView.AppendFlags(DebugViewFlags.Shape);
             DebugView.AppendFlags(DebugViewFlags.Joint);
             DebugView.AppendFlags(DebugViewFlags.CenterOfMass);
-
-            World.Gravity = v(0, 10);
-
-            var border = new Border(World, ScreenManager, Camera);
-
-            var wall = BodyFactory.CreateRectangle(World, 10, 1, Density);
-            wall.Position = v(0, -10);
-            walls.Add(wall);
-
-            //BodyFactory.CreateCompoundPolygon(World, new List<Vertices>() {
-            //    new Vertices(new Vector2[]{
-            //        new Vector2(0, 0), 
-            //        new Vector2(1, 0), 
-            //        new Vector2(1, 1), 
-            //        new Vector2(0, 1), 
-            //    }),
-            //    new Vertices(new Vector2[]{
-            //        new Vector2(10, 10), 
-            //        new Vector2(10, 20), 
-            //        new Vector2(20, 20), 
-            //        new Vector2(20, 10), 
-            //    })
-            //}, Density);
-
 
 
             //Flame.Debug.Register("ScreenManager", ScreenManager);
@@ -129,12 +103,7 @@ namespace FarseerPhysics.Samples.Demos
             Flame.Debug.Register("Camera", Camera);
             Flame.Debug.Register("World", World);
 
-            RopeCreator1 = (new FarseerPhysics.Samples.SM.RopeCreator1(World));
-            //RopeCreator1.Test2();
-
-            //_deferedLoopActions.Add(new DeferedLoopAction() { Action = () => RopeCreator1.Launch(), LoopCountWait = 90 });
         }
-        RopeCreator1 RopeCreator1;
         public override void Draw(Microsoft.Xna.Framework.GameTime gameTime)
         {
             if (_actions.Draw != null) _actions.Draw(gameTime);
@@ -145,42 +114,6 @@ namespace FarseerPhysics.Samples.Demos
         public override void HandleInput(InputHelper input, Microsoft.Xna.Framework.GameTime gameTime)
         {
             if (_actions.HandleInput != null) _actions.HandleInput(input, gameTime);
-
-            if(input.KeyboardState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.A))
-            {
-                RopeCreator1.Launch();
-            }
-
-            if (!waitsome)
-            {
-                if (input.MouseState.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed)
-                {
-                    waitsome = true;
-                    _deferedLoopActions.Add(new DeferedLoopAction() { Action = () => waitsome = false, LoopCountWait = 10 });
-                    var p = Camera.ConvertScreenToWorld(input.Cursor);//new Vector2(input.MouseState.X, input.MouseState.Y));
-
-                    bool attached = false;
-                    foreach (var w in walls)
-                    {
-                        foreach (var f in w.FixtureList)
-                        {
-                            if (f.TestPoint(ref p))
-                            {
-                                RopeCreator1.Launch(p, w);
-                                _deferedLoopActions.Add(new DeferedLoopAction() { Action = () => RopeCreator1.Launch(), LoopCountWait = 10 });
-                                attached = true;
-                                break;
-                            }
-                        }
-                        if (attached)
-                            break;
-                    }
-                    if (!attached)
-                        RopeCreator1.Destroy();
-
-                }
-            }
-
             base.HandleInput(input, gameTime);
         }
 
