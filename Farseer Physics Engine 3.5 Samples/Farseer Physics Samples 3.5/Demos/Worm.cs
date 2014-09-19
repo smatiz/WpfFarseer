@@ -13,15 +13,24 @@ using System.Text;
 namespace FarseerPhysics.Samples.Demos
 {
 
+    class GameParameters
+    {
+        const float Size = 1f;
+        const float Density = 1f;
+        public float WormBodyCircleRadius { get { return Size; } }
+        public float WormDensity { get { return Density; } }
+        public float WallDensity { get { return 1; } }
+    }
 
     internal class Worm : PhysicsGameScreen, IDemoScreen
     {
+
+        GameParameters _gameParameters = new GameParameters();
 
         Vector2 v(float x, float y)
         {
             return new Vector2(x, y);
         }
-        const float Density = 1f;
 
         Body _worm;
         HookableWalls _hookableWalls;
@@ -36,16 +45,23 @@ namespace FarseerPhysics.Samples.Demos
 
             World.Gravity = v(0, 10);
 
-            var border = new Border(World, ScreenManager, Camera);
+            /*var border = new Border(World, ScreenManager, Camera);
 
-            _hookableWalls = new HookableWalls(World, Density);
+            Body floor = BodyFactory.CreateRectangle(World, 80, 1, _gameParameters.WallDensity);
+            floor.Position = v(0, 14);
+            floor.Restitution = 0.0f;
+            floor.Friction = 100;*/
 
-            _worm = BodyFactory.CreateCircle(World, 1, Density);
-            _worm.Restitution = 0.5f;
+            _hookableWalls = new HookableWalls(World, _gameParameters.WallDensity);
+
+            _worm = BodyFactory.CreateCircle(World, _gameParameters.WormBodyCircleRadius, _gameParameters.WormDensity);
+            _worm.Restitution = 0.25f;//0.9f;//0.5f;
             _worm.BodyType = BodyType.Dynamic;
 
 
             _elastic = new Elastic(World);
+
+            Camera.Zoom = Camera.Zoom* 0.25f;
         }
         public override void HandleInput(InputHelper input, Microsoft.Xna.Framework.GameTime gameTime)
         {
@@ -76,6 +92,9 @@ namespace FarseerPhysics.Samples.Demos
 
         public override void Update(Microsoft.Xna.Framework.GameTime gameTime, bool otherScreenHasFocus, bool coveredByOtherScreen)
         {
+            BasicLoop.DoUpdate();
+            //Camera.Position = Camera.ConvertWorldToScreen( _worm.Position) + new Vector2(ScreenManager.GraphicsDevice.Viewport.Width*0.5f, ScreenManager.GraphicsDevice.Viewport.Height*0.5f);
+            //Camera.Zoom = 
             base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
         }
 

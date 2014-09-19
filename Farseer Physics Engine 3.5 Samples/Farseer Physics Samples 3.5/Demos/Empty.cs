@@ -65,7 +65,6 @@ namespace FarseerPhysics.Samples.Demos
     internal class Empty : PhysicsGameScreen, IDemoScreen
     {
 
-        Actions _actions = new Actions();
 
 
         DeferedLoopActions _deferedLoopActions = new DeferedLoopActions();
@@ -97,30 +96,22 @@ namespace FarseerPhysics.Samples.Demos
 
 
             //Flame.Debug.Register("ScreenManager", ScreenManager);
-            Flame.Debug.Register("Actions", _actions);
-
-            Flame.Debug.Register("ScreenManager", ScreenManager);
-            Flame.Debug.Register("Camera", Camera);
-            Flame.Debug.Register("World", World);
 
         }
         public override void Draw(Microsoft.Xna.Framework.GameTime gameTime)
         {
-            if (_actions.Draw != null) _actions.Draw(gameTime);
             base.Draw(gameTime);
         }
 
         bool waitsome = false;
         public override void HandleInput(InputHelper input, Microsoft.Xna.Framework.GameTime gameTime)
         {
-            if (_actions.HandleInput != null) _actions.HandleInput(input, gameTime);
             base.HandleInput(input, gameTime);
         }
 
         public override void Update(Microsoft.Xna.Framework.GameTime gameTime, bool otherScreenHasFocus, bool coveredByOtherScreen)
         {
             _deferedLoopActions.DoIt();
-            if (_actions.Update != null) _actions.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
             base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
         }
 

@@ -88,10 +88,13 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.XML" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Demos\AdvancedDemo2B.cs" />
     <Compile Include="Demos\AdvancedDemo5B.cs" />
+    <Compile Include="Demos\CameraTests.cs" />
     <Compile Include="Demos\Worm.cs" />
     <Compile Include="Demos\Empty.cs" />
     <Compile Include="Demos\GameDemo2.cs" />
@@ -146,6 +149,7 @@
     <Compile Include="SM\HookableWalls.cs" />
     <Compile Include="SM\RopeCreator2.cs" />
     <Compile Include="SM\RopeCreator1.cs" />
+    <Compile Include="SM\XmlFarseer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

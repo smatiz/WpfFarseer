@@ -1,0 +1,43 @@
+#!flame/0/--
+--CSharpExec
+using System.Linq;
+using FarseerPhysics;
+using FarseerPhysics.Dynamics;
+using FarseerPhysics.Dynamics.Joints;
+using FarseerPhysics.Factories;
+using Microsoft.Xna.Framework;
+using FarseerPhysics.Common;
+using FarseerPhysics.Collision.Shapes;
+using FarseerPhysics.Samples.Demos.Prefabs;
+
+using System.Collections.Generic;
+
+
+
+--CSharpExec
+World.Clear();
+World.Gravity =new Vector2(0, 10);
+var  _body = BodyFactory.CreateBody(World, new Vector2(0, 0));
+_body.FixtureList.Add(FixtureFactory.AttachPolygon(new Vertices(new Vector2[] 
+{
+	new Vector2(0,0),
+	new Vector2(10,0),
+	new Vector2(10,10),
+}), 1, _body));
+_body.BodyType = BodyType.Dynamic;
+_body.Position = new Vector2(4.7f,3.2f);
+
+var  _body2 = BodyFactory.CreateBody(World, new Vector2(0, 0));
+_body2.FixtureList.Add(FixtureFactory.AttachPolygon(new Vertices(new Vector2[] 
+{
+	new Vector2(0,0),
+	new Vector2(20,0),
+	new Vector2(20,20),
+}), 1, _body2));
+_body2.BodyType = BodyType.Static;
+_body2.Position = new Vector2(4.3f,19.6f);
+
+--CSharpExec
+
+--CSharpExec
+

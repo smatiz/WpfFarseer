@@ -24,10 +24,6 @@ namespace exe_flame_farseer_xna
                 var f = new Flame.Controls.ScripterControlForm();
                 f.Size = new System.Drawing.Size(900,500);
                
-
-                
-                 
-
                 FarseerPhysicsGame game;
                 new System.Threading.Thread(new System.Threading.ThreadStart(() =>
                 {
@@ -57,26 +53,5 @@ namespace exe_flame_farseer_xna
                 MessageBox.Show(e.Message);
             }
         }
-
-        static void Debug_Registered(object sender, Flame.Debug.Registration e)
-        {
-
-        }
-
-        private static void test()
-        {
-            var path = @"C:\Users\Developer\Desktop\Farseer Physics Engine 3.5 Samples\Farseer Physics Samples 3.5\bin\x86\Debug\";
-           var game = new FarseerPhysics.Samples.FarseerPhysicsGame("flame");
-            game.Content.RootDirectory = path + @"Content\";
-            
-            System.Diagnostics.Debugger.Launch();
-            Control f = Form.FromHandle(game.Window.Handle);
-            game.Activated += (s, e) => { f.Visible = false; };
-            var timer = new Timer() { Interval = 2000 };
-            timer.Tick += (s, e) => { f.Visible = !f.Visible; };
-            timer.Start();
-            game.Run(); 
-        }
-
     }
 }

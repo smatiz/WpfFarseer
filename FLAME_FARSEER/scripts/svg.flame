@@ -1,0 +1,12 @@
+#!flame/0/--
+--CSharpExec
+using FarseerPhysics.Samples.SM;
+--CSharpExec
+using Svg;
+--CSharpExec
+
+var _doc = Svg.SvgDocument.Open(@"C:\Users\Developer\Desktop\ULTIMI\drawing.svg");
+--CSharpExec
+
+--CSharpExec
+

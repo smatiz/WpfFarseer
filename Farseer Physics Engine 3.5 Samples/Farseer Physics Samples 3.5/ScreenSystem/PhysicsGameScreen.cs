@@ -5,6 +5,7 @@ using FarseerPhysics.Dynamics.Joints;
 using FarseerPhysics.Factories;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using FarseerPhysics.Samples.Demos;
 
 namespace FarseerPhysics.Samples.ScreenSystem
 {
@@ -41,6 +42,9 @@ namespace FarseerPhysics.Samples.ScreenSystem
             _agentTorque = torque;
         }
 
+
+
+        Actions _actions = new Actions();
         public override void LoadContent()
         {
             base.LoadContent();
@@ -69,10 +73,18 @@ namespace FarseerPhysics.Samples.ScreenSystem
 
             // Loading may take a while... so prevent the game from "catching up" once we finished loading
             ScreenManager.Game.ResetElapsedTime();
+
+
+            Flame.Debug.Register("Actions", _actions);
+
+            Flame.Debug.Register("ScreenManager", ScreenManager);
+            Flame.Debug.Register("Camera", Camera);
+            Flame.Debug.Register("World", World);
         }
 
         public override void Update(GameTime gameTime, bool otherScreenHasFocus, bool coveredByOtherScreen)
         {
+            if (_actions.Update != null) _actions.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
             if (!coveredByOtherScreen && !otherScreenHasFocus)
             {
                 // variable time step but never less then 30 Hz
@@ -85,6 +97,8 @@ namespace FarseerPhysics.Samples.ScreenSystem
 
         public override void HandleInput(InputHelper input, GameTime gameTime)
         {
+            if (_actions.HandleInput != null) _actions.HandleInput(input, gameTime);
+
             // Control debug view
             if (input.IsNewButtonPress(Buttons.Start))
             {
@@ -224,6 +238,7 @@ namespace FarseerPhysics.Samples.ScreenSystem
 
         public override void Draw(GameTime gameTime)
         {
+            if (_actions.Draw != null) _actions.Draw(gameTime);
             DebugView.RenderDebugData(ref Camera.SimProjection, ref Camera.SimView);
             base.Draw(gameTime);
         }

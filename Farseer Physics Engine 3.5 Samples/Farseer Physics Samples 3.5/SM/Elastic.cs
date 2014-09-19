@@ -10,7 +10,24 @@ using System.Text;
 
 namespace FarseerPhysics.Samples.SM
 {
-    class Elastic
+    abstract class BasicLoop
+    {
+        static List<BasicLoop> _basicLoops = new List<BasicLoop>();
+        public static void DoUpdate()
+        {
+            foreach (var loop in _basicLoops)
+            {
+                loop.Update();
+            }
+        }
+        public BasicLoop()
+        {
+            _basicLoops.Add(this);
+        }
+        protected abstract void Update();
+    }
+
+    class Elastic : BasicLoop
     {
         public float Frequency { get; set; }
         public float DampingRatio { get; set; }
@@ -45,27 +62,39 @@ namespace FarseerPhysics.Samples.SM
                 _nodeBodies = null;
             }
         }
-        private void Launch()
-        {
-            foreach (var d in _distanceJoints)
-            {
-                d.Length = d.Length / 10.0f;
-            }
-        }
+       
         public void Launch(Body launcherBody, Vector2 hookedPoint, Body hookedBody)
         {
+            var dl = 5f;
 
-            var n = 10;
-            var xn = 1f / (float)n;
+            //var n = 10;
+            //var xn = 1f / (float)n;
 
 
             var vl = hookedPoint - launcherBody.Position;
+
+            var l = vl.Length();
+
+            var n = (int)Math.Floor(l / dl);
+            var xn = 1f / (float)n;
+
+            if(n > 40 || n< 10)
+            {
+                //return;
+            }
+            /*var Length = vl.Length();
+            if (Length < 10 || Length > 40)
+                return;*/
+
+            Destroy();
+
             var dvl = xn * vl;
+
+
 
             var line = new Vertices(from x in Enumerable.Range(0, n + 1) select launcherBody.Position + x * dvl);
 
 
-            Destroy();
 
             CreateDistanceJoint(line, out _nodeBodies, out _distanceJoints);
 
@@ -78,7 +107,12 @@ namespace FarseerPhysics.Samples.SM
 
             JointFactory.CreateRevoluteJoint(_world, _nodeBodies[0], launcherBody, Vector2.Zero, Vector2.Zero);
 
-            Launch();
+            foreach (var d in _distanceJoints)
+            {
+                d.Length = d.Length / 10.0f;
+            }
+
+            time = DateTime.Now;
         }
 
         private DistanceJoint CreateDistanceJoint(Body b1, Body b2)
@@ -130,6 +164,19 @@ namespace FarseerPhysics.Samples.SM
         private Vector2 v(float x, float y)
         {
             return new Vector2(x, y);
+        }
+
+        DateTime? time = DateTime.Now;
+        protected override void Update()
+        {
+            if (time.HasValue)
+            {
+                if ((DateTime.Now - time.Value).TotalMilliseconds > 100)
+                {
+                    time = null;
+                    Destroy();
+                }
+            }
         }
     }
 }
