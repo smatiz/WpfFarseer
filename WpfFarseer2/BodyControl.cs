@@ -34,6 +34,12 @@ namespace WpfFarseer
 
         public BodyControl()
         {
+            if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
+            {
+                if (RenderTransform != MatrixTransform.Identity)
+                    throw new NotImplementedException("RenderTransform is not handled by farseer");
+            }
+
             Loaded += (s, e) =>
             {
                 refreshVisual();
@@ -62,7 +68,7 @@ namespace WpfFarseer
         private void setRot(float a)
         {
             //this.LayoutTransform = new RotateTransform(a);
-            this.RenderTransform = new RotateTransform(a);
+            this.RenderTransform = new RotateTransform(180*a/Math.PI);
         }
         private void setPos(float x, float y)
         {
@@ -110,6 +116,7 @@ namespace WpfFarseer
             }
 
         }
+
         private IEnumerable<Shape> FindShapes()
         {
             foreach (var x in Children)
@@ -120,22 +127,30 @@ namespace WpfFarseer
                 }
             }
         }
-        private Vertices PointsToVertices(PointCollection pointCollection)
+
+        private Vertices PointsToVertices(IEnumerable<System.Windows.Point> points)
         {
-            return new Vertices(from p in pointCollection select new Vector2((float)p.X, (float)p.Y));
+            return new Vertices(from p in points select new Vector2((float)p.X, (float)p.Y));
         }
+
+        private Vertices PolygonToVertices(Polygon poly)
+        {
+            return PointsToVertices(from p in poly.Points select poly.TranslatePoint(p, this));
+        }
+
         private Fixture ShapeToFixture(Shape shape, Body body)
         {
             if(shape is Polygon)
             {
 
-                return FixtureFactory.AttachPolygon(PointsToVertices(((Polygon)shape).Points), Const.Density, body);
+                return FixtureFactory.AttachPolygon(PolygonToVertices((Polygon)shape), Const.Density, body);
             }
             else
             {
                 return FixtureFactory.AttachCircle(1, 1, body);
             }
         }
+
         private void buildPhyics(World world)
         {
             var x = (float)Canvas.GetLeft(this);

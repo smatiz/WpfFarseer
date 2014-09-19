@@ -22,8 +22,6 @@ namespace WpfFarseer
         double _elapsedStep = 0;
         public FarseerCanvas()
         {
-
-
             Loaded += (s, e) =>
             {
                 if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this)) return;
@@ -54,10 +52,8 @@ namespace WpfFarseer
 
         private void clear()
         {
-
-                if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this)) return;
+            if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this)) return;
             _world = new World(new Microsoft.Xna.Framework.Vector2(0, 10));
-
             
             foreach (var child in Children)
             {
@@ -67,9 +63,6 @@ namespace WpfFarseer
                     body.Initialize(_world);
                 }
             }
-          
-
-
 
             //_world.Clear();
             //_world = new World(new Microsoft.Xna.Framework.Vector2(0, 10));
@@ -80,7 +73,7 @@ namespace WpfFarseer
         public void Step(float dt)
         {
 
-                if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this)) return;
+            if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this)) return;
             if (dt >= 0)
             {
                 _elapsedStep += dt;
