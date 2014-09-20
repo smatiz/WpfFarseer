@@ -22,26 +22,25 @@ namespace WpfFarseer
 {
     public class FarseerCanvas : Canvas
     {
-        World _world;
-        double _elapsedStep = 0;
+        WorldManager _worldManager;
         public FarseerCanvas()
         {
             Loaded += (s, e) =>
             {
-                if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this)) return;
-                _world = new World(new Microsoft.Xna.Framework.Vector2(0, 10));
+                if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this)) return; 
+                _worldManager = new WorldManager();
                 foreach (var child in Children)
                 {
                     var body = child as BodyControl;
                     if (body != null)
                     {
-                        body.Initialize(_world);
+                        body.Initialize(_worldManager);
                     }
                 }
             };
         }
 
-        private void update()
+        public void Update()
         {
             if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this)) return;
             foreach (var child in Children)
@@ -49,7 +48,7 @@ namespace WpfFarseer
                 var bodyControl = child as BodyControl;
                 if (bodyControl != null)
                 {
-                    bodyControl.Update(_world);
+                    bodyControl.Update(_worldManager);
                 }
             }
 #if DEBUG
@@ -60,21 +59,20 @@ namespace WpfFarseer
         private void clear()
         {
             if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this)) return;
-            _world = new World(new Microsoft.Xna.Framework.Vector2(0, 10));
+            _worldManager.Clear();
             
             foreach (var child in Children)
             {
                 var body = child as BodyControl;
                 if (body != null)
                 {
-                    body.Initialize(_world);
+                    body.Initialize(_worldManager);
                 }
             }
 
             //_world.Clear();
             //_world = new World(new Microsoft.Xna.Framework.Vector2(0, 10));
-            _elapsedStep = 0;
-            update();
+            Update();
         }
 
 
@@ -82,49 +80,31 @@ namespace WpfFarseer
         {
             get
             {
-                return true;
-
-                if (_world == null) return false;
-                if (_world.ContactList.Count == 0) return true;
-              //  _world.ContactList[0].
-
-                return (from x in _world.ContactList where !x.IsTouching select x).Count() == 0;
+                if (_worldManager == null) return false;
+                return _worldManager.Savable;
             }
         }
+
         public void Save()
         {
+            _worldManager.Save();
+        }
 
-            var settings = new  JsonSerializerSettings()
-            {
-                 MaxDepth = 1
-            };
+        public void Play()
+        {
+            _worldManager.Play();
+        }
 
-            File.WriteAllText(@"s:\aaa.json", JsonConvert.SerializeObject(from x in _world.ContactList select x.Manifold, settings));
-            WorldSerializer.Serialize(_world, @"s:\aaa.xml");
+        public void Pause()
+        {
+            _worldManager.Pause();
         }
 
       
 
         public void Load()
         {
-
-            var contact= JsonConvert.DeserializeObject(File.ReadAllText(@"s:\aaa.json"));
-
-
-            _world = WorldSerializer.Deserialize(@"s:\aaa.xml");
-            _world.Step(0.000001f);
-            //_world.ContactList[0].
-
-            //_world.ClearForces();
-           
-            foreach (var body in _world.BodyList)
-            {
-                var bodycontrol = Find((string)body.UserData);
-                if (bodycontrol != null)
-                {
-                    bodycontrol.SetBody(body);
-                }
-            }
+            _worldManager.Load();
         }
  private BodyControl Find(string name) 
         {
@@ -145,32 +125,7 @@ namespace WpfFarseer
             WpfDebugView.Instance.Draw(drawingContext);
         }
 #endif
-        public void Step(float dt)
-        {
-
-            if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this)) return;
-            if (dt >= 0)
-            {
-                _elapsedStep += dt;
-                _world.Step(dt);
-            }
-            else
-            {
-                /*
-                var step = (float)(_elapsedStep + dt);
-                if (step >= 0)
-                {
-                    clear();
-                    while (step > 100)
-                    {
-                        Step(100);
-                        step -= 100;
-                    }
-                    Step(step);
-                }*/
-            }
-            update();
-        }
+        
 
         public StepViewModel StepViewModel
         {

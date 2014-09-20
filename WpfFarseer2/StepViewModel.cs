@@ -11,8 +11,6 @@ namespace WpfFarseer
 {
     public class StepViewModel : NotifyObjectViewer
     {
-        float _dt = 0f;
-        //float _step = 0f;
 
         System.Windows.Forms.Timer _timer = new System.Windows.Forms.Timer();
 
@@ -26,7 +24,7 @@ namespace WpfFarseer
                 {
                     //if (_velocity > 0)
                     {
-                        _farseerCanvas.Step(_dt);
+                        _farseerCanvas.Update();
                     }
                 }
             };
@@ -53,19 +51,18 @@ namespace WpfFarseer
 
         void play()
         {
-            _dt = _timer.Interval * 0.001f;// _timer.Interval;
+            _farseerCanvas.Play();
             notifyCommands();
         }
 
         void pause()
         {
-            _dt = 0;
+            _farseerCanvas.Pause();
             notifyCommands();
         }
 
         void back()
         {
-            _dt = - _timer.Interval;
             notifyCommands();
         }
 
@@ -80,9 +77,9 @@ namespace WpfFarseer
             _farseerCanvas.Load();
         }
 
-
+        int _dt=0;
         public ICommand PlayCommand { get { return new BasicCommand(play, () => _dt == 0); } }
-        public ICommand PauseCommand { get { return new BasicCommand(pause, () => _dt != 0); } }
+        public ICommand PauseCommand { get { return new BasicCommand(pause, () => _dt == 0); } }
         public ICommand BackCommand { get { return new BasicCommand(back, () => _dt == 0); } }
         public ICommand SaveCommand { get { return new BasicCommand(save, () => _farseerCanvas != null && _dt == 0 && _farseerCanvas.Savable); } }
         public ICommand LoadCommand { get { return new BasicCommand(load, () => _farseerCanvas != null && _dt == 0); } }

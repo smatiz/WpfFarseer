@@ -84,14 +84,14 @@ namespace WpfFarseer
             return code;
         }
 
-        public void Initialize(World world)
+        public void Initialize(WorldManager worldManager)
         {
             var p = TranslatePoint(new System.Windows.Point(0, 0), (UIElement)Parent);
             _origin = new Vector2((float)p.X, (float)p.Y);
            // _rotation.CenterX = p.X;
            // _rotation.CenterY = p.Y;
 
-            _body = BodyFactory.CreateBody(world, Vector2.Zero);
+            _body = worldManager.CreateBody(Vector2.Zero);
 
             WpfDebugView.Instance.Add(_body);
 
@@ -106,7 +106,7 @@ namespace WpfFarseer
             _body.Position = _origin;
         }
 
-        public void Update(World world)
+        public void Update(WorldManager worldManager)
         {
             refreshVisual();
             if (_body == null) return;
