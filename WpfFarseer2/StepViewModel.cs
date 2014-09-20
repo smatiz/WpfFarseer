@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FarseerPhysics.Common;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -45,6 +46,8 @@ namespace WpfFarseer
             NotifyPropertyChanged(() => PauseCommand);
             NotifyPropertyChanged(() => PlayCommand);
             NotifyPropertyChanged(() => BackCommand);
+            NotifyPropertyChanged(() => SaveCommand);
+            NotifyPropertyChanged(() => LoadCommand);
 
         }
 
@@ -66,10 +69,24 @@ namespace WpfFarseer
             notifyCommands();
         }
 
+        void save()
+        {
+            if (FarseerCanvas == null) return;
+            FarseerCanvas.Save();
+        }
+        void load()
+        {
+            if (FarseerCanvas == null) return;
+            FarseerCanvas.Load();
+        }
+
+
         public ICommand PlayCommand { get { return new BasicCommand(play, () => _dt == 0); } }
         public ICommand PauseCommand { get { return new BasicCommand(pause, () => _dt != 0); } }
         public ICommand BackCommand { get { return new BasicCommand(back, () => _dt == 0); } }
-
+        public ICommand SaveCommand { get { return new BasicCommand( save, () => FarseerCanvas != null && _dt == 0); } }
+        public ICommand LoadCommand { get { return new BasicCommand(load, () => FarseerCanvas != null && _dt == 0); } }
+        
         public ICommand VoidCommand { get { return new BasicCommand(() => { }, () => false); } }
 
 

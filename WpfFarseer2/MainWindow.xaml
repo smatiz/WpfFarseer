@@ -9,13 +9,19 @@
             <RowDefinition Height="5*"/>
         </Grid.RowDefinitions>
         <l:FarseerCanvas Grid.Row="0" StepViewModel="{Binding StepViewModel, ElementName=stepControl}">
-            <l:BodyControl BodyType="Dynamic"  Canvas.Left="47" Canvas.Top="32" Height="63" Width="54" >
-                <Polygon Points="0,0,100,0,100,100" >
-                    <!--<Polygon.RenderTransform>
-                        <RotateTransform Angle="90">
+            <l:BodyControl BodyType="Dynamic"  Canvas.Left="47" Canvas.Top="2" Height="63" Width="54" >
+                <l:BodyControl.RenderTransform>
+                    <TranslateTransform X="30">
+
+                    </TranslateTransform>
+                </l:BodyControl.RenderTransform>
+                <Polygon Canvas.Left="60" Points="0,0,100,0,100,100" >
+
+                    <Polygon.RenderTransform>
+                        <TranslateTransform X="90">
                             
-                        </RotateTransform>
-                    </Polygon.RenderTransform>-->
+                        </TranslateTransform>
+                    </Polygon.RenderTransform>
                 </Polygon>
             </l:BodyControl>
             <l:BodyControl BodyType="Static"  Canvas.Left="10" Canvas.Top="135" Height="63" Width="54" >

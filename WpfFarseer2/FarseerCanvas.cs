@@ -1,4 +1,5 @@
-﻿using FarseerPhysics.Dynamics;
+﻿using FarseerPhysics.Common;
+using FarseerPhysics.Dynamics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -69,6 +70,25 @@ namespace WpfFarseer
             _elapsedStep = 0;
             update();
         }
+
+        public void Save()
+        {
+            WorldSerializer.Serialize(_world, @"s:\aaa.xml");
+        }
+
+        public void Load()
+        {
+            _world = WorldSerializer.Deserialize(@"s:\aaa.xml"); 
+            /*foreach (var child in Children)
+            {
+                var body = child as BodyControl;
+                if (body != null)
+                {
+                    body.Initialize(_world);
+                }
+            }*/
+        }
+
 
         public void Step(float dt)
         {

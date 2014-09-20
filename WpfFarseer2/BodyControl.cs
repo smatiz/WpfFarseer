@@ -22,7 +22,12 @@ namespace WpfFarseer
     public class BodyControl : Canvas
     {
         Body _body;
-        List<Shape> _shapes = new List<Shape>();
+        //List<Shape> _shapes = new List<Shape>();
+        Vector2 _origin;
+        RotateTransform _rotation;
+       TranslateTransform _traslation;
+
+       const float AngleSubst = 180f / (float)Math.PI;
 
         public BodyType BodyType
         {
@@ -34,28 +39,43 @@ namespace WpfFarseer
 
         public BodyControl()
         {
-            if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
-            {
-                if (RenderTransform != MatrixTransform.Identity)
-                    throw new NotImplementedException("RenderTransform is not handled by farseer");
-            }
+            _rotation = new RotateTransform();
+            _traslation = new TranslateTransform();
 
             Loaded += (s, e) =>
             {
+                var rt = this.RenderTransform;
+                var gt = new TransformGroup();
+                gt.Children.Add(_rotation);
+                gt.Children.Add(_traslation);
+                gt.Children.Add(rt);
+                this.RenderTransform = gt;
                 refreshVisual();
             };
         }
 
         public void Initialize(World world)
         {
-            buildPhyics(world);
+            var p = TranslatePoint(new System.Windows.Point(0, 0), (UIElement)Parent);
+            _origin = new Vector2((float)p.X, (float)p.Y);
+           // _rotation.CenterX = p.X;
+           // _rotation.CenterY = p.Y;
+
+            _body = BodyFactory.CreateBody(world, Vector2.Zero);
+            _body.UserData = Name;
+            _body.FixtureList.AddRange(from shape in FindShapes() select ShapeToFixture(shape, _body));
+            _body.BodyType = BodyType;
+            _body.Position = _origin;
         }
+
         public void Update(World world)
         {
             refreshVisual();
             if (_body == null) return;
-            setPos(_body.Position.X, _body.Position.Y);
-            setRot(_body.Rotation);
+            var q = _body.Position - _origin;
+            _traslation.X = q.X;
+            _traslation.Y = q.Y;
+            _rotation.Angle = _body.Rotation * AngleSubst;
         }
 
         private Canvas CanvasParent
@@ -63,33 +83,6 @@ namespace WpfFarseer
             get
             {
                 return Parent as Canvas;
-            }
-        }
-        private void setRot(float a)
-        {
-            //this.LayoutTransform = new RotateTransform(a);
-            this.RenderTransform = new RotateTransform(180*a/Math.PI);
-        }
-        private void setPos(float x, float y)
-        {
-            Canvas.SetLeft(this, x);
-            Canvas.SetTop(this, y);
-        }
-        private void getRectangle(out float x, out float y, out float w, out float h)
-        {
-            x = (float)Canvas.GetLeft(this);
-            y = (float)Canvas.GetTop(this);
-
-            w = (float)ActualWidth;
-            if(w <= 0)
-            {
-                w = (float)CanvasParent.ActualWidth - x - (float)Canvas.GetRight(this);
-            }
-
-            h = (float)ActualHeight;
-            if (h <= 0)
-            {
-                h = (float)CanvasParent.ActualHeight - y - (float)Canvas.GetBottom(this);
             }
         }
         private Brush GetBrush()
@@ -116,7 +109,6 @@ namespace WpfFarseer
             }
 
         }
-
         private IEnumerable<Shape> FindShapes()
         {
             foreach (var x in Children)
@@ -127,17 +119,14 @@ namespace WpfFarseer
                 }
             }
         }
-
         private Vertices PointsToVertices(IEnumerable<System.Windows.Point> points)
         {
             return new Vertices(from p in points select new Vector2((float)p.X, (float)p.Y));
         }
-
         private Vertices PolygonToVertices(Polygon poly)
         {
             return PointsToVertices(from p in poly.Points select poly.TranslatePoint(p, this));
         }
-
         private Fixture ShapeToFixture(Shape shape, Body body)
         {
             if(shape is Polygon)
@@ -151,14 +140,6 @@ namespace WpfFarseer
             }
         }
 
-        private void buildPhyics(World world)
-        {
-            var x = (float)Canvas.GetLeft(this);
-            var y = (float)Canvas.GetTop(this);
-            _body = BodyFactory.CreateBody(world, new Vector2(x, y));
-            _body.FixtureList.AddRange(from shape in FindShapes() select ShapeToFixture(shape, _body));
-            _body.BodyType = BodyType;
-            _body.Position = new Vector2(x, y);
-        }
+        
     }
 }
