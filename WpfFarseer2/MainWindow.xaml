@@ -9,7 +9,7 @@
             <RowDefinition Height="5*"/>
         </Grid.RowDefinitions>
         <l:FarseerCanvas Grid.Row="0" StepViewModel="{Binding StepViewModel, ElementName=stepControl}">
-            <l:BodyControl BodyType="Dynamic"  Canvas.Left="47" Canvas.Top="2" Height="63" Width="54" >
+            <l:BodyControl x:Name="fallingBody" BodyType="Dynamic"  Canvas.Left="47" Canvas.Top="2" Height="63" Width="54" >
                 <l:BodyControl.RenderTransform>
                     <TranslateTransform X="30">
 
@@ -24,8 +24,8 @@
                     </Polygon.RenderTransform>
                 </Polygon>
             </l:BodyControl>
-            <l:BodyControl BodyType="Static"  Canvas.Left="10" Canvas.Top="135" Height="63" Width="54" >
-                <Polygon Canvas.Left="90" Points="0,0,200,0,200,200"></Polygon>
+            <l:BodyControl x:Name="b2" BodyType="Static"  Canvas.Left="10" Canvas.Top="135" Height="63" Width="54" >
+                <Polygon Canvas.Left="130" Points="0,0,200,0,200,200"></Polygon>
             </l:BodyControl>
         </l:FarseerCanvas>
         <l:StepControl x:Name="stepControl"  Grid.Row="1"></l:StepControl>

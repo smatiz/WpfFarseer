@@ -54,6 +54,13 @@ namespace FarseerPhysics.Samples.ScreenSystem
             else
                 World.Clear();
 
+            
+#if WPF_SERIALIZATION
+            World = FarseerPhysics.Common.WorldSerializer.Deserialize(@"s:\aaa.xml");
+#endif
+
+
+
             if (DebugView == null)
             {
                 DebugView = new DebugViewXNA(World);
@@ -68,6 +75,11 @@ namespace FarseerPhysics.Samples.ScreenSystem
                 Camera = new Camera2D(ScreenManager.GraphicsDevice);
             else
                 Camera.ResetCamera();
+
+#if WPF_SERIALIZATION
+            Camera.Zoom = Camera.Zoom * 0.05f;
+#endif
+
 
             HiddenBody = BodyFactory.CreateBody(World, Vector2.Zero);
 

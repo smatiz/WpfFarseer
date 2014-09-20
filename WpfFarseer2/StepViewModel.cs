@@ -22,11 +22,11 @@ namespace WpfFarseer
             _timer.Interval = 25;
             _timer.Tick += (s, e) =>
             {
-                if (FarseerCanvas != null)
+                if (_farseerCanvas != null)
                 {
                     //if (_velocity > 0)
                     {
-                        FarseerCanvas.Step(_dt);
+                        _farseerCanvas.Step(_dt);
                     }
                 }
             };
@@ -71,25 +71,32 @@ namespace WpfFarseer
 
         void save()
         {
-            if (FarseerCanvas == null) return;
-            FarseerCanvas.Save();
+            if (_farseerCanvas == null) return;
+            _farseerCanvas.Save();
         }
         void load()
         {
-            if (FarseerCanvas == null) return;
-            FarseerCanvas.Load();
+            if (_farseerCanvas == null) return;
+            _farseerCanvas.Load();
         }
 
 
         public ICommand PlayCommand { get { return new BasicCommand(play, () => _dt == 0); } }
         public ICommand PauseCommand { get { return new BasicCommand(pause, () => _dt != 0); } }
         public ICommand BackCommand { get { return new BasicCommand(back, () => _dt == 0); } }
-        public ICommand SaveCommand { get { return new BasicCommand( save, () => FarseerCanvas != null && _dt == 0); } }
-        public ICommand LoadCommand { get { return new BasicCommand(load, () => FarseerCanvas != null && _dt == 0); } }
+        public ICommand SaveCommand { get { return new BasicCommand(save, () => _farseerCanvas != null && _dt == 0 && _farseerCanvas.Savable); } }
+        public ICommand LoadCommand { get { return new BasicCommand(load, () => _farseerCanvas != null && _dt == 0); } }
         
         public ICommand VoidCommand { get { return new BasicCommand(() => { }, () => false); } }
 
-
-        public FarseerCanvas FarseerCanvas { private get; set; }
+        FarseerCanvas _farseerCanvas;
+        public FarseerCanvas FarseerCanvas
+        {
+            set
+            {
+                _farseerCanvas = value;
+                notifyCommands();
+            }
+        }
     }
 }

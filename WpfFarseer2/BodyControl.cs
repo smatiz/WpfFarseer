@@ -54,6 +54,36 @@ namespace WpfFarseer
             };
         }
 
+        public void SetBody(Body body)
+        {
+            _body = body;
+
+            WpfDebugView.Instance.Add(_body);
+        }
+        private static string uniqueCode()
+        {
+            string characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_";
+            string ticks = DateTime.UtcNow.Ticks.ToString();
+            var code = "";
+            for (var i = 0; i < characters.Length; i += 2)
+            {
+                if ((i + 2) <= ticks.Length)
+                {
+                    var number = int.Parse(ticks.Substring(i, 2));
+                    if (number > characters.Length - 1)
+                    {
+                        var one = double.Parse(number.ToString().Substring(0, 1));
+                        var two = double.Parse(number.ToString().Substring(1, 1));
+                        code += characters[Convert.ToInt32(one)];
+                        code += characters[Convert.ToInt32(two)];
+                    }
+                    else
+                        code += characters[number];
+                }
+            }
+            return code;
+        }
+
         public void Initialize(World world)
         {
             var p = TranslatePoint(new System.Windows.Point(0, 0), (UIElement)Parent);
@@ -62,8 +92,16 @@ namespace WpfFarseer
            // _rotation.CenterY = p.Y;
 
             _body = BodyFactory.CreateBody(world, Vector2.Zero);
+
+            WpfDebugView.Instance.Add(_body);
+
+            if(Name == "")
+            {
+                Name = uniqueCode();
+            }
+
             _body.UserData = Name;
-            _body.FixtureList.AddRange(from shape in FindShapes() select ShapeToFixture(shape, _body));
+            _body.FixtureList.AddRange(from shape in FindShapes() select this.ToFarseer(shape, _body));
             _body.BodyType = BodyType;
             _body.Position = _origin;
         }
@@ -119,26 +157,7 @@ namespace WpfFarseer
                 }
             }
         }
-        private Vertices PointsToVertices(IEnumerable<System.Windows.Point> points)
-        {
-            return new Vertices(from p in points select new Vector2((float)p.X, (float)p.Y));
-        }
-        private Vertices PolygonToVertices(Polygon poly)
-        {
-            return PointsToVertices(from p in poly.Points select poly.TranslatePoint(p, this));
-        }
-        private Fixture ShapeToFixture(Shape shape, Body body)
-        {
-            if(shape is Polygon)
-            {
-
-                return FixtureFactory.AttachPolygon(PolygonToVertices((Polygon)shape), Const.Density, body);
-            }
-            else
-            {
-                return FixtureFactory.AttachCircle(1, 1, body);
-            }
-        }
+       
 
         
     }

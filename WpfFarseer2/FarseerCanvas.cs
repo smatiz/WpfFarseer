@@ -1,7 +1,10 @@
 ﻿using FarseerPhysics.Common;
 using FarseerPhysics.Dynamics;
+using FarseerPhysics.Dynamics.Contacts;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -49,6 +52,9 @@ namespace WpfFarseer
                     bodyControl.Update(_world);
                 }
             }
+#if DEBUG
+            InvalidateVisual();
+#endif
         }
 
         private void clear()
@@ -71,25 +77,74 @@ namespace WpfFarseer
             update();
         }
 
+
+        public bool Savable
+        {
+            get
+            {
+                return true;
+
+                if (_world == null) return false;
+                if (_world.ContactList.Count == 0) return true;
+              //  _world.ContactList[0].
+
+                return (from x in _world.ContactList where !x.IsTouching select x).Count() == 0;
+            }
+        }
         public void Save()
         {
+
+            var settings = new  JsonSerializerSettings()
+            {
+                 MaxDepth = 1
+            };
+
+            File.WriteAllText(@"s:\aaa.json", JsonConvert.SerializeObject(from x in _world.ContactList select x.Manifold, settings));
             WorldSerializer.Serialize(_world, @"s:\aaa.xml");
         }
 
+      
+
         public void Load()
         {
-            _world = WorldSerializer.Deserialize(@"s:\aaa.xml"); 
-            /*foreach (var child in Children)
+
+            var contact= JsonConvert.DeserializeObject(File.ReadAllText(@"s:\aaa.json"));
+
+
+            _world = WorldSerializer.Deserialize(@"s:\aaa.xml");
+            _world.Step(0.000001f);
+            //_world.ContactList[0].
+
+            //_world.ClearForces();
+           
+            foreach (var body in _world.BodyList)
             {
-                var body = child as BodyControl;
-                if (body != null)
+                var bodycontrol = Find((string)body.UserData);
+                if (bodycontrol != null)
                 {
-                    body.Initialize(_world);
+                    bodycontrol.SetBody(body);
                 }
-            }*/
+            }
         }
-
-
+ private BodyControl Find(string name) 
+        {
+            foreach (var child in Children)
+            {
+                var bodyControl = child as BodyControl;
+                if (bodyControl != null && bodyControl.Name == name)
+                {
+                    return bodyControl;
+                }
+            }
+            return null;
+        }
+#if DEBUG
+        protected override void OnRender(DrawingContext drawingContext)
+        {
+            base.OnRender(drawingContext);
+            WpfDebugView.Instance.Draw(drawingContext);
+        }
+#endif
         public void Step(float dt)
         {
 
