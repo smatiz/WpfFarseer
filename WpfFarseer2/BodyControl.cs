@@ -1,8 +1,4 @@
-﻿using FarseerPhysics.Common;
-using FarseerPhysics.Dynamics;
-using FarseerPhysics.Factories;
-using Microsoft.Xna.Framework;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,23 +15,24 @@ using System.Windows.Shapes;
 
 namespace WpfFarseer
 {
+   // incapsula il body
+    // crea il Body e le fixture in base allo xaml
+    // sposta il canvas in base alla fisica del body
+
     public class BodyControl : Canvas
     {
-        Body _body;
-        //List<Shape> _shapes = new List<Shape>();
-        Vector2 _origin;
+        BodyController _body;
         RotateTransform _rotation;
        TranslateTransform _traslation;
 
-       const float AngleSubst = 180f / (float)Math.PI;
 
-        public BodyType BodyType
+        public FarseerPhysics.Dynamics.BodyType BodyType
         {
-            get { return (BodyType)GetValue(BodyTypeProperty); }
+            get { return (FarseerPhysics.Dynamics.BodyType)GetValue(BodyTypeProperty); }
             set { SetValue(BodyTypeProperty, value); }
         }
         public static readonly DependencyProperty BodyTypeProperty =
-            DependencyProperty.Register("BodyType", typeof(BodyType), typeof(BodyControl), new PropertyMetadata(BodyType.Static));
+            DependencyProperty.Register("BodyType", typeof(FarseerPhysics.Dynamics.BodyType), typeof(BodyControl), new PropertyMetadata(FarseerPhysics.Dynamics.BodyType.Static));
 
         public BodyControl()
         {
@@ -54,12 +51,12 @@ namespace WpfFarseer
             };
         }
 
-        public void SetBody(Body body)
-        {
-            _body = body;
+        //public void SetBody(Body body)
+        //{
+        //    _body = body;
 
-            WpfDebugView.Instance.Add(_body);
-        }
+        //    //WpfDebugView.Instance.Add(_body);
+        //}
         private static string uniqueCode()
         {
             string characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_";
@@ -86,34 +83,27 @@ namespace WpfFarseer
 
         public void Initialize(WorldManager worldManager)
         {
-            var p = TranslatePoint(new System.Windows.Point(0, 0), (UIElement)Parent);
-            _origin = new Vector2((float)p.X, (float)p.Y);
-           // _rotation.CenterX = p.X;
-           // _rotation.CenterY = p.Y;
-
-            _body = worldManager.CreateBody(Vector2.Zero);
-
-            WpfDebugView.Instance.Add(_body);
-
-            if(Name == "")
+            if (Name == "")
             {
+                // funziona in una sessione ma non funziona al restart dell'applicazione
                 Name = uniqueCode();
             }
 
-            _body.UserData = Name;
-            _body.FixtureList.AddRange(from shape in FindShapes() select this.ToFarseer(shape, _body));
-            _body.BodyType = BodyType;
-            _body.Position = _origin;
+            var p = WpfFarseerHelper.ToFarseer(TranslatePoint(new System.Windows.Point(0, 0), (UIElement)Parent));
+            _body = worldManager.CreateBody(p, BodyType, Name, this, FindShapes());
+
+            //WpfDebugView.Instance.Add(_body);
+
+
+           
         }
 
         public void Update(WorldManager worldManager)
         {
             refreshVisual();
             if (_body == null) return;
-            var q = _body.Position - _origin;
-            _traslation.X = q.X;
-            _traslation.Y = q.Y;
-            _rotation.Angle = _body.Rotation * AngleSubst;
+            _body.Update(_traslation, _rotation);
+            
         }
 
         private Canvas CanvasParent
@@ -127,11 +117,11 @@ namespace WpfFarseer
         {
             switch (BodyType)
             {
-                case BodyType.Static:
+                case FarseerPhysics.Dynamics.BodyType.Static:
                     return new SolidColorBrush(Colors.Black);
-                case BodyType.Kinematic:
+                case FarseerPhysics.Dynamics.BodyType.Kinematic:
                     return new SolidColorBrush(Colors.Blue);
-                case BodyType.Dynamic:
+                case FarseerPhysics.Dynamics.BodyType.Dynamic:
                     return new SolidColorBrush(Colors.Orange);
                 default:
                     return null;
@@ -157,8 +147,24 @@ namespace WpfFarseer
                 }
             }
         }
-       
 
+
+
+        public static float GetDensity(DependencyObject obj)
+        {
+            return (float)obj.GetValue(DensityProperty);
+        }
+
+        public static void SetDensity(DependencyObject obj, float value)
+        {
+            obj.SetValue(DensityProperty, value);
+        }
+
+        // Using a DependencyProperty as the backing store for Density.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty DensityProperty =
+            DependencyProperty.RegisterAttached("Density", typeof(float), typeof(BodyControl), new PropertyMetadata(Const.Density));
+
+        
         
     }
 }

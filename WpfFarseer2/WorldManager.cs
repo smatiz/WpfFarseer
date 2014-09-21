@@ -14,42 +14,25 @@ using System.Threading.Tasks;
 
 namespace WpfFarseer
 {
+
+
     public class WorldManager
     {
-
-        enum Status { Stopped, Play, Pause }
-        //const float Dt = 0.04f;
-        const long Interval = 400;//(long)(Dt * 1000);
+        WorldWatch _worldWatch;
         private World _world;
-        private Timer _timer;
-        private Status _status = Status.Stopped;
-        private Stopwatch _realWatch = new Stopwatch();
-        private double _lastElapsedTotalSeconds = 0;
 
+        public event Action<string, Body> OnWorldReloaded;
 
-       
-        double _elapsedStep = 0;
         public WorldManager()
         {
             _world = new World(new Microsoft.Xna.Framework.Vector2(0, 10));
-            _timer = new Timer(new TimerCallback(callback), null, Interval, Timeout.Infinite);
+            _worldWatch = new WorldWatch(dt => step(dt));
         }
 
-        Stopwatch _watch = new Stopwatch();
-        private void callback(Object state)
-        {
-            _watch.Start();
-            var lastElapsedTotalSeconds = _realWatch.Elapsed.TotalSeconds;
-            step((float)(lastElapsedTotalSeconds - _lastElapsedTotalSeconds));
-            _timer.Change(Math.Max(0, Interval - _watch.ElapsedMilliseconds), Timeout.Infinite);
-            _lastElapsedTotalSeconds = lastElapsedTotalSeconds;
-        }
 
-       
         public void Clear()
         {
             _world = new World(new Microsoft.Xna.Framework.Vector2(0, 10));
-            _elapsedStep = 0;
         }
 
 
@@ -61,16 +44,16 @@ namespace WpfFarseer
 
                 if (_world == null) return false;
                 if (_world.ContactList.Count == 0) return true;
-              //  _world.ContactList[0].
+                //  _world.ContactList[0].
 
                 return (from x in _world.ContactList where !x.IsTouching select x).Count() == 0;
             }
         }
         public void Save()
         {
-            var settings = new  JsonSerializerSettings()
+            var settings = new JsonSerializerSettings()
             {
-                 MaxDepth = 1
+                MaxDepth = 1
             };
 
             File.WriteAllText(@"s:\aaa.json", JsonConvert.SerializeObject(from x in _world.ContactList select x.Manifold, settings));
@@ -78,11 +61,36 @@ namespace WpfFarseer
         }
 
 
+        Dictionary<string, Stream> _savedStatesMap = new Dictionary<string, Stream>();
+        public void Save(string name)
+        { 
+            var ms = new MemoryStream();
+             WorldXmlSerializer.Serialize(_world, ms);
+             _savedStatesMap.Add(name, ms);
+        }
+        public void Load(string name)
+        {
+            /*var ms = _savedStatesMap[name];
+           _world = WorldXmlSerializer.DeSerialize(ms);
+
+            _savedStatesMap.Add(name, ms);
+
+
+            foreach (var body in _world.BodyList)
+            {
+                var bodycontrol = Find((string)body.UserData);
+                if (bodycontrol != null)
+                {
+                    bodycontrol.SetBody(body);
+                }
+            }*/
+        }
+
 
         public void Load()
         {
 
-            var contact= JsonConvert.DeserializeObject(File.ReadAllText(@"s:\aaa.json"));
+            var contact = JsonConvert.DeserializeObject(File.ReadAllText(@"s:\aaa.json"));
 
 
             _world = WorldSerializer.Deserialize(@"s:\aaa.xml");
@@ -90,7 +98,7 @@ namespace WpfFarseer
             //_world.ContactList[0].
 
             //_world.ClearForces();
-           
+
             /*foreach (var body in _world.BodyList)
             {
                 var bodycontrol = Find((string)body.UserData);
@@ -100,56 +108,36 @@ namespace WpfFarseer
                 }
             }*/
         }
- 
+
 
         private void step(float dt)
         {
-            if (_status != Status.Play) return;
-            if (dt >= 0)
-            {
-                _elapsedStep += dt;
-                _world.Step(dt);
-            }
-            else
-            {
-                /*
-                var step = (float)(_elapsedStep + dt);
-                if (step >= 0)
-                {
-                    clear();
-                    while (step > 100)
-                    {
-                        Step(100);
-                        step -= 100;
-                    }
-                    Step(step);
-                }*/
-            }
+            _world.Step(dt);
         }
 
-       public void Play()
+        public void Play()
         {
-            _status = Status.Play;
-            _realWatch.Start();
+            _worldWatch.Play();
         }
 
-       public void Pause()
-       {
-           _status = Status.Pause;
-           _realWatch.Stop();
+        public void Pause()
+        {
+            _worldWatch.Pause();
         }
 
-       public void Back()
+        public void Back()
         {
         }
 
-        
-
-
-
-        public Body CreateBody(Microsoft.Xna.Framework.Vector2 vector2)
+        public BodyController CreateBody(Vector2 originPosition, BodyType bodyType, string name, System.Windows.UIElement uielement, IEnumerable<System.Windows.Shapes.Shape> shapes)
         {
-            return BodyFactory.CreateBody(_world, Vector2.Zero);
+            var body = BodyFactory.CreateBody(_world, Vector2.Zero);
+            body.UserData = name;
+            body.FixtureList.AddRange(from shape in shapes select uielement.ToFarseer(shape, body));
+            body.BodyType = bodyType;
+            body.Position = originPosition;
+            return new BodyController(body, originPosition);
         }
+
     }
 }

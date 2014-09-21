@@ -76,10 +76,16 @@ namespace WpfFarseer
             if (_farseerCanvas == null) return;
             _farseerCanvas.Load();
         }
+        void restart()
+        {
+            if (_farseerCanvas == null) return;
+            _farseerCanvas.Restart();
+        }
 
         int _dt=0;
         public ICommand PlayCommand { get { return new BasicCommand(play, () => _dt == 0); } }
         public ICommand PauseCommand { get { return new BasicCommand(pause, () => _dt == 0); } }
+        public ICommand RestartCommand { get { return new BasicCommand(restart, () => _dt == 0); } }
         public ICommand BackCommand { get { return new BasicCommand(back, () => _dt == 0); } }
         public ICommand SaveCommand { get { return new BasicCommand(save, () => _farseerCanvas != null && _dt == 0 && _farseerCanvas.Savable); } }
         public ICommand LoadCommand { get { return new BasicCommand(load, () => _farseerCanvas != null && _dt == 0); } }

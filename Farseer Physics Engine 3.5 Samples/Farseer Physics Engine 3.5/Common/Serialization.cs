@@ -43,7 +43,9 @@ namespace FarseerPhysics.Common
         }
     }
 
-    internal static class WorldXmlSerializer
+
+    //mtiz
+    public static class WorldXmlSerializer
     {
         private static XmlWriter _writer;
 
@@ -399,7 +401,7 @@ namespace FarseerPhysics.Common
             }
         }
 
-        internal static void Serialize(World world, Stream stream)
+        public static void Serialize(World world, Stream stream)
         {
             List<Body> bodies = new List<Body>();
             List<Fixture> fixtures = new List<Fixture>();

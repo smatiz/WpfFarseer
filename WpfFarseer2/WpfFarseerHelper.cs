@@ -27,7 +27,7 @@ namespace WpfFarseer
             if (shape is Polygon)
             {
 
-                return FixtureFactory.AttachPolygon(uielement.ToFarseer((Polygon)shape), Const.Density, body);
+                return FixtureFactory.AttachPolygon(uielement.ToFarseer((Polygon)shape), BodyControl.GetDensity(shape), body);
             }
             else
             {

@@ -1,7 +1,4 @@
-﻿using FarseerPhysics.Common;
-using FarseerPhysics.Dynamics;
-using FarseerPhysics.Dynamics.Contacts;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -31,10 +28,10 @@ namespace WpfFarseer
                 _worldManager = new WorldManager();
                 foreach (var child in Children)
                 {
-                    var body = child as BodyControl;
-                    if (body != null)
+                    var bodyControl = child as BodyControl;
+                    if (bodyControl != null)
                     {
-                        body.Initialize(_worldManager);
+                        bodyControl.Initialize(_worldManager);
                     }
                 }
             };
@@ -100,13 +97,18 @@ namespace WpfFarseer
             _worldManager.Pause();
         }
 
-      
+
+        public void Restart()
+        {
+
+        }
 
         public void Load()
         {
             _worldManager.Load();
         }
- private BodyControl Find(string name) 
+ 
+        private BodyControl Find(string name) 
         {
             foreach (var child in Children)
             {
@@ -139,7 +141,8 @@ namespace WpfFarseer
             var _this = (FarseerCanvas)dependencyObject;
             _this.StepViewModel.FarseerCanvas = _this;
         }
-       
+
+
     }
 }
 
