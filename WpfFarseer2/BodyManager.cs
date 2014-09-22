@@ -16,18 +16,21 @@ namespace WpfFarseer
         private Body _body;
         Vector2 _originalPosition;
 
-        public BodyManager(Body body, Vector2 originPosition)
+        BodyControl _bodyControl;
+
+        public BodyManager(BodyControl bodyControl, Body body, Vector2 originPosition)
         {
             _originalPosition = originPosition;
             _body = body;
+            _bodyControl = bodyControl;
         }
 
-        public void Update(System.Windows.Media.TranslateTransform _traslation, System.Windows.Media.RotateTransform _rotation)
+        public void Update()
         {
             var q = _body.Position - _originalPosition;
-            _traslation.X = q.X;
-            _traslation.Y = q.Y;
-            _rotation.Angle = _body.Rotation * AngleSubst;
+            _bodyControl.Traslation.X = q.X;
+            _bodyControl.Traslation.Y = q.Y;
+            _bodyControl.Rotation.Angle = _body.Rotation * AngleSubst;
         }
 
         public void Draw(System.Windows.Media.DrawingContext drawingContext)

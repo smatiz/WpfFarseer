@@ -34,25 +34,27 @@ namespace WpfFarseer
                     var bodyControl = child as BodyControl;
                     if (bodyControl != null)
                     {
-                        bodyControl.Initialize(_worldManager);
 
-                        var angleJoint = FarseerCanvas.GetAngleJoint(bodyControl);
+                        _worldManager.AddBodyControl(bodyControl);
+                        //bodyControl.Initialize(_worldManager);
+
+                        /*var angleJoint = FarseerCanvas.GetAngleJoint(bodyControl);
                         if(angleJoint != null)
                         {
                             var bodyControl2 = Find(angleJoint);
                             _worldManager.CreateAngleJoint(bodyControl.BodyManager, bodyControl2.BodyManager);
-                        }
+                        }*/
                            
 
 
                     }
 
-                    var jointControl = child as RopeJointControl;
+                    /*var jointControl = child as RopeJointControl;
                     if (jointControl != null)
                     {
                         var targets = jointControl.Targets.ToArray();
                         _worldManager.CreateRopeJoint(Find(targets[0].Name).BodyManager, Find(targets[1].Name).BodyManager, targets[0].Point.ToFarseer(), targets[1].Point.ToFarseer());
-                    }
+                    }*/
                 }
 
 
@@ -70,7 +72,10 @@ namespace WpfFarseer
                 var bodyControl = child as BodyControl;
                 if (bodyControl != null)
                 {
-                    bodyControl.Update(_worldManager);
+
+
+                    if (_worldManager == null) return;
+                    _worldManager.Update();
                 }
             }
 #if DEBUG
@@ -78,7 +83,7 @@ namespace WpfFarseer
 #endif
         }
 
-        private void clear()
+       /* private void clear()
         {
             if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this)) return;
             _worldManager.Clear();
@@ -95,7 +100,7 @@ namespace WpfFarseer
             //_world.Clear();
             //_world = new World(new Microsoft.Xna.Framework.Vector2(0, 10));
             Update();
-        }
+        }*/
 
 
         public bool Savable

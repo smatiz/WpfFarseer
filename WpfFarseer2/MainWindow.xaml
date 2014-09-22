@@ -24,14 +24,11 @@
                     </Polygon.RenderTransform>
                 </Polygon>
             </l:BodyControl>
-            <l:BodyControl x:Name="b2"   BodyType="Dynamic"  Canvas.Left="10" Canvas.Top="335" Height="63" Width="54" >
+            <l:BodyControl x:Name="b2"   BodyType="Static"  Canvas.Left="10" Canvas.Top="335" Height="63" Width="54" >
                 <!--l:FarseerCanvas.AngleJoint="fallingBody"-->
                 <Polygon Canvas.Left="57" Points="0,0,200,0,200,200" Canvas.Top="-106" ></Polygon>
             </l:BodyControl>
-            <l:BodyControl x:Name="b3"   BodyType="Static"  Canvas.Left="10" Canvas.Top="335" Height="63" Width="54" >
-                <!--l:FarseerCanvas.AngleJoint="fallingBody"-->
-                <Polygon Canvas.Left="57" Points="0,0,100,0,100,100" Canvas.Top="-106" ></Polygon>
-            </l:BodyControl>
+          
             <l:RopeJointControl>
                 <l:CrossControl TargetName="b2" Canvas.Left="191" Canvas.Top="348">
 

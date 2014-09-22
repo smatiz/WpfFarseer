@@ -21,6 +21,8 @@ namespace WpfFarseer
     {
         WorldWatch _worldWatch;
         private World _world;
+        List<BodyManager> _bodyManagers = new List<BodyManager>();
+
 
         //private Action _updateInvoke;
 
@@ -91,6 +93,14 @@ namespace WpfFarseer
         }
 
 
+        public void Update()
+        {
+            foreach(var bm in _bodyManagers)
+            {
+                bm.Update();
+            }
+        }
+
         public void Load()
         {
 
@@ -134,16 +144,16 @@ namespace WpfFarseer
         {
         }
 
-        public BodyManager CreateBody(Vector2 originPosition, BodyType bodyType, string name, System.Windows.UIElement uielement, IEnumerable<System.Windows.Shapes.Shape> shapes)
+        public void AddBodyControl(BodyControl bodyControl)
         {
+            var originPosition = WpfFarseerHelper.ToFarseer(bodyControl.TranslatePoint(new System.Windows.Point(0, 0), (System.Windows.UIElement)bodyControl.Parent));
             var body = BodyFactory.CreateBody(_world, Vector2.Zero);
-            body.UserData = name;
-            body.FixtureList.AddRange(from shape in shapes select uielement.ToFarseer(shape, body));
-            body.BodyType = bodyType;
+            body.UserData = bodyControl.Name;
+            body.FixtureList.AddRange(from shape in bodyControl.FindShapes() select bodyControl.ToFarseer(shape, body));
+            body.BodyType = bodyControl.BodyType;
             body.Position = originPosition;
-            return new BodyManager(body, originPosition);
+            _bodyManagers.Add(new BodyManager(bodyControl, body, originPosition));
         }
-
 
         public JointManager CreateAngleJoint(BodyManager b1, BodyManager b2)
         {
@@ -155,6 +165,7 @@ namespace WpfFarseer
             return BodyManager.CreateRopeJoint(_world, b1, b2, anchor1, anchor2);
         }
 
-        
+
+
     }
 }
