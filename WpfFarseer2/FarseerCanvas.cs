@@ -20,6 +20,7 @@ namespace WpfFarseer
     public class FarseerCanvas : Canvas
     {
         FarseerWorldManager _worldManager;
+        List<RopeJointManager> _ropeJointManager = new List<RopeJointManager>();
         System.Windows.Forms.Timer _timer = new System.Windows.Forms.Timer();
         public FarseerCanvas()
         {
@@ -28,55 +29,60 @@ namespace WpfFarseer
             _worldManager = new FarseerWorldManager();//() => this.Dispatcher.BeginInvoke(new Action(Update)));
             Loaded += (s, e) =>
             {
-                if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this)) return; 
+                var tobeadded = new List<UIElement>();
+
+                if (!System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
+                {
+                    foreach (var child in Children)
+                    {
+                        var bodyControl = child as BodyControl;
+                        if (bodyControl != null)
+                        {
+                            _worldManager.AddBodyControl(bodyControl);
+                        }
+                    }
+                }
                 foreach (var child in Children)
                 {
-                    var bodyControl = child as BodyControl;
-                    if (bodyControl != null)
-                    {
-
-                        _worldManager.AddBodyControl(bodyControl);
-                        //bodyControl.Initialize(_worldManager);
-
-                        /*var angleJoint = FarseerCanvas.GetAngleJoint(bodyControl);
-                        if(angleJoint != null)
-                        {
-                            var bodyControl2 = Find(angleJoint);
-                            _worldManager.CreateAngleJoint(bodyControl.BodyManager, bodyControl2.BodyManager);
-                        }*/
-                           
-
-
-                    }
-
-                    /*var jointControl = child as RopeJointControl;
+                    var jointControl = child as RopeJointControl;
                     if (jointControl != null)
                     {
-                        var targets = jointControl.Targets.ToArray();
-                        _worldManager.CreateRopeJoint(Find(targets[0].Name).BodyManager, Find(targets[1].Name).BodyManager, targets[0].Point.ToFarseer(), targets[1].Point.ToFarseer());
-                    }*/
+                        var ropeJointInfo = _resolve(jointControl);
+                       
+                        var line = new Line();
+                        line.Stroke = new SolidColorBrush(Colors.Green);
+                        line.StrokeThickness = 1;
+                        tobeadded.Add(line);
+
+                        _ropeJointManager.Add(new RopeJointManager(this, ropeJointInfo, line));
+
+                        if (!System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
+                        {
+                            _worldManager.AddRopeJoint(ropeJointInfo, jointControl); 
+                        }
+                    }
                 }
 
-
+               
+                foreach (var tba in tobeadded)
+                {
+                    Children.Add(tba);
+                }
 
 
                 _timer.Start();
             };
         }
 
+
         public void Update()
         {
+            if (_worldManager == null) return;
             if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this)) return;
-            foreach (var child in Children)
+            _worldManager.Update();
+            foreach (var x in _ropeJointManager)
             {
-                var bodyControl = child as BodyControl;
-                if (bodyControl != null)
-                {
-
-
-                    if (_worldManager == null) return;
-                    _worldManager.Update();
-                }
+                x.Update();
             }
 #if DEBUG
             InvalidateVisual();
@@ -138,17 +144,49 @@ namespace WpfFarseer
             _worldManager.Load();
         }
  
-        private BodyControl Find(string name) 
+        //private BodyControl _find(string name) 
+        //{
+        //    foreach (var child in Children)
+        //    {
+        //        var bodyControl = child as BodyControl;
+        //        if (bodyControl != null && bodyControl.Name == name)
+        //        {
+        //            return bodyControl;
+        //        }
+        //    }
+        //    return null;
+        //}
+
+        private RopeJointInfo _resolve(RopeJointControl jointControl)
         {
+            BodyControl bodyControlA = null, bodyControlB = null;
+            Point anchorA = new Point(), anchorB = new Point();
             foreach (var child in Children)
             {
                 var bodyControl = child as BodyControl;
-                if (bodyControl != null && bodyControl.Name == name)
+                if (bodyControl != null)
                 {
-                    return bodyControl;
+                    foreach (var bodyChild in bodyControl.Children)
+                    {
+                        var crossControl = bodyChild as CrossControl;
+                        if (crossControl != null)
+                        {
+                            if( crossControl.Name == jointControl.TargetNameA)
+                            {
+                                bodyControlA = bodyControl;
+                                anchorA = crossControl.TranslatePoint(new Point(0, 0), bodyControl);
+                            }
+                            else if (crossControl.Name == jointControl.TargetNameB)
+                            {
+                                bodyControlB = bodyControl;
+                                anchorB = crossControl.TranslatePoint(new Point(0, 0), bodyControl);
+                            }
+                        }
+                    }
                 }
             }
-            return null;
+
+            return new RopeJointInfo(bodyControlA, bodyControlB, anchorA, anchorB);
         }
 #if DEBUG
         protected override void OnRender(DrawingContext drawingContext)

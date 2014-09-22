@@ -31,10 +31,11 @@ namespace WpfFarseer
 
         public void Update()
         {
-            foreach(var bm in _bodyManagers)
+            foreach(var x in _bodyManagers)
             {
-                bm.Update();
+                x.Update();
             }
+           
         }
 
         public void AddBodyControl(BodyControl bodyControl)
@@ -144,5 +145,29 @@ namespace WpfFarseer
             }*/
         }
 
+        Body _findBody(BodyControl bodyControl)
+        {
+            foreach(var x in _bodyManagers)
+            {
+                if(x.BodyControl == bodyControl)
+                {
+                    return x.Body;
+                }
+
+            }
+            return null;
+        }
+
+        public void AddRopeJoint(RopeJointInfo ropeJointInfo, RopeJointControl ropeJointControl)
+        {
+            //foreach(var bm in _bodyManagers)
+            //{
+            //    if(bm.)
+            //}
+
+            var j = JointFactory.CreateRopeJoint(_world, _findBody(ropeJointInfo.BodyControlA), _findBody(ropeJointInfo.BodyControlB), ropeJointInfo.AnchorA.ToFarseer(), ropeJointInfo.AnchorB.ToFarseer());
+            j.CollideConnected = ropeJointControl.CollideConnected;
+
+        }
     }
 }

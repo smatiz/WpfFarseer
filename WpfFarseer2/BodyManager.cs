@@ -15,9 +15,10 @@ namespace WpfFarseer
     public class BodyManager
     {
         const float AngleSubst = 180f / (float)Math.PI;
-        private Body _body;
         private Vector2 _originalPosition;
-        private BodyControl _bodyControl;
+
+        public Body Body { get; private set; }
+        public BodyControl BodyControl { get; private set; }
 
         public BodyManager(BodyControl bodyControl, Body body, Vector2 originPosition)
         {
@@ -28,28 +29,28 @@ namespace WpfFarseer
 
 
             _originalPosition = originPosition;
-            _body = body;
-            _bodyControl = bodyControl;
+            Body = body;
+            BodyControl = bodyControl;
         }
 
         public void Update()
         {
-            var q = _body.Position - _originalPosition;
-            _bodyControl.Traslation.X = q.X;
-            _bodyControl.Traslation.Y = q.Y;
-            _bodyControl.Rotation.Angle = _body.Rotation * AngleSubst;
+            var q = Body.Position - _originalPosition;
+            BodyControl.Traslation.X = q.X;
+            BodyControl.Traslation.Y = q.Y;
+            BodyControl.Rotation.Angle = Body.Rotation * AngleSubst;
         }
 
         public void Draw(System.Windows.Media.DrawingContext drawingContext)
         {
-            foreach (var f in _body.FixtureList)
+            foreach (var f in Body.FixtureList)
             {
                 if (f.Shape is PolygonShape)
                 {
                     var ps = (PolygonShape)f.Shape;
 
 
-                    var vs = (from x in ps.Vertices select _body.GetWorldPoint(x)).ToArray();
+                    var vs = (from x in ps.Vertices select Body.GetWorldPoint(x)).ToArray();
 
 
                     var streamGeometry = new System.Windows.Media.StreamGeometry();
@@ -69,7 +70,7 @@ namespace WpfFarseer
 
 
 
-                    drawingContext.DrawRectangle(new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromArgb(50, 0, 0, 250)), new System.Windows.Media.Pen(new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Black), 3), new System.Windows.Rect(_body.Position.ToWpf(), new System.Windows.Size(10, 10)));
+                    drawingContext.DrawRectangle(new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromArgb(50, 0, 0, 250)), new System.Windows.Media.Pen(new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Black), 3), new System.Windows.Rect(Body.Position.ToWpf(), new System.Windows.Size(10, 10)));
                     //ps.Vertices[0].
                 }
             }

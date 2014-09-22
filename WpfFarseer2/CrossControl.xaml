@@ -7,8 +7,8 @@
              Height="30" Width="30">
     <Canvas>
         <Path x:Name="ButtonPath"
-              Canvas.Left="-15.5"
-              Canvas.Top="-15.5"
+              Canvas.Left="-5.5"
+              Canvas.Top="-5.5"
       Stroke="Black"
       StrokeThickness="2"
       StrokeStartLineCap="Square"
@@ -20,10 +20,10 @@
                 <PathGeometry>
                     <PathGeometry.Figures>
                         <PathFigure StartPoint="0,0">
-                            <LineSegment Point="30,30"/>
+                            <LineSegment Point="10,10"/>
                         </PathFigure>
-                        <PathFigure StartPoint="0,30">
-                            <LineSegment Point="30,0"/>
+                        <PathFigure StartPoint="0,10">
+                            <LineSegment Point="10,0"/>
                         </PathFigure>
                     </PathGeometry.Figures>
                 </PathGeometry>
@@ -31,8 +31,8 @@
         </Path>
 
         <Path
-              Canvas.Left="-15"
-              Canvas.Top="-15"
+              Canvas.Left="-5"
+              Canvas.Top="-5"
       Stroke="White"
       StrokeThickness="0.5"
       StrokeStartLineCap="Square"
@@ -44,10 +44,10 @@
                 <PathGeometry>
                     <PathGeometry.Figures>
                         <PathFigure StartPoint="0,0">
-                            <LineSegment Point="30,30"/>
+                            <LineSegment Point="10,10"/>
                         </PathFigure>
-                        <PathFigure StartPoint="0,30">
-                            <LineSegment Point="30,0"/>
+                        <PathFigure StartPoint="0,10">
+                            <LineSegment Point="10,0"/>
                         </PathFigure>
                     </PathGeometry.Figures>
                 </PathGeometry>

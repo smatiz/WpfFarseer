@@ -5,32 +5,40 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Shapes;
 
 namespace WpfFarseer
 {
     public class RopeJointControl : Canvas
     {
-        public class Target
+        public string TargetNameA
         {
-            public Point Point { get; set; }
-            public string Name { get; set; }
+            get { return (string)GetValue(TargetNameAProperty); }
+            set { SetValue(TargetNameAProperty, value); }
+        }
+        public static readonly DependencyProperty TargetNameAProperty =
+            DependencyProperty.Register("TargetNameA", typeof(string), typeof(RopeJointControl), new PropertyMetadata(null));
+        
+        public string TargetNameB
+        {
+            get { return (string)GetValue(TargetNameBProperty); }
+            set { SetValue(TargetNameBProperty, value); }
+        }
+        public static readonly DependencyProperty TargetNameBProperty =
+            DependencyProperty.Register("TargetNameB", typeof(string), typeof(RopeJointControl), new PropertyMetadata(null));
+
+
+
+        public bool CollideConnected
+        {
+            get { return (bool)GetValue(CollideConnectedProperty); }
+            set { SetValue(CollideConnectedProperty, value); }
         }
 
+        // Using a DependencyProperty as the backing store for CollideConnected.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CollideConnectedProperty =
+            DependencyProperty.Register("CollideConnected", typeof(bool), typeof(RopeJointControl), new PropertyMetadata(true));
 
-        public IEnumerable<Target> Targets
-        {
-            get
-            {
-                foreach (var child in Children)
-                {
-                    var control = child as CrossControl;
-                    if (control != null)
-                    {
-                        yield return new Target() { Name = control.TargetName, Point = control.PointToScreen(new Point()) };
-                    }
-                }
-            }
-
-        }
+        
     }
 }

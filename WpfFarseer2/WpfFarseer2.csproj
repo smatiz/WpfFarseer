@@ -68,10 +68,13 @@
     <Compile Include="CrossControl.xaml.cs">
       <DependentUpon>CrossControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="IUpdatable.cs" />
     <Compile Include="JointControl.cs" />
     <Compile Include="JointManager.cs" />
     <Compile Include="NotifyObjectViewer.cs" />
     <Compile Include="RopeJointControl.cs" />
+    <Compile Include="RopeJointInfo.cs" />
+    <Compile Include="RopeJointManager.cs" />
     <Compile Include="StepControl.xaml.cs">
       <DependentUpon>StepControl.xaml</DependentUpon>
     </Compile>

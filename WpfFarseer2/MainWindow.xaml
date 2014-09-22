@@ -9,7 +9,7 @@
             <RowDefinition Height="5*"/>
         </Grid.RowDefinitions>
         <l:FarseerCanvas Grid.Row="0" StepViewModel="{Binding StepViewModel, ElementName=stepControl}">
-            <l:BodyControl x:Name="fallingBody" BodyType="Dynamic"  Canvas.Left="47" Canvas.Top="2" Height="63" Width="54" >
+            <l:BodyControl x:Name="fallingBody" BodyType="Dynamic"  Canvas.Left="-18" Canvas.Top="482" Height="63" Width="54" >
                 <l:BodyControl.RenderTransform>
                     <TranslateTransform X="30">
 
@@ -23,27 +23,20 @@
                         </TranslateTransform>
                     </Polygon.RenderTransform>
                 </Polygon>
+                <l:CrossControl x:Name="x" Canvas.Left="229" Canvas.Top="30">
+
+                </l:CrossControl>
             </l:BodyControl>
             <l:BodyControl x:Name="b2"   BodyType="Static"  Canvas.Left="10" Canvas.Top="335" Height="63" Width="54" >
                 <!--l:FarseerCanvas.AngleJoint="fallingBody"-->
                 <Polygon Canvas.Left="57" Points="0,0,200,0,200,200" Canvas.Top="-106" ></Polygon>
+                <l:CrossControl x:Name="y" Canvas.Left="250" Canvas.Top="85">
+
+                </l:CrossControl>
             </l:BodyControl>
-          
-            <l:RopeJointControl>
-                <l:CrossControl TargetName="b2" Canvas.Left="191" Canvas.Top="348">
 
-                </l:CrossControl>
-                <l:CrossControl TargetName="b3" Canvas.Left="320" Canvas.Top="85">
+            <l:RopeJointControl TargetNameA="x" TargetNameB="y">
 
-                </l:CrossControl>
-            </l:RopeJointControl>
-                <l:RopeJointControl>
-                <l:CrossControl TargetName="b2" Canvas.Left="191" Canvas.Top="348">
-
-                </l:CrossControl>
-                <l:CrossControl TargetName="fallingBody" Canvas.Left="320" Canvas.Top="85">
-
-                </l:CrossControl>
             </l:RopeJointControl>
         </l:FarseerCanvas>
         <l:StepControl x:Name="stepControl"  Grid.Row="1"></l:StepControl>
