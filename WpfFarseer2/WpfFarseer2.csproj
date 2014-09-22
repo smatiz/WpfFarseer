@@ -82,7 +82,7 @@
     <Compile Include="FarseerCanvas.cs">
       <Generator>MSBuild:Compile</Generator>
     </Compile>
-    <Compile Include="WorldManager.cs" />
+    <Compile Include="FarseerWorldManager.cs" />
     <Compile Include="WorldWatch.cs" />
     <Compile Include="WpfDebugView.cs" />
     <Compile Include="WpfFarseerHelper.cs" />

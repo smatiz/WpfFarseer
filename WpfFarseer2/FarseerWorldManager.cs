@@ -15,31 +15,64 @@ using System.Threading.Tasks;
 
 namespace WpfFarseer
 {
-
-
-    public class WorldManager
+    // Unico detentore del oggetto World
+    // quindi l'unico in grado di creare oggetti Farseer
+    public class FarseerWorldManager
     {
         WorldWatch _worldWatch;
         private World _world;
         List<BodyManager> _bodyManagers = new List<BodyManager>();
 
-
-        //private Action _updateInvoke;
-
-        //public event Action<string, Body> OnWorldReloaded;
-
-        public WorldManager()//Action updateInvoke)
+        public FarseerWorldManager()
         {
-            //_updateInvoke = updateInvoke;
             _world = new World(new Microsoft.Xna.Framework.Vector2(0, 10));
             _worldWatch = new WorldWatch(dt => step(dt));
         }
 
-
-        public void Clear()
+        public void Update()
         {
-            _world = new World(new Microsoft.Xna.Framework.Vector2(0, 10));
+            foreach(var bm in _bodyManagers)
+            {
+                bm.Update();
+            }
         }
+
+        public void AddBodyControl(BodyControl bodyControl)
+        {
+            var originPosition = WpfFarseerHelper.ToFarseer(bodyControl.TranslatePoint(new System.Windows.Point(0, 0), (System.Windows.UIElement)bodyControl.Parent));
+            var body = BodyFactory.CreateBody(_world, Vector2.Zero);
+            _bodyManagers.Add(new BodyManager(bodyControl, body, originPosition));
+        }
+
+        private void step(float dt)
+        {
+            _world.Step(dt);
+        }
+
+        public void Play()
+        {
+            _worldWatch.Play();
+        }
+        public void Pause()
+        {
+            _worldWatch.Pause();
+        }
+        public void Back()
+        {
+        }
+
+
+
+       /* public JointManager CreateAngleJoint(BodyManager b1, BodyManager b2)
+        {
+            return new JointManager(JointFactory.CreateAngleJoint(_world, b1._body, b2._body));
+        }
+
+
+        public JointManager CreateRopeJoint( BodyManager b1, BodyManager b2, Vector2 v1, Vector2 v2)
+        {
+            return new JointManager(JointFactory.CreateRopeJoint(_world, b1._body, b2._body, v1, v2, true));
+        }*/
 
 
         public bool Savable
@@ -65,14 +98,12 @@ namespace WpfFarseer
             File.WriteAllText(@"s:\aaa.json", JsonConvert.SerializeObject(from x in _world.ContactList select x.Manifold, settings));
             WorldSerializer.Serialize(_world, @"s:\aaa.xml");
         }
-
-
         Dictionary<string, Stream> _savedStatesMap = new Dictionary<string, Stream>();
         public void Save(string name)
-        { 
+        {
             var ms = new MemoryStream();
-             WorldXmlSerializer.Serialize(_world, ms);
-             _savedStatesMap.Add(name, ms);
+            WorldXmlSerializer.Serialize(_world, ms);
+            _savedStatesMap.Add(name, ms);
         }
         public void Load(string name)
         {
@@ -91,16 +122,6 @@ namespace WpfFarseer
                 }
             }*/
         }
-
-
-        public void Update()
-        {
-            foreach(var bm in _bodyManagers)
-            {
-                bm.Update();
-            }
-        }
-
         public void Load()
         {
 
@@ -122,50 +143,6 @@ namespace WpfFarseer
                 }
             }*/
         }
-
-
-        private void step(float dt)
-        {
-            _world.Step(dt);
-            //_updateInvoke();
-        }
-
-        public void Play()
-        {
-            _worldWatch.Play();
-        }
-
-        public void Pause()
-        {
-            _worldWatch.Pause();
-        }
-
-        public void Back()
-        {
-        }
-
-        public void AddBodyControl(BodyControl bodyControl)
-        {
-            var originPosition = WpfFarseerHelper.ToFarseer(bodyControl.TranslatePoint(new System.Windows.Point(0, 0), (System.Windows.UIElement)bodyControl.Parent));
-            var body = BodyFactory.CreateBody(_world, Vector2.Zero);
-            body.UserData = bodyControl.Name;
-            body.FixtureList.AddRange(from shape in bodyControl.FindShapes() select bodyControl.ToFarseer(shape, body));
-            body.BodyType = bodyControl.BodyType;
-            body.Position = originPosition;
-            _bodyManagers.Add(new BodyManager(bodyControl, body, originPosition));
-        }
-
-        public JointManager CreateAngleJoint(BodyManager b1, BodyManager b2)
-        {
-            return BodyManager.CreateAngleJoint(_world, b1, b2);
-        }
-
-        public JointManager CreateRopeJoint(BodyManager b1, BodyManager b2, Vector2 anchor1, Vector2 anchor2)
-        {
-            return BodyManager.CreateRopeJoint(_world, b1, b2, anchor1, anchor2);
-        }
-
-
 
     }
 }

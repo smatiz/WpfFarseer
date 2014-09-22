@@ -10,16 +10,23 @@ using System.Threading.Tasks;
 
 namespace WpfFarseer
 {
+    // si occupa di gestire il dialogo tra Body e BodyControl
+    // 
     public class BodyManager
     {
         const float AngleSubst = 180f / (float)Math.PI;
         private Body _body;
-        Vector2 _originalPosition;
-
-        BodyControl _bodyControl;
+        private Vector2 _originalPosition;
+        private BodyControl _bodyControl;
 
         public BodyManager(BodyControl bodyControl, Body body, Vector2 originPosition)
         {
+            body.UserData = bodyControl.Name;
+            body.FixtureList.AddRange(from shape in bodyControl.FindShapes() select bodyControl.ToFarseer(shape, body));
+            body.BodyType = bodyControl.BodyType;
+            body.Position = originPosition;
+
+
             _originalPosition = originPosition;
             _body = body;
             _bodyControl = bodyControl;
@@ -71,15 +78,6 @@ namespace WpfFarseer
 
         }
 
-        public static JointManager CreateAngleJoint(World _world, BodyManager b1, BodyManager b2)
-        {
-            return new JointManager(JointFactory.CreateAngleJoint(_world, b1._body, b2._body));
-        }
-
-
-        public static JointManager CreateRopeJoint(World _world, BodyManager b1, BodyManager b2, Vector2 v1, Vector2 v2 )
-        {
-            return new JointManager(JointFactory.CreateRopeJoint(_world, b1._body, b2._body, v1, v2, true));
-        }
+       
     }
 }

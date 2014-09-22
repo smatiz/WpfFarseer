@@ -92,8 +92,8 @@ namespace WpfFarseer
         
         public ICommand VoidCommand { get { return new BasicCommand(() => { }, () => false); } }
 
-        WorldManager _worldManager;
-        public WorldManager WorldManager
+        FarseerWorldManager _worldManager;
+        public FarseerWorldManager WorldManager
         {
             set
             {

@@ -11,7 +11,7 @@ namespace WpfFarseer
 
         JointManager _jointManager;
 
-        public void Initialize(WorldManager worldManager)
+        public void Initialize(FarseerWorldManager worldManager)
         {
             //if (Name == "")
             //{

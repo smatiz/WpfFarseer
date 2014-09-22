@@ -19,9 +19,6 @@ namespace WpfFarseer
     {
         public RotateTransform Rotation { get; private set; }
         public TranslateTransform Traslation { get; private set; }
-
-       //public BodyManager BodyManager { get; private set; }
-
         
         public BodyControl()
         {
@@ -36,19 +33,26 @@ namespace WpfFarseer
                 gt.Children.Add(Traslation);
                 gt.Children.Add(rt);
                 this.RenderTransform = gt;
-                refreshVisual();
+                _refreshVisual();
             };
         }
 
-   
-
-
         public void Update()
         {
-            refreshVisual();
+            _refreshVisual();
+        }
+        public IEnumerable<Shape> FindShapes()
+        {
+            foreach (var x in Children)
+            {
+                if (x is Shape)
+                {
+                    yield return x as Shape;
+                }
+            }
         }
 
-        private Brush GetBrush()
+        private Brush _getBrush()
         {
             switch (BodyType)
             {
@@ -62,9 +66,9 @@ namespace WpfFarseer
                     return null;
             }
         }
-        private void refreshVisual()
+        private void _refreshVisual()
         {
-            var brush =  GetBrush();
+            var brush =  _getBrush();
 
             foreach (var shape in FindShapes())
             {
@@ -72,18 +76,6 @@ namespace WpfFarseer
             }
 
         }
-        public IEnumerable<Shape> FindShapes()
-        {
-            foreach (var x in Children)
-            {
-                if (x is Shape)
-                {
-                    yield return x as Shape;
-                }
-            }
-        }
-
-
 
         public static float GetDensity(DependencyObject obj)
         {
@@ -103,8 +95,5 @@ namespace WpfFarseer
         }
         public static readonly DependencyProperty BodyTypeProperty =
             DependencyProperty.Register("BodyType", typeof(FarseerPhysics.Dynamics.BodyType), typeof(BodyControl), new PropertyMetadata(FarseerPhysics.Dynamics.BodyType.Static));
-
-
-
     }
 }

@@ -19,13 +19,13 @@ namespace WpfFarseer
 {
     public class FarseerCanvas : Canvas
     {
-        WorldManager _worldManager;
+        FarseerWorldManager _worldManager;
         System.Windows.Forms.Timer _timer = new System.Windows.Forms.Timer();
         public FarseerCanvas()
         {
             _timer.Tick += (s, e) => Update();
             _timer.Interval = 40;
-            _worldManager = new WorldManager();//() => this.Dispatcher.BeginInvoke(new Action(Update)));
+            _worldManager = new FarseerWorldManager();//() => this.Dispatcher.BeginInvoke(new Action(Update)));
             Loaded += (s, e) =>
             {
                 if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this)) return; 
