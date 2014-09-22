@@ -21,10 +21,11 @@ namespace WpfFarseer
 
     public class BodyControl : Canvas
     {
-        BodyController _body;
+      
         RotateTransform _rotation;
        TranslateTransform _traslation;
 
+       public BodyManager BodyManager { get; private set; }
 
         public FarseerPhysics.Dynamics.BodyType BodyType
         {
@@ -90,9 +91,9 @@ namespace WpfFarseer
             }
 
             var p = WpfFarseerHelper.ToFarseer(TranslatePoint(new System.Windows.Point(0, 0), (UIElement)Parent));
-            _body = worldManager.CreateBody(p, BodyType, Name, this, FindShapes());
+            BodyManager = worldManager.CreateBody(p, BodyType, Name, this, FindShapes());
 
-            //WpfDebugView.Instance.Add(_body);
+            WpfDebugView.Instance.Add(BodyManager);
 
 
            
@@ -101,8 +102,8 @@ namespace WpfFarseer
         public void Update(WorldManager worldManager)
         {
             refreshVisual();
-            if (_body == null) return;
-            _body.Update(_traslation, _rotation);
+            if (BodyManager == null) return;
+            BodyManager.Update(_traslation, _rotation);
             
         }
 
@@ -164,7 +165,8 @@ namespace WpfFarseer
         public static readonly DependencyProperty DensityProperty =
             DependencyProperty.RegisterAttached("Density", typeof(float), typeof(BodyControl), new PropertyMetadata(Const.Density));
 
-        
-        
+
+
+
     }
 }

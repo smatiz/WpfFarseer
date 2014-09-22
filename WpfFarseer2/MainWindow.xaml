@@ -19,15 +19,37 @@
 
                     <Polygon.RenderTransform>
                         <TranslateTransform X="90" >
-                            
+
                         </TranslateTransform>
                     </Polygon.RenderTransform>
                 </Polygon>
             </l:BodyControl>
-            <l:BodyControl x:Name="b2" BodyType="Static"  Canvas.Left="10" Canvas.Top="335" Height="63" Width="54" >
-                <Polygon Canvas.Left="130" Points="0,0,200,0,200,200" ></Polygon>
+            <l:BodyControl x:Name="b2"   BodyType="Dynamic"  Canvas.Left="10" Canvas.Top="335" Height="63" Width="54" >
+                <!--l:FarseerCanvas.AngleJoint="fallingBody"-->
+                <Polygon Canvas.Left="57" Points="0,0,200,0,200,200" Canvas.Top="-106" ></Polygon>
             </l:BodyControl>
+            <l:BodyControl x:Name="b3"   BodyType="Static"  Canvas.Left="10" Canvas.Top="335" Height="63" Width="54" >
+                <!--l:FarseerCanvas.AngleJoint="fallingBody"-->
+                <Polygon Canvas.Left="57" Points="0,0,100,0,100,100" Canvas.Top="-106" ></Polygon>
+            </l:BodyControl>
+            <l:RopeJointControl>
+                <l:CrossControl TargetName="b2" Canvas.Left="191" Canvas.Top="348">
+
+                </l:CrossControl>
+                <l:CrossControl TargetName="b3" Canvas.Left="320" Canvas.Top="85">
+
+                </l:CrossControl>
+            </l:RopeJointControl>
+                <l:RopeJointControl>
+                <l:CrossControl TargetName="b2" Canvas.Left="191" Canvas.Top="348">
+
+                </l:CrossControl>
+                <l:CrossControl TargetName="fallingBody" Canvas.Left="320" Canvas.Top="85">
+
+                </l:CrossControl>
+            </l:RopeJointControl>
         </l:FarseerCanvas>
         <l:StepControl x:Name="stepControl"  Grid.Row="1"></l:StepControl>
+
     </Grid>
 </Window>

@@ -20,20 +20,45 @@ namespace WpfFarseer
     public class FarseerCanvas : Canvas
     {
         WorldManager _worldManager;
+        System.Windows.Forms.Timer _timer = new System.Windows.Forms.Timer();
         public FarseerCanvas()
         {
+            _timer.Tick += (s, e) => Update();
+            _timer.Interval = 40;
+            _worldManager = new WorldManager();//() => this.Dispatcher.BeginInvoke(new Action(Update)));
             Loaded += (s, e) =>
             {
                 if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this)) return; 
-                _worldManager = new WorldManager();
                 foreach (var child in Children)
                 {
                     var bodyControl = child as BodyControl;
                     if (bodyControl != null)
                     {
                         bodyControl.Initialize(_worldManager);
+
+                        var angleJoint = FarseerCanvas.GetAngleJoint(bodyControl);
+                        if(angleJoint != null)
+                        {
+                            var bodyControl2 = Find(angleJoint);
+                            _worldManager.CreateAngleJoint(bodyControl.BodyManager, bodyControl2.BodyManager);
+                        }
+                           
+
+
+                    }
+
+                    var jointControl = child as RopeJointControl;
+                    if (jointControl != null)
+                    {
+                        var targets = jointControl.Targets.ToArray();
+                        _worldManager.CreateRopeJoint(Find(targets[0].Name).BodyManager, Find(targets[1].Name).BodyManager, targets[0].Point.ToFarseer(), targets[1].Point.ToFarseer());
                     }
                 }
+
+
+
+
+                _timer.Start();
             };
         }
 
@@ -139,9 +164,27 @@ namespace WpfFarseer
         private static void OnStepViewModelChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
         {
             var _this = (FarseerCanvas)dependencyObject;
-            _this.StepViewModel.FarseerCanvas = _this;
+            _this.StepViewModel.WorldManager = _this._worldManager;
         }
 
+
+
+
+        public static string GetAngleJoint(DependencyObject obj)
+        {
+            return (string)obj.GetValue(AngleJointProperty);
+        }
+
+        public static void SetAngleJoint(DependencyObject obj, string value)
+        {
+            obj.SetValue(AngleJointProperty, value);
+        }
+
+        // Using a DependencyProperty as the backing store for AngleJoint.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty AngleJointProperty =
+            DependencyProperty.RegisterAttached("AngleJoint", typeof(string), typeof(FarseerCanvas), new PropertyMetadata(null));
+
+        
 
     }
 }

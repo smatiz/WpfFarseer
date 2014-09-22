@@ -95,6 +95,18 @@ namespace FarseerPhysics.Samples.Demos
             DebugView.AppendFlags(DebugViewFlags.CenterOfMass);
 
 
+            var b = BodyFactory.CreateCircle(World, 1, 1);
+            b.BodyType = BodyType.Kinematic;
+            b.Position = new Vector2(0, 0);
+            b.AngularVelocity = 3;
+
+            var b2 = BodyFactory.CreateCircle(World, 1, 1);
+            b2.BodyType = BodyType.Dynamic;
+            b2.Position = new Vector2(4, 0);
+            b2.AngularVelocity = 3;
+
+            JointFactory.CreateAngleJoint(World, b, b2);
+
             //Flame.Debug.Register("ScreenManager", ScreenManager);
 
         }
