@@ -15,17 +15,12 @@ using System.Windows.Shapes;
 
 namespace WpfFarseer
 {
-    /// <summary>
-    /// Interaction logic for CrossControl.xaml
-    /// </summary>
     public partial class CrossControl : UserControl
     {
         public CrossControl()
         {
             InitializeComponent();
         }
-
-
 
         public string TargetName
         {
@@ -35,20 +30,12 @@ namespace WpfFarseer
         public static readonly DependencyProperty TargetNameProperty =
             DependencyProperty.Register("TargetName", typeof(string), typeof(CrossControl), new PropertyMetadata(null));
 
-
-
         public Point TargetPoint
         {
             get { return (Point)GetValue(TargetPointProperty); }
             set { SetValue(TargetPointProperty, value); }
         }
-
-        // Using a DependencyProperty as the backing store for TargetPoint.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty TargetPointProperty =
             DependencyProperty.Register("TargetPoint", typeof(Point), typeof(CrossControl), new PropertyMetadata(new Point()));
-
-        
-
-        
     }
 }

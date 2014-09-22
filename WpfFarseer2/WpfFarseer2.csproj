@@ -63,33 +63,35 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="BasicCommand.cs" />
+    <Compile Include="Joint\BasicJointControl.cs" />
+    <Compile Include="Joint\DistanceJointControl.cs" />
+    <Compile Include="Joint\WeldJointControl.cs" />
+    <Compile Include="Joint\TwoPointJointControl.cs" />
+    <Compile Include="Joint\RevoluteJointControl.cs" />
+    <Compile Include="System\BasicCommand.cs" />
     <Compile Include="BodyManager.cs" />
-    <Compile Include="CrossControl.xaml.cs">
+    <Compile Include="pure_wpf\CrossControl.xaml.cs">
       <DependentUpon>CrossControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="IUpdatable.cs" />
-    <Compile Include="JointControl.cs" />
-    <Compile Include="JointManager.cs" />
-    <Compile Include="NotifyObjectViewer.cs" />
-    <Compile Include="RopeJointControl.cs" />
-    <Compile Include="RopeJointInfo.cs" />
-    <Compile Include="RopeJointManager.cs" />
-    <Compile Include="StepControl.xaml.cs">
+    <Compile Include="System\NotifyObjectViewer.cs" />
+    <Compile Include="Joint\RopeJointControl.cs" />
+    <Compile Include="Joint\TwoPointJointInfo.cs" />
+    <Compile Include="Joint\TwoPointJointManager.cs" />
+    <Compile Include="pure_wpf\StepControl.xaml.cs">
       <DependentUpon>StepControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="StepViewModel.cs" />
-    <Compile Include="BodyControl.cs">
+    <Compile Include="pure_wpf\BodyControl.cs">
       <Generator>MSBuild:Compile</Generator>
     </Compile>
     <Compile Include="FarseerCanvas.cs">
       <Generator>MSBuild:Compile</Generator>
     </Compile>
     <Compile Include="FarseerWorldManager.cs" />
-    <Compile Include="WorldWatch.cs" />
+    <Compile Include="System\WorldWatch.cs" />
     <Compile Include="WpfDebugView.cs" />
-    <Compile Include="WpfFarseerHelper.cs" />
-    <Page Include="CrossControl.xaml">
+    <Compile Include="Helpers\WpfFarseerHelper.cs" />
+    <Page Include="pure_wpf\CrossControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -101,12 +103,16 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Helper.cs" />
+    <Compile Include="Helpers\Const.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="StepControl.xaml">
+    <Page Include="pure_wpf\StepControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -144,6 +150,9 @@
       <Project>{0a850700-1abb-4288-a391-6726b90ebeb9}</Project>
       <Name>Farseer Physics XNA</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="wall.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -31,11 +31,10 @@ namespace WpfFarseer
 
         public void Update()
         {
-            foreach(var x in _bodyManagers)
+            foreach (var x in _bodyManagers)
             {
                 x.Update();
             }
-           
         }
 
         public void AddBodyControl(BodyControl bodyControl)
@@ -64,16 +63,16 @@ namespace WpfFarseer
 
 
 
-       /* public JointManager CreateAngleJoint(BodyManager b1, BodyManager b2)
-        {
-            return new JointManager(JointFactory.CreateAngleJoint(_world, b1._body, b2._body));
-        }
+        /* public JointManager CreateAngleJoint(BodyManager b1, BodyManager b2)
+         {
+             return new JointManager(JointFactory.CreateAngleJoint(_world, b1._body, b2._body));
+         }
 
 
-        public JointManager CreateRopeJoint( BodyManager b1, BodyManager b2, Vector2 v1, Vector2 v2)
-        {
-            return new JointManager(JointFactory.CreateRopeJoint(_world, b1._body, b2._body, v1, v2, true));
-        }*/
+         public JointManager CreateRopeJoint( BodyManager b1, BodyManager b2, Vector2 v1, Vector2 v2)
+         {
+             return new JointManager(JointFactory.CreateRopeJoint(_world, b1._body, b2._body, v1, v2, true));
+         }*/
 
 
         public bool Savable
@@ -147,27 +146,57 @@ namespace WpfFarseer
 
         Body _findBody(BodyControl bodyControl)
         {
-            foreach(var x in _bodyManagers)
+            foreach (var x in _bodyManagers)
             {
-                if(x.BodyControl == bodyControl)
+                if (x.BodyControl == bodyControl)
                 {
                     return x.Body;
                 }
-
             }
             return null;
         }
 
-        public void AddRopeJoint(RopeJointInfo ropeJointInfo, RopeJointControl ropeJointControl)
+        public void AddRopeJoint(TwoPointJointInfo jointInfo, RopeJointControl jointControl)
         {
-            //foreach(var bm in _bodyManagers)
-            //{
-            //    if(bm.)
-            //}
-
-            var j = JointFactory.CreateRopeJoint(_world, _findBody(ropeJointInfo.BodyControlA), _findBody(ropeJointInfo.BodyControlB), ropeJointInfo.AnchorA.ToFarseer(), ropeJointInfo.AnchorB.ToFarseer());
-            j.CollideConnected = ropeJointControl.CollideConnected;
-
+            var j = JointFactory.CreateRopeJoint(_world, _findBody(jointInfo.BodyControlA), _findBody(jointInfo.BodyControlB), jointInfo.AnchorA.ToFarseer(), jointInfo.AnchorB.ToFarseer());
+            j.CollideConnected = jointControl.CollideConnected;
+            if (jointControl.MaxLength != -1)
+            {
+                j.MaxLength = jointControl.MaxLength;
+            }
+            else if (jointControl.MaxLengthFactor != -1)
+            {
+                j.MaxLength *= jointControl.MaxLengthFactor;
+            }
         }
+
+        public void AddWeldJoint(TwoPointJointInfo jointInfo, WeldJointControl jointControl)
+        {
+            var j = JointFactory.CreateWeldJoint(_world, _findBody(jointInfo.BodyControlA), _findBody(jointInfo.BodyControlB), jointInfo.AnchorA.ToFarseer(), jointInfo.AnchorB.ToFarseer());
+            j.CollideConnected = jointControl.CollideConnected;
+            if (jointControl.ReferenceAngle != -1)
+            {
+                j.ReferenceAngle = jointControl.ReferenceAngle;
+            }
+            if (jointControl.FrequencyHz != -1)
+            {
+                j.FrequencyHz = jointControl.FrequencyHz;
+            }
+            if (jointControl.DampingRatio != -1)
+            {
+                j.DampingRatio = jointControl.DampingRatio;
+            }
+        }
+
+
+        public void AddRevoluteJoint(TwoPointJointInfo jointInfo, RevoluteJointControl jointControl)
+        {
+            var j = JointFactory.CreateWeldJoint(_world, _findBody(jointInfo.BodyControlA), _findBody(jointInfo.BodyControlB), jointInfo.AnchorA.ToFarseer(), jointInfo.AnchorB.ToFarseer());
+            j.CollideConnected = jointControl.CollideConnected;
+           
+        }
+        
+
     }
+
 }

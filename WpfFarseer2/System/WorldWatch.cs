@@ -10,7 +10,6 @@ namespace WpfFarseer
 {
     class WorldWatch
     {
-
         private enum Status { Stopped, Play, Pause }
         private const long Interval = 40;
         private const float Max30Hz = 1 / 30f;

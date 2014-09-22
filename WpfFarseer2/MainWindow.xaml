@@ -3,13 +3,16 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:l="clr-namespace:WpfFarseer"
         Title="MainWindow" Height="750" Width="525">
+    <Window.Resources>
+        <ResourceDictionary Source="Styles.xaml"></ResourceDictionary>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50*"/>
             <RowDefinition Height="5*"/>
         </Grid.RowDefinitions>
         <l:FarseerCanvas Grid.Row="0" StepViewModel="{Binding StepViewModel, ElementName=stepControl}">
-            <l:BodyControl x:Name="fallingBody" BodyType="Dynamic"  Canvas.Left="-18" Canvas.Top="482" Height="63" Width="54" >
+            <l:BodyControl x:Name="fallingBody"  BodyType="Dynamic"  Canvas.Left="-18" Canvas.Top="482" Height="63" Width="54" >
                 <l:BodyControl.RenderTransform>
                     <TranslateTransform X="30">
 
@@ -28,14 +31,13 @@
                 </l:CrossControl>
             </l:BodyControl>
             <l:BodyControl x:Name="b2"   BodyType="Static"  Canvas.Left="10" Canvas.Top="335" Height="63" Width="54" >
-                <!--l:FarseerCanvas.AngleJoint="fallingBody"-->
                 <Polygon Canvas.Left="57" Points="0,0,200,0,200,200" Canvas.Top="-106" ></Polygon>
                 <l:CrossControl x:Name="y" Canvas.Left="250" Canvas.Top="85">
 
                 </l:CrossControl>
             </l:BodyControl>
 
-            <l:RopeJointControl TargetNameA="x" TargetNameB="y">
+            <l:RopeJointControl TargetNameA="x" TargetNameB="y" MaxLengthFactor="0.5">
 
             </l:RopeJointControl>
         </l:FarseerCanvas>

@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 
 namespace WpfFarseer
 {
+
     public class BodyControl : Canvas
     {
         public RotateTransform Rotation { get; private set; }
@@ -52,23 +53,9 @@ namespace WpfFarseer
             }
         }
 
-        private Brush _getBrush()
-        {
-            switch (BodyType)
-            {
-                case FarseerPhysics.Dynamics.BodyType.Static:
-                    return new SolidColorBrush(Colors.Black);
-                case FarseerPhysics.Dynamics.BodyType.Kinematic:
-                    return new SolidColorBrush(Colors.Blue);
-                case FarseerPhysics.Dynamics.BodyType.Dynamic:
-                    return new SolidColorBrush(Colors.Orange);
-                default:
-                    return null;
-            }
-        }
         private void _refreshVisual()
         {
-            var brush =  _getBrush();
+            var brush = DefaultBrush;
 
             foreach (var shape in FindShapes())
             {
@@ -76,6 +63,20 @@ namespace WpfFarseer
             }
 
         }
+
+
+
+        public Brush DefaultBrush
+        {
+            private get { return (Brush)GetValue(DefaultBrushProperty); }
+            set { SetValue(DefaultBrushProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty DefaultBrushProperty =
+            DependencyProperty.Register("DefaultBrush", typeof(Brush), typeof(BodyControl), new PropertyMetadata(null));
+
+        
 
         public static float GetDensity(DependencyObject obj)
         {

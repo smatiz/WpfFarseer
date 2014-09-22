@@ -6,11 +6,7 @@ using System.Threading.Tasks;
 
 namespace WpfFarseer
 {
-     public class Const
-     {
-         public const float Density = 100f;
-     }
-    public class Helper
+    public class DistanceJointControl : TwoPointJointControl
     {
 
     }

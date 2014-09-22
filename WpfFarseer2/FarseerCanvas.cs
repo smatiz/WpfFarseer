@@ -20,7 +20,7 @@ namespace WpfFarseer
     public class FarseerCanvas : Canvas
     {
         FarseerWorldManager _worldManager;
-        List<RopeJointManager> _ropeJointManager = new List<RopeJointManager>();
+        List<TwoPointJointManager> _ropeJointManager = new List<TwoPointJointManager>();
         System.Windows.Forms.Timer _timer = new System.Windows.Forms.Timer();
         public FarseerCanvas()
         {
@@ -54,7 +54,7 @@ namespace WpfFarseer
                         line.StrokeThickness = 1;
                         tobeadded.Add(line);
 
-                        _ropeJointManager.Add(new RopeJointManager(this, ropeJointInfo, line));
+                        _ropeJointManager.Add(new TwoPointJointManager(this, ropeJointInfo, line));
 
                         if (!System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
                         {
@@ -157,7 +157,7 @@ namespace WpfFarseer
         //    return null;
         //}
 
-        private RopeJointInfo _resolve(RopeJointControl jointControl)
+        private TwoPointJointInfo _resolve(RopeJointControl jointControl)
         {
             BodyControl bodyControlA = null, bodyControlB = null;
             Point anchorA = new Point(), anchorB = new Point();
@@ -186,7 +186,7 @@ namespace WpfFarseer
                 }
             }
 
-            return new RopeJointInfo(bodyControlA, bodyControlB, anchorA, anchorB);
+            return new TwoPointJointInfo(bodyControlA, bodyControlB, anchorA, anchorB);
         }
 #if DEBUG
         protected override void OnRender(DrawingContext drawingContext)

@@ -11,34 +11,6 @@ namespace WpfFarseer
 {
     public class StepViewModel : NotifyObjectViewer
     {
-
-        //System.Windows.Forms.Timer _timer = new System.Windows.Forms.Timer();
-
-        public StepViewModel()
-        {
-
-           /* _timer.Interval = 25;
-            _timer.Tick += (s, e) =>
-            {
-                if (_worldManager != null)
-                {
-                    //if (_velocity > 0)
-                    {
-                        _worldManager.Update();
-                    }
-                }
-            };
-            _timer.Start();*/
-        }
-
-      /*  public int TickInterval
-        {
-            set 
-            {
-                _timer.Interval = value;
-            }
-        }*/
-
         void notifyCommands()
         {
             NotifyPropertyChanged(() => PauseCommand);
@@ -46,7 +18,6 @@ namespace WpfFarseer
             NotifyPropertyChanged(() => BackCommand);
             NotifyPropertyChanged(() => SaveCommand);
             NotifyPropertyChanged(() => LoadCommand);
-
         }
 
         void play()
