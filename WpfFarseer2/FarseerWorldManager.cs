@@ -19,14 +19,39 @@ namespace WpfFarseer
     // quindi l'unico in grado di creare oggetti Farseer
     public class FarseerWorldManager
     {
-        WorldWatch _worldWatch;
+        private WorldWatch _worldWatch;
         private World _world;
-        List<BodyManager> _bodyManagers = new List<BodyManager>();
+        private List<BodyManager> _bodyManagers = new List<BodyManager>();
+        private List<Joint> _joints = new List<Joint>();
+        public Action<World> _onStep;
 
-        public FarseerWorldManager()
+        public FarseerWorldManager(Action<World> onStep)
         {
+            _onStep = onStep;
             _world = new World(new Microsoft.Xna.Framework.Vector2(0, 10));
             _worldWatch = new WorldWatch(dt => step(dt));
+
+        }
+
+        public object Find(string name)
+        { 
+            foreach(var x in _bodyManagers)
+            {
+                if(((string)x.Body.UserData) == name)
+                {
+                    return x.Body;
+                }
+            }
+
+            foreach (var x in _joints)
+            {
+                if (((string)x.UserData) == name)
+                {
+                    return x;
+                }
+            }
+
+            return null;
         }
 
         public void Update()
@@ -41,12 +66,14 @@ namespace WpfFarseer
         {
             var originPosition = WpfFarseerHelper.ToFarseer(bodyControl.TranslatePoint(new System.Windows.Point(0, 0), (System.Windows.UIElement)bodyControl.Parent));
             var body = BodyFactory.CreateBody(_world, Vector2.Zero);
+            body.UserData = bodyControl.Name;
             _bodyManagers.Add(new BodyManager(bodyControl, body, originPosition));
         }
 
         private void step(float dt)
         {
             _world.Step(dt);
+            _onStep(_world);
         }
 
         public void Play()
@@ -60,6 +87,7 @@ namespace WpfFarseer
         public void Back()
         {
         }
+        #region unfinished
 
         public bool Savable
         {
@@ -115,8 +143,8 @@ namespace WpfFarseer
             _world = WorldSerializer.Deserialize(@"s:\aaa.xml");
             _world.Step(0.000001f);
         }
-
-        Body _findBody(BodyControl bodyControl)
+        #endregion
+        private Body _findBody(BodyControl bodyControl)
         {
             foreach (var x in _bodyManagers)
             {
@@ -128,11 +156,17 @@ namespace WpfFarseer
             return null;
         }
 
+        private void addJoint(Joint j, BasicJointControl jointControl)
+        {
+            j.UserData = jointControl.Name;
+            j.CollideConnected = jointControl.CollideConnected;
+            _joints.Add(j);
+        }
+
         public void AddRopeJoint(TwoPointJointInfo jointInfo, RopeJointControl jointControl)
         {
             var j = JointFactory.CreateRopeJoint(_world, _findBody(jointInfo.BodyControlA), _findBody(jointInfo.BodyControlB), jointInfo.AnchorA.ToFarseer(), jointInfo.AnchorB.ToFarseer());
-            j.UserData = jointControl.Name;
-            j.CollideConnected = jointControl.CollideConnected;
+           
             if (jointControl.MaxLength != -1)
             {
                 j.MaxLength = jointControl.MaxLength;
@@ -141,13 +175,12 @@ namespace WpfFarseer
             {
                 j.MaxLength *= jointControl.MaxLengthFactor;
             }
+            addJoint(j, jointControl);
         }
-
         public void AddWeldJoint(TwoPointJointInfo jointInfo, WeldJointControl jointControl)
         {
             var j = JointFactory.CreateWeldJoint(_world, _findBody(jointInfo.BodyControlA), _findBody(jointInfo.BodyControlB), jointInfo.AnchorA.ToFarseer(), jointInfo.AnchorB.ToFarseer());
-            j.UserData = jointControl.Name; 
-            j.CollideConnected = jointControl.CollideConnected;
+          
             if (jointControl.ReferenceAngle != -1)
             {
                 j.ReferenceAngle = jointControl.ReferenceAngle;
@@ -160,19 +193,19 @@ namespace WpfFarseer
             {
                 j.DampingRatio = jointControl.DampingRatio;
             }
+            addJoint(j, jointControl);
         }
-
         public void AddRevoluteJoint(TwoPointJointInfo jointInfo, RevoluteJointControl jointControl)
         {
             var j = JointFactory.CreateWeldJoint(_world, _findBody(jointInfo.BodyControlA), _findBody(jointInfo.BodyControlB), jointInfo.AnchorA.ToFarseer(), jointInfo.AnchorB.ToFarseer());
-            j.UserData = jointControl.Name; 
-            j.CollideConnected = jointControl.CollideConnected;
+
+            addJoint(j, jointControl);
         }
         public void AddDistanceJoint(TwoPointJointInfo jointInfo, DistanceJointControl jointControl)
         {
             var j = JointFactory.CreateDistanceJoint(_world, _findBody(jointInfo.BodyControlA), _findBody(jointInfo.BodyControlB), jointInfo.AnchorA.ToFarseer(), jointInfo.AnchorB.ToFarseer());
-            j.UserData = jointControl.Name; 
-            j.CollideConnected = jointControl.CollideConnected;
+
+            addJoint(j, jointControl);
         }
     }
 

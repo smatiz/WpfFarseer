@@ -11,7 +11,7 @@
             <RowDefinition Height="50*"/>
             <RowDefinition Height="5*"/>
         </Grid.RowDefinitions>
-        <l:FarseerCanvas Grid.Row="0" StepViewModel="{Binding StepViewModel, ElementName=stepControl}">
+        <l:FarseerCanvas Grid.Row="0" StepViewModel="{Binding StepViewModel, ElementName=stepControl}" OnStep="onStep">
             <l:BodyControl x:Name="fallingBody"  BodyType="Dynamic"  Canvas.Left="-18" Canvas.Top="482" Height="63" Width="54" >
                 <l:BodyControl.RenderTransform>
                     <TranslateTransform X="30">
@@ -37,7 +37,8 @@
                 </l:CrossControl>
             </l:BodyControl>
 
-            <l:RopeJointControl TargetNameA="x" TargetNameB="y" MaxLengthFactor="0.5" Delay="2">
+            <l:RopeJointControl x:Name="jointC" TargetNameA="x" TargetNameB="y" >
+                <!--MaxLengthFactor="0.5" Delay="2"-->
                 
             </l:RopeJointControl>
         </l:FarseerCanvas>

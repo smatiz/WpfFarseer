@@ -26,5 +26,10 @@ namespace WpfFarseer
         }
 
 
+        private void onStep(FarseerPhysics.Dynamics.World world, FarseerWorldManager farseerWorldManager)
+        {
+
+        }
+
     }
 }

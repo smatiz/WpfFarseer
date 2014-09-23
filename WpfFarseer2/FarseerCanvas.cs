@@ -23,17 +23,27 @@ namespace WpfFarseer
         FarseerWorldManager _worldManager;
         List<TwoPointJointManager> _ropeJointManager = new List<TwoPointJointManager>();
         System.Windows.Forms.Timer _timer = new System.Windows.Forms.Timer();
-        Stopwatch _watch = new Stopwatch();
-        bool _allDone = false;
+
+        public event Action<FarseerPhysics.Dynamics.World, FarseerWorldManager> OnStep;
+
+        //Stopwatch _watch = new Stopwatch();
+        //bool _allDone = false;
         public FarseerCanvas()
         {
             _timer.Tick += (s, e) => Update();
             _timer.Interval = 40;
-            _worldManager = new FarseerWorldManager();//() => this.Dispatcher.BeginInvoke(new Action(Update)));
+            _worldManager = new FarseerWorldManager((w) =>
+            {
+                if (OnStep != null)
+                {
+                    OnStep(w, _worldManager);
+                }
+            });//() => this.Dispatcher.BeginInvoke(new Action(Update)));
             Loaded += (s, e) =>
             {
                 _timer.Start();
-                _watch.Start();
+                _controlUpdate();
+                //_watch.Start();
             };
         }
 
@@ -41,6 +51,7 @@ namespace WpfFarseer
         {
 
             var tobeadded = new List<UIElement>();
+
 
            
             foreach (var child in Children)
@@ -88,10 +99,10 @@ namespace WpfFarseer
 
         public void Update()
         {
-            if(!_allDone)
-            {
-                _controlUpdate();
-            }
+            //if(!_allDone)
+            //{
+            //    _controlUpdate();
+            //}
 
             if (_worldManager == null) return;
             if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this)) return;
