@@ -23,10 +23,13 @@ namespace WpfFarseer
         private World _world;
         private List<BodyManager> _bodyManagers = new List<BodyManager>();
         private List<Joint> _joints = new List<Joint>();
-        private Func<FarseerPhysics.Dynamics.World, IEnumerable<float>> _onStep;
-        public FarseerWorldManager(Func<FarseerPhysics.Dynamics.World, IEnumerable<float>> onStep)
+
+        // e' sul thread fisico
+        public BasicCoroutine Coroutine { private get; set; }
+
+
+        public FarseerWorldManager()
         {
-            _onStep = onStep;
             _world = new World(new Microsoft.Xna.Framework.Vector2(0, 10));
             _worldWatch = new WorldWatch(dt => step(dt));
         }
@@ -71,10 +74,7 @@ namespace WpfFarseer
         private void step(float dt)
         {
             _world.Step(dt);
-            foreach(var f in _onStep(_world))
-            {
-                
-            }
+            Coroutine.LoopStep();
         }
 
         public void Play()

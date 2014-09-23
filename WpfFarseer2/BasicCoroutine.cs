@@ -6,8 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 
-namespace WpfApplication1
+namespace WpfFarseer
 {
+
+
+
     public abstract class BasicCoroutine : IEnumerator<BasicCoroutine>
     {
         protected abstract IEnumerator<BasicCoroutine> DoIt();
@@ -100,7 +103,42 @@ namespace WpfApplication1
         }
     }
 
-    public class TestCoroutine : BasicCoroutine
+    public interface ICoroutinable 
+    {
+        IEnumerator<BasicCoroutine> DoCoroutine();
+    }
+
+    public class Coroutinator : BasicCoroutine
+    {
+        ICoroutinable _coroutinable;
+
+        public Coroutinator(ICoroutinable coroutinable)
+        {
+            _coroutinable = coroutinable;
+        }
+        protected override IEnumerator<BasicCoroutine> DoIt()
+        {
+            return _coroutinable.DoCoroutine();
+        }
+    }
+
+
+    public class FuncCoroutine : BasicCoroutine
+    {
+        Func<IEnumerator<BasicCoroutine>> _func;
+
+        public FuncCoroutine(Func<IEnumerator<BasicCoroutine>> func)
+        {
+            _func = func;
+        }
+        protected override IEnumerator<BasicCoroutine> DoIt()
+        {
+            return _func();
+        }
+    }
+
+
+    /*public class TestCoroutine : BasicCoroutine
     {
         protected override IEnumerator<BasicCoroutine> DoIt()
         {
@@ -124,7 +162,7 @@ namespace WpfApplication1
 
 		}
     }
-	
+	*/
 	
 	
 	

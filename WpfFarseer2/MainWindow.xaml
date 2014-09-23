@@ -8,7 +8,7 @@
             <RowDefinition Height="50*"/>
             <RowDefinition Height="5*"/>
         </Grid.RowDefinitions>
-        <l:FarseerCanvas Grid.Row="0" StepViewModel="{Binding StepViewModel, ElementName=stepControl}" OnStep="onStep">
+        <l:FarseerCanvas x:Name="_farseerCanvas" Grid.Row="0" StepViewModel="{Binding StepViewModel, ElementName=stepControl}">
             <l:BodyControl Id="fallingBody"  BodyType="Dynamic"  Canvas.Left="-18" Canvas.Top="482" Height="63" Width="54" >
                 <l:BodyControl.RenderTransform>
                     <TranslateTransform X="30">
@@ -28,15 +28,15 @@
                 </l:CrossControl>
             </l:BodyControl>
             <l:BodyControl Id="b2"   BodyType="Static"  Canvas.Left="10" Canvas.Top="335" Height="63" Width="54" >
-                <Polygon Canvas.Left="57" Points="0,0,200,0,200,200" Canvas.Top="-106" ></Polygon>
-                <l:CrossControl Id="y" Canvas.Left="250" Canvas.Top="85">
+                <Polygon Canvas.Left="217" Points="0,0,200,0,200,200" Canvas.Top="-313" ></Polygon>
+                <l:CrossControl Id="y" Canvas.Left="387" Canvas.Top="-159">
 
                 </l:CrossControl>
             </l:BodyControl>
 
             <l:RopeJointControl Id="jointC" TargetNameA="x" TargetNameB="y" >
                 <!--MaxLengthFactor="0.5" Delay="2"-->
-                
+
             </l:RopeJointControl>
         </l:FarseerCanvas>
         <l:StepControl x:Name="stepControl"  Grid.Row="1"></l:StepControl>

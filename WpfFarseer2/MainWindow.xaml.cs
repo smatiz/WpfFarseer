@@ -15,22 +15,29 @@ using System.Windows.Shapes;
 
 namespace WpfFarseer
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
+
+
+
+    public partial class MainWindow : Window, ICoroutinable
     {
+
+        FarseerPhysics.Dynamics.Joints.RopeJoint jointC;
         public MainWindow()
         {
             InitializeComponent();
+
+            jointC = ((FarseerPhysics.Dynamics.Joints.RopeJoint)_farseerCanvas.WorldManager.Find("jointC"));
+            _farseerCanvas.WorldManager.Coroutine = new Coroutinator(this);
         }
 
 
-        private IEnumerable<float> onStep(FarseerPhysics.Dynamics.World world, FarseerWorldManager farseerWorldManager)
+
+        public IEnumerator<BasicCoroutine> DoCoroutine()
         {
-            yield return 1;
-            ((FarseerPhysics.Dynamics.Joints.RopeJoint)farseerWorldManager.Find("jointC")).MaxLength *= 0.5f; 
-        }
+            yield return new WaitSecondsCoroutine(5);
+            //MessageBox.Show("**************");
+            jointC.MaxLength *= 0.4f; 
 
+        }
     }
 }

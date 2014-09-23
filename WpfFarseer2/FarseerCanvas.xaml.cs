@@ -20,61 +20,38 @@ namespace WpfFarseer
 {
     public partial class FarseerCanvas : Canvas
     {
-        FarseerWorldManager _worldManager;
         List<TwoPointJointManager> _ropeJointManager = new List<TwoPointJointManager>();
         System.Windows.Forms.Timer _timer = new System.Windows.Forms.Timer();
 
-        public event Func<FarseerPhysics.Dynamics.World, FarseerWorldManager, IEnumerable<float>> OnStep;
+        //public BasicCoroutine Coroutine { set { WorldManager.Coroutine = value; } }
+        public FarseerWorldManager WorldManager { get; private set; }
 
-        //Stopwatch _watch = new Stopwatch();
-        //bool _allDone = false;
         public FarseerCanvas()
         {
             InitializeComponent();
-            ////var uri_ = new Uri("pack://application:,,,/Styles.xaml");
-            //var uri = new Uri("/WpfFarseer;Styles.xaml", UriKind.RelativeOrAbsolute);
-            ////Resources.Add("Styles", new ResourceDictionary() { Source = new Uri("pack://application:,,,/Styles.xaml") });
-            //Resources.Add("Styles", new ResourceDictionary() { Source = uri });
-
 
             _timer.Tick += (s, e) => Update();
             _timer.Interval = 40;
-            _worldManager = new FarseerWorldManager((w) =>
-            {
-                if (OnStep != null)
-                {
-                    return OnStep(w, _worldManager);
-                }
-                return null;
-            });//() => this.Dispatcher.BeginInvoke(new Action(Update)));
+            WorldManager = new FarseerWorldManager();
             Loaded += (s, e) =>
             {
                 _timer.Start();
                 _controlUpdate();
-                //_watch.Start();
             };
         }
 
         void _controlUpdate()
         {
-
             var tobeadded = new List<UIElement>();
-
-
            
             foreach (var child in Children)
             {
-                 //var fControl = child as BasicControl;
-                 //if (fControl == null || fControl.Delay.Ticks < 0) break;
-                
-
-
                 if (!System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
                 {
                     var bodyControl = child as BodyControl;
                     if (bodyControl != null)
                     {
-                        _worldManager.AddBodyControl(bodyControl);
+                        WorldManager.AddBodyControl(bodyControl);
                     }
                 }
 
@@ -93,11 +70,10 @@ namespace WpfFarseer
 
                     if (!System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
                     {
-                        _worldManager.AddRopeJoint(ropeJointInfo, jointControl);
+                        WorldManager.AddRopeJoint(ropeJointInfo, jointControl);
                     }
                 }
             }
-
 
             foreach (var tba in tobeadded)
             {
@@ -107,14 +83,9 @@ namespace WpfFarseer
 
         public void Update()
         {
-            //if(!_allDone)
-            //{
-            //    _controlUpdate();
-            //}
-
-            if (_worldManager == null) return;
+            if (WorldManager == null) return;
             if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this)) return;
-            _worldManager.Update();
+            WorldManager.Update();
             foreach (var x in _ropeJointManager)
             {
                 x.Update();
@@ -124,48 +95,28 @@ namespace WpfFarseer
 #endif
         }
 
-       /* private void clear()
-        {
-            if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this)) return;
-            _worldManager.Clear();
-            
-            foreach (var child in Children)
-            {
-                var body = child as BodyControl;
-                if (body != null)
-                {
-                    body.Initialize(_worldManager);
-                }
-            }
-
-            //_world.Clear();
-            //_world = new World(new Microsoft.Xna.Framework.Vector2(0, 10));
-            Update();
-        }*/
-
-
         public bool Savable
         {
             get
             {
-                if (_worldManager == null) return false;
-                return _worldManager.Savable;
+                if (WorldManager == null) return false;
+                return WorldManager.Savable;
             }
         }
 
         public void Save()
         {
-            _worldManager.Save();
+            WorldManager.Save();
         }
 
         public void Play()
         {
-            _worldManager.Play();
+            WorldManager.Play();
         }
 
         public void Pause()
         {
-            _worldManager.Pause();
+            WorldManager.Pause();
         }
 
 
@@ -176,7 +127,7 @@ namespace WpfFarseer
 
         public void Load()
         {
-            _worldManager.Load();
+            WorldManager.Load();
         }
  
         //private BodyControl _find(string name) 
@@ -242,7 +193,7 @@ namespace WpfFarseer
         private static void OnStepViewModelChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
         {
             var _this = (FarseerCanvas)dependencyObject;
-            _this.StepViewModel.WorldManager = _this._worldManager;
+            _this.StepViewModel.WorldManager = _this.WorldManager;
         }
 
 
