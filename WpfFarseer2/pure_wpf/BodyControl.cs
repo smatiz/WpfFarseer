@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 namespace WpfFarseer
 {
 
-    public class BodyControl : Canvas
+    public class BodyControl : BasicControl
     {
         public RotateTransform Rotation { get; private set; }
         public TranslateTransform Traslation { get; private set; }

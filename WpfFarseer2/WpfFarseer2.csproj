@@ -64,6 +64,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="BasicControl.cs" />
+    <Compile Include="BasicCoroutine.cs" />
     <Compile Include="Joint\BasicJointControl.cs" />
     <Compile Include="Joint\DistanceJointControl.cs" />
     <Compile Include="Joint\WeldJointControl.cs" />
@@ -85,13 +86,18 @@
     <Compile Include="pure_wpf\BodyControl.cs">
       <Generator>MSBuild:Compile</Generator>
     </Compile>
-    <Compile Include="FarseerCanvas.cs">
+    <Compile Include="FarseerCanvas.xaml.cs">
+      <DependentUpon>FarseerCanvas.xaml</DependentUpon>
       <Generator>MSBuild:Compile</Generator>
     </Compile>
     <Compile Include="FarseerWorldManager.cs" />
     <Compile Include="System\WorldWatch.cs" />
     <Compile Include="WpfDebugView.cs" />
     <Compile Include="Helpers\WpfFarseerHelper.cs" />
+    <Page Include="FarseerCanvas.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="pure_wpf\CrossControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -154,6 +160,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="wall.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="exe\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 
 namespace WpfFarseer
 {
-    public partial class CrossControl : UserControl
+    public partial class CrossControl : BasicControl
     {
         public CrossControl()
         {

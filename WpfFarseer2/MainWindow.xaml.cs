@@ -26,9 +26,10 @@ namespace WpfFarseer
         }
 
 
-        private void onStep(FarseerPhysics.Dynamics.World world, FarseerWorldManager farseerWorldManager)
+        private IEnumerable<float> onStep(FarseerPhysics.Dynamics.World world, FarseerWorldManager farseerWorldManager)
         {
-
+            yield return 1;
+            ((FarseerPhysics.Dynamics.Joints.RopeJoint)farseerWorldManager.Find("jointC")).MaxLength *= 0.5f; 
         }
 
     }

@@ -22,7 +22,7 @@ namespace WpfFarseer
 
         public BodyManager(BodyControl bodyControl, Body body, Vector2 originPosition)
         {
-            body.UserData = bodyControl.Name;
+            body.UserData = bodyControl.Id;
             body.FixtureList.AddRange(from shape in bodyControl.FindShapes() select bodyControl.ToFarseer(shape, body));
             body.BodyType = bodyControl.BodyType;
             body.Position = originPosition;

@@ -18,26 +18,34 @@ using System.Windows.Shapes;
 
 namespace WpfFarseer
 {
-    public class FarseerCanvas : Canvas
+    public partial class FarseerCanvas : Canvas
     {
         FarseerWorldManager _worldManager;
         List<TwoPointJointManager> _ropeJointManager = new List<TwoPointJointManager>();
         System.Windows.Forms.Timer _timer = new System.Windows.Forms.Timer();
 
-        public event Action<FarseerPhysics.Dynamics.World, FarseerWorldManager> OnStep;
+        public event Func<FarseerPhysics.Dynamics.World, FarseerWorldManager, IEnumerable<float>> OnStep;
 
         //Stopwatch _watch = new Stopwatch();
         //bool _allDone = false;
         public FarseerCanvas()
         {
+            InitializeComponent();
+            ////var uri_ = new Uri("pack://application:,,,/Styles.xaml");
+            //var uri = new Uri("/WpfFarseer;Styles.xaml", UriKind.RelativeOrAbsolute);
+            ////Resources.Add("Styles", new ResourceDictionary() { Source = new Uri("pack://application:,,,/Styles.xaml") });
+            //Resources.Add("Styles", new ResourceDictionary() { Source = uri });
+
+
             _timer.Tick += (s, e) => Update();
             _timer.Interval = 40;
             _worldManager = new FarseerWorldManager((w) =>
             {
                 if (OnStep != null)
                 {
-                    OnStep(w, _worldManager);
+                    return OnStep(w, _worldManager);
                 }
+                return null;
             });//() => this.Dispatcher.BeginInvoke(new Action(Update)));
             Loaded += (s, e) =>
             {
@@ -176,7 +184,7 @@ namespace WpfFarseer
         //    foreach (var child in Children)
         //    {
         //        var bodyControl = child as BodyControl;
-        //        if (bodyControl != null && bodyControl.Name == name)
+        //        if (bodyControl != null && bodyControl.Id == name)
         //        {
         //            return bodyControl;
         //        }
@@ -198,12 +206,12 @@ namespace WpfFarseer
                         var crossControl = bodyChild as CrossControl;
                         if (crossControl != null)
                         {
-                            if( crossControl.Name == jointControl.TargetNameA)
+                            if( crossControl.Id == jointControl.TargetNameA)
                             {
                                 bodyControlA = bodyControl;
                                 anchorA = crossControl.TranslatePoint(new Point(0, 0), bodyControl);
                             }
-                            else if (crossControl.Name == jointControl.TargetNameB)
+                            else if (crossControl.Id == jointControl.TargetNameB)
                             {
                                 bodyControlB = bodyControl;
                                 anchorB = crossControl.TranslatePoint(new Point(0, 0), bodyControl);

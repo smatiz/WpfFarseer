@@ -23,14 +23,12 @@ namespace WpfFarseer
         private World _world;
         private List<BodyManager> _bodyManagers = new List<BodyManager>();
         private List<Joint> _joints = new List<Joint>();
-        public Action<World> _onStep;
-
-        public FarseerWorldManager(Action<World> onStep)
+        private Func<FarseerPhysics.Dynamics.World, IEnumerable<float>> _onStep;
+        public FarseerWorldManager(Func<FarseerPhysics.Dynamics.World, IEnumerable<float>> onStep)
         {
             _onStep = onStep;
             _world = new World(new Microsoft.Xna.Framework.Vector2(0, 10));
             _worldWatch = new WorldWatch(dt => step(dt));
-
         }
 
         public object Find(string name)
@@ -66,14 +64,17 @@ namespace WpfFarseer
         {
             var originPosition = WpfFarseerHelper.ToFarseer(bodyControl.TranslatePoint(new System.Windows.Point(0, 0), (System.Windows.UIElement)bodyControl.Parent));
             var body = BodyFactory.CreateBody(_world, Vector2.Zero);
-            body.UserData = bodyControl.Name;
+            body.UserData = bodyControl.Id;
             _bodyManagers.Add(new BodyManager(bodyControl, body, originPosition));
         }
 
         private void step(float dt)
         {
             _world.Step(dt);
-            _onStep(_world);
+            foreach(var f in _onStep(_world))
+            {
+                
+            }
         }
 
         public void Play()
@@ -158,7 +159,7 @@ namespace WpfFarseer
 
         private void addJoint(Joint j, BasicJointControl jointControl)
         {
-            j.UserData = jointControl.Name;
+            j.UserData = jointControl.Id;
             j.CollideConnected = jointControl.CollideConnected;
             _joints.Add(j);
         }
