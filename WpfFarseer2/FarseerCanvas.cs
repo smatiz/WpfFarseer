@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,8 @@ namespace WpfFarseer
         FarseerWorldManager _worldManager;
         List<TwoPointJointManager> _ropeJointManager = new List<TwoPointJointManager>();
         System.Windows.Forms.Timer _timer = new System.Windows.Forms.Timer();
+        Stopwatch _watch = new Stopwatch();
+        bool _allDone = false;
         public FarseerCanvas()
         {
             _timer.Tick += (s, e) => Update();
@@ -29,54 +32,67 @@ namespace WpfFarseer
             _worldManager = new FarseerWorldManager();//() => this.Dispatcher.BeginInvoke(new Action(Update)));
             Loaded += (s, e) =>
             {
-                var tobeadded = new List<UIElement>();
-
-                if (!System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
-                {
-                    foreach (var child in Children)
-                    {
-                        var bodyControl = child as BodyControl;
-                        if (bodyControl != null)
-                        {
-                            _worldManager.AddBodyControl(bodyControl);
-                        }
-                    }
-                }
-                foreach (var child in Children)
-                {
-                    var jointControl = child as RopeJointControl;
-                    if (jointControl != null)
-                    {
-                        var ropeJointInfo = _resolve(jointControl);
-                       
-                        var line = new Line();
-                        line.Stroke = new SolidColorBrush(Colors.Green);
-                        line.StrokeThickness = 1;
-                        tobeadded.Add(line);
-
-                        _ropeJointManager.Add(new TwoPointJointManager(this, ropeJointInfo, line));
-
-                        if (!System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
-                        {
-                            _worldManager.AddRopeJoint(ropeJointInfo, jointControl); 
-                        }
-                    }
-                }
-
-               
-                foreach (var tba in tobeadded)
-                {
-                    Children.Add(tba);
-                }
-
-
                 _timer.Start();
+                _watch.Start();
             };
         }
 
+        void _controlUpdate()
+        {
+
+            var tobeadded = new List<UIElement>();
+
+           
+            foreach (var child in Children)
+            {
+                 //var fControl = child as BasicControl;
+                 //if (fControl == null || fControl.Delay.Ticks < 0) break;
+                
+
+
+                if (!System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
+                {
+                    var bodyControl = child as BodyControl;
+                    if (bodyControl != null)
+                    {
+                        _worldManager.AddBodyControl(bodyControl);
+                    }
+                }
+
+
+                var jointControl = child as RopeJointControl;
+                if (jointControl != null)
+                {
+                    var ropeJointInfo = _resolve(jointControl);
+
+                    var line = new Line();
+                    line.Stroke = new SolidColorBrush(Colors.Green);
+                    line.StrokeThickness = 1;
+                    tobeadded.Add(line);
+
+                    _ropeJointManager.Add(new TwoPointJointManager(this, ropeJointInfo, line));
+
+                    if (!System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
+                    {
+                        _worldManager.AddRopeJoint(ropeJointInfo, jointControl);
+                    }
+                }
+            }
+
+
+            foreach (var tba in tobeadded)
+            {
+                Children.Add(tba);
+            }
+        }
 
         public void Update()
         {
+            if(!_allDone)
+            {
+                _controlUpdate();
+            }
+
             if (_worldManager == null) return;
             if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this)) return;
             _worldManager.Update();

@@ -61,20 +61,6 @@ namespace WpfFarseer
         {
         }
 
-
-
-        /* public JointManager CreateAngleJoint(BodyManager b1, BodyManager b2)
-         {
-             return new JointManager(JointFactory.CreateAngleJoint(_world, b1._body, b2._body));
-         }
-
-
-         public JointManager CreateRopeJoint( BodyManager b1, BodyManager b2, Vector2 v1, Vector2 v2)
-         {
-             return new JointManager(JointFactory.CreateRopeJoint(_world, b1._body, b2._body, v1, v2, true));
-         }*/
-
-
         public bool Savable
         {
             get
@@ -124,24 +110,10 @@ namespace WpfFarseer
         }
         public void Load()
         {
-
             var contact = JsonConvert.DeserializeObject(File.ReadAllText(@"s:\aaa.json"));
-
 
             _world = WorldSerializer.Deserialize(@"s:\aaa.xml");
             _world.Step(0.000001f);
-            //_world.ContactList[0].
-
-            //_world.ClearForces();
-
-            /*foreach (var body in _world.BodyList)
-            {
-                var bodycontrol = Find((string)body.UserData);
-                if (bodycontrol != null)
-                {
-                    bodycontrol.SetBody(body);
-                }
-            }*/
         }
 
         Body _findBody(BodyControl bodyControl)
@@ -159,6 +131,7 @@ namespace WpfFarseer
         public void AddRopeJoint(TwoPointJointInfo jointInfo, RopeJointControl jointControl)
         {
             var j = JointFactory.CreateRopeJoint(_world, _findBody(jointInfo.BodyControlA), _findBody(jointInfo.BodyControlB), jointInfo.AnchorA.ToFarseer(), jointInfo.AnchorB.ToFarseer());
+            j.UserData = jointControl.Name;
             j.CollideConnected = jointControl.CollideConnected;
             if (jointControl.MaxLength != -1)
             {
@@ -173,6 +146,7 @@ namespace WpfFarseer
         public void AddWeldJoint(TwoPointJointInfo jointInfo, WeldJointControl jointControl)
         {
             var j = JointFactory.CreateWeldJoint(_world, _findBody(jointInfo.BodyControlA), _findBody(jointInfo.BodyControlB), jointInfo.AnchorA.ToFarseer(), jointInfo.AnchorB.ToFarseer());
+            j.UserData = jointControl.Name; 
             j.CollideConnected = jointControl.CollideConnected;
             if (jointControl.ReferenceAngle != -1)
             {
@@ -188,15 +162,18 @@ namespace WpfFarseer
             }
         }
 
-
         public void AddRevoluteJoint(TwoPointJointInfo jointInfo, RevoluteJointControl jointControl)
         {
             var j = JointFactory.CreateWeldJoint(_world, _findBody(jointInfo.BodyControlA), _findBody(jointInfo.BodyControlB), jointInfo.AnchorA.ToFarseer(), jointInfo.AnchorB.ToFarseer());
+            j.UserData = jointControl.Name; 
             j.CollideConnected = jointControl.CollideConnected;
-           
         }
-        
-
+        public void AddDistanceJoint(TwoPointJointInfo jointInfo, DistanceJointControl jointControl)
+        {
+            var j = JointFactory.CreateDistanceJoint(_world, _findBody(jointInfo.BodyControlA), _findBody(jointInfo.BodyControlB), jointInfo.AnchorA.ToFarseer(), jointInfo.AnchorB.ToFarseer());
+            j.UserData = jointControl.Name; 
+            j.CollideConnected = jointControl.CollideConnected;
+        }
     }
 
 }

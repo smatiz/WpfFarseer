@@ -49,7 +49,6 @@ namespace WpfFarseer
         public void SetSpeed(float speed)
         {
             _speed = speed;
-
         }
       
 

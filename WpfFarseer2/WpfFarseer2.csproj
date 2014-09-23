@@ -63,6 +63,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BasicControl.cs" />
     <Compile Include="Joint\BasicJointControl.cs" />
     <Compile Include="Joint\DistanceJointControl.cs" />
     <Compile Include="Joint\WeldJointControl.cs" />

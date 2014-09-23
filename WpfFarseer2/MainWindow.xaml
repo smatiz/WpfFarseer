@@ -37,8 +37,8 @@
                 </l:CrossControl>
             </l:BodyControl>
 
-            <l:RopeJointControl TargetNameA="x" TargetNameB="y" MaxLengthFactor="0.5">
-
+            <l:RopeJointControl TargetNameA="x" TargetNameB="y" MaxLengthFactor="0.5" Delay="2">
+                
             </l:RopeJointControl>
         </l:FarseerCanvas>
         <l:StepControl x:Name="stepControl"  Grid.Row="1"></l:StepControl>
