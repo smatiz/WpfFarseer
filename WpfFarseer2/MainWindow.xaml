@@ -4,11 +4,13 @@
         xmlns:l="clr-namespace:WpfFarseer;assembly=SM.WpfFarseer"
         xmlns:l2="clr-namespace:WpfFarseer"
         Title="MainWindow" Height="750" Width="525">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="50*"/>
-            <RowDefinition Height="5*"/>
-        </Grid.RowDefinitions>
-        <l2:FirstSample></l2:FirstSample>
-    </Grid>
+        <TabControl>
+            <TabControl.Items>
+                <TabItem Header="FirstSample">
+                    <l2:FirstSample></l2:FirstSample>
+                </TabItem>
+                <TabItem Header="____next">
+                </TabItem>
+            </TabControl.Items>
+        </TabControl>
 </Window>

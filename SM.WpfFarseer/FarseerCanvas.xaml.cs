@@ -97,40 +97,15 @@ namespace WpfFarseer
 #endif
         }
 
-        public bool Savable
-        {
-            get
-            {
-                if (WorldManager == null) return false;
-                return WorldManager.Savable;
-            }
-        }
+        //public bool Savable
+        //{
+        //    get
+        //    {
+        //        if (WorldManager == null) return false;
+        //        return WorldManager.Savable;
+        //    }
+        //}
 
-        public void Save()
-        {
-            WorldManager.Save();
-        }
-
-        public void Play()
-        {
-            WorldManager.Play();
-        }
-
-        public void Pause()
-        {
-            WorldManager.Pause();
-        }
-
-
-        public void Restart()
-        {
-
-        }
-
-        public void Load()
-        {
-            WorldManager.Load();
-        }
  
         //private BodyControl _find(string name) 
         //{
