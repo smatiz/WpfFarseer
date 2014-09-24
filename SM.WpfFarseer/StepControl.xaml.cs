@@ -25,12 +25,6 @@ namespace WpfFarseer
             InitializeComponent();
         }
 
-        public StepViewModel StepViewModel
-        {
-            get
-            {
-                return _stepViewModel;
-            }
-        }
+        
     }
 }

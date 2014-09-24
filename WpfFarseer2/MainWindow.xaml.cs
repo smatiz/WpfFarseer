@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SM;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,26 +19,14 @@ namespace WpfFarseer
 
 
 
-    public partial class MainWindow : Window, ICoroutinable
+    public partial class MainWindow : Window
     {
 
-        FarseerPhysics.Dynamics.Joints.RopeJoint jointC;
         public MainWindow()
         {
             InitializeComponent();
 
-            jointC = ((FarseerPhysics.Dynamics.Joints.RopeJoint)_farseerCanvas.WorldManager.Find("jointC"));
-            _farseerCanvas.WorldManager.Coroutine = new Coroutinator(this);
         }
 
-
-
-        public IEnumerator<BasicCoroutine> DoCoroutine()
-        {
-            yield return new WaitSecondsCoroutine(5);
-            //MessageBox.Show("**************");
-            jointC.MaxLength *= 0.4f; 
-
-        }
     }
 }

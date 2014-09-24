@@ -3,7 +3,8 @@ using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Joints;
 using FarseerPhysics.Factories;
 using Microsoft.Xna.Framework;
-using Newtonsoft.Json;
+//using Newtonsoft.Json;
+using SM;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -105,13 +106,13 @@ namespace WpfFarseer
         }
         public void Save()
         {
-            var settings = new JsonSerializerSettings()
-            {
-                MaxDepth = 1
-            };
+            //var settings = new JsonSerializerSettings()
+            //{
+            //    MaxDepth = 1
+            //};
 
-            File.WriteAllText(@"s:\aaa.json", JsonConvert.SerializeObject(from x in _world.ContactList select x.Manifold, settings));
-            WorldSerializer.Serialize(_world, @"s:\aaa.xml");
+            //File.WriteAllText(@"s:\aaa.json", JsonConvert.SerializeObject(from x in _world.ContactList select x.Manifold, settings));
+            //WorldSerializer.Serialize(_world, @"s:\aaa.xml");
         }
         Dictionary<string, Stream> _savedStatesMap = new Dictionary<string, Stream>();
         public void Save(string name)
@@ -139,10 +140,10 @@ namespace WpfFarseer
         }
         public void Load()
         {
-            var contact = JsonConvert.DeserializeObject(File.ReadAllText(@"s:\aaa.json"));
+            //var contact = JsonConvert.DeserializeObject(File.ReadAllText(@"s:\aaa.json"));
 
-            _world = WorldSerializer.Deserialize(@"s:\aaa.xml");
-            _world.Step(0.000001f);
+            //_world = WorldSerializer.Deserialize(@"s:\aaa.xml");
+            //_world.Step(0.000001f);
         }
         #endregion
         private Body _findBody(BodyControl bodyControl)

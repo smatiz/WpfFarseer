@@ -6,11 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 
-namespace WpfFarseer
+namespace SM
 {
-
-
-
     public abstract class BasicCoroutine : IEnumerator<BasicCoroutine>
     {
         protected abstract IEnumerator<BasicCoroutine> DoIt();

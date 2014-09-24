@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿//using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -15,13 +15,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace WpfFarseer
 {
     public partial class FarseerCanvas : Canvas
     {
         List<TwoPointJointManager> _ropeJointManager = new List<TwoPointJointManager>();
-        System.Windows.Forms.Timer _timer = new System.Windows.Forms.Timer();
+        DispatcherTimer _timer = new DispatcherTimer();
 
         //public BasicCoroutine Coroutine { set { WorldManager.Coroutine = value; } }
         public FarseerWorldManager WorldManager { get; private set; }
@@ -31,12 +32,13 @@ namespace WpfFarseer
             InitializeComponent();
 
             _timer.Tick += (s, e) => Update();
-            _timer.Interval = 40;
+            _timer.Interval = new TimeSpan(0,0,0,0, 40);
             WorldManager = new FarseerWorldManager();
+            
             Loaded += (s, e) =>
             {
-                _timer.Start();
                 _controlUpdate();
+                _timer.Start();
             };
         }
 
@@ -183,20 +185,26 @@ namespace WpfFarseer
 #endif
         
 
+        //public StepViewModel StepViewModel
+        //{
+        //    get { return (StepViewModel)GetValue(StepViewModelProperty); }
+        //    set { SetValue(StepViewModelProperty, value); }
+        //}
+        //public static readonly DependencyProperty StepViewModelProperty =
+        //    DependencyProperty.Register("StepViewModel", typeof(StepViewModel), typeof(FarseerCanvas), new PropertyMetadata(null, OnStepViewModelChanged));
+        //private static void OnStepViewModelChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
+        //{
+        //    var _this = (FarseerCanvas)dependencyObject;
+        //    _this.StepViewModel.WorldManager = _this.WorldManager;
+        //}
+
         public StepViewModel StepViewModel
-        {
-            get { return (StepViewModel)GetValue(StepViewModelProperty); }
-            set { SetValue(StepViewModelProperty, value); }
+        { 
+            get
+            { 
+                return new StepViewModel(WorldManager);
+            }
         }
-        public static readonly DependencyProperty StepViewModelProperty =
-            DependencyProperty.Register("StepViewModel", typeof(StepViewModel), typeof(FarseerCanvas), new PropertyMetadata(null, OnStepViewModelChanged));
-        private static void OnStepViewModelChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
-        {
-            var _this = (FarseerCanvas)dependencyObject;
-            _this.StepViewModel.WorldManager = _this.WorldManager;
-        }
-
-
 
 
         public static string GetAngleJoint(DependencyObject obj)

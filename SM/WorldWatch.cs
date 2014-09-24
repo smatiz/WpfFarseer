@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace WpfFarseer
+namespace SM
 {
-    class WorldWatch
+    public class WorldWatch
     {
         private enum Status { Stopped, Play, Pause }
         private const long Interval = 40;

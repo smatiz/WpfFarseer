@@ -7,9 +7,7 @@
              d:DataContext="{d:DesignInstance Type=l:StepViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="100" >
-    <UserControl.DataContext>
-        <l:StepViewModel x:Name="_stepViewModel"></l:StepViewModel>
-    </UserControl.DataContext>
+   
     <StackPanel Orientation="Horizontal">
         <Button Width="100" Command = "{Binding PlayCommand}">Play</Button>
         <Button Width="100" Command = "{Binding PauseCommand}">Pause</Button>

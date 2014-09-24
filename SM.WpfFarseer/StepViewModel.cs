@@ -1,4 +1,5 @@
 ﻿using FarseerPhysics.Common;
+using SM;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,6 +12,13 @@ namespace WpfFarseer
 {
     public class StepViewModel : NotifyObjectViewer
     {
+
+        FarseerWorldManager _worldManager;
+        public StepViewModel(FarseerWorldManager worldManager)
+        {
+            _worldManager = worldManager;
+        }
+
         void notifyCommands()
         {
             NotifyPropertyChanged(() => PauseCommand);
@@ -63,15 +71,7 @@ namespace WpfFarseer
         
         public ICommand VoidCommand { get { return new BasicCommand(() => { }, () => false); } }
 
-        FarseerWorldManager _worldManager;
-        public FarseerWorldManager WorldManager
-        {
-            set
-            {
-                _worldManager = value;
-                notifyCommands();
-            }
-        }
+       
 
     }
 }

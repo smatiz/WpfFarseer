@@ -4,18 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{9C9A4AF7-8548-48D3-891A-CFB0CA07734E}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <ProjectGuid>{5F029001-1BDE-48F7-B714-42C9735B9993}</ProjectGuid>
+    <OutputType>library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WpfFarseer</RootNamespace>
-    <AssemblyName>WpfFarseer</AssemblyName>
+    <RootNamespace>SM.WpfFarseer</RootNamespace>
+    <AssemblyName>SM.WpfFarseer</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -25,7 +24,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -34,17 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MathNet.Numerics">
-      <HintPath>..\packages\MathNet.Numerics.3.2.3\lib\net40\MathNet.Numerics.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\ROOT\OneDrive\NET_DLL\Newtonsoft_Json\Net40\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Numerics" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -58,38 +48,29 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
+    <Compile Include="BasicControl.cs" />
+    <Compile Include="BodyControl.cs">
       <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
-    <Page Include="FarseerPlayerControl.xaml">
-      <SubType>Designer</SubType>
+    </Compile>
+    <Compile Include="BodyManager.cs" />
+    <Compile Include="CrossControl.xaml.cs">
+      <DependentUpon>CrossControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FarseerCanvas.xaml.cs">
+      <DependentUpon>FarseerCanvas.xaml</DependentUpon>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="FirstSample.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
-    <Compile Include="FarseerPlayerControl.xaml.cs">
-      <DependentUpon>FarseerPlayerControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="FirstSample.xaml.cs">
-      <DependentUpon>FirstSample.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
+    <Compile Include="FarseerWorldManager.cs" />
+    <Compile Include="Helpers\Const.cs" />
+    <Compile Include="Helpers\WpfFarseerHelper.cs" />
+    <Compile Include="Joint\BasicJointControl.cs" />
+    <Compile Include="Joint\DistanceJointControl.cs" />
+    <Compile Include="Joint\RevoluteJointControl.cs" />
+    <Compile Include="Joint\RopeJointControl.cs" />
+    <Compile Include="Joint\TwoPointJointControl.cs" />
+    <Compile Include="Joint\TwoPointJointInfo.cs" />
+    <Compile Include="Joint\TwoPointJointManager.cs" />
+    <Compile Include="Joint\WeldJointControl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -103,11 +84,15 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="StepControl.xaml.cs">
+      <DependentUpon>StepControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="StepViewModel.cs" />
+    <Compile Include="WpfDebugView.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -115,23 +100,42 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <Page Include="CrossControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="FarseerCanvas.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="StepControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="wall.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Farseer Physics Engine 3.5 Samples\Farseer Physics Engine 3.5\Farseer Physics XNA.csproj">
       <Project>{0a850700-1abb-4288-a391-6726b90ebeb9}</Project>
       <Name>Farseer Physics XNA</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SM.WpfFarseer\SM.WpfFarseer.csproj">
-      <Project>{5f029001-1bde-48f7-b714-42c9735b9993}</Project>
-      <Name>SM.WpfFarseer</Name>
-    </ProjectReference>
     <ProjectReference Include="..\SM\SM.csproj">
       <Project>{397c97f4-df83-49ea-91d9-93c5c45b0025}</Project>
       <Name>SM</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
