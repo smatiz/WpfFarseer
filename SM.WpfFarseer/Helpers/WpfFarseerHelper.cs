@@ -1,4 +1,5 @@
-﻿using FarseerPhysics.Common;
+﻿using SM.Farseer;
+using FarseerPhysics.Common;
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Factories;
 using Microsoft.Xna.Framework;

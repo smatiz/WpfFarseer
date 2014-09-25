@@ -1,6 +1,7 @@
 ﻿using FarseerPhysics.Collision.Shapes;
 using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
+using SM.Farseer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
