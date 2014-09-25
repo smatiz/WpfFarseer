@@ -16,6 +16,35 @@ using System.Threading.Tasks;
 
 namespace WpfFarseer
 {
+
+    public interface IFarseerBehaviour
+    {
+        // loop di Farseer
+        IEnumerator<BasicCoroutine> Loop(float dt);
+    }
+
+    public class LoopCoroutine : BasicCoroutine
+    {
+        private Func<float, IEnumerator<BasicCoroutine>> _func;
+        float _dt;
+        public LoopCoroutine(Func<float, IEnumerator<BasicCoroutine>> func)
+        {
+            _func = func;
+        }
+
+        protected override IEnumerator<BasicCoroutine> DoIt()
+        {
+            return _func(_dt);
+        }
+
+        public void Do(float dt)
+        {
+            _dt = dt;
+            Do();
+        }
+    }
+
+
     // Unico detentore del oggetto World
     // quindi l'unico in grado di creare oggetti Farseer
     public class FarseerWorldManager
@@ -25,8 +54,13 @@ namespace WpfFarseer
         private List<BodyManager> _bodyManagers = new List<BodyManager>();
         private List<Joint> _joints = new List<Joint>();
 
-        // sono sul thread fisico
-        private List<BasicCoroutine> _loopCoroutines = new List<BasicCoroutine>();
+        private List<LoopCoroutine> _loopCoroutine = new List<LoopCoroutine>();
+
+        public void AddFarseerBehaviour(IFarseerBehaviour x)
+        {
+            _loopCoroutine.Add(new LoopCoroutine(x.Loop));
+        }
+
 
         public FarseerWorldManager()
         {
@@ -34,10 +68,10 @@ namespace WpfFarseer
             _worldWatch = new WorldWatch(dt => step(dt));
         }
 
-        public void AddLoopCoroutine(BasicCoroutine coroutine)
+        /*public void AddLoopCoroutine(BasicCoroutine coroutine)
         {
             _loopCoroutines.Add(coroutine);
-        }
+        }*/
 
         public object Find(string name)
         { 
@@ -83,10 +117,20 @@ namespace WpfFarseer
         private void step(float dt)
         {
             _world.Step(dt);
-            foreach (var c in _loopCoroutines)
+
+            foreach (var c in _loopCoroutine)
             {
-                c.Do();
+                c.Do(dt);
             }
+            //foreach (var c in _farseerBehaviours)
+            //{
+            //    //if (!c.MoveNext())
+            //    //{
+            //    //    c.Reset();
+            //    //    c.MoveNext();
+            //    //}
+            //    c.Loop(dt);
+            //}
         }
 
         public void Play()
@@ -253,8 +297,6 @@ namespace WpfFarseer
             addJoint(j, jointControl);
         }
 
-
-       
     }
 
 }

@@ -121,13 +121,28 @@ namespace SM
     //}
 
 
+    //public class FuncCoroutine : BasicCoroutine
+    //{
+    //    public Func<IEnumerator<BasicCoroutine>> Func { private get; set; }
+
+    //    protected override IEnumerator<BasicCoroutine> DoIt()
+    //    {
+    //        return Func();
+    //    }
+    //}
+
     public class FuncCoroutine : BasicCoroutine
     {
-        public Func<IEnumerator<BasicCoroutine>> Func { private get; set; }
+        private Func<IEnumerator<BasicCoroutine>> _func;
+
+        public FuncCoroutine(Func<IEnumerator<BasicCoroutine>> func)
+        {
+            _func = func;
+        }
 
         protected override IEnumerator<BasicCoroutine> DoIt()
         {
-            return Func();
+            return _func();
         }
     }
 

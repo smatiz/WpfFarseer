@@ -20,19 +20,51 @@ using System.Windows.Threading;
 
 namespace WpfFarseer
 {
-    /*public class FarseerBehaviour
+    public interface IFarseerBehaviourWpf : IFarseerBehaviour
     {
-        public Action<FarseerWorldManager> WorldStarted { get; set; }
-        public Func<FarseerWorldManager, IEnumerator<BasicCoroutine>> WorldLoop { get; set; }
-    }*/
+        // nel thread grafico quando wpf ha finito
+        IEnumerator<BasicCoroutine> Start(FarseerWorldManager farseerWorld);
+        // loop del thread grafico (DispatcherTimer)
+        IEnumerator<BasicCoroutine> Update();
+    }
 
+    public class StartCoroutine : BasicCoroutine
+    {
+        private Func<FarseerWorldManager, IEnumerator<BasicCoroutine>> _func;
+        FarseerWorldManager _farseerWorldManager;
+        public StartCoroutine(FarseerWorldManager farseerWorldManager, Func<FarseerWorldManager, IEnumerator<BasicCoroutine>> func)
+        {
+            _farseerWorldManager = farseerWorldManager;
+            _func = func;
+        }
+
+        protected override IEnumerator<BasicCoroutine> DoIt()
+        {
+            return _func(_farseerWorldManager);
+        }
+    }
+
+    public class UpdateCoroutine : BasicCoroutine
+    {
+        private Func<IEnumerator<BasicCoroutine>> _func;
+
+        public UpdateCoroutine(Func<IEnumerator<BasicCoroutine>> func)
+        {
+            _func = func;
+        }
+
+        protected override IEnumerator<BasicCoroutine> DoIt()
+        {
+            return _func();
+        }
+    }
 
     public partial class FarseerCanvas : Canvas
     {
         List<TwoPointJointManager> _ropeJointManager = new List<TwoPointJointManager>();
         DispatcherTimer _timer = new DispatcherTimer();
 
-        public event Action<FarseerWorldManager> WorldReady;
+        //public event Action<FarseerWorldManager> WorldReady;
 
         //FarseerBehaviour _farseerBehaviour = new FarseerBehaviour();
         //public Action<FarseerWorldManager> WorldStarted { private get; set; }
@@ -40,10 +72,17 @@ namespace WpfFarseer
 
         FarseerWorldManager _worldManager;
 
-        private List<Func<FarseerWorldManager, IEnumerator<BasicCoroutine>>> _worldLoops = new List<Func<FarseerWorldManager, IEnumerator<BasicCoroutine>>>();
-        public void AddLoop(Func<FarseerWorldManager, IEnumerator<BasicCoroutine>> x)
+        private List<IFarseerBehaviourWpf> _farseerBehaviours = new List<IFarseerBehaviourWpf>();
+
+        private List<BasicCoroutine> _startCoroutine = new List<BasicCoroutine>();
+        private List<BasicCoroutine> _updateCoroutine = new List<BasicCoroutine>();
+
+        public void AddFarseerBehaviour(IFarseerBehaviourWpf x)
         {
-            _worldLoops.Add(x);
+            _startCoroutine.Add(new StartCoroutine(_worldManager, x.Start));
+            _updateCoroutine.Add(new UpdateCoroutine(x.Update));
+            _farseerBehaviours.Add(x);
+            _worldManager.AddFarseerBehaviour(x);
         }
         public FarseerCanvas()
         {
@@ -53,32 +92,36 @@ namespace WpfFarseer
             _timer.Interval = new TimeSpan(0,0,0,0, 40);
             _worldManager = new FarseerWorldManager();
 
-            var eventCoroutine = new EventCoroutine();
-            eventCoroutine.Event += eventCoroutine_Event;
-            _worldManager.AddLoopCoroutine( eventCoroutine);
+            //var eventCoroutine = new EventCoroutine();
+            //eventCoroutine.Event += eventCoroutine_Event;
+            //_loopCoroutines.Add(eventCoroutine);
 
             Loaded += (s, e) =>
             {
                 _controlUpdate();
                 _timer.Start();
-                if (WorldReady != null)
+                //if (WorldReady != null)
+                //{
+                //    WorldReady(_worldManager);
+                //}
+                foreach (var x in _farseerBehaviours)
                 {
-                    WorldReady(_worldManager);
+                    x.Start(_worldManager);
                 }
             };
         }
 
-        IEnumerator<BasicCoroutine> eventCoroutine_Event()
-        {
-            foreach (var wl in _worldLoops)
-            {
-                var x = wl(_worldManager);
-                while (x.MoveNext())
-                {
-                    yield return x.Current;
-                }
-            }
-        }
+        //IEnumerator<BasicCoroutine> eventCoroutine_Event()
+        //{
+        //    foreach (var wl in _worldLoops)
+        //    {
+        //        var x = wl(_worldManager);
+        //        while (x.MoveNext())
+        //        {
+        //            yield return x.Current;
+        //        }
+        //    }
+        //}
 
         void _controlUpdate()
         {
@@ -133,6 +176,10 @@ namespace WpfFarseer
 #if DEBUG
             InvalidateVisual();
 #endif
+            foreach (var c in _farseerBehaviours)
+            {
+                c.Update();
+            }
         }
 
         //public bool Savable
