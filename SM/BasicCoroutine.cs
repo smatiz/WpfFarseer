@@ -8,7 +8,7 @@ using System.Windows;
 
 namespace SM
 {
-    public abstract class BasicCoroutine : IEnumerator<BasicCoroutine>
+    public abstract class BasicCoroutine 
     {
         protected abstract IEnumerator<BasicCoroutine> DoIt();
 
@@ -17,15 +17,14 @@ namespace SM
         {
         }
 
-
-        public BasicCoroutine Current
+        private BasicCoroutine Current
         {
             get 
             { 
                 return _doIt.Current; 
             }
         }
-        public bool MoveNext()
+        private bool MoveNext()
         {
             if(_doIt == null)
             {
@@ -44,31 +43,18 @@ namespace SM
                 return _doIt.MoveNext();
             }
         }
-
-
-        public void Reset()
+        private void Reset()
         {
             _doIt = null;
         }
 
-
-        public void LoopStep()
+        public void Do()
         {
             if(! MoveNext())
             {
                 Reset();
                 MoveNext();
             }
-        }
-
-        public void Dispose()
-        {
-            throw new NotImplementedException();
-        }
-
-        object IEnumerator.Current
-        {
-            get { throw new NotImplementedException(); }
         }
 
     }
@@ -120,20 +106,40 @@ namespace SM
     }
 
 
+    //public class FuncCoroutine : BasicCoroutine
+    //{
+    //    Func<IEnumerator<BasicCoroutine>> _func;
+
+    //    public FuncCoroutine(Func<IEnumerator<BasicCoroutine>> func)
+    //    {
+    //        _func = func;
+    //    }
+    //    protected override IEnumerator<BasicCoroutine> DoIt()
+    //    {
+    //        return _func();
+    //    }
+    //}
+
+
     public class FuncCoroutine : BasicCoroutine
     {
-        Func<IEnumerator<BasicCoroutine>> _func;
+        public Func<IEnumerator<BasicCoroutine>> Func { private get; set; }
 
-        public FuncCoroutine(Func<IEnumerator<BasicCoroutine>> func)
-        {
-            _func = func;
-        }
         protected override IEnumerator<BasicCoroutine> DoIt()
         {
-            return _func();
+            return Func();
         }
     }
 
+    public class EventCoroutine : BasicCoroutine
+    {
+        public event Func<IEnumerator<BasicCoroutine>> Event;
+        
+        protected override IEnumerator<BasicCoroutine> DoIt()
+        {
+            return Event();
+        }
+    }
 
     /*public class TestCoroutine : BasicCoroutine
     {

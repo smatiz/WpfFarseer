@@ -53,6 +53,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Compile>
     <Compile Include="BodyManager.cs" />
+    <Compile Include="CodeGenerator.cs" />
     <Compile Include="CrossControl.xaml.cs">
       <DependentUpon>CrossControl.xaml</DependentUpon>
     </Compile>

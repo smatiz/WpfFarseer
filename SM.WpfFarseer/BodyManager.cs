@@ -4,6 +4,7 @@ using FarseerPhysics.Factories;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,7 +26,9 @@ namespace WpfFarseer
             body.UserData = bodyControl.Id;
             body.FixtureList.AddRange(from shape in bodyControl.FindShapes() select bodyControl.ToFarseer(shape, body));
             body.BodyType = bodyControl.BodyType;
+            CodeGenerator.AddCode(String.Format("{1}.BodyType = BodyType.{0};", Enum.GetName(typeof(BodyType), bodyControl.BodyType), body.g()));
             body.Position = originPosition;
+            CodeGenerator.AddCode(String.Format("{1}.Position = {0};", originPosition.g(), body.g()));
 
 
             _originalPosition = originPosition;

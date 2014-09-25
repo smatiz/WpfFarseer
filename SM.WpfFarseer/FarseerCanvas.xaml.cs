@@ -1,4 +1,5 @@
-﻿//using Newtonsoft.Json;
+﻿using SM;
+//using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -19,27 +20,64 @@ using System.Windows.Threading;
 
 namespace WpfFarseer
 {
+    /*public class FarseerBehaviour
+    {
+        public Action<FarseerWorldManager> WorldStarted { get; set; }
+        public Func<FarseerWorldManager, IEnumerator<BasicCoroutine>> WorldLoop { get; set; }
+    }*/
+
+
     public partial class FarseerCanvas : Canvas
     {
         List<TwoPointJointManager> _ropeJointManager = new List<TwoPointJointManager>();
         DispatcherTimer _timer = new DispatcherTimer();
 
-        //public BasicCoroutine Coroutine { set { WorldManager.Coroutine = value; } }
-        public FarseerWorldManager WorldManager { get; private set; }
+        public event Action<FarseerWorldManager> WorldReady;
 
+        //FarseerBehaviour _farseerBehaviour = new FarseerBehaviour();
+        //public Action<FarseerWorldManager> WorldStarted { private get; set; }
+        //public Func<FarseerWorldManager, IEnumerator<BasicCoroutine>> WorldLoop { private get; set; }
+
+        FarseerWorldManager _worldManager;
+
+        private List<Func<FarseerWorldManager, IEnumerator<BasicCoroutine>>> _worldLoops = new List<Func<FarseerWorldManager, IEnumerator<BasicCoroutine>>>();
+        public void AddLoop(Func<FarseerWorldManager, IEnumerator<BasicCoroutine>> x)
+        {
+            _worldLoops.Add(x);
+        }
         public FarseerCanvas()
         {
             InitializeComponent();
 
             _timer.Tick += (s, e) => Update();
             _timer.Interval = new TimeSpan(0,0,0,0, 40);
-            WorldManager = new FarseerWorldManager();
-            
+            _worldManager = new FarseerWorldManager();
+
+            var eventCoroutine = new EventCoroutine();
+            eventCoroutine.Event += eventCoroutine_Event;
+            _worldManager.AddLoopCoroutine( eventCoroutine);
+
             Loaded += (s, e) =>
             {
                 _controlUpdate();
                 _timer.Start();
+                if (WorldReady != null)
+                {
+                    WorldReady(_worldManager);
+                }
             };
+        }
+
+        IEnumerator<BasicCoroutine> eventCoroutine_Event()
+        {
+            foreach (var wl in _worldLoops)
+            {
+                var x = wl(_worldManager);
+                while (x.MoveNext())
+                {
+                    yield return x.Current;
+                }
+            }
         }
 
         void _controlUpdate()
@@ -53,7 +91,7 @@ namespace WpfFarseer
                     var bodyControl = child as BodyControl;
                     if (bodyControl != null)
                     {
-                        WorldManager.AddBodyControl(bodyControl);
+                        _worldManager.AddBodyControl(bodyControl);
                     }
                 }
 
@@ -72,7 +110,7 @@ namespace WpfFarseer
 
                     if (!System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
                     {
-                        WorldManager.AddRopeJoint(ropeJointInfo, jointControl);
+                        _worldManager.AddRopeJoint(ropeJointInfo, jointControl);
                     }
                 }
             }
@@ -85,9 +123,9 @@ namespace WpfFarseer
 
         public void Update()
         {
-            if (WorldManager == null) return;
+            if (_worldManager == null) return;
             if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this)) return;
-            WorldManager.Update();
+            _worldManager.Update();
             foreach (var x in _ropeJointManager)
             {
                 x.Update();
@@ -119,6 +157,20 @@ namespace WpfFarseer
         //    }
         //    return null;
         //}
+
+        /*class WorldCoroutine : EventCoroutine
+        {
+            protected override IEnumerator<BasicCoroutine> DoIt()
+            {
+                throw new NotImplementedException();
+            }
+        }*/
+
+
+       /* public EventCoroutine WorldCoroutine
+        {
+
+        }*/
 
         private TwoPointJointInfo _resolve(RopeJointControl jointControl)
         {
@@ -177,7 +229,7 @@ namespace WpfFarseer
         { 
             get
             { 
-                return new StepViewModel(WorldManager);
+                return new StepViewModel(_worldManager);
             }
         }
 

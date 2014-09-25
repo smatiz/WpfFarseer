@@ -19,30 +19,34 @@ namespace WpfFarseer
     /// <summary>
     /// Interaction logic for FirstSample.xaml
     /// </summary>
-    public partial class FirstSample : UserControl, ICoroutinable
+    public partial class FirstSample : UserControl
     {
         FarseerPhysics.Dynamics.Joints.RopeJoint jointC;
 
         public FirstSample()
         {
             InitializeComponent();
-            _farseerPlayer.FarseerCanvas.Loaded += (s, e) =>
-            {
 
-                jointC = ((FarseerPhysics.Dynamics.Joints.RopeJoint)_farseerPlayer.FarseerCanvas.WorldManager.Find("jointC"));
-                _farseerPlayer.FarseerCanvas.WorldManager.Coroutine = new Coroutinator(this);
-            };
+            _farseerPlayer.FarseerCanvas.AddLoop(FarseerCanvas_WorldLoop);
+            _farseerPlayer.FarseerCanvas.WorldReady += FarseerCanvas_WorldStarted;
         }
 
-
-
-
-        public IEnumerator<BasicCoroutine> DoCoroutine()
+        void FarseerCanvas_WorldStarted(FarseerWorldManager worldManager)
         {
+            jointC = ((FarseerPhysics.Dynamics.Joints.RopeJoint)worldManager.Find("jointC"));
+        }
+
+        IEnumerator<BasicCoroutine> FarseerCanvas_WorldLoop(FarseerWorldManager worldManager)
+        {
+
             yield return new WaitSecondsCoroutine(5);
             //MessageBox.Show("**************");
             jointC.MaxLength *= 0.4f;
-
         }
+
+       
+
+
+
     }
 }

@@ -25,14 +25,18 @@ namespace WpfFarseer
         private List<BodyManager> _bodyManagers = new List<BodyManager>();
         private List<Joint> _joints = new List<Joint>();
 
-        // e' sul thread fisico
-        public BasicCoroutine Coroutine { private get; set; }
-
+        // sono sul thread fisico
+        private List<BasicCoroutine> _loopCoroutines = new List<BasicCoroutine>();
 
         public FarseerWorldManager()
         {
             _world = new World(new Microsoft.Xna.Framework.Vector2(0, 10));
             _worldWatch = new WorldWatch(dt => step(dt));
+        }
+
+        public void AddLoopCoroutine(BasicCoroutine coroutine)
+        {
+            _loopCoroutines.Add(coroutine);
         }
 
         public object Find(string name)
@@ -67,15 +71,22 @@ namespace WpfFarseer
         public void AddBodyControl(BodyControl bodyControl)
         {
             var originPosition = WpfFarseerHelper.ToFarseer(bodyControl.TranslatePoint(new System.Windows.Point(0, 0), (System.Windows.UIElement)bodyControl.Parent));
+
+
             var body = BodyFactory.CreateBody(_world, Vector2.Zero);
             body.UserData = bodyControl.Id;
+            CodeGenerator.AddCode(String.Format("var {0} = BodyFactory.CreateBody(World, Vector2.Zero);", body.g()));
+            //
             _bodyManagers.Add(new BodyManager(bodyControl, body, originPosition));
         }
 
         private void step(float dt)
         {
             _world.Step(dt);
-            Coroutine.LoopStep();
+            foreach (var c in _loopCoroutines)
+            {
+                c.Do();
+            }
         }
 
         public void Play()
@@ -162,13 +173,43 @@ namespace WpfFarseer
         {
             j.UserData = jointControl.Id;
             j.CollideConnected = jointControl.CollideConnected;
+            CodeGenerator.AddCode(String.Format("{1}.CollideConnected = {0};", j.g(),  jointControl.CollideConnected.g()));
             _joints.Add(j);
         }
 
+
+
+        private Joint addJoint(TwoPointJointInfo jointInfo, BasicJointControl jointControl, Func<World, Body, Body, Vector2, Vector2, Joint> func, string name)
+        {
+            var bA = _findBody(jointInfo.BodyControlA);
+            var bB = _findBody(jointInfo.BodyControlB);
+
+            var pA = jointInfo.AnchorA.ToFarseer();
+            var pB = jointInfo.AnchorB.ToFarseer();
+
+            var j = JointFactory.CreateRopeJoint(_world, bA, bB, pA, pB);
+            addJoint(j, jointControl);
+            CodeGenerator.AddCode(String.Format("var {4} = JointFactory.{5}(_world, {0}, {1}, {2}, {3});", bA.g(), bB.g(), pA.g(), pB.g(), j.g(), name));
+            return j;
+
+        }
+
+
         public void AddRopeJoint(TwoPointJointInfo jointInfo, RopeJointControl jointControl)
         {
-            var j = JointFactory.CreateRopeJoint(_world, _findBody(jointInfo.BodyControlA), _findBody(jointInfo.BodyControlB), jointInfo.AnchorA.ToFarseer(), jointInfo.AnchorB.ToFarseer());
-           
+
+            var j = (RopeJoint)addJoint(jointInfo, jointControl, (w, bA, bB, pA, pB) => JointFactory.CreateRopeJoint(w, bA, bB, pA, pB), "CreateRopeJoint");
+
+            /*var bA =  _findBody(jointInfo.BodyControlA);
+            var bB = _findBody(jointInfo.BodyControlB);
+
+            var pA = jointInfo.AnchorA.ToFarseer();
+            var pB = jointInfo.AnchorB.ToFarseer();
+
+            var j = JointFactory.CreateRopeJoint(_world, bA, bB, pA, pB);
+            addJoint(j, jointControl);
+            CodeGenerator.AddCode(String.Format("var {4} = JointFactory.CreateRopeJoint(_world, {0}, {1}, {2}, {3});", bA.g(), bB.g(), pA.g(), pB.g(), j.g()));
+           */
             if (jointControl.MaxLength != -1)
             {
                 j.MaxLength = jointControl.MaxLength;
@@ -177,12 +218,15 @@ namespace WpfFarseer
             {
                 j.MaxLength *= jointControl.MaxLengthFactor;
             }
-            addJoint(j, jointControl);
+            CodeGenerator.AddCode(String.Format("{1}.MaxLength = {0};", j.MaxLength, j.g()));
         }
         public void AddWeldJoint(TwoPointJointInfo jointInfo, WeldJointControl jointControl)
         {
             var j = JointFactory.CreateWeldJoint(_world, _findBody(jointInfo.BodyControlA), _findBody(jointInfo.BodyControlB), jointInfo.AnchorA.ToFarseer(), jointInfo.AnchorB.ToFarseer());
-          
+
+            addJoint(j, jointControl);
+            //CodeGenerator.AddCode(String.Format("var {4} = JointFactory.CreateRopeJoint(_world, {0}, {1}, {2}, {3});", bA.g(), bB.g(), pA.g(), pB.g(), j.g()));
+
             if (jointControl.ReferenceAngle != -1)
             {
                 j.ReferenceAngle = jointControl.ReferenceAngle;
@@ -195,7 +239,6 @@ namespace WpfFarseer
             {
                 j.DampingRatio = jointControl.DampingRatio;
             }
-            addJoint(j, jointControl);
         }
         public void AddRevoluteJoint(TwoPointJointInfo jointInfo, RevoluteJointControl jointControl)
         {
@@ -209,6 +252,9 @@ namespace WpfFarseer
 
             addJoint(j, jointControl);
         }
+
+
+       
     }
 
 }
