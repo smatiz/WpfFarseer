@@ -40,15 +40,15 @@ namespace WpfFarseer
      
        
 
-        public void Draw(DrawingContext drawingContext)
-        {
-            foreach(var b in _bodies)
-            {
-                b.Draw(drawingContext);
+        //public void Draw(DrawingContext drawingContext)
+        //{
+        //    foreach(var b in _bodies)
+        //    {
+        //        b.Draw(drawingContext);
 
 
                 
-            }
-        }
+        //    }
+        //}
     }
 }

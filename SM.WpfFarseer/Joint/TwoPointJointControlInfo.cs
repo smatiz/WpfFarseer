@@ -7,7 +7,7 @@ using System.Windows;
 
 namespace WpfFarseer
 {
-    public class TwoPointJointInfo
+    public class TwoPointJointControlInfo
     {
         public BodyControl BodyControlA { get; private set; }
         public BodyControl BodyControlB { get; private set; }
@@ -15,7 +15,7 @@ namespace WpfFarseer
         public Point AnchorA { get; private set; }
         public Point AnchorB { get; private set; }
 
-        public TwoPointJointInfo(BodyControl bodyControlA, BodyControl bodyControlB, Point anchorA, Point anchorB)
+        public TwoPointJointControlInfo(BodyControl bodyControlA, BodyControl bodyControlB, Point anchorA, Point anchorB)
         {
             BodyControlA = bodyControlA;
             BodyControlB = bodyControlB;

@@ -122,6 +122,10 @@
       <Project>{0a850700-1abb-4288-a391-6726b90ebeb9}</Project>
       <Name>Farseer Physics XNA</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SM.Farseer\SM.Farseer.csproj">
+      <Project>{f7b0cc38-539d-4c46-acc7-a51c41e23135}</Project>
+      <Name>SM.Farseer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SM.WpfFarseer\SM.WpfFarseer.csproj">
       <Project>{5f029001-1bde-48f7-b714-42c9735b9993}</Project>
       <Name>SM.WpfFarseer</Name>

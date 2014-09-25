@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FarseerPhysics.Dynamics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,22 +17,24 @@ using System.Windows.Shapes;
 namespace WpfFarseer
 {
 
-    public class BodyControl : BasicControl
+    public class BodyControl : BasicControl, IBodyObject
     {
-        public RotateTransform Rotation { get; private set; }
-        public TranslateTransform Traslation { get; private set; }
-        
+        const float AngleSubst = 180f / (float)Math.PI;
+
+        private RotateTransform _rotation; //{ get; private set; }
+        private TranslateTransform _traslation;// { get; private set; }
+
         public BodyControl()
         {
-            Rotation = new RotateTransform();
-            Traslation = new TranslateTransform();
+            _rotation = new RotateTransform();
+            _traslation = new TranslateTransform();
 
             Loaded += (s, e) =>
             {
                 var rt = this.RenderTransform;
                 var gt = new TransformGroup();
-                gt.Children.Add(Rotation);
-                gt.Children.Add(Traslation);
+                gt.Children.Add(_rotation);
+                gt.Children.Add(_traslation);
                 gt.Children.Add(rt);
                 this.RenderTransform = gt;
                 _refreshVisual();
@@ -42,7 +45,7 @@ namespace WpfFarseer
         {
             _refreshVisual();
         }
-        public IEnumerable<Shape> FindShapes()
+        private IEnumerable<Shape> FindShapes()
         {
             foreach (var x in Children)
             {
@@ -96,5 +99,20 @@ namespace WpfFarseer
         }
         public static readonly DependencyProperty BodyTypeProperty =
             DependencyProperty.Register("BodyType", typeof(FarseerPhysics.Dynamics.BodyType), typeof(BodyControl), new PropertyMetadata(FarseerPhysics.Dynamics.BodyType.Static));
+
+
+        public void Set(float x, float y, float a)
+        {
+            _traslation.X = x;
+            _traslation.Y = y;
+            _rotation.Angle = a * AngleSubst;
+        }
+
+
+        public IEnumerable<FarseerPhysics.Dynamics.Fixture> AttachFixtures(Body body)
+        {
+           return from shape in FindShapes() select this.ToFarseer(shape, body);
+            
+        }
     }
 }

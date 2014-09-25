@@ -52,8 +52,8 @@
     <Compile Include="BodyControl.cs">
       <Generator>MSBuild:Compile</Generator>
     </Compile>
-    <Compile Include="BodyManager.cs" />
-    <Compile Include="CodeGenerator.cs" />
+    <Compile Include="Coroutines\StartCoroutine.cs" />
+    <Compile Include="Coroutines\UpdateCoroutine.cs" />
     <Compile Include="CrossControl.xaml.cs">
       <DependentUpon>CrossControl.xaml</DependentUpon>
     </Compile>
@@ -64,13 +64,14 @@
     <Compile Include="FarseerWorldManager.cs" />
     <Compile Include="Helpers\Const.cs" />
     <Compile Include="Helpers\WpfFarseerHelper.cs" />
+    <Compile Include="IFarseerBehaviourWpf.cs" />
     <Compile Include="Joint\BasicJointControl.cs" />
     <Compile Include="Joint\DistanceJointControl.cs" />
     <Compile Include="Joint\RevoluteJointControl.cs" />
     <Compile Include="Joint\RopeJointControl.cs" />
     <Compile Include="Joint\TwoPointJointControl.cs" />
-    <Compile Include="Joint\TwoPointJointInfo.cs" />
-    <Compile Include="Joint\TwoPointJointManager.cs" />
+    <Compile Include="Joint\TwoPointJointControlInfo.cs" />
+    <Compile Include="Joint\TwoPointJointControlManager.cs" />
     <Compile Include="Joint\WeldJointControl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -85,6 +86,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="ShortTheRopeBehaviour.cs" />
     <Compile Include="StepControl.xaml.cs">
       <DependentUpon>StepControl.xaml</DependentUpon>
     </Compile>
@@ -131,6 +133,10 @@
     <ProjectReference Include="..\Farseer Physics Engine 3.5 Samples\Farseer Physics Engine 3.5\Farseer Physics XNA.csproj">
       <Project>{0a850700-1abb-4288-a391-6726b90ebeb9}</Project>
       <Name>Farseer Physics XNA</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SM.Farseer\SM.Farseer.csproj">
+      <Project>{f7b0cc38-539d-4c46-acc7-a51c41e23135}</Project>
+      <Name>SM.Farseer</Name>
     </ProjectReference>
     <ProjectReference Include="..\SM\SM.csproj">
       <Project>{397c97f4-df83-49ea-91d9-93c5c45b0025}</Project>

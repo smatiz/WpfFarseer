@@ -20,48 +20,10 @@ using System.Windows.Threading;
 
 namespace WpfFarseer
 {
-    public interface IFarseerBehaviourWpf : IFarseerBehaviour
-    {
-        // nel thread grafico quando wpf ha finito
-        IEnumerator<BasicCoroutine> Start(FarseerWorldManager farseerWorld);
-        // loop del thread grafico (DispatcherTimer)
-        IEnumerator<BasicCoroutine> Update();
-    }
-
-    public class StartCoroutine : BasicCoroutine
-    {
-        private Func<FarseerWorldManager, IEnumerator<BasicCoroutine>> _func;
-        FarseerWorldManager _farseerWorldManager;
-        public StartCoroutine(FarseerWorldManager farseerWorldManager, Func<FarseerWorldManager, IEnumerator<BasicCoroutine>> func)
-        {
-            _farseerWorldManager = farseerWorldManager;
-            _func = func;
-        }
-
-        protected override IEnumerator<BasicCoroutine> DoIt()
-        {
-            return _func(_farseerWorldManager);
-        }
-    }
-
-    public class UpdateCoroutine : BasicCoroutine
-    {
-        private Func<IEnumerator<BasicCoroutine>> _func;
-
-        public UpdateCoroutine(Func<IEnumerator<BasicCoroutine>> func)
-        {
-            _func = func;
-        }
-
-        protected override IEnumerator<BasicCoroutine> DoIt()
-        {
-            return _func();
-        }
-    }
-
+   
     public partial class FarseerCanvas : Canvas
     {
-        List<TwoPointJointManager> _ropeJointManager = new List<TwoPointJointManager>();
+        List<TwoPointJointControlManager> _ropeJointManager = new List<TwoPointJointControlManager>();
         DispatcherTimer _timer = new DispatcherTimer();
 
         //public event Action<FarseerWorldManager> WorldReady;
@@ -142,18 +104,18 @@ namespace WpfFarseer
                 var jointControl = child as RopeJointControl;
                 if (jointControl != null)
                 {
-                    var ropeJointInfo = _resolve(jointControl);
+                    var ropeJointControlInfo = _resolve(jointControl);
 
                     var line = new Line();
                     line.Stroke = new SolidColorBrush(Colors.Green);
                     line.StrokeThickness = 1;
                     tobeadded.Add(line);
 
-                    _ropeJointManager.Add(new TwoPointJointManager(this, ropeJointInfo, line));
+                    _ropeJointManager.Add(new TwoPointJointControlManager(this, ropeJointControlInfo, line));
 
                     if (!System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
                     {
-                        _worldManager.AddRopeJoint(ropeJointInfo, jointControl);
+                        _worldManager.AddRopeJoint(ropeJointControlInfo.ToFarseer(_worldManager), jointControl);
                     }
                 }
             }
@@ -219,7 +181,7 @@ namespace WpfFarseer
 
         }*/
 
-        private TwoPointJointInfo _resolve(RopeJointControl jointControl)
+        private TwoPointJointControlInfo _resolve(RopeJointControl jointControl)
         {
             BodyControl bodyControlA = null, bodyControlB = null;
             Point anchorA = new Point(), anchorB = new Point();
@@ -248,13 +210,13 @@ namespace WpfFarseer
                 }
             }
 
-            return new TwoPointJointInfo(bodyControlA, bodyControlB, anchorA, anchorB);
+            return new TwoPointJointControlInfo(bodyControlA, bodyControlB, anchorA, anchorB);
         }
 #if DEBUG
         protected override void OnRender(DrawingContext drawingContext)
         {
             base.OnRender(drawingContext);
-            WpfDebugView.Instance.Draw(drawingContext);
+            //WpfDebugView.Instance.Draw(drawingContext);
         }
 #endif
         

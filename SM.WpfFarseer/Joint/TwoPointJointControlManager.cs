@@ -6,13 +6,13 @@ using System.Windows.Shapes;
 
 namespace WpfFarseer
 {
-    public class TwoPointJointManager 
+    public class TwoPointJointControlManager 
     {
         FarseerCanvas _farseerCanvas;
-        TwoPointJointInfo _ropeJointInfo;
+        TwoPointJointControlInfo _ropeJointInfo;
         Line _line;
 
-        public TwoPointJointManager(FarseerCanvas farseerCanvas, TwoPointJointInfo ropeJointInfo, Line line)
+        public TwoPointJointControlManager(FarseerCanvas farseerCanvas, TwoPointJointControlInfo ropeJointInfo, Line line)
         {
             _farseerCanvas = farseerCanvas;
             _ropeJointInfo = ropeJointInfo;
