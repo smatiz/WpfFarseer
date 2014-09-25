@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WpfFarseer
 {
-    public class DistanceJointControl : TwoPointJointControl
+    public class DistanceJointControl : TwoPointJointControl, IDistanceJointObject
     {
 
     }

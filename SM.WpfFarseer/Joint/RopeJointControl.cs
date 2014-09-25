@@ -10,7 +10,7 @@ using System.Windows.Shapes;
 
 namespace WpfFarseer
 {
-    public class RopeJointControl : TwoPointJointControl
+    public class RopeJointControl : TwoPointJointControl, IRopeJointObject
     {
         public float MaxLength
         {

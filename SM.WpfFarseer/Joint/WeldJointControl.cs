@@ -10,7 +10,7 @@ using System.Windows.Shapes;
 
 namespace WpfFarseer
 {
-    public class WeldJointControl : TwoPointJointControl
+    public class WeldJointControl : TwoPointJointControl, IWeldJointObject
     {
         public float ReferenceAngle
         {
