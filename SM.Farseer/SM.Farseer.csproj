@@ -42,6 +42,8 @@
   <ItemGroup>
     <Compile Include="BodyManager.cs" />
     <Compile Include="CodeGenerator.cs" />
+    <Compile Include="Const.cs" />
+    <Compile Include="FarseerWorldManager.cs" />
     <Compile Include="IFarseerObject.cs" />
     <Compile Include="IJointObject.cs" />
     <Compile Include="IBodyObject.cs" />

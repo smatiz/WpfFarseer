@@ -52,7 +52,7 @@ namespace WpfFarseer
 
         public static TwoPointJointInfo ToFarseer(this TwoPointJointControlInfo x, FarseerWorldManager f)
         {
-            return new TwoPointJointInfo( x.BodyControlA.ToFarseer(f),  x.BodyControlB.ToFarseer(f), x.AnchorA.ToFarseer(), x.AnchorB.ToFarseer());
+            return new TwoPointJointInfo(x.BodyControlA.ToFarseer(f), x.BodyControlB.ToFarseer(f), x.AnchorA.ToFarseer(), x.AnchorB.ToFarseer());
         }
     }
 }

@@ -96,7 +96,7 @@ namespace WpfFarseer
                     var bodyControl = child as BodyControl;
                     if (bodyControl != null)
                     {
-                        _worldManager.AddBodyControl(bodyControl);
+                        _worldManager.AddBodyControl(bodyControl, WpfFarseerHelper.ToFarseer(bodyControl.TranslatePoint(new System.Windows.Point(0, 0), (System.Windows.UIElement)bodyControl.Parent)));
                     }
                 }
 

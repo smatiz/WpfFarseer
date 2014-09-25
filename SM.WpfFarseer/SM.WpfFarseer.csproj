@@ -61,8 +61,6 @@
       <DependentUpon>FarseerCanvas.xaml</DependentUpon>
       <Generator>MSBuild:Compile</Generator>
     </Compile>
-    <Compile Include="FarseerWorldManager.cs" />
-    <Compile Include="Helpers\Const.cs" />
     <Compile Include="Helpers\WpfFarseerHelper.cs" />
     <Compile Include="IFarseerBehaviourWpf.cs" />
     <Compile Include="Joint\BasicJointControl.cs" />
