@@ -16,33 +16,40 @@ namespace SM.Farseer
 
     // si occupa di gestire il dialogo tra Body e BodyControl
     // 
-    public class BodyManager
+    public class BreakableBodyManager
     {
         private Vector2 _originalPosition;
 
-        public Body Body { get; private set; }
-        public IBodyObject BodyControl { get; private set; }
+        public BreakableBody Body { get; private set; }
+        public IBreakableBodyObject BreakableBodyControl { get; private set; }
+        BodyManager[] _bodyManagerParts = null;
 
-        
-        public BodyManager(IBodyObject bodyControl, Body body, Vector2 originPosition)
+        public BreakableBodyManager(IBreakableBodyObject bodyControl, BreakableBody body, Vector2 originPosition)
         {
-            body.UserData = bodyControl.Id;
-            body.FixtureList.AddRange(bodyControl.GetAttachFixtures(body));
-            body.BodyType = bodyControl.BodyType;
-            CodeGenerator.AddCode(String.Format("{1}.BodyType = BodyType.{0};", Enum.GetName(typeof(BodyType), bodyControl.BodyType), body.g()));
-            body.Position = originPosition;
-            CodeGenerator.AddCode(String.Format("{1}.Position = {0};", originPosition.g(), body.g()));
-
+            body.MainBody.UserData = bodyControl.Id;
+            body.MainBody.FixtureList.AddRange(bodyControl.GetAttachFixtures(body.MainBody));
+            body.MainBody.BodyType = bodyControl.BodyType;
+            CodeGenerator.AddCode(String.Format("{1}.BodyType = BodyType.{0};", Enum.GetName(typeof(BodyType), bodyControl.BodyType), body.MainBody.g()));
+            body.MainBody.Position = originPosition;
+            CodeGenerator.AddCode(String.Format("{1}.Position = {0};", originPosition.g(), body.MainBody.g()));
+            //body.
 
             _originalPosition = originPosition;
             Body = body;
-            BodyControl = bodyControl;
+            BreakableBodyControl = bodyControl;
         }
 
         public void Update()
         {
-            var q = Body.Position - _originalPosition;
-            BodyControl.Set(q.X, q.Y, Body.Rotation);
+            var q = Body.MainBody.Position - _originalPosition;
+            BreakableBodyControl.Set(q.X, q.Y, Body.MainBody.Rotation);
+
+
+            if(Body.Broken)
+            {
+                _bodyManagerParts = (from x in Body.Parts select new BodyManager(BreakableBodyControl.Get(x), x.Body, Vector2.Zero)).ToArray<BodyManager>();
+            }
+
             //BodyControl.Traslation.X = q.X;
             //BodyControl.Traslation.Y = q.Y;
             //BodyControl.Rotation.Angle = Body.Rotation * AngleSubst;

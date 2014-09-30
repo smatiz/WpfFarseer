@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Shapes;
+using System.Windows.Media;
 
 namespace WpfFarseer
 {
@@ -27,6 +28,10 @@ namespace WpfFarseer
         {
             if (shape is Polygon)
             {
+                return FixtureFactory.AttachPolygon(uielement.ToFarseer((Polygon)shape), BodyControl.GetDensity(shape), body);
+            }
+            else if (shape is System.Windows.Shapes.Path)
+            {
 
                 return FixtureFactory.AttachPolygon(uielement.ToFarseer((Polygon)shape), BodyControl.GetDensity(shape), body);
             }
@@ -35,6 +40,8 @@ namespace WpfFarseer
                 return FixtureFactory.AttachCircle(1, 1, body);
             }
         }
+
+        
 
         public static Vector2 ToFarseer(this System.Windows.Point p)
         {
@@ -55,5 +62,32 @@ namespace WpfFarseer
         {
             return new TwoPointJointInfo(x.BodyControlA.ToFarseer(f), x.BodyControlB.ToFarseer(f), x.AnchorA.ToFarseer(), x.AnchorB.ToFarseer());
         }
+
+
+        //public static Shape ToFarseer(this Path x)
+        //{
+
+        //    // xaml to png
+        //    // png to farseer
+
+
+        //    //Texture2D alphabet = ScreenManager.Content.Load<Texture2D>("Samples/alphabet");
+
+        //    //uint[] data = new uint[alphabet.Width * alphabet.Height];
+        //    //alphabet.GetData(data);
+
+        //    //List<Vertices> list = PolygonTools.CreatePolygon(data, alphabet.Width, 3.5f, 20, true, true);
+
+
+
+
+
+
+
+        //   // ((PathFigure)((System.Windows.Media.PathGeometry)x.Data).Figures[0]).
+
+
+
+        //}
     }
 }

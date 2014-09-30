@@ -11,7 +11,12 @@ namespace SM.Farseer
     {
         BodyType BodyType { get; }
         void Set(float x, float y, float a);
-        IEnumerable<FarseerPhysics.Dynamics.Fixture> AttachFixtures(Body body);
+        IEnumerable<FarseerPhysics.Dynamics.Fixture> GetAttachFixtures(Body body);
         //IEnumerable<Fixture> Fixtures { get; }
+    }
+
+    public interface IBreakableBodyObject : IBodyObject
+    {
+        IBodyObject Get(Fixture fixture);
     }
 }

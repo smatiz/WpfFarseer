@@ -17,31 +17,6 @@ using System.Threading.Tasks;
 
 namespace SM.Farseer
 {
-
-    
-
-    public class LoopCoroutine : BasicCoroutine
-    {
-        private Func<float, IEnumerator<BasicCoroutine>> _func;
-        float _dt;
-        public LoopCoroutine(Func<float, IEnumerator<BasicCoroutine>> func)
-        {
-            _func = func;
-        }
-
-        protected override IEnumerator<BasicCoroutine> DoIt()
-        {
-            return _func(_dt);
-        }
-
-        public void Do(float dt)
-        {
-            _dt = dt;
-            Do();
-        }
-    }
-
-
     // Unico detentore del oggetto World
     // quindi l'unico in grado di creare oggetti Farseer
     public class FarseerWorldManager
@@ -91,16 +66,15 @@ namespace SM.Farseer
             _bodyManagers.Add(new BodyManager(bodyControl, body, originPosition));
         }
 
-        //public BodyManager CreateBodyManager(Vector2 originPosition, string bodyId, )
-        //{
+        public void AddBodyControl__2(IBodyObject bodyControl, Vector2 originPosition)
+        {
+            var body = BodyFactory.CreateBody(_world, Vector2.Zero);
+            body.UserData = bodyControl.Id;
+            CodeGenerator.AddCode(String.Format("var {0} = BodyFactory.CreateBody(World, Vector2.Zero);", body.g()));
+            //
+            _bodyManagers.Add(new BodyManager(bodyControl, body, originPosition));
+        }
 
-
-        //    var body = BodyFactory.CreateBody(_world, Vector2.Zero);
-        //    body.UserData = bodyControl.Id;
-        //    CodeGenerator.AddCode(String.Format("var {0} = BodyFactory.CreateBody(World, Vector2.Zero);", body.g()));
-        //    //
-        //    _bodyManagers.Add(new BodyManager(bodyControl, body, originPosition));
-        //}
         public void Update()
         {
             foreach (var x in _bodyManagers)
@@ -120,6 +94,7 @@ namespace SM.Farseer
         public void Back()
         {
         }
+
         #region unfinished
 
         public bool Savable
@@ -177,18 +152,7 @@ namespace SM.Farseer
             //_world.Step(0.000001f);
         }
         #endregion
-        
-        //private Body _findBody(BodyControl bodyControl)
-        //{
-        //    foreach (var x in _bodyManagers)
-        //    {
-        //        if (x.BodyControl == bodyControl)
-        //        {
-        //            return x.Body;
-        //        }
-        //    }
-        //    return null;
-        //}
+     
         private void step(float dt)
         {
             _world.Step(dt);
@@ -197,21 +161,15 @@ namespace SM.Farseer
             {
                 c.Do(dt);
             }
-            //foreach (var c in _farseerBehaviours)
-            //{
-            //    //if (!c.MoveNext())
-            //    //{
-            //    //    c.Reset();
-            //    //    c.MoveNext();
-            //    //}
-            //    c.Loop(dt);
-            //}
         }
+
+        #region Joint
+
         private void addJoint(Joint j, IJointObject jointControl)
         {
             j.UserData = jointControl.Id;
             j.CollideConnected = jointControl.CollideConnected;
-            CodeGenerator.AddCode(String.Format("{1}.CollideConnected = {0};", j.g(),  jointControl.CollideConnected.g()));
+            CodeGenerator.AddCode(String.Format("{0}.CollideConnected = {1};", j.g(),  jointControl.CollideConnected.g()));
             _joints.Add(j);
         }
         private Joint addJoint(TwoPointJointInfo jointInfo, IJointObject jointControl, Func<World, Body, Body, Vector2, Vector2, Joint> func, string name)
@@ -274,5 +232,6 @@ namespace SM.Farseer
 
             addJoint(j, jointControl);
         }
+        #endregion
     }
 }

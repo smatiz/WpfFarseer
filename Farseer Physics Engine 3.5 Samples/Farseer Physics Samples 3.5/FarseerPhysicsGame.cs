@@ -77,6 +77,7 @@ namespace FarseerPhysics.Samples
 
             MenuScreen menuScreen = new MenuScreen("Farseer Samples");
 
+            menuScreen.AddMenuItem(advanced5.GetTitle(), EntryType.Screen, advanced5);
 
             menuScreen.AddMenuItem("", EntryType.Screen, new Empty());
             menuScreen.AddMenuItem("", EntryType.Screen, new Worm());
@@ -105,7 +106,6 @@ namespace FarseerPhysics.Samples
             menuScreen.AddMenuItem(advanced2.GetTitle(), EntryType.Screen, advanced2);
             menuScreen.AddMenuItem(advanced3.GetTitle(), EntryType.Screen, advanced3);
             menuScreen.AddMenuItem(advanced4.GetTitle(), EntryType.Screen, advanced4);
-            menuScreen.AddMenuItem(advanced5.GetTitle(), EntryType.Screen, advanced5);
 
             menuScreen.AddMenuItem("Game Samples", EntryType.Separator, null);
             menuScreen.AddMenuItem(game1.GetTitle(), EntryType.Screen, game1);

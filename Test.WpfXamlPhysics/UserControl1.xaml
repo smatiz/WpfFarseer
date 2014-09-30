@@ -1,0 +1,21 @@
+﻿<UserControl x:Class="Test.WpfXamlPhysics.UserControl1"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:Physics="clr-namespace:XamlPhysics.WPF;assembly=XamlPhysics"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Physics:PhysicalBox x:Name="PhysicalBox">
+        <Rectangle Canvas.Top="100" Canvas.Left="0" Width="400" Height="30" Fill="Black">
+            <Physics:PhysicalBox.Body>
+                <Physics:RectangleBody IsStatic="True" />
+            </Physics:PhysicalBox.Body>
+        </Rectangle>
+        <Rectangle Canvas.Top="0" Canvas.Left="20" Width="10" Height="10" Fill="Black">
+            <Physics:PhysicalBox.Body>
+                <Physics:RectangleBody />
+            </Physics:PhysicalBox.Body>
+        </Rectangle>
+    </Physics:PhysicalBox>
+</UserControl>

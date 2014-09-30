@@ -35,10 +35,6 @@ namespace WpfFarseer
 
             _this.farseerContainer.Children.Clear();
             _this.farseerContainer.Children.Add(_this.FarseerCanvas);
-
         }
-
-
     }
-   
 }
