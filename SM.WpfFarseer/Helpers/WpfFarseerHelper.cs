@@ -40,54 +40,13 @@ namespace WpfFarseer
                 return FixtureFactory.AttachCircle(1, 1, body);
             }
         }
-
-        
-
         public static Vector2 ToFarseer(this System.Windows.Point p)
         {
             return new Vector2((float)p.X, (float)p.Y);
         }
-
         public static System.Windows.Point ToWpf(this Vector2 p)
         {
             return new System.Windows.Point(p.X, p.Y);
         }
-
-        public static BodyManager ToFarseer(this BodyControl b, FarseerWorldManager f)
-        {
-            return (BodyManager)f.Find(b.Id);
-        }
-
-        public static TwoPointJointInfo ToFarseer(this TwoPointJointControlInfo x, FarseerWorldManager f)
-        {
-            return new TwoPointJointInfo(x.BodyControlA.ToFarseer(f).Body, x.BodyControlB.ToFarseer(f).Body, x.AnchorA.ToFarseer(), x.AnchorB.ToFarseer());
-        }
-
-
-        //public static Shape ToFarseer(this Path x)
-        //{
-
-        //    // xaml to png
-        //    // png to farseer
-
-
-        //    //Texture2D alphabet = ScreenManager.Content.Load<Texture2D>("Samples/alphabet");
-
-        //    //uint[] data = new uint[alphabet.Width * alphabet.Height];
-        //    //alphabet.GetData(data);
-
-        //    //List<Vertices> list = PolygonTools.CreatePolygon(data, alphabet.Width, 3.5f, 20, true, true);
-
-
-
-
-
-
-
-        //   // ((PathFigure)((System.Windows.Media.PathGeometry)x.Data).Figures[0]).
-
-
-
-        //}
     }
 }

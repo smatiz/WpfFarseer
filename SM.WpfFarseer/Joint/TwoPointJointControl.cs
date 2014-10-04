@@ -26,5 +26,6 @@ namespace WpfFarseer
         public static readonly DependencyProperty TargetNameBProperty =
             DependencyProperty.Register("TargetNameB", typeof(string), typeof(TwoPointJointControl), new PropertyMetadata(null));
 
+
     }
 }

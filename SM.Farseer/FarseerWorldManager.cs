@@ -18,6 +18,12 @@ using System.Threading.Tasks;
 
 namespace SM.Farseer
 {
+   public class Vector2Manager
+   {
+       Vector2 P { get; set; }
+   }
+
+
     // Unico detentore del oggetto World
     // quindi l'unico in grado di creare oggetti Farseer
     public class FarseerWorldManager
@@ -28,6 +34,10 @@ namespace SM.Farseer
         private Dictionary<string, BodyManager> _bodiesMap = new Dictionary<string, BodyManager>();
         private Dictionary<string, BreakableBody> _breakableBodiesMap = new Dictionary<string, BreakableBody>();
         private Dictionary<string, Joint> _jointMap = new Dictionary<string, Joint>();
+        private Dictionary<string, IPointObject> _pointsMap = new Dictionary<string, IPointObject>();
+
+
+        private Dictionary<string, object> _map = new Dictionary<string, object>();
         //private Dictionary<string, IDictionary<string, object>> _map = new Dictionary<string, Dictionary<string, object>>();
 
         //private List<BodyManager> _bodyManagers = new List<BodyManager>();
@@ -41,6 +51,11 @@ namespace SM.Farseer
             _world = new World(new Microsoft.Xna.Framework.Vector2(0, 10));
             _worldWatch = new WorldWatch(dt => step(dt));
         }
+        
+        public void Add(object obj)
+        {
+           // _map.
+        }
 
         public object Find(string name)
         {
@@ -48,6 +63,10 @@ namespace SM.Farseer
                 return _bodiesMap[name];
             else if (_jointMap.ContainsKey(name))
                 return _jointMap[name];
+            else if (_breakableBodiesMap.ContainsKey(name))
+                return _breakableBodiesMap[name];
+            else if (_pointsMap.ContainsKey(name))
+                return _pointsMap[name];
             return null;
         }
         public void AddFarseerBehaviour(IFarseerBehaviour x)
@@ -62,6 +81,12 @@ namespace SM.Farseer
             //_bodyManagers.Add(new BodyManager(bodyControl, body, originPosition));
             _bodiesMap.Add(bodyControl.Id, new BodyManager(bodyControl, body, originPosition));
            // _map.Add(bodyControl.Id, _bodiesMap.ToDictionary<object, string>());
+
+
+            foreach(var p in bodyControl.Points)
+            {
+                _pointsMap.Add(p.Id, p);
+            }
         }
 
         public void AddBreakableBodyControl(IBreakableBodyObject bodyControl, IEnumerable<Shape> shapes, Vector2 originPosition)
@@ -72,6 +97,10 @@ namespace SM.Farseer
             _breakableBodyManagers.Add(new BreakableBodyManager(bodyControl, body, originPosition));
         }
 
+        public void AddPointControl(IPointObject x)
+        {
+            _pointsMap.Add(x.Id, x);
+        }
         
 
         public void Update()
@@ -185,8 +214,16 @@ namespace SM.Farseer
             return j;
         }
 
-        public void AddRopeJoint(TwoPointJointInfo jointInfo, IRopeJointObject jointControl)
+        public void AddRopeJoint(IRopeJointObject jointControl)
         {
+
+            var xA = (IPointObject)Find(jointControl.TargetNameA);
+            var xB = (IPointObject)Find(jointControl.TargetNameB);
+            var _bA = ((BodyManager)Find(xA.ParentId)).Body;
+            var _bB = ((BodyManager)Find(xB.ParentId)).Body;
+            var _aA = new Vector2(xA.X, xA.Y);
+            var _aB = new Vector2(xB.X, xB.Y);
+            TwoPointJointInfo jointInfo = new TwoPointJointInfo(_bA, _bB, _aA, _aB);
             var j = (RopeJoint)addJoint(jointInfo, jointControl, (w, bA, bB, pA, pB) => JointFactory.CreateRopeJoint(w, bA, bB, pA, pB), "CreateRopeJoint");
 
             if (jointControl.MaxLength != -1)
@@ -232,6 +269,8 @@ namespace SM.Farseer
             addJoint(j, jointControl);
         }
         #endregion
+
+
 
     }
 }

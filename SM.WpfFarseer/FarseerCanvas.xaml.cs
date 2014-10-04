@@ -99,6 +99,9 @@ namespace WpfFarseer
                     if (bodyControl != null)
                     {
                         _worldManager.AddBodyControl(bodyControl, WpfFarseerHelper.ToFarseer(bodyControl.TranslatePoint(new System.Windows.Point(0, 0), (System.Windows.UIElement)bodyControl.Parent)));
+
+                       
+                        
                     }
                     var breakableBodyControl = child as BreakableBodyControl;
                     if (breakableBodyControl != null)
@@ -125,7 +128,7 @@ namespace WpfFarseer
 
                     if (!System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
                     {
-                        _worldManager.AddRopeJoint(ropeJointControlInfo.ToFarseer(_worldManager), jointControl);
+                        _worldManager.AddRopeJoint(jointControl);
                     }
                 }
             }
