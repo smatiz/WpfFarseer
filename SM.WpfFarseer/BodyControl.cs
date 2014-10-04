@@ -1,4 +1,5 @@
 ﻿using FarseerPhysics.Dynamics;
+using FarseerPhysics.Factories;
 using SM.Farseer;
 using System;
 using System.Collections.Generic;
@@ -92,10 +93,29 @@ namespace WpfFarseer
         }
 
 
+        private Fixture GetAttachFixture(Shape shape, Body body)
+        {
+            if (shape is Polygon)
+            {
+                return FixtureFactory.AttachPolygon(this.ToFarseer((Polygon)shape), BodyControl.GetDensity(shape), body);
+            }
+            //else if (shape is System.Windows.Shapes.Path)
+            //{
+            //    return FixtureFactory.AttachPolygon(uielement.ToFarseer((Polygon)shape), BodyControl.GetDensity(shape), body);
+            //}
+            else
+            {
+                return FixtureFactory.AttachCircle(1, BodyControl.GetDensity(shape), body);
+            }
+        } 
+
         public IEnumerable<FarseerPhysics.Dynamics.Fixture> GetAttachFixtures(Body body)
         {
-            return from shape in Children.OfType<Shape>() select this.ToFarseer(shape, body);
+            return from shape in Children.OfType<Shape>() select GetAttachFixture(shape, body);
         }
+
+       
+
 
 
         public IEnumerable<IPointControl> Points

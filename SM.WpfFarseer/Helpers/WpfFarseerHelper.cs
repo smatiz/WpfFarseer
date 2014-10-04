@@ -24,21 +24,21 @@ namespace WpfFarseer
         {
             return ToFarseer(from p in poly.Points select poly.TranslatePoint(p, uielement));
         }
-        public static Fixture ToFarseer(this UIElement uielement, Shape shape, Body body)
-        {
-            if (shape is Polygon)
-            {
-                return FixtureFactory.AttachPolygon(uielement.ToFarseer((Polygon)shape), BodyControl.GetDensity(shape), body);
-            }
-            else if (shape is System.Windows.Shapes.Path)
-            {
-                return FixtureFactory.AttachPolygon(uielement.ToFarseer((Polygon)shape), BodyControl.GetDensity(shape), body);
-            }
-            else
-            {
-                return FixtureFactory.AttachCircle(1, 1, body);
-            }
-        }
+        //public static Fixture ToFarseer(this UIElement uielement, Shape shape, Body body)
+        //{
+        //    if (shape is Polygon)
+        //    {
+        //        return FixtureFactory.AttachPolygon(uielement.ToFarseer((Polygon)shape), BodyControl.GetDensity(shape), body);
+        //    }
+        //    //else if (shape is System.Windows.Shapes.Path)
+        //    //{
+        //    //    return FixtureFactory.AttachPolygon(uielement.ToFarseer((Polygon)shape), BodyControl.GetDensity(shape), body);
+        //    //}
+        //    else
+        //    {
+        //        return FixtureFactory.AttachCircle(1, BodyControl.GetDensity(shape), body);
+        //    }
+        //}
         public static Vector2 ToFarseer(this System.Windows.Point p)
         {
             return new Vector2((float)p.X, (float)p.Y);
