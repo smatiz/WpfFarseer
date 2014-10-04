@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SM.Farseer
 {
-    public interface IBodyObject : IFarseerObject
+    public interface IBodyObject : IFarseerId
     {
         void Set(float x, float y, float a);
         BodyType BodyType { get; }
@@ -21,7 +21,7 @@ namespace SM.Farseer
         BodyUpdater Get(Body body, Vector2 originalPosition);
     }
 
-    public interface IVector2Object : IFarseerObject
+    public interface IVector2Object : IFarseerId
     {
         float X { get; }
         float Y { get; }

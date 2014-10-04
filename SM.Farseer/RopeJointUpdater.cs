@@ -6,20 +6,18 @@ using System.Text;
 
 namespace SM.Farseer
 {
-    public class RopeJointUpdater : IUpdatable
+    public class RopeJointUpdater : IFarseerObject
     {
         private IJointObject _jointControl;
-        public RopeJoint Joint { get; private set; }
+        RopeJoint _joint;
+        public object Object { get { return _joint; } }
 
         public RopeJointUpdater(IJointObject jointControl, RopeJoint j)
         {
             _jointControl = jointControl;
-            Joint = j;
+            _joint = j;
         }
 
-        public void Update()
-        {
-        }
 
         public string Id
         {

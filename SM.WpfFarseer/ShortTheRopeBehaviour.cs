@@ -1,4 +1,5 @@
-﻿using SM;
+﻿using FarseerPhysics.Dynamics.Joints;
+using SM;
 using SM.Farseer;
 using System;
 using System.Collections.Generic;
@@ -10,11 +11,12 @@ namespace WpfFarseer
 {
     public class ShortTheRopeBehaviour : IFarseerBehaviourWpf
     {
-        FarseerPhysics.Dynamics.Joints.RopeJoint jointC;
+        RopeJoint jointC;
 
         public IEnumerator<BasicCoroutine> Start(FarseerWorldManager farseerWorld)
         {
-            jointC = ((RopeJointUpdater)farseerWorld.Find("jointC")).Joint;
+            jointC = farseerWorld.FindObject<RopeJoint>("jointC");
+                //(RopeJoint)((RopeJointUpdater)farseerWorld.Find("jointC")).Object;
             return null;
         }
 

@@ -25,7 +25,7 @@ namespace SM.Farseer
         private WorldWatch _worldWatch;
         private World _world;
 
-        private Dictionary<string, IFarseerObject> _map = new Dictionary<string, IFarseerObject>();
+        private Dictionary<string, IFarseerId> _map = new Dictionary<string, IFarseerId>();
 
         private List<LoopCoroutine> _loopCoroutine = new List<LoopCoroutine>();
 
@@ -35,7 +35,7 @@ namespace SM.Farseer
             _worldWatch = new WorldWatch(dt => step(dt));
         }
 
-        private void _addFarseerObject(IFarseerObject obj)
+        private void _addFarseerObject(IFarseerId obj)
         {
             _map.Add(obj.Id, obj);
         }
@@ -47,6 +47,22 @@ namespace SM.Farseer
             // WARNING
             return null;
         }
+
+        public T Find<T>(string name) where T : class
+        {
+            var x = Find(name);
+            if (typeof(T) != x.GetType()) return null;
+            return (T)x;
+        }
+
+        public T FindObject<T>(string name) where T : class
+        {
+            var x = Find(name) as IFarseerObject;
+            if(x == null) return null;
+            if (typeof(T) != x.GetType()) return null;
+            return (T)x;
+        }
+
         public void AddFarseerBehaviour(IFarseerBehaviour x)
         {
             _loopCoroutine.Add(new LoopCoroutine(x.Loop));
@@ -186,8 +202,8 @@ namespace SM.Farseer
 
             var xA = (IPointObject)Find(jointControl.TargetNameA);
             var xB = (IPointObject)Find(jointControl.TargetNameB);
-            var _bA = ((BodyUpdater)Find(xA.ParentId)).Body;
-            var _bB = ((BodyUpdater)Find(xB.ParentId)).Body;
+            var _bA = (Body)((BodyUpdater)Find(xA.ParentId)).Object;
+            var _bB = (Body)((BodyUpdater)Find(xB.ParentId)).Object;
             var _aA = new Vector2(xA.X, xA.Y);
             var _aB = new Vector2(xB.X, xB.Y);
             TwoPointJointInfo jointInfo = new TwoPointJointInfo(_bA, _bB, _aA, _aB);

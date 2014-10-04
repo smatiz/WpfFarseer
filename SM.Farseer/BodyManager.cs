@@ -21,6 +21,7 @@ namespace SM.Farseer
     {
         IBodyObject _bodyControl;
         private Vector2 _originalPosition;
+        private Body _body;
         
         public BodyUpdater(IBodyObject bodyControl, Body body, Vector2 originPosition)
         {
@@ -32,18 +33,17 @@ namespace SM.Farseer
             CodeGenerator.AddCode(String.Format("{1}.Position = {0};", originPosition.g(), body.g()));
 
             _originalPosition = originPosition;
-            Body = body;
+            _body = body;
             _bodyControl = bodyControl;
         }
-
-        public Body Body { get; private set; }
-        public string Id { get { return (string)Body.UserData; } }
+        public object Object { get { return _body; } }
+        public string Id { get { return (string)_body.UserData; } }
         
 
         public void Update()
         {
-            var q = Body.Position - _originalPosition;
-            _bodyControl.Set(q.X, q.Y, Body.Rotation);
+            var q = _body.Position - _originalPosition;
+            _bodyControl.Set(q.X, q.Y, _body.Rotation);
         }
     }
 }

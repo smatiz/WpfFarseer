@@ -16,9 +16,11 @@ namespace SM.Farseer
     {
         private Vector2 _originalPosition;
 
-        public BreakableBody Body { get; private set; }
+         BreakableBody _breakableBody;
         IBreakableBodyObject _bodyControl;
         BodyUpdater[] _bodyControlParts;
+
+        public object Object { get { return _breakableBody; } }
 
         public BreakableBodyManager(IBreakableBodyObject bodyControl, BreakableBody body, Vector2 originPosition)
         {
@@ -30,7 +32,7 @@ namespace SM.Farseer
             CodeGenerator.AddCode(String.Format("{1}.Position = {0};", originPosition.g(), body.MainBody.g()));
 
             _originalPosition = originPosition;
-            Body = body;
+            _breakableBody = body;
             _bodyControl = bodyControl;
         }
 
@@ -43,21 +45,21 @@ namespace SM.Farseer
                     _bodyControlParts[i].Update();
                 }
             }
-            else if (Body.Broken)
+            else if (_breakableBody.Broken)
             {
-                 var q = Body.MainBody.Position - _originalPosition;
-                _bodyControl.Set(q.X, q.Y, Body.MainBody.Rotation);
+                 var q = _breakableBody.MainBody.Position - _originalPosition;
+                _bodyControl.Set(q.X, q.Y, _breakableBody.MainBody.Rotation);
             }
             else
             {
 
-                _bodyControlParts = (from x in Body.Parts select _bodyControl.Get(BodyFactory.CreateBody(null, _originalPosition), _originalPosition)).ToArray();
+                _bodyControlParts = (from x in _breakableBody.Parts select _bodyControl.Get(BodyFactory.CreateBody(null, _originalPosition), _originalPosition)).ToArray();
             }
         }
 
         public string Id
         {
-            get { return (string)Body.MainBody.UserData; } 
+            get { return (string)_breakableBody.MainBody.UserData; } 
         }
     }
 }

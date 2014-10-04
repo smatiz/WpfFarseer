@@ -8,7 +8,14 @@ using System.Threading.Tasks;
 
 namespace SM.Farseer
 {
-    public interface IJointObject : IFarseerObject
+
+
+    public interface IFarseerId
+    {
+        string Id { get; }
+    }
+
+    public interface IJointObject : IFarseerId
     {
         bool CollideConnected { get; }
     }
