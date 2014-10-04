@@ -14,9 +14,9 @@ namespace SM.WpfFarseer
     class BreakableBodyControl : BasicControl //, IBreakableBodyObject
     {
 
-        public BodyManager Get(Body body, Vector2 originalPosition)
+        public BodyUpdater Get(Body body, Vector2 originalPosition)
         {
-            return new BodyManager(new BodyControl(), body, originalPosition);
+            return new BodyUpdater(new BodyControl(), body, originalPosition);
         }
 
         //public BodyManager Get(FarseerPhysics.Dynamics.Fixture fixture)

@@ -18,12 +18,6 @@ using System.Threading.Tasks;
 
 namespace SM.Farseer
 {
-   public class Vector2Manager
-   {
-       Vector2 P { get; set; }
-   }
-
-
     // Unico detentore del oggetto World
     // quindi l'unico in grado di creare oggetti Farseer
     public class FarseerWorldManager
@@ -31,18 +25,7 @@ namespace SM.Farseer
         private WorldWatch _worldWatch;
         private World _world;
 
-        private Dictionary<string, BodyManager> _bodiesMap = new Dictionary<string, BodyManager>();
-        private Dictionary<string, BreakableBody> _breakableBodiesMap = new Dictionary<string, BreakableBody>();
-        private Dictionary<string, Joint> _jointMap = new Dictionary<string, Joint>();
-        private Dictionary<string, IPointObject> _pointsMap = new Dictionary<string, IPointObject>();
-
-
-        private Dictionary<string, object> _map = new Dictionary<string, object>();
-        //private Dictionary<string, IDictionary<string, object>> _map = new Dictionary<string, Dictionary<string, object>>();
-
-        //private List<BodyManager> _bodyManagers = new List<BodyManager>();
-        private List<BreakableBodyManager> _breakableBodyManagers = new List<BreakableBodyManager>();
-        //private List<Joint> _joints = new List<Joint>();
+        private Dictionary<string, IFarseerObject> _map = new Dictionary<string, IFarseerObject>();
 
         private List<LoopCoroutine> _loopCoroutine = new List<LoopCoroutine>();
 
@@ -51,22 +34,17 @@ namespace SM.Farseer
             _world = new World(new Microsoft.Xna.Framework.Vector2(0, 10));
             _worldWatch = new WorldWatch(dt => step(dt));
         }
-        
-        public void Add(object obj)
+
+        private void _addFarseerObject(IFarseerObject obj)
         {
-           // _map.
+            _map.Add(obj.Id, obj);
         }
 
         public object Find(string name)
         {
-            if (_bodiesMap.ContainsKey(name))
-                return _bodiesMap[name];
-            else if (_jointMap.ContainsKey(name))
-                return _jointMap[name];
-            else if (_breakableBodiesMap.ContainsKey(name))
-                return _breakableBodiesMap[name];
-            else if (_pointsMap.ContainsKey(name))
-                return _pointsMap[name];
+            if (_map.ContainsKey(name))
+                return _map[name];
+            // WARNING
             return null;
         }
         public void AddFarseerBehaviour(IFarseerBehaviour x)
@@ -77,37 +55,27 @@ namespace SM.Farseer
         {
             var body = BodyFactory.CreateBody(_world, Vector2.Zero);
             CodeGenerator.AddCode(String.Format("var {0} = BodyFactory.CreateBody(World, Vector2.Zero);", body.g()));
-            //
-            //_bodyManagers.Add(new BodyManager(bodyControl, body, originPosition));
-            _bodiesMap.Add(bodyControl.Id, new BodyManager(bodyControl, body, originPosition));
-           // _map.Add(bodyControl.Id, _bodiesMap.ToDictionary<object, string>());
-
-
+            _addFarseerObject(new BodyUpdater(bodyControl, body, originPosition));
             foreach(var p in bodyControl.Points)
             {
-                _pointsMap.Add(p.Id, p);
+                _addFarseerObject(p);
             }
         }
 
         public void AddBreakableBodyControl(IBreakableBodyObject bodyControl, IEnumerable<Shape> shapes, Vector2 originPosition)
         {
             var body = BodyFactory.CreateBreakableBody(_world, shapes);
-            //CodeGenerator.AddCode(String.Format("var {0} = BodyFactory.CreateBody(World, Vector2.Zero);", body.g()));
-            //
-            _breakableBodyManagers.Add(new BreakableBodyManager(bodyControl, body, originPosition));
+            _addFarseerObject(new BreakableBodyManager(bodyControl, body, originPosition));
         }
-
-        public void AddPointControl(IPointObject x)
-        {
-            _pointsMap.Add(x.Id, x);
-        }
-        
 
         public void Update()
         {
-            foreach (var x in _bodiesMap.Values)
+            foreach (var x in from x in _map.Values select x as IUpdatable)
             {
-                x.Update();
+                if (x != null)
+                {
+                    x.Update();
+                }
             }
         }
 
@@ -198,7 +166,7 @@ namespace SM.Farseer
             j.UserData = jointControl.Id;
             j.CollideConnected = jointControl.CollideConnected;
             CodeGenerator.AddCode(String.Format("{0}.CollideConnected = {1};", j.g(),  jointControl.CollideConnected.g()));
-            _jointMap.Add(jointControl.Id, j);
+            _addFarseerObject(new RopeJointUpdater(jointControl, ( RopeJoint)j));
         }
         private Joint addJoint(TwoPointJointInfo jointInfo, IJointObject jointControl, Func<World, Body, Body, Vector2, Vector2, Joint> func, string name)
         {
@@ -213,14 +181,13 @@ namespace SM.Farseer
             CodeGenerator.AddCode(String.Format("var {4} = JointFactory.{5}(_world, {0}, {1}, {2}, {3});", bA.g(), bB.g(), pA.g(), pB.g(), j.g(), name));
             return j;
         }
-
         public void AddRopeJoint(IRopeJointObject jointControl)
         {
 
             var xA = (IPointObject)Find(jointControl.TargetNameA);
             var xB = (IPointObject)Find(jointControl.TargetNameB);
-            var _bA = ((BodyManager)Find(xA.ParentId)).Body;
-            var _bB = ((BodyManager)Find(xB.ParentId)).Body;
+            var _bA = ((BodyUpdater)Find(xA.ParentId)).Body;
+            var _bB = ((BodyUpdater)Find(xB.ParentId)).Body;
             var _aA = new Vector2(xA.X, xA.Y);
             var _aB = new Vector2(xB.X, xB.Y);
             TwoPointJointInfo jointInfo = new TwoPointJointInfo(_bA, _bB, _aA, _aB);

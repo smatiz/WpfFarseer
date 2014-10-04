@@ -51,6 +51,7 @@
     <Compile Include="IFarseerBehaviour.cs" />
     <Compile Include="LoopCoroutine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RopeJointUpdater.cs" />
     <Compile Include="TwoPointJointInfo.cs">
       <SubType>Code</SubType>
     </Compile>

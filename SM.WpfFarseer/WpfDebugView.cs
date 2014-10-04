@@ -23,14 +23,14 @@ namespace WpfFarseer
         }
 
 
-        private List<BodyManager> _bodies = new List<BodyManager>();
+        private List<BodyUpdater> _bodies = new List<BodyUpdater>();
         /*public World World
         {
             get;
             set;
         }*/
 
-        public void Add(BodyManager body)
+        public void Add(BodyUpdater body)
         {
             _bodies.Add(body);
         }

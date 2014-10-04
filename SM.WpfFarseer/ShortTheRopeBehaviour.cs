@@ -14,7 +14,7 @@ namespace WpfFarseer
 
         public IEnumerator<BasicCoroutine> Start(FarseerWorldManager farseerWorld)
         {
-            jointC = ((FarseerPhysics.Dynamics.Joints.RopeJoint)farseerWorld.Find("jointC"));
+            jointC = ((RopeJointUpdater)farseerWorld.Find("jointC")).Joint;
             return null;
         }
 

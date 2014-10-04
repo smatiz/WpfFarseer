@@ -12,13 +12,13 @@ using System.Threading.Tasks;
 namespace SM.Farseer
 {
     // si occupa di gestire il dialogo tra Body e BodyControl
-    public class BreakableBodyManager
+    public class BreakableBodyManager : IUpdatable
     {
         private Vector2 _originalPosition;
 
         public BreakableBody Body { get; private set; }
         IBreakableBodyObject _bodyControl;
-        BodyManager[] _bodyControlParts;
+        BodyUpdater[] _bodyControlParts;
 
         public BreakableBodyManager(IBreakableBodyObject bodyControl, BreakableBody body, Vector2 originPosition)
         {
@@ -53,6 +53,11 @@ namespace SM.Farseer
 
                 _bodyControlParts = (from x in Body.Parts select _bodyControl.Get(BodyFactory.CreateBody(null, _originalPosition), _originalPosition)).ToArray();
             }
+        }
+
+        public string Id
+        {
+            get { return (string)Body.MainBody.UserData; } 
         }
     }
 }

@@ -75,18 +75,6 @@ namespace WpfFarseer
             };
         }
 
-        //IEnumerator<BasicCoroutine> eventCoroutine_Event()
-        //{
-        //    foreach (var wl in _worldLoops)
-        //    {
-        //        var x = wl(_worldManager);
-        //        while (x.MoveNext())
-        //        {
-        //            yield return x.Current;
-        //        }
-        //    }
-        //}
-
         void _controlUpdate()
         {
             var tobeadded = new List<UIElement>();
@@ -157,43 +145,6 @@ namespace WpfFarseer
             }
         }
 
-        //public bool Savable
-        //{
-        //    get
-        //    {
-        //        if (WorldManager == null) return false;
-        //        return WorldManager.Savable;
-        //    }
-        //}
-
- 
-        //private BodyControl _find(string name) 
-        //{
-        //    foreach (var child in Children)
-        //    {
-        //        var bodyControl = child as BodyControl;
-        //        if (bodyControl != null && bodyControl.Id == name)
-        //        {
-        //            return bodyControl;
-        //        }
-        //    }
-        //    return null;
-        //}
-
-        /*class WorldCoroutine : EventCoroutine
-        {
-            protected override IEnumerator<BasicCoroutine> DoIt()
-            {
-                throw new NotImplementedException();
-            }
-        }*/
-
-
-       /* public EventCoroutine WorldCoroutine
-        {
-
-        }*/
-
         private TwoPointJointControlInfo _resolve(RopeJointControl jointControl)
         {
             BodyControl bodyControlA = null, bodyControlB = null;
@@ -229,24 +180,9 @@ namespace WpfFarseer
         protected override void OnRender(DrawingContext drawingContext)
         {
             base.OnRender(drawingContext);
-            //WpfDebugView.Instance.Draw(drawingContext);
         }
 #endif
         
-
-        //public StepViewModel StepViewModel
-        //{
-        //    get { return (StepViewModel)GetValue(StepViewModelProperty); }
-        //    set { SetValue(StepViewModelProperty, value); }
-        //}
-        //public static readonly DependencyProperty StepViewModelProperty =
-        //    DependencyProperty.Register("StepViewModel", typeof(StepViewModel), typeof(FarseerCanvas), new PropertyMetadata(null, OnStepViewModelChanged));
-        //private static void OnStepViewModelChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
-        //{
-        //    var _this = (FarseerCanvas)dependencyObject;
-        //    _this.StepViewModel.WorldManager = _this.WorldManager;
-        //}
-
         public StepViewModel StepViewModel
         { 
             get
@@ -265,13 +201,8 @@ namespace WpfFarseer
         {
             obj.SetValue(AngleJointProperty, value);
         }
-
-        // Using a DependencyProperty as the backing store for AngleJoint.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty AngleJointProperty =
             DependencyProperty.RegisterAttached("AngleJoint", typeof(string), typeof(FarseerCanvas), new PropertyMetadata(null));
-
-        
-
     }
 }
 
