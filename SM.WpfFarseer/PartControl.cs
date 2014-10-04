@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WpfFarseer
 {
-    class PartControl : BasicControl
+    public class PartControl : BodyControl
     {
 
     }

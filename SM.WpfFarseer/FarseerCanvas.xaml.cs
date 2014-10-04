@@ -1,5 +1,6 @@
 ﻿using SM;
 using SM.Farseer;
+using SM.WpfFarseer;
 //using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -98,6 +99,14 @@ namespace WpfFarseer
                     if (bodyControl != null)
                     {
                         _worldManager.AddBodyControl(bodyControl, WpfFarseerHelper.ToFarseer(bodyControl.TranslatePoint(new System.Windows.Point(0, 0), (System.Windows.UIElement)bodyControl.Parent)));
+                    }
+                    var breakableBodyControl = child as BreakableBodyControl;
+                    if (breakableBodyControl != null)
+                    {
+                        //_worldManager.AddBreakableBodyControl(
+                            
+                            //breakableBodyControl, 
+                            //WpfFarseerHelper.ToFarseer(bodyControl.TranslatePoint(new System.Windows.Point(0, 0), (System.Windows.UIElement)bodyControl.Parent)));
                     }
                 }
 

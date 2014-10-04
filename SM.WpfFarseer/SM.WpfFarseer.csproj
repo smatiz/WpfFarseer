@@ -49,12 +49,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BasicControl.cs" />
-    <Compile Include="BreakableBodyContol.cs">
-      <Generator>MSBuild:Compile</Generator>
-    </Compile>
     <Compile Include="BodyControl.cs">
       <Generator>MSBuild:Compile</Generator>
     </Compile>
+    <Compile Include="BreakableBodyControl.cs" />
     <Compile Include="Coroutines\StartCoroutine.cs" />
     <Compile Include="Coroutines\UpdateCoroutine.cs" />
     <Compile Include="CrossControl.xaml.cs">

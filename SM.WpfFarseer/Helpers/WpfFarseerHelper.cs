@@ -53,14 +53,14 @@ namespace WpfFarseer
             return new System.Windows.Point(p.X, p.Y);
         }
 
-        public static Body ToFarseer(this BodyControl b, FarseerWorldManager f)
+        public static BodyManager ToFarseer(this BodyControl b, FarseerWorldManager f)
         {
-            return (Body)f.Find(b.Id);
+            return (BodyManager)f.Find(b.Id);
         }
 
         public static TwoPointJointInfo ToFarseer(this TwoPointJointControlInfo x, FarseerWorldManager f)
         {
-            return new TwoPointJointInfo(x.BodyControlA.ToFarseer(f), x.BodyControlB.ToFarseer(f), x.AnchorA.ToFarseer(), x.AnchorB.ToFarseer());
+            return new TwoPointJointInfo(x.BodyControlA.ToFarseer(f).Body, x.BodyControlB.ToFarseer(f).Body, x.AnchorA.ToFarseer(), x.AnchorB.ToFarseer());
         }
 
 

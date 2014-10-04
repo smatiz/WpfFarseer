@@ -29,6 +29,11 @@
 
                         </l:CrossControl>
                     </l:BodyControl>
+                    <!--<l:BreakableBodyControl Id="ccc" >
+                        <l:BodyControl Id="ccc2" >
+                            <Polygon Canvas.Left="217" Points="0,0,200,0,200,200" Canvas.Top="-313" ></Polygon>
+                        </l:BodyControl>
+                    </l:BreakableBodyControl>-->
                     <l:BodyControl Id="b2"   BodyType="Static"  Canvas.Left="10" Canvas.Top="335" Height="63" Width="54" >
                         <Polygon Canvas.Left="217" Points="0,0,200,0,200,200" Canvas.Top="-313" ></Polygon>
                         <l:CrossControl Id="y" Canvas.Left="387" Canvas.Top="-159">

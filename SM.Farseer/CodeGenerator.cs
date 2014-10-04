@@ -32,6 +32,11 @@ namespace SM.Farseer
             return String.Format("body_{0}", b.UserData as string);
         }
 
+        public static string g(this BreakableBody b)
+        {
+            return String.Format("body_{0}", b.MainBody.UserData as string);
+        }
+
         public static string g(this Joint j)
         {
             return String.Format("joint_{0}", j.UserData as string);

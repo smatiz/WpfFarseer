@@ -22,8 +22,8 @@ namespace WpfFarseer
     {
         const float AngleSubst = 180f / (float)Math.PI;
 
-        private RotateTransform _rotation; //{ get; private set; }
-        private TranslateTransform _traslation;// { get; private set; }
+        private RotateTransform _rotation; 
+        private TranslateTransform _traslation;
 
         public BodyControl()
         {
@@ -46,7 +46,6 @@ namespace WpfFarseer
         {
             _refreshVisual();
         }
-        
 
         private void _refreshVisual()
         {
@@ -57,14 +56,6 @@ namespace WpfFarseer
                 shape.Fill = brush;
             }
         }
-
-        //public bool Breakable
-        //{
-        //    get { return (bool)GetValue(BreakableProperty); }
-        //    set { SetValue(BreakableProperty, value); }
-        //}
-        //public static readonly DependencyProperty BreakableProperty =
-        //    DependencyProperty.Register("Breakable", typeof(bool), typeof(BodyControl), new PropertyMetadata(false));
 
         public Brush DefaultBrush
         {
@@ -92,7 +83,6 @@ namespace WpfFarseer
         }
         public static readonly DependencyProperty BodyTypeProperty =
             DependencyProperty.Register("BodyType", typeof(FarseerPhysics.Dynamics.BodyType), typeof(BodyControl), new PropertyMetadata(FarseerPhysics.Dynamics.BodyType.Static));
-
 
         public void Set(float x, float y, float a)
         {

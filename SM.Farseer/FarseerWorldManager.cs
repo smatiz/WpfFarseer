@@ -1,4 +1,5 @@
-﻿using FarseerPhysics.Common;
+﻿using FarseerPhysics.Collision.Shapes;
+using FarseerPhysics.Common;
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Joints;
 using FarseerPhysics.Factories;
@@ -23,8 +24,16 @@ namespace SM.Farseer
     {
         private WorldWatch _worldWatch;
         private World _world;
-        private List<BodyManager> _bodyManagers = new List<BodyManager>();
-        private List<Joint> _joints = new List<Joint>();
+
+        private Dictionary<string, BodyManager> _bodiesMap = new Dictionary<string, BodyManager>();
+        private Dictionary<string, BreakableBody> _breakableBodiesMap = new Dictionary<string, BreakableBody>();
+        private Dictionary<string, Joint> _jointMap = new Dictionary<string, Joint>();
+        //private Dictionary<string, IDictionary<string, object>> _map = new Dictionary<string, Dictionary<string, object>>();
+
+        //private List<BodyManager> _bodyManagers = new List<BodyManager>();
+        private List<BreakableBodyManager> _breakableBodyManagers = new List<BreakableBodyManager>();
+        //private List<Joint> _joints = new List<Joint>();
+
         private List<LoopCoroutine> _loopCoroutine = new List<LoopCoroutine>();
 
         public FarseerWorldManager()
@@ -34,23 +43,11 @@ namespace SM.Farseer
         }
 
         public object Find(string name)
-        { 
-            foreach(var x in _bodyManagers)
-            {
-                if(((string)x.Body.UserData) == name)
-                {
-                    return x.Body;
-                }
-            }
-
-            foreach (var x in _joints)
-            {
-                if (((string)x.UserData) == name)
-                {
-                    return x;
-                }
-            }
-
+        {
+            if (_bodiesMap.ContainsKey(name))
+                return _bodiesMap[name];
+            else if (_jointMap.ContainsKey(name))
+                return _jointMap[name];
             return null;
         }
         public void AddFarseerBehaviour(IFarseerBehaviour x)
@@ -60,24 +57,26 @@ namespace SM.Farseer
         public void AddBodyControl(IBodyObject bodyControl, Vector2 originPosition)
         {
             var body = BodyFactory.CreateBody(_world, Vector2.Zero);
-            body.UserData = bodyControl.Id;
             CodeGenerator.AddCode(String.Format("var {0} = BodyFactory.CreateBody(World, Vector2.Zero);", body.g()));
             //
-            _bodyManagers.Add(new BodyManager(bodyControl, body, originPosition));
+            //_bodyManagers.Add(new BodyManager(bodyControl, body, originPosition));
+            _bodiesMap.Add(bodyControl.Id, new BodyManager(bodyControl, body, originPosition));
+           // _map.Add(bodyControl.Id, _bodiesMap.ToDictionary<object, string>());
         }
 
-        public void AddBodyControl__2(IBodyObject bodyControl, Vector2 originPosition)
+        public void AddBreakableBodyControl(IBreakableBodyObject bodyControl, IEnumerable<Shape> shapes, Vector2 originPosition)
         {
-            var body = BodyFactory.CreateBody(_world, Vector2.Zero);
-            body.UserData = bodyControl.Id;
-            CodeGenerator.AddCode(String.Format("var {0} = BodyFactory.CreateBody(World, Vector2.Zero);", body.g()));
+            var body = BodyFactory.CreateBreakableBody(_world, shapes);
+            //CodeGenerator.AddCode(String.Format("var {0} = BodyFactory.CreateBody(World, Vector2.Zero);", body.g()));
             //
-            _bodyManagers.Add(new BodyManager(bodyControl, body, originPosition));
+            _breakableBodyManagers.Add(new BreakableBodyManager(bodyControl, body, originPosition));
         }
+
+        
 
         public void Update()
         {
-            foreach (var x in _bodyManagers)
+            foreach (var x in _bodiesMap.Values)
             {
                 x.Update();
             }
@@ -170,7 +169,7 @@ namespace SM.Farseer
             j.UserData = jointControl.Id;
             j.CollideConnected = jointControl.CollideConnected;
             CodeGenerator.AddCode(String.Format("{0}.CollideConnected = {1};", j.g(),  jointControl.CollideConnected.g()));
-            _joints.Add(j);
+            _jointMap.Add(jointControl.Id, j);
         }
         private Joint addJoint(TwoPointJointInfo jointInfo, IJointObject jointControl, Func<World, Body, Body, Vector2, Vector2, Joint> func, string name)
         {
@@ -233,5 +232,6 @@ namespace SM.Farseer
             addJoint(j, jointControl);
         }
         #endregion
+
     }
 }
