@@ -23,17 +23,17 @@ namespace WpfFarseer
         }
 
 
-        private List<BodyUpdater> _bodies = new List<BodyUpdater>();
+       // private List<BodyUpdater> _bodies = new List<BodyUpdater>();
         /*public World World
         {
             get;
             set;
         }*/
 
-        public void Add(BodyUpdater body)
-        {
-            _bodies.Add(body);
-        }
+        //public void Add(BodyUpdater body)
+        //{
+        //    _bodies.Add(body);
+        //}
 
         
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SM.Farseer
 {
-    public class LoopCoroutine : BasicCoroutine
+    internal class LoopCoroutine : BasicCoroutine
     {
         private Func<float, IEnumerator<BasicCoroutine>> _func;
         float _dt;

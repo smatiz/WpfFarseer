@@ -40,18 +40,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BreakableBodyManager.cs" />
-    <Compile Include="BodyManager.cs" />
+    <Compile Include="BreakableBodyUpdater.cs" />
+    <Compile Include="BodyUpdater.cs" />
     <Compile Include="CodeGenerator.cs" />
     <Compile Include="Const.cs" />
     <Compile Include="FarseerWorldManager.cs" />
-    <Compile Include="IFarseerObject.cs" />
-    <Compile Include="IJointObject.cs" />
-    <Compile Include="IBodyObject.cs" />
-    <Compile Include="IFarseerBehaviour.cs" />
+    <Compile Include="Interfaces\IFarseerId.cs" />
+    <Compile Include="Interfaces\IFarseerObject.cs" />
+    <Compile Include="Interfaces\Controls.cs" />
+    <Compile Include="Interfaces\IFarseerBehaviour.cs" />
+    <Compile Include="Interfaces\IUpdatable.cs" />
     <Compile Include="LoopCoroutine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RopeJointUpdater.cs" />
+    <Compile Include="RopeJointObject.cs" />
     <Compile Include="TwoPointJointInfo.cs">
       <SubType>Code</SubType>
     </Compile>

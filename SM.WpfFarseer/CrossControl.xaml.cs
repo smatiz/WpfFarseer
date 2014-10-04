@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 
 namespace WpfFarseer
 {
-    public partial class CrossControl : BasicControl, IPointObject
+    public partial class CrossControl : BasicControl, IPointControl
     {
         public CrossControl()
         {

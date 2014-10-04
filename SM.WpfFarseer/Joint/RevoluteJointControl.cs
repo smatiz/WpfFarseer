@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace WpfFarseer
 {
-    public class RevoluteJointControl : TwoPointJointControl, IRevoluteJointObject
+    public class RevoluteJointControl : TwoPointJointControl, IRevoluteJointControl
     {
 
     }

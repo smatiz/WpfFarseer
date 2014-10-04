@@ -9,7 +9,7 @@ using System.Windows.Controls;
 
 namespace WpfFarseer
 {
-    public class BasicJointControl : BasicControl, IJointObject
+    public class BasicJointControl : BasicControl, IJointControl
     {
         public bool CollideConnected
         {

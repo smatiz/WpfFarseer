@@ -18,7 +18,7 @@ using System.Windows.Shapes;
 namespace WpfFarseer
 {
 
-    public class BodyControl : BasicControl, IBodyObject
+    public class BodyControl : BasicControl, IBodyControl
     {
         const float AngleSubst = 180f / (float)Math.PI;
 
@@ -98,7 +98,7 @@ namespace WpfFarseer
         }
 
 
-        public IEnumerable<IPointObject> Points
+        public IEnumerable<IPointControl> Points
         {
             get { return from x in Children.OfType<CrossControl>() select x; }
         }

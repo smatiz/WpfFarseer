@@ -11,19 +11,15 @@ using System.Threading.Tasks;
 
 namespace SM.Farseer
 {
-    public interface IUpdatable : IFarseerObject
-    {
-        void Update();
-    }
 
     // si occupa di gestire il dialogo tra Body e BodyControl
-    public class BodyUpdater : IUpdatable
+    internal class BodyUpdater : IUpdatable
     {
-        IBodyObject _bodyControl;
+        IBodyControl _bodyControl;
         private Vector2 _originalPosition;
         private Body _body;
         
-        public BodyUpdater(IBodyObject bodyControl, Body body, Vector2 originPosition)
+        public BodyUpdater(IBodyControl bodyControl, Body body, Vector2 originPosition)
         {
             body.UserData = bodyControl.Id;
             body.FixtureList.AddRange(bodyControl.GetAttachFixtures(body));

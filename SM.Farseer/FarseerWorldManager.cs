@@ -59,15 +59,16 @@ namespace SM.Farseer
         {
             var x = Find(name) as IFarseerObject;
             if(x == null) return null;
-            if (typeof(T) != x.GetType()) return null;
-            return (T)x;
+            var y = x.Object;
+            if (typeof(T) != y.GetType()) return null;
+            return (T)y;
         }
 
         public void AddFarseerBehaviour(IFarseerBehaviour x)
         {
             _loopCoroutine.Add(new LoopCoroutine(x.Loop));
         }
-        public void AddBodyControl(IBodyObject bodyControl, Vector2 originPosition)
+        public void AddBodyControl(IBodyControl bodyControl, Vector2 originPosition)
         {
             var body = BodyFactory.CreateBody(_world, Vector2.Zero);
             CodeGenerator.AddCode(String.Format("var {0} = BodyFactory.CreateBody(World, Vector2.Zero);", body.g()));
@@ -78,10 +79,10 @@ namespace SM.Farseer
             }
         }
 
-        public void AddBreakableBodyControl(IBreakableBodyObject bodyControl, IEnumerable<Shape> shapes, Vector2 originPosition)
+        public void AddBreakableBodyControl(IBreakableBodyControl bodyControl, IEnumerable<Shape> shapes, Vector2 originPosition)
         {
             var body = BodyFactory.CreateBreakableBody(_world, shapes);
-            _addFarseerObject(new BreakableBodyManager(bodyControl, body, originPosition));
+            _addFarseerObject(new BreakableBodyUpdater(bodyControl, body, originPosition));
         }
 
         public void Update()
@@ -177,14 +178,14 @@ namespace SM.Farseer
 
         #region Joint
 
-        private void addJoint(Joint j, IJointObject jointControl)
+        private void addJoint(Joint j, IJointControl jointControl)
         {
             j.UserData = jointControl.Id;
             j.CollideConnected = jointControl.CollideConnected;
             CodeGenerator.AddCode(String.Format("{0}.CollideConnected = {1};", j.g(),  jointControl.CollideConnected.g()));
-            _addFarseerObject(new RopeJointUpdater(jointControl, ( RopeJoint)j));
+            _addFarseerObject(new RopeJointObject(jointControl, ( RopeJoint)j));
         }
-        private Joint addJoint(TwoPointJointInfo jointInfo, IJointObject jointControl, Func<World, Body, Body, Vector2, Vector2, Joint> func, string name)
+        private Joint addJoint(TwoPointJointInfo jointInfo, IJointControl jointControl, Func<World, Body, Body, Vector2, Vector2, Joint> func, string name)
         {
             var bA = jointInfo.BodyControlA;
             var bB = jointInfo.BodyControlB;
@@ -197,11 +198,11 @@ namespace SM.Farseer
             CodeGenerator.AddCode(String.Format("var {4} = JointFactory.{5}(_world, {0}, {1}, {2}, {3});", bA.g(), bB.g(), pA.g(), pB.g(), j.g(), name));
             return j;
         }
-        public void AddRopeJoint(IRopeJointObject jointControl)
+        public void AddRopeJoint(IRopeJointControl jointControl)
         {
 
-            var xA = (IPointObject)Find(jointControl.TargetNameA);
-            var xB = (IPointObject)Find(jointControl.TargetNameB);
+            var xA = (IPointControl)Find(jointControl.TargetNameA);
+            var xB = (IPointControl)Find(jointControl.TargetNameB);
             var _bA = (Body)((BodyUpdater)Find(xA.ParentId)).Object;
             var _bB = (Body)((BodyUpdater)Find(xB.ParentId)).Object;
             var _aA = new Vector2(xA.X, xA.Y);
@@ -219,7 +220,7 @@ namespace SM.Farseer
             }
             CodeGenerator.AddCode(String.Format("{1}.MaxLength = {0};", j.MaxLength, j.g()));
         }
-        public void AddWeldJoint(TwoPointJointInfo jointInfo, IWeldJointObject jointControl)
+        /*public void AddWeldJoint(TwoPointJointInfo jointInfo, IWeldJointControl jointControl)
         {
             var j = JointFactory.CreateWeldJoint(_world, jointInfo.BodyControlA, jointInfo.BodyControlB, jointInfo.AnchorA, jointInfo.AnchorB);
 
@@ -239,18 +240,18 @@ namespace SM.Farseer
                 j.DampingRatio = jointControl.DampingRatio;
             }
         }
-        public void AddRevoluteJoint(TwoPointJointInfo jointInfo, IRevoluteJointObject jointControl)
+        public void AddRevoluteJoint(TwoPointJointInfo jointInfo, IRevoluteJointControl jointControl)
         {
             var j = JointFactory.CreateWeldJoint(_world, jointInfo.BodyControlA, jointInfo.BodyControlB, jointInfo.AnchorA, jointInfo.AnchorB);
 
             addJoint(j, jointControl);
         }
-        public void AddDistanceJoint(TwoPointJointInfo jointInfo, IDistanceJointObject jointControl)
+        public void AddDistanceJoint(TwoPointJointInfo jointInfo, IDistanceJointControl jointControl)
         {
             var j = JointFactory.CreateDistanceJoint(_world, jointInfo.BodyControlA, jointInfo.BodyControlB, jointInfo.AnchorA, jointInfo.AnchorB);
 
             addJoint(j, jointControl);
-        }
+        }*/
         #endregion
 
 

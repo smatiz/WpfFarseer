@@ -1,6 +1,5 @@
 ﻿using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +9,7 @@ using System.Windows;
 
 namespace SM.Farseer
 {
-    public class TwoPointJointInfo
+    internal class TwoPointJointInfo
     {
         public Body BodyControlA { get; private set; }
         public Body BodyControlB { get; private set; }
