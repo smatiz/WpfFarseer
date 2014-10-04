@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SM.Farseer
 {
-   public static class CodeGenerator
+   internal static class CodeGenerator
     {
         public static void AddCode(string line)
         {

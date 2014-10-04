@@ -40,20 +40,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BreakableBodyUpdater.cs" />
-    <Compile Include="BodyUpdater.cs" />
-    <Compile Include="CodeGenerator.cs" />
-    <Compile Include="Const.cs" />
+    <Compile Include="Internal\BreakableBodyUpdater.cs" />
+    <Compile Include="Internal\BodyUpdater.cs" />
+    <Compile Include="Internal\CodeGenerator.cs" />
+    <Compile Include="Internal\Const.cs" />
     <Compile Include="FarseerWorldManager.cs" />
-    <Compile Include="Interfaces\IFarseerId.cs" />
-    <Compile Include="Interfaces\IFarseerObject.cs" />
-    <Compile Include="Interfaces\Controls.cs" />
-    <Compile Include="Interfaces\IFarseerBehaviour.cs" />
-    <Compile Include="Interfaces\IUpdatable.cs" />
-    <Compile Include="LoopCoroutine.cs" />
+    <Compile Include="IFarseerId.cs" />
+    <Compile Include="Internal\Interfaces\IFarseerObject.cs" />
+    <Compile Include="Controls.cs" />
+    <Compile Include="IFarseerBehaviour.cs" />
+    <Compile Include="Internal\Interfaces\IUpdatable.cs" />
+    <Compile Include="Internal\LoopCoroutine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RopeJointObject.cs" />
-    <Compile Include="TwoPointJointInfo.cs">
+    <Compile Include="Internal\RopeJointObject.cs" />
+    <Compile Include="Internal\TwoPointJointInfo.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -67,9 +67,7 @@
       <Name>SM</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="x\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

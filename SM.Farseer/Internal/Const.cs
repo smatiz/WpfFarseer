@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SM.Farseer
 {
-     public class Const
+    public class Const
      {
          public const float Density = 100f;
      }
