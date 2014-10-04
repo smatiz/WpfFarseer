@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SM.Farseer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,14 +16,16 @@ using System.Windows.Shapes;
 
 namespace WpfFarseer
 {
-    public partial class CrossControl : BasicControl
+    public partial class CrossControl : BasicControl, IPointObject
     {
         public CrossControl()
         {
             InitializeComponent();
+
+
         }
 
-        public string TargetName
+        /*public string TargetName
         {
             get { return (string)GetValue(TargetNameProperty); }
             set { SetValue(TargetNameProperty, value); }
@@ -37,5 +40,13 @@ namespace WpfFarseer
         }
         public static readonly DependencyProperty TargetPointProperty =
             DependencyProperty.Register("TargetPoint", typeof(Point), typeof(CrossControl), new PropertyMetadata(new Point()));
+         * */
+
+        public float X { get { return (float)Canvas.GetLeft(this); } }
+
+        public float Y { get { return (float)Canvas.GetTop(this); } }
+
+        public string ParentId { get { return ((BasicControl)Parent).Id; } }
+      
     }
 }

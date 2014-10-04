@@ -96,5 +96,11 @@ namespace WpfFarseer
         {
             return from shape in Children.OfType<Shape>() select this.ToFarseer(shape, body);
         }
+
+
+        public IEnumerable<IPointObject> Points
+        {
+            get { return from x in Children.OfType<CrossControl>() select x; }
+        }
     }
 }
