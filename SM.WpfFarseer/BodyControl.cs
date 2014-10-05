@@ -93,7 +93,7 @@ namespace WpfFarseer
         }
 
 
-        private Fixture GetAttachFixture(Shape shape, Body body)
+        private Fixture _getAttachFixture(Shape shape, Body body)
         {
             if (shape is Polygon)
             {
@@ -111,10 +111,18 @@ namespace WpfFarseer
 
         public IEnumerable<FarseerPhysics.Dynamics.Fixture> GetAttachFixtures(Body body)
         {
-            return from shape in Children.OfType<Shape>() select GetAttachFixture(shape, body);
+            return from shape in Children.OfType<Shape>() select _getAttachFixture(shape, body);
         }
 
        
+        public IEnumerable<Shape> Shapes
+        {
+            get
+            {
+                
+                return Children.OfType<Shape>();
+            }
+        }
 
 
 

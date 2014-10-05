@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SM.Farseer
 {
-    internal interface IFarseerObject : IFarseerId
+    public interface IFarseerObject : IFarseerId
     {
         object Object { get; }
     }

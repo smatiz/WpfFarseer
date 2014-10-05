@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SM.Farseer
 {
-    internal interface IUpdatable : IFarseerObject
+    public interface IUpdatable : IFarseerObject
     {
         void Update();
     }

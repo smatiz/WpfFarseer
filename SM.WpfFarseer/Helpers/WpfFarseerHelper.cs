@@ -14,9 +14,10 @@ using System.Windows.Media;
 
 namespace WpfFarseer
 {
+    using FShape = FarseerPhysics.Collision.Shapes;
     public static class WpfFarseerHelper
     {
-        public static Vertices ToFarseer(IEnumerable<System.Windows.Point> points)
+        public static Vertices ToFarseer(this IEnumerable<System.Windows.Point> points)
         {
             return new Vertices(from p in points select p.ToFarseer());
         }
@@ -24,21 +25,16 @@ namespace WpfFarseer
         {
             return ToFarseer(from p in poly.Points select poly.TranslatePoint(p, uielement));
         }
-        //public static Fixture ToFarseer(this UIElement uielement, Shape shape, Body body)
+        public static FShape.Shape ToFarseer(this Polygon poly, float density = Const.Density)
+        {
+            return new FShape.PolygonShape(poly.Points.ToFarseer(), density);
+        }
+
+        //public static FShape.Shape ToFarseer(this IEnumerable<Polygon> polys)
         //{
-        //    if (shape is Polygon)
-        //    {
-        //        return FixtureFactory.AttachPolygon(uielement.ToFarseer((Polygon)shape), BodyControl.GetDensity(shape), body);
-        //    }
-        //    //else if (shape is System.Windows.Shapes.Path)
-        //    //{
-        //    //    return FixtureFactory.AttachPolygon(uielement.ToFarseer((Polygon)shape), BodyControl.GetDensity(shape), body);
-        //    //}
-        //    else
-        //    {
-        //        return FixtureFactory.AttachCircle(1, BodyControl.GetDensity(shape), body);
-        //    }
+        //    return new FShape.ChainShape(from poly in polys select poly.Points.ToFarseer(), true);
         //}
+        
         public static Vector2 ToFarseer(this System.Windows.Point p)
         {
             return new Vector2((float)p.X, (float)p.Y);

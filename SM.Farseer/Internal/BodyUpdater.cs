@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 
 namespace SM.Farseer
 {
-
     // si occupa di gestire il dialogo tra Body e BodyControl
     internal class BodyUpdater : IUpdatable
     {
@@ -32,11 +31,11 @@ namespace SM.Farseer
             _body = body;
             _bodyControl = bodyControl;
         }
-        public object Object { get { return _body; } }
+        public virtual object Object { get { return _body; } }
         public string Id { get { return (string)_body.UserData; } }
-        
 
-        public void Update()
+
+        public virtual void Update()
         {
             var q = _body.Position - _originalPosition;
             _bodyControl.Set(q.X, q.Y, _body.Rotation);

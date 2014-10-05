@@ -1,4 +1,5 @@
-﻿using SM;
+﻿
+using SM;
 using SM.Farseer;
 using SM.WpfFarseer;
 //using Newtonsoft.Json;
@@ -22,7 +23,8 @@ using System.Windows.Threading;
 
 namespace WpfFarseer
 {
-   
+    using xna = Microsoft.Xna.Framework;
+    using FShape = FarseerPhysics.Collision.Shapes;
     public partial class FarseerCanvas : Canvas
     {
         List<TwoPointJointControlManager> _ropeJointManager = new List<TwoPointJointControlManager>();
@@ -75,6 +77,11 @@ namespace WpfFarseer
             };
         }
 
+        xna.Vector2 GetOrigin(FrameworkElement elem)
+        {
+            return WpfFarseerHelper.ToFarseer(elem.TranslatePoint(new System.Windows.Point(0, 0), (System.Windows.UIElement)elem.Parent));
+        }
+
         void _controlUpdate()
         {
             var tobeadded = new List<UIElement>();
@@ -83,21 +90,26 @@ namespace WpfFarseer
             {
                 if (!System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
                 {
+                    {
                     var bodyControl = child as BodyControl;
                     if (bodyControl != null)
                     {
-                        _worldManager.AddBodyControl(bodyControl, WpfFarseerHelper.ToFarseer(bodyControl.TranslatePoint(new System.Windows.Point(0, 0), (System.Windows.UIElement)bodyControl.Parent)));
-
-                       
-                        
-                    }
+                        _worldManager.AddBodyControl(bodyControl, GetOrigin(bodyControl));
+                    }}
+                    {
                     var breakableBodyControl = child as BreakableBodyControl;
                     if (breakableBodyControl != null)
                     {
+
+                        var shapes = breakableBodyControl.Children.Cast<BodyControl>().SelectMany<BodyControl, FShape.Shape>(c=> (from x in c.Shapes select (x as Polygon).ToFarseer()));
+                       // var shapes = from x in breakableBodyControl.Children.Cast<BodyControl>() select ;
+                        _worldManager.AddBreakableBodyControl(breakableBodyControl, shapes, GetOrigin(breakableBodyControl));
+                        
                         //_worldManager.AddBreakableBodyControl(
                             
                             //breakableBodyControl, 
                             //WpfFarseerHelper.ToFarseer(bodyControl.TranslatePoint(new System.Windows.Point(0, 0), (System.Windows.UIElement)bodyControl.Parent)));
+                    }
                     }
                 }
 

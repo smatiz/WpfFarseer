@@ -18,7 +18,7 @@ namespace SM.Farseer
 
     public interface IBreakableBodyControl : IBodyControl
     {
-        //BodyUpdater Get(Body body, Vector2 originalPosition);
+        IUpdatable Get(Body body, Vector2 originalPosition);
     }
 
     public interface IVector2Control : IFarseerId

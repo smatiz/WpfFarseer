@@ -11,37 +11,24 @@ using WpfFarseer;
 
 namespace SM.WpfFarseer
 {
-    class BreakableBodyControl : BasicControl //, IBreakableBodyObject
+    class BreakableBodyControl : BodyControl, IBreakableBodyControl
     {
 
-        //public BodyUpdater Get(Body body, Vector2 originalPosition)
-        //{
-        //    return new BodyUpdater(new BodyControl(), body, originalPosition);
-        //}
-
-        //public BodyManager Get(FarseerPhysics.Dynamics.Fixture fixture)
-        //{
-        //     var body = BodyFactory.CreateBody(_world, Vector2.Zero);
-        //    return new BodyManager(new BodyControl(), )
-        //}
-
-        public void Set(float x, float y, float a)
+        public BreakableBodyControl()
         {
-
+            Loaded += (s, e) =>
+            {
+                foreach(var x in Children)
+                {
+                    //BodyFactory.CreateBreakableBody()
+                }
+            };
         }
 
-        public FarseerPhysics.Dynamics.BodyType BodyType
-        {
-            get { return FarseerPhysics.Dynamics.BodyType.Dynamic; }
-        }
-
-        public IEnumerable<FarseerPhysics.Dynamics.Fixture> GetAttachFixtures(FarseerPhysics.Dynamics.Body body)
+        public IUpdatable Get(Body body, Vector2 originalPosition)
         {
             throw new NotImplementedException();
         }
 
-        
-
-      
     }
 }

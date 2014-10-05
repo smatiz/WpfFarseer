@@ -79,6 +79,12 @@ namespace SM.Farseer
             }
         }
 
+        //public void AddBreakableBodyControl(IBreakableBodyControl bodyControl, Vertices vertices, Vector2 originPosition)
+        //{
+        //    var body = BodyFactory.CreateBreakableBody(_world, vertices, Const.Density);
+        //    _addFarseerObject(new BreakableBodyUpdater(bodyControl, body, originPosition));
+        //}
+
         public void AddBreakableBodyControl(IBreakableBodyControl bodyControl, IEnumerable<Shape> shapes, Vector2 originPosition)
         {
             var body = BodyFactory.CreateBreakableBody(_world, shapes);
@@ -87,6 +93,18 @@ namespace SM.Farseer
 
         public void Update()
         {
+            //foreach (var x in from x in _map.Values select x as BreakableBodyUpdater)
+            //{
+            //    var y = x.Object as BreakableBody;
+            //    if (y != null && y.Broken)
+            //    {
+            //        y.Parts
+            //   //   var  _bodyControlParts = (from x in y.Parts select _bodyControl.Get(BodyFactory.CreateBody(null, _originalPosition), _originalPosition)).ToArray();
+            //    }
+            //}
+
+
+
             foreach (var x in from x in _map.Values select x as IUpdatable)
             {
                 if (x != null)
