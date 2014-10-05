@@ -25,9 +25,15 @@ namespace WpfFarseer
         {
             return ToFarseer(from p in poly.Points select poly.TranslatePoint(p, uielement));
         }
-        public static FShape.Shape ToFarseer(this Polygon poly, float density = Const.Density)
+        public static FShape.Shape ToFarseer(this Shape shape, float density = Const.Density)
         {
-            return new FShape.PolygonShape(poly.Points.ToFarseer(), density);
+            if (shape is Polygon)
+            {
+                var poly = shape as Polygon;
+                return new FShape.PolygonShape(poly.Points.ToFarseer(), density);
+            }
+
+            return null;
         }
 
         //public static FShape.Shape ToFarseer(this IEnumerable<Polygon> polys)

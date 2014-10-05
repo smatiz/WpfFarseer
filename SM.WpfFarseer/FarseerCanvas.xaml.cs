@@ -97,7 +97,7 @@ namespace WpfFarseer
                         if (breakableBodyControl != null)
                         {
                             var controlParts = breakableBodyControl.Children.OfType<BreakableBodyPartControl>();
-                            var shapes = controlParts.SelectMany<BodyControl, FShape.Shape>(c => (from x in c.Shapes select (x as Polygon).ToFarseer()));
+                            var shapes = controlParts.SelectMany<BodyControl, FShape.Shape>(c => (from x in c.Shapes select x.ToFarseer()));
                             _worldManager.AddBreakableBodyControl(breakableBodyControl, controlParts, shapes, GetOrigin(breakableBodyControl));
                             handled = true;
                         }
