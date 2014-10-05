@@ -13,7 +13,7 @@
                 <l:FarseerCanvas  Grid.Row="0" >
                     <l:BreakableBodyControl Id="bb">
                         <l:BreakableBodyPartControl Id="bb1" >
-                            <Polygon l:BodyControl.Density="123" Points="0,0,100,0,100,100" >
+                            <Polygon l:BodyControl.Density="123" Canvas.Top="40" Points="0,0,100,0,100,100" >
                             </Polygon>
                         </l:BreakableBodyPartControl>
                         <l:BreakableBodyPartControl Id="bb2" >

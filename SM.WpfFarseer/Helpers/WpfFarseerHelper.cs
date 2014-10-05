@@ -1,51 +1,41 @@
-﻿using SM.Farseer;
-using FarseerPhysics.Common;
-using FarseerPhysics.Dynamics;
-using FarseerPhysics.Factories;
-using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Shapes;
-using System.Windows.Media;
+using F = FarseerPhysics.Common;
+using W = System.Windows;
+using Xna = Microsoft.Xna.Framework;
+using WShape = System.Windows.Shapes;
+using FShape = FarseerPhysics.Collision.Shapes;
 
 namespace WpfFarseer
 {
-    using FShape = FarseerPhysics.Collision.Shapes;
     public static class WpfFarseerHelper
     {
-        public static Vertices ToFarseer(this IEnumerable<System.Windows.Point> points)
+        private static F.Vertices ToFarseerVertices(this W.UIElement uielement, WShape.Polygon poly)
         {
-            return new Vertices(from p in points select p.ToFarseer());
+            return new F.Vertices(from p in poly.Points select poly.TranslatePoint(p, uielement).ToFarseer());
         }
-        public static Vertices ToFarseer(this UIElement uielement, Polygon poly)
+        public static F.Vertices ToFarseerVertices(this W.UIElement uielement, WShape.Shape shape)
         {
-            return ToFarseer(from p in poly.Points select poly.TranslatePoint(p, uielement));
-        }
-        public static FShape.Shape ToFarseer(this Shape shape, float density = Const.Density)
-        {
-            if (shape is Polygon)
+            if (shape is W.Shapes.Polygon)
             {
-                var poly = shape as Polygon;
-                return new FShape.PolygonShape(poly.Points.ToFarseer(), density);
+                return uielement.ToFarseerVertices(shape as WShape.Polygon);
             }
 
             return null;
         }
-
-        //public static FShape.Shape ToFarseer(this IEnumerable<Polygon> polys)
-        //{
-        //    return new FShape.ChainShape(from poly in polys select poly.Points.ToFarseer(), true);
-        //}
-        
-        public static Vector2 ToFarseer(this System.Windows.Point p)
+        public static FShape.Shape ToFarseerShape(this W.UIElement uielement, WShape.Shape shape, float density = SM.Farseer.Const.Density)
         {
-            return new Vector2((float)p.X, (float)p.Y);
+            if (shape is W.Shapes.Polygon)
+            {
+                return new FShape.PolygonShape(uielement.ToFarseerVertices(shape as WShape.Polygon), density);
+            }
+            return null;
         }
-        public static System.Windows.Point ToWpf(this Vector2 p)
+        public static Xna.Vector2 ToFarseer(this W.Point p)
+        {
+            return new Xna.Vector2((float)p.X, (float)p.Y);
+        }
+        public static W.Point ToWpf(this Xna.Vector2 p)
         {
             return new System.Windows.Point(p.X, p.Y);
         }

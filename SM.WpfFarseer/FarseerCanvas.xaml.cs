@@ -30,12 +30,6 @@ namespace WpfFarseer
         List<TwoPointJointControlManager> _ropeJointManager = new List<TwoPointJointControlManager>();
         DispatcherTimer _timer = new DispatcherTimer();
 
-        //public event Action<FarseerWorldManager> WorldReady;
-
-        //FarseerBehaviour _farseerBehaviour = new FarseerBehaviour();
-        //public Action<FarseerWorldManager> WorldStarted { private get; set; }
-        //public Func<FarseerWorldManager, IEnumerator<BasicCoroutine>> WorldLoop { private get; set; }
-
         FarseerWorldManager _worldManager;
 
         private List<IFarseerBehaviourWpf> _farseerBehaviours = new List<IFarseerBehaviourWpf>();
@@ -58,18 +52,10 @@ namespace WpfFarseer
             _timer.Interval = new TimeSpan(0,0,0,0, 40);
             _worldManager = new FarseerWorldManager();
 
-            //var eventCoroutine = new EventCoroutine();
-            //eventCoroutine.Event += eventCoroutine_Event;
-            //_loopCoroutines.Add(eventCoroutine);
-
             Loaded += (s, e) =>
             {
                 _controlUpdate();
                 _timer.Start();
-                //if (WorldReady != null)
-                //{
-                //    WorldReady(_worldManager);
-                //}
                 foreach (var x in _farseerBehaviours)
                 {
                     x.Start(_worldManager);
@@ -97,7 +83,7 @@ namespace WpfFarseer
                         if (breakableBodyControl != null)
                         {
                             var controlParts = breakableBodyControl.Children.OfType<BreakableBodyPartControl>();
-                            var shapes = controlParts.SelectMany<BodyControl, FShape.Shape>(c => (from x in c.Shapes select x.ToFarseer()));
+                            var shapes = controlParts.SelectMany<BodyControl, FShape.Shape>(c => (from x in c.Shapes select breakableBodyControl.ToFarseerShape(x)));
                             _worldManager.AddBreakableBodyControl(breakableBodyControl, controlParts, shapes, GetOrigin(breakableBodyControl));
                             handled = true;
                         }
@@ -111,7 +97,6 @@ namespace WpfFarseer
                             handled = true;
                         }
                     }
-                   
                 }
 
                 if (!handled)

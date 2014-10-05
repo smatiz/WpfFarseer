@@ -97,7 +97,7 @@ namespace WpfFarseer
         {
             if (shape is Polygon)
             {
-                return FixtureFactory.AttachPolygon(this.ToFarseer((Polygon)shape), BodyControl.GetDensity(shape), body);
+                return FixtureFactory.AttachPolygon(this.ToFarseerVertices((Polygon)shape), BodyControl.GetDensity(shape), body);
             }
             //else if (shape is System.Windows.Shapes.Path)
             //{
