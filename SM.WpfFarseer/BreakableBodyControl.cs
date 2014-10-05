@@ -9,9 +9,9 @@ using System.Text;
 using System.Threading.Tasks;
 using WpfFarseer;
 
-namespace SM.WpfFarseer
+namespace WpfFarseer
 {
-    class BreakableBodyControl : BodyControl, IBreakableBodyControl
+    public class BreakableBodyControl : BodyControl, IBreakableBodyControl
     {
 
         public BreakableBodyControl()
