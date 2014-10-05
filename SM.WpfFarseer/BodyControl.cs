@@ -3,6 +3,7 @@ using FarseerPhysics.Factories;
 using SM.Farseer;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
@@ -19,6 +21,7 @@ using System.Windows.Shapes;
 namespace WpfFarseer
 {
 
+    [ContentPropertyAttribute("Shapes")]
     public class BodyControl : BasicControl, IBodyControl
     {
         const float AngleSubst = 180f / (float)Math.PI;
@@ -28,6 +31,12 @@ namespace WpfFarseer
 
         public BodyControl()
         {
+            Shapes = new ObservableCollection<Shape>();
+            Shapes.CollectionChanged += Shapes_CollectionChanged;
+
+            Flags = new ObservableCollection<CrossControl>();
+            Flags.CollectionChanged += Flags_CollectionChanged;
+
             _rotation = new RotateTransform();
             _traslation = new TranslateTransform();
 
@@ -111,18 +120,76 @@ namespace WpfFarseer
 
         public IEnumerable<FarseerPhysics.Dynamics.Fixture> GetAttachFixtures(Body body)
         {
-            return from shape in Children.OfType<Shape>() select _getAttachFixture(shape, body);
+            return from shape in Shapes select _getAttachFixture(shape, body);
         }
 
        
-        public IEnumerable<Shape> Shapes
-        {
-            get
-            {
+        //public IEnumerable<Shape> Shapes
+        //{
+        //    get
+        //    {
                 
-                return Children.OfType<Shape>();
+        //        return Children.OfType<Shape>();
+        //    }
+        //}
+
+
+
+
+        public ObservableCollection<Shape>  Shapes
+        {
+            get { return (ObservableCollection<Shape> )GetValue(ShapesProperty); }
+            set { SetValue(ShapesProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Shapes.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ShapesProperty =
+            DependencyProperty.Register("Shapes", typeof(ObservableCollection<Shape> ), typeof(BodyControl), new PropertyMetadata(null));
+
+
+        public ObservableCollection<CrossControl> Flags
+        {
+            get { return (ObservableCollection<CrossControl>)GetValue(FlagsProperty); }
+            set { SetValue(FlagsProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Flags.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty FlagsProperty =
+            DependencyProperty.Register("Flags", typeof(ObservableCollection<CrossControl>), typeof(BodyControl), new PropertyMetadata(null));
+
+        
+        
+
+        void Shapes_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
+            {
+                foreach (var x in e.NewItems)
+                {
+                    Children.Add((Shape)x);
+                }
             }
         }
+        
+        void Flags_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
+            {
+                foreach (var x in e.NewItems)
+                {
+                    Children.Add((CrossControl)x);
+                }
+            }
+        }
+        
+        //public ObservableCollection<BreakableBodyPartControl> Parts
+        //{
+        //    get { return (ObservableCollection<BreakableBodyPartControl>)GetValue(PartsProperty); }
+        //    set { SetValue(PartsProperty, value); }
+        //}
+        //public static readonly DependencyProperty PartsProperty =
+        //    DependencyProperty.Register("Parts", typeof(ObservableCollection<BreakableBodyPartControl>), typeof(BreakableBodyControl), new PropertyMetadata(null));
+   
 
 
 

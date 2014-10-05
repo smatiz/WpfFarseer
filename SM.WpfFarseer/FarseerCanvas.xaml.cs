@@ -82,9 +82,10 @@ namespace WpfFarseer
                         var breakableBodyControl = child as BreakableBodyControl;
                         if (breakableBodyControl != null)
                         {
-                            var controlParts = breakableBodyControl.Children.OfType<BreakableBodyPartControl>();
-                            var shapes = controlParts.SelectMany<BodyControl, FShape.Shape>(c => (from x in c.Shapes select breakableBodyControl.ToFarseerShape(x)));
-                            _worldManager.AddBreakableBodyControl(breakableBodyControl, controlParts, shapes, GetOrigin(breakableBodyControl));
+                           // var shapes = breakableBodyControl.Parts.SelectMany<BodyControl, FShape.Shape>(c => (from x in c.Shapes select breakableBodyControl.ToFarseerShape(x)));
+
+                            var shapes = from x in breakableBodyControl.Parts select breakableBodyControl.ToFarseerShape(x.Shape);
+                            _worldManager.AddBreakableBodyControl(breakableBodyControl, breakableBodyControl.Parts, shapes, GetOrigin(breakableBodyControl));
                             handled = true;
                         }
                     }
@@ -154,9 +155,8 @@ namespace WpfFarseer
                 var bodyControl = child as BodyControl;
                 if (bodyControl != null)
                 {
-                    foreach (var bodyChild in bodyControl.Children)
+                    foreach (var crossControl in bodyControl.Flags)
                     {
-                        var crossControl = bodyChild as CrossControl;
                         if (crossControl != null)
                         {
                             if( crossControl.Id == jointControl.TargetNameA)

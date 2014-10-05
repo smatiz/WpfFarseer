@@ -10,14 +10,6 @@ namespace WpfFarseer
 {
     public class BasicControl : Canvas
     {
-        public TimeSpan Delay
-        {
-            get { return (TimeSpan)GetValue(DelayProperty); }
-            set { SetValue(DelayProperty, value); }
-        }
-        public static readonly DependencyProperty DelayProperty =
-            DependencyProperty.Register("Delay", typeof(TimeSpan), typeof(BasicControl), new PropertyMetadata(new TimeSpan(0)));
-
         static int i = 0;
         private string _generateName()
         {
