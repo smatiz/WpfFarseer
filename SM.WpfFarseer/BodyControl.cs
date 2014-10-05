@@ -64,7 +64,7 @@ namespace WpfFarseer
             set { SetValue(DefaultBrushProperty, value); }
         }
         public static readonly DependencyProperty DefaultBrushProperty =
-            DependencyProperty.Register("DefaultBrush", typeof(Brush), typeof(BodyControl), new PropertyMetadata(null));
+            DependencyProperty.Register("DefaultBrush", typeof(Brush), typeof(BodyControl), new PropertyMetadata(new SolidColorBrush(Colors.Gray)));
 
         public static float GetDensity(DependencyObject obj)
         {
@@ -77,7 +77,7 @@ namespace WpfFarseer
         public static readonly DependencyProperty DensityProperty =
             DependencyProperty.RegisterAttached("Density", typeof(float), typeof(BodyControl), new PropertyMetadata(Const.Density));
 
-        public FarseerPhysics.Dynamics.BodyType BodyType
+        public virtual FarseerPhysics.Dynamics.BodyType BodyType
         {
             get { return (FarseerPhysics.Dynamics.BodyType)GetValue(BodyTypeProperty); }
             set { SetValue(BodyTypeProperty, value); }

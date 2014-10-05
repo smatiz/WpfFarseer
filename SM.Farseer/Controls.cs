@@ -16,10 +16,15 @@ namespace SM.Farseer
         IEnumerable<IPointControl> Points { get; }
     }
 
-    public interface IBreakableBodyControl : IBodyControl
+    public interface IBreakableBodyPartControl 
     {
-        IUpdatable Get(Body body, Vector2 originalPosition);
-    }
+        void Activate();
+    }  
+    
+    //public interface IBreakableBodyControl : IBodyControl
+    //{
+    //    IEnumerable<IUpdatable> ChildrenBodyUpdater { get; }
+    //}
 
     public interface IVector2Control : IFarseerId
     {

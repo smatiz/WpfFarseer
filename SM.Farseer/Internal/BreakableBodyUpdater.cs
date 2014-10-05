@@ -14,54 +14,32 @@ namespace SM.Farseer
     // si occupa di gestire il dialogo tra Body e BodyControl
     internal class BreakableBodyUpdater : BodyUpdater
     {
-        //private Vector2 _originalPosition;
-
         BreakableBody _breakableBody;
-        //IBreakableBodyControl _bodyControl;
-        IUpdatable[] _bodyControlParts;
+        bool _brokenWarned = false;
+        public event Action OnBroke;
 
-        public override object Object { get { return _breakableBody; } }
-
-        public BreakableBodyUpdater(IBreakableBodyControl bodyControl, BreakableBody body, Vector2 originPosition)
+        public BreakableBodyUpdater(IBodyControl bodyControl, BreakableBody body, Vector2 originPosition)
             : base(bodyControl, body.MainBody, originPosition)
         {
-            //body.MainBody.UserData = bodyControl.Id;
-            //body.MainBody.FixtureList.AddRange(bodyControl.GetAttachFixtures(body.MainBody));
-            //body.MainBody.BodyType = bodyControl.BodyType;
-            //CodeGenerator.AddCode(String.Format("{1}.BodyType = BodyType.{0};", Enum.GetName(typeof(BodyType), bodyControl.BodyType), body.MainBody.g()));
-            //body.MainBody.Position = originPosition;
-            //CodeGenerator.AddCode(String.Format("{1}.Position = {0};", originPosition.g(), body.MainBody.g()));
-
-            //_originalPosition = originPosition;
             _breakableBody = body;
-            //_bodyControl = bodyControl;
         }
 
         public override void Update()
         {
-            if (_bodyControlParts != null)
+            if (_breakableBody.Broken && !_brokenWarned)
             {
-                for (int i = 0; i < _bodyControlParts.Length; i++)
+                _brokenWarned = true;
+                if(OnBroke != null)
                 {
-                    _bodyControlParts[i].Update();
+                    OnBroke();
                 }
-            }
-            else if (_breakableBody.Broken)
-            {
-                //_bodyControlParts = (from x in _breakableBody.Parts select _bodyControl.Get(BodyFactory.CreateBody(null, _originalPosition), _originalPosition)).ToArray();
-
             }
             else
             {
                 base.Update();
-                //var q = _breakableBody.MainBody.Position - _originalPosition;
-                //_bodyControl.Set(q.X, q.Y, _breakableBody.MainBody.Rotation);
             }
         }
 
-        //public string Id
-        //{
-        //    get { return (string)_breakableBody.MainBody.UserData; }
-        //}
+        public override object Object { get { return _breakableBody; } }
     }
 }

@@ -14,7 +14,7 @@ namespace SM.Farseer
     // si occupa di gestire il dialogo tra Body e BodyControl
     internal class BodyUpdater : IUpdatable
     {
-        IBodyControl _bodyControl;
+        protected IBodyControl _bodyControl;
         private Vector2 _originalPosition;
         private Body _body;
         

@@ -3,13 +3,16 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:l="clr-namespace:WpfFarseer;assembly=SM.WpfFarseer"
         xmlns:l2="clr-namespace:WpfFarseer"
-        Title="MainWindow" Height="750" Width="525">
-        <TabControl>
+        Title="MainWindow" Height="550" Width="525">
+        <TabControl SelectedIndex="1">
             <TabControl.Items>
                 <TabItem Header="FirstSample">
                     <l2:FirstSample></l2:FirstSample>
                 </TabItem>
-                <TabItem Header="____next">
+            <TabItem Header="SecondSample">
+                <l2:SecondSample></l2:SecondSample>
+            </TabItem>
+            <TabItem Header="____next">
                 </TabItem>
             </TabControl.Items>
         </TabControl>

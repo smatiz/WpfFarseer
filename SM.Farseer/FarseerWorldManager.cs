@@ -85,10 +85,18 @@ namespace SM.Farseer
         //    _addFarseerObject(new BreakableBodyUpdater(bodyControl, body, originPosition));
         //}
 
-        public void AddBreakableBodyControl(IBreakableBodyControl bodyControl, IEnumerable<Shape> shapes, Vector2 originPosition)
+        public void AddBreakableBodyControl(IBodyControl bodyControl,  IEnumerable<IBodyControl> bodyPartControl, IEnumerable<Shape> shapes, Vector2 originPosition)
         {
             var body = BodyFactory.CreateBreakableBody(_world, shapes);
-            _addFarseerObject(new BreakableBodyUpdater(bodyControl, body, originPosition));
+            var bbu = new BreakableBodyUpdater(bodyControl, body, originPosition);
+            bbu.OnBroke += () =>
+            {
+                foreach (var a in bodyPartControl.Zip(body.Parts, (x, y) => new { BodyPartControl = x, Part = y }))
+                {
+                    _addFarseerObject(new BodyUpdater(a.BodyPartControl, a.Part.Body, body.MainBody.Position));
+                }
+            };
+            _addFarseerObject(bbu);
         }
 
         public void Update()
@@ -102,16 +110,23 @@ namespace SM.Farseer
             //   //   var  _bodyControlParts = (from x in y.Parts select _bodyControl.Get(BodyFactory.CreateBody(null, _originalPosition), _originalPosition)).ToArray();
             //    }
             //}
-
-
-
-            foreach (var x in from x in _map.Values select x as IUpdatable)
+            int n = _map.Count;
+            for (int i = 0; i < n; i++ )
             {
+                var x = _map.Values.ElementAt(i) as IUpdatable;
                 if (x != null)
                 {
                     x.Update();
                 }
             }
+
+                //foreach (var x in from x in _map.Values select x as IUpdatable)
+                //{
+                //    if (x != null)
+                //    {
+                //        x.Update();
+                //    }
+                //}
         }
 
         public void Play()

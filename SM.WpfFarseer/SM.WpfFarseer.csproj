@@ -72,7 +72,6 @@
     <Compile Include="Joint\TwoPointJointControlInfo.cs" />
     <Compile Include="Joint\TwoPointJointControlManager.cs" />
     <Compile Include="Joint\WeldJointControl.cs" />
-    <Compile Include="PartControl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

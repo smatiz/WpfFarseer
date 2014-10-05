@@ -88,47 +88,50 @@ namespace WpfFarseer
            
             foreach (var child in Children)
             {
+                bool handled = false;
                 if (!System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
                 {
-                    {
-                    var bodyControl = child as BodyControl;
-                    if (bodyControl != null)
-                    {
-                        _worldManager.AddBodyControl(bodyControl, GetOrigin(bodyControl));
-                    }}
-                    {
-                    var breakableBodyControl = child as BreakableBodyControl;
-                    if (breakableBodyControl != null)
-                    {
 
-                        var shapes = breakableBodyControl.Children.Cast<BodyControl>().SelectMany<BodyControl, FShape.Shape>(c=> (from x in c.Shapes select (x as Polygon).ToFarseer()));
-                       // var shapes = from x in breakableBodyControl.Children.Cast<BodyControl>() select ;
-                        _worldManager.AddBreakableBodyControl(breakableBodyControl, shapes, GetOrigin(breakableBodyControl));
-                        
-                        //_worldManager.AddBreakableBodyControl(
-                            
-                            //breakableBodyControl, 
-                            //WpfFarseerHelper.ToFarseer(bodyControl.TranslatePoint(new System.Windows.Point(0, 0), (System.Windows.UIElement)bodyControl.Parent)));
+                    {
+                        var breakableBodyControl = child as BreakableBodyControl;
+                        if (breakableBodyControl != null)
+                        {
+                            var controlParts = breakableBodyControl.Children.OfType<BreakableBodyPartControl>();
+                            var shapes = controlParts.SelectMany<BodyControl, FShape.Shape>(c => (from x in c.Shapes select (x as Polygon).ToFarseer()));
+                            _worldManager.AddBreakableBodyControl(breakableBodyControl, controlParts, shapes, GetOrigin(breakableBodyControl));
+                            handled = true;
+                        }
                     }
+                    if(!handled)
+                    {
+                        var bodyControl = child as BodyControl;
+                        if (bodyControl != null)
+                        {
+                            _worldManager.AddBodyControl(bodyControl, GetOrigin(bodyControl));
+                            handled = true;
+                        }
                     }
+                   
                 }
 
-
-                var jointControl = child as RopeJointControl;
-                if (jointControl != null)
+                if (!handled)
                 {
-                    var ropeJointControlInfo = _resolve(jointControl);
-
-                    var line = new Line();
-                    line.Stroke = new SolidColorBrush(Colors.Green);
-                    line.StrokeThickness = 1;
-                    tobeadded.Add(line);
-
-                    _ropeJointManager.Add(new TwoPointJointControlManager(this, ropeJointControlInfo, line));
-
-                    if (!System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
+                    var jointControl = child as RopeJointControl;
+                    if (jointControl != null)
                     {
-                        _worldManager.AddRopeJoint(jointControl);
+                        var ropeJointControlInfo = _resolve(jointControl);
+
+                        var line = new Line();
+                        line.Stroke = new SolidColorBrush(Colors.Green);
+                        line.StrokeThickness = 1;
+                        tobeadded.Add(line);
+
+                        _ropeJointManager.Add(new TwoPointJointControlManager(this, ropeJointControlInfo, line));
+
+                        if (!System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
+                        {
+                            _worldManager.AddRopeJoint(jointControl);
+                        }
                     }
                 }
             }

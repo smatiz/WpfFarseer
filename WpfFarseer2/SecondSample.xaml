@@ -11,16 +11,20 @@
         <l2:FarseerPlayerControl x:Name="_farseerPlayer">
             <l2:FarseerPlayerControl.FarseerCanvas>
                 <l:FarseerCanvas  Grid.Row="0" >
-                    <l:BreakableBodyControl>
-                        <l:BodyControl>
+                    <l:BreakableBodyControl Id="bb">
+                        <l:BreakableBodyPartControl Id="bb1" >
                             <Polygon l:BodyControl.Density="123" Points="0,0,100,0,100,100" >
                             </Polygon>
-                        </l:BodyControl>
-                        <l:BodyControl>
+                        </l:BreakableBodyPartControl>
+                        <l:BreakableBodyPartControl Id="bb2" >
                             <Polygon l:BodyControl.Density="123" Points="100,50,150,0,150,100" >
                             </Polygon>
-                        </l:BodyControl>
+                        </l:BreakableBodyPartControl>
                     </l:BreakableBodyControl>
+                    <l:BodyControl Id="b">
+                        <Polygon l:BodyControl.Density="123" Points="0,200,300,200,150,250" >
+                        </Polygon>
+                    </l:BodyControl>
                 </l:FarseerCanvas>
             </l2:FarseerPlayerControl.FarseerCanvas>
         </l2:FarseerPlayerControl>

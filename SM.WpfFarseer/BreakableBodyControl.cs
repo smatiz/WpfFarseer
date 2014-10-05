@@ -11,24 +11,26 @@ using WpfFarseer;
 
 namespace WpfFarseer
 {
-    public class BreakableBodyControl : BodyControl, IBreakableBodyControl
+    
+    public class BreakableBodyPartControl : BodyControl
     {
-
-        public BreakableBodyControl()
+        public override BodyType BodyType
         {
-            Loaded += (s, e) =>
+            get
             {
-                foreach(var x in Children)
-                {
-                    //BodyFactory.CreateBreakableBody()
-                }
-            };
+                return BodyType.Dynamic;
+            }
         }
+    }
 
-        public IUpdatable Get(Body body, Vector2 originalPosition)
+    public class BreakableBodyControl : BodyControl
+    {
+        public override BodyType BodyType
         {
-            throw new NotImplementedException();
-        }
-
+            get
+            {
+                return BodyType.Dynamic;
+            }
+         }
     }
 }
