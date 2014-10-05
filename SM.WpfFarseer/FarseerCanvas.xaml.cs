@@ -63,11 +63,7 @@ namespace WpfFarseer
             };
         }
 
-        xna.Vector2 GetOrigin(FrameworkElement elem)
-        {
-            return WpfFarseerHelper.ToFarseer(elem.TranslatePoint(new System.Windows.Point(0, 0), (System.Windows.UIElement)elem.Parent));
-        }
-
+        
         void _controlUpdate()
         {
             var tobeadded = new List<UIElement>();
@@ -85,7 +81,7 @@ namespace WpfFarseer
                            // var shapes = breakableBodyControl.Parts.SelectMany<BodyControl, FShape.Shape>(c => (from x in c.Shapes select breakableBodyControl.ToFarseerShape(x)));
 
                             var shapes = from x in breakableBodyControl.Parts select breakableBodyControl.ToFarseerShape(x.Shape);
-                            _worldManager.AddBreakableBodyControl(breakableBodyControl, breakableBodyControl.Parts, shapes, GetOrigin(breakableBodyControl));
+                            _worldManager.AddBreakableBodyControl(breakableBodyControl, breakableBodyControl.Parts, shapes, breakableBodyControl.GetOrigin());
                             handled = true;
                         }
                     }
@@ -94,7 +90,7 @@ namespace WpfFarseer
                         var bodyControl = child as BodyControl;
                         if (bodyControl != null)
                         {
-                            _worldManager.AddBodyControl(bodyControl, GetOrigin(bodyControl));
+                            _worldManager.AddBodyControl(bodyControl,bodyControl.GetOrigin());
                             handled = true;
                         }
                     }

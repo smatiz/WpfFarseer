@@ -39,5 +39,10 @@ namespace WpfFarseer
         {
             return new System.Windows.Point(p.X, p.Y);
         }
+
+        public static Xna.Vector2 GetOrigin(this W.FrameworkElement elem)
+        {
+            return WpfFarseerHelper.ToFarseer(elem.TranslatePoint(new System.Windows.Point(0, 0), (System.Windows.UIElement)elem.Parent));
+        }
     }
 }
