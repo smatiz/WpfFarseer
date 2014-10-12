@@ -76,6 +76,17 @@ namespace WpfFarseer
 
                     {
                         var breakableBodyControl = child as BreakableBodyControl;
+                        if (breakableBodyControl == null)
+                        {
+                            var autoBreakableBodyControl = child as AutoBreakableBodyControl;
+                            if (autoBreakableBodyControl != null)
+                            {
+                                breakableBodyControl = autoBreakableBodyControl.BreakableBodyControl;
+                                autoBreakableBodyControl.Visibility = System.Windows.Visibility.Hidden;
+                                tobeadded.Add(breakableBodyControl);
+                            }
+                        }
+
                         if (breakableBodyControl != null)
                         {
                            // var shapes = breakableBodyControl.Parts.SelectMany<BodyControl, FShape.Shape>(c => (from x in c.Shapes select breakableBodyControl.ToFarseerShape(x)));

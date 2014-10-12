@@ -43,12 +43,6 @@ namespace WpfFarseer
             }
         }
 
-
-
-
-      
-
-
         public ObservableCollection<BreakableBodyPartControl> Parts
         {
             get { return (ObservableCollection<BreakableBodyPartControl>)GetValue(PartsProperty); }

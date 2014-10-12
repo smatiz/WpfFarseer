@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WpfFarseer
+namespace SM.AForge
 {
     /// <summary>
-    /// Interaction logic for SecondSample.xaml
+    /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class SecondSample : UserControl
+    public partial class MainWindow : Window
     {
-        public SecondSample()
+        public MainWindow()
         {
             InitializeComponent();
         }

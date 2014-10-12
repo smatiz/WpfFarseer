@@ -1,5 +1,4 @@
-﻿using SM;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,15 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WpfFarseer
+namespace SM.AForgeFarseer
 {
-    public partial class FirstSample : UserControl
+    /// <summary>
+    /// Interaction logic for MainWindow.xaml
+    /// </summary>
+    public partial class MainWindow : Window
     {
-        public FirstSample()
+        public MainWindow()
         {
             InitializeComponent();
-
-            _farseerPlayer.FarseerCanvas.AddFarseerBehaviour(new ShortTheRopeBehaviour());
         }
     }
 }

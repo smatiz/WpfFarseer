@@ -4,13 +4,16 @@
         xmlns:l="clr-namespace:WpfFarseer;assembly=SM.WpfFarseer"
         xmlns:l2="clr-namespace:WpfFarseer"
         Title="MainWindow" Height="550" Width="525">
-    <TabControl SelectedIndex="1">
+    <TabControl SelectedIndex="2">
         <TabControl.Items>
-            <TabItem Header="FirstSample">
-                <l2:FirstSample></l2:FirstSample>
+            <TabItem Header="1">
+                <l2:Sample1></l2:Sample1>
             </TabItem>
-            <TabItem Header="SecondSample">
-                <l2:SecondSample></l2:SecondSample>
+            <TabItem Header="2">
+                <l2:Sample2></l2:Sample2>
+            </TabItem>
+            <TabItem Header="3">
+                <l2:Sample3></l2:Sample3>
             </TabItem>
             <TabItem Header="____next">
             </TabItem>
@@ -20,6 +23,9 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="20"/>
                     </Grid.RowDefinitions>
+                    <Canvas Name="_polyCanvas">
+                        
+                    </Canvas>
                     <Canvas Name="_resultCanvas"></Canvas>
                     <Button Click="Button_Click" Grid.Row="1">Do</Button>
                 </Grid>

@@ -53,6 +53,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Compile>
     <Compile Include="BreakableBodyControl.cs" />
+    <Compile Include="AutoBreakableBodyControl.cs" />
     <Compile Include="BreakableBodyPartControl.cs" />
     <Compile Include="Coroutines\StartCoroutine.cs" />
     <Compile Include="Coroutines\UpdateCoroutine.cs" />

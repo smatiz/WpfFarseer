@@ -1,7 +1,5 @@
-﻿using SM;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,16 +15,14 @@ using System.Windows.Shapes;
 
 namespace WpfFarseer
 {
-    public partial class MainWindow : Window
+    /// <summary>
+    /// Interaction logic for Sample3.xaml
+    /// </summary>
+    public partial class Sample3 : UserControl
     {
-        public MainWindow()
+        public Sample3()
         {
             InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

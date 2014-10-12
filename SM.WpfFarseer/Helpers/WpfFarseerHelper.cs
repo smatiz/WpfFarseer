@@ -37,7 +37,16 @@ namespace WpfFarseer
         }
         public static W.Point ToWpf(this Xna.Vector2 p)
         {
-            return new System.Windows.Point(p.X, p.Y);
+            return new W.Point(p.X, p.Y);
+        }
+        public static W.Shapes.Polygon ToWpf(this F.Vertices ps)
+        {
+            var poly = new W.Shapes.Polygon();
+            foreach(var p in ps)
+            {
+                poly.Points.Add(p.ToWpf());
+            }
+            return poly;
         }
 
         public static Xna.Vector2 GetOrigin(this W.FrameworkElement elem)
