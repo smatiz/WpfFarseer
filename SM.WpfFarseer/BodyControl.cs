@@ -1,6 +1,7 @@
 ﻿using FarseerPhysics.Dynamics;
 using FarseerPhysics.Factories;
 using SM.Farseer;
+using SM.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

@@ -27,6 +27,7 @@ namespace WpfFarseer
 {
     using xna = Microsoft.Xna.Framework;
     using FShape = FarseerPhysics.Collision.Shapes;
+    using SM.Wpf;
 
     [ContentPropertyAttribute("FarseerObjects")]
     public partial class FarseerCanvas : Canvas
