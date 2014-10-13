@@ -38,7 +38,7 @@ namespace WpfFarseer
             {
                 foreach (var x in e.NewItems)
                 {
-                    Children.Add((BreakableBodyPartControl)x);
+                    _canvas.Children.Add(((BreakableBodyPartControl)x)._canvas);
                 }
             }
         }

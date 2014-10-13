@@ -11,23 +11,12 @@
         <l2:FarseerPlayerControl x:Name="_farseerPlayer">
             <l2:FarseerPlayerControl.FarseerCanvas>
                 <l:FarseerCanvas  Grid.Row="0" >
-                    <l:BodyControl Id="fallingBody"  BodyType="Dynamic"  Canvas.Left="-18" Canvas.Top="482" Height="63" Width="54" >
-                        <l:BodyControl.RenderTransform>
-                            <TranslateTransform X="30">
-
-                            </TranslateTransform>
-                        </l:BodyControl.RenderTransform>
-                        <Polygon Canvas.Left="60" l:BodyControl.Density="123" Points="0,0,100,0,100,100" >
-
-                            <Polygon.RenderTransform>
-                                <TranslateTransform X="90" >
-
-                                </TranslateTransform>
-                            </Polygon.RenderTransform>
-                        </Polygon>
+                    <l:BodyControl Id="fallingBody"  BodyType="Dynamic"  >
+                        <l:ShapeControl l:BodyControl.Density="123" Points="0 0,100 0,100 100" >
+                           
+                        </l:ShapeControl>
                         <l:BodyControl.Flags>
                             <l:CrossControl Id="x" Canvas.Left="229" Canvas.Top="30">
-
                             </l:CrossControl>   
                         </l:BodyControl.Flags>
                     </l:BodyControl>
@@ -36,8 +25,8 @@
                             <Polygon Canvas.Left="217" Points="0,0,200,0,200,200" Canvas.Top="-313" ></Polygon>
                         </l:BodyControl>
                     </l:BreakableBodyControl>-->
-                    <l:BodyControl Id="b2"   BodyType="Static"  Canvas.Left="10" Canvas.Top="335" Height="63" Width="54" >
-                        <Polygon Canvas.Left="217" Points="0,0,200,0,200,200" Canvas.Top="-313" ></Polygon>
+                    <l:BodyControl Id="b2"   BodyType="Static"   >
+                        <l:ShapeControl  Points="0,0,200,0,200,200"  ></l:ShapeControl>
                         <l:BodyControl.Flags>
                         <l:CrossControl Id="y" Canvas.Left="387" Canvas.Top="-159">
 

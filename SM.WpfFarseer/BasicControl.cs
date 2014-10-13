@@ -8,8 +8,10 @@ using System.Windows.Controls;
 
 namespace WpfFarseer
 {
-    public class BasicControl : Canvas
+    public class BasicControl : DependencyObject
     {
+        //protected
+        public Canvas _canvas = new Canvas();
         static int i = 0;
         private string _generateName()
         {
@@ -21,5 +23,6 @@ namespace WpfFarseer
         }
 
         public string Id { get; set; }
+
     }
 }

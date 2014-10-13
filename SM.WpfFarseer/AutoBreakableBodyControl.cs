@@ -24,34 +24,33 @@ namespace WpfFarseer
             DependencyProperty.Register("TriangulationAlgorithm", typeof(FarseerPhysics.Common.Decomposition.TriangulationAlgorithm), 
             typeof(AutoBreakableBodyControl), new PropertyMetadata(FarseerPhysics.Common.Decomposition.TriangulationAlgorithm.Bayazit));
 
-        public Shape Shape
+        public ShapeControl Shape
         {
-            get { return (Shape)GetValue(ShapeProperty); }
+            get { return (ShapeControl)GetValue(ShapeProperty); }
             set { SetValue(ShapeProperty, value); }
         }
         public static readonly DependencyProperty ShapeProperty =
-            DependencyProperty.Register("Shape", typeof(Shape), typeof(AutoBreakableBodyControl),
+            DependencyProperty.Register("Shape", typeof(ShapeControl), typeof(AutoBreakableBodyControl),
             new PropertyMetadata(null, new PropertyChangedCallback(ShapePropertyChanged)));
         private static void ShapePropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
-            var _obj = ((AutoBreakableBodyControl)obj);
-            _obj.Children.Clear();
-            _obj.Children.Add(_obj.Shape);
+            //var _obj = ((AutoBreakableBodyControl)obj);
+            //_obj.Children.Clear();
+            //_obj.Children.Add(_obj.Shape);
         }
 
         public BreakableBodyControl BreakableBodyControl
         {
             get
             {
-                var poly = Shape as Polygon;
-                var polyF = this.ToFarseerVertices(poly);
+                var polyF = Shape.Points.ToFarseerVertices();
                 var vss = FarseerPhysics.Common.Decomposition.Triangulate.ConvexPartition( polyF, TriangulationAlgorithm);
                 var bbc = new BreakableBodyControl();
 
                 foreach(var p in vss)
                 {
                     var bbcp = new BreakableBodyPartControl();
-                    bbcp.Shape = p.ToWpf();
+                    bbcp.Shape.Points = p.ToWpf();
                     bbc.Parts.Add(bbcp);
                 }
                 return bbc;

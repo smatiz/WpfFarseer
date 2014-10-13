@@ -7,6 +7,8 @@ using System.Windows.Input;
 
 namespace SM
 {
+    #pragma warning disable 67
+
     public class BasicCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;

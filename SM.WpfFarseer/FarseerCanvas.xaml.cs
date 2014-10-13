@@ -20,11 +20,15 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using System.Collections.ObjectModel;
+using System.Windows.Markup;
 
 namespace WpfFarseer
 {
     using xna = Microsoft.Xna.Framework;
     using FShape = FarseerPhysics.Collision.Shapes;
+
+    [ContentPropertyAttribute("FarseerObjects")]
     public partial class FarseerCanvas : Canvas
     {
         List<TwoPointJointControlManager> _ropeJointManager = new List<TwoPointJointControlManager>();
@@ -48,6 +52,9 @@ namespace WpfFarseer
         {
             InitializeComponent();
 
+            FarseerObjects = new ObservableCollection<BasicControl>();
+            FarseerObjects.CollectionChanged += FarseerObjects_CollectionChanged;
+
             _timer.Tick += (s, e) => Update();
             _timer.Interval = new TimeSpan(0,0,0,0, 40);
             _worldManager = new FarseerWorldManager();
@@ -63,12 +70,23 @@ namespace WpfFarseer
             };
         }
 
+        void FarseerObjects_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
+            {
+                foreach (var x in e.NewItems)
+                {
+                    Children.Add(((BasicControl)x)._canvas);
+                }
+            }
+        }
+
         
         void _controlUpdate()
         {
             var tobeadded = new List<UIElement>();
            
-            foreach (var child in Children)
+            foreach (var child in FarseerObjects)
             {
                 bool handled = false;
                 if (!System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
@@ -82,8 +100,8 @@ namespace WpfFarseer
                             if (autoBreakableBodyControl != null)
                             {
                                 breakableBodyControl = autoBreakableBodyControl.BreakableBodyControl;
-                                autoBreakableBodyControl.Visibility = System.Windows.Visibility.Hidden;
-                                tobeadded.Add(breakableBodyControl);
+                                autoBreakableBodyControl._canvas.Visibility = System.Windows.Visibility.Hidden;
+                                tobeadded.Add(breakableBodyControl._canvas);
                             }
                         }
 
@@ -91,8 +109,8 @@ namespace WpfFarseer
                         {
                            // var shapes = breakableBodyControl.Parts.SelectMany<BodyControl, FShape.Shape>(c => (from x in c.Shapes select breakableBodyControl.ToFarseerShape(x)));
 
-                            var shapes = from x in breakableBodyControl.Parts select breakableBodyControl.ToFarseerShape(x.Shape);
-                            _worldManager.AddBreakableBodyControl(breakableBodyControl, breakableBodyControl.Parts, shapes, breakableBodyControl.GetOrigin());
+                            var shapes = from x in breakableBodyControl.Parts select breakableBodyControl._canvas.ToFarseerShape(x.Shape.Shape);
+                            _worldManager.AddBreakableBodyControl(breakableBodyControl, breakableBodyControl.Parts, shapes, breakableBodyControl._canvas.GetOrigin());
                             handled = true;
                         }
                     }
@@ -101,7 +119,7 @@ namespace WpfFarseer
                         var bodyControl = child as BodyControl;
                         if (bodyControl != null)
                         {
-                            _worldManager.AddBodyControl(bodyControl,bodyControl.GetOrigin());
+                            _worldManager.AddBodyControl(bodyControl, bodyControl._canvas.GetOrigin());
                             handled = true;
                         }
                     }
@@ -169,12 +187,12 @@ namespace WpfFarseer
                             if( crossControl.Id == jointControl.TargetNameA)
                             {
                                 bodyControlA = bodyControl;
-                                anchorA = crossControl.TranslatePoint(new Point(0, 0), bodyControl);
+                                anchorA = crossControl.TranslatePoint(new Point(0, 0), bodyControl._canvas);
                             }
                             else if (crossControl.Id == jointControl.TargetNameB)
                             {
                                 bodyControlB = bodyControl;
-                                anchorB = crossControl.TranslatePoint(new Point(0, 0), bodyControl);
+                                anchorB = crossControl.TranslatePoint(new Point(0, 0), bodyControl._canvas);
                             }
                         }
                     }
@@ -210,6 +228,16 @@ namespace WpfFarseer
         }
         public static readonly DependencyProperty AngleJointProperty =
             DependencyProperty.RegisterAttached("AngleJoint", typeof(string), typeof(FarseerCanvas), new PropertyMetadata(null));
+
+        public ObservableCollection<BasicControl> FarseerObjects
+        {
+            get { return (ObservableCollection<BasicControl>)GetValue(FarseerObjectsProperty); }
+            set { SetValue(FarseerObjectsProperty, value); }
+        }
+        public static readonly DependencyProperty FarseerObjectsProperty =
+            DependencyProperty.Register("FarseerObjects", typeof(ObservableCollection<BasicControl>), typeof(FarseerCanvas), new PropertyMetadata(null));
+
+        
     }
 }
 

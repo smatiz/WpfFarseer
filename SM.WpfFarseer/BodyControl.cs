@@ -24,8 +24,6 @@ namespace WpfFarseer
     [ContentPropertyAttribute("Shapes")]
     public class BodyControl : BasicControl, IBodyControl
     {
-        //protected Canvas _canvas = new Canvas();
-
 
         const float AngleSubst = 180f / (float)Math.PI;
 
@@ -34,7 +32,7 @@ namespace WpfFarseer
 
         public BodyControl()
         {
-            Shapes = new ObservableCollection<Shape>();
+            Shapes = new ObservableCollection<ShapeControl>();
             Shapes.CollectionChanged += Shapes_CollectionChanged;
 
             Flags = new ObservableCollection<CrossControl>();
@@ -43,30 +41,25 @@ namespace WpfFarseer
             _rotation = new RotateTransform();
             _traslation = new TranslateTransform();
 
-            Loaded += (s, e) =>
+            _canvas.Loaded += (s, e) =>
             {
-                var rt = this.RenderTransform;
                 var gt = new TransformGroup();
                 gt.Children.Add(_rotation);
                 gt.Children.Add(_traslation);
-                gt.Children.Add(rt);
-                this.RenderTransform = gt;
-                _refreshVisual();
+                _canvas.RenderTransform = gt;
+                Update();
             };
         }
 
         public void Update()
         {
-            _refreshVisual();
-        }
-
-        private void _refreshVisual()
-        {
             var brush = DefaultBrush;
 
-            foreach (var shape in Children.OfType<Shape>())
+            foreach (var shape in Shapes)
             {
-                shape.Fill = brush;
+                var poly = shape.Shape;
+                _canvas.Children.Add(poly);
+                poly.Fill = brush;
             }
         }
 
@@ -105,20 +98,20 @@ namespace WpfFarseer
         }
 
 
-        private Fixture _getAttachFixture(Shape shape, Body body)
+        private Fixture _getAttachFixture(ShapeControl shape, Body body)
         {
-            if (shape is Polygon)
+            //if (shape is Polygon)
             {
-                return FixtureFactory.AttachPolygon(this.ToFarseerVertices((Polygon)shape), BodyControl.GetDensity(shape), body);
+                return FixtureFactory.AttachPolygon(shape.Points.ToFarseerVertices(), BodyControl.GetDensity(shape), body);
             }
             //else if (shape is System.Windows.Shapes.Path)
             //{
             //    return FixtureFactory.AttachPolygon(uielement.ToFarseer((Polygon)shape), BodyControl.GetDensity(shape), body);
             //}
-            else
-            {
-                return FixtureFactory.AttachCircle(1, BodyControl.GetDensity(shape), body);
-            }
+            //else
+            //{
+            //    return FixtureFactory.AttachCircle(1, BodyControl.GetDensity(shape), body);
+            //}
         } 
 
         public IEnumerable<FarseerPhysics.Dynamics.Fixture> GetAttachFixtures(Body body)
@@ -126,13 +119,13 @@ namespace WpfFarseer
             return from shape in Shapes select _getAttachFixture(shape, body);
         }
 
-        public ObservableCollection<Shape>  Shapes
+        public ObservableCollection<ShapeControl> Shapes
         {
-            get { return (ObservableCollection<Shape> )GetValue(ShapesProperty); }
+            get { return (ObservableCollection<ShapeControl>)GetValue(ShapesProperty); }
             set { SetValue(ShapesProperty, value); }
         }
         public static readonly DependencyProperty ShapesProperty =
-            DependencyProperty.Register("Shapes", typeof(ObservableCollection<Shape> ), typeof(BodyControl), new PropertyMetadata(null));
+            DependencyProperty.Register("Shapes", typeof(ObservableCollection<ShapeControl>), typeof(BodyControl), new PropertyMetadata(null));
 
         public ObservableCollection<CrossControl> Flags
         {
@@ -148,7 +141,7 @@ namespace WpfFarseer
             {
                 foreach (var x in e.NewItems)
                 {
-                    Children.Add((Shape)x);
+                    _canvas.Children.Add((Shape)x);
                 }
             }
         }
@@ -159,14 +152,14 @@ namespace WpfFarseer
             {
                 foreach (var x in e.NewItems)
                 {
-                    Children.Add((CrossControl)x);
+                    _canvas.Children.Add((CrossControl)x);
                 }
             }
         }
         
         public IEnumerable<IPointControl> Points
         {
-            get { return from x in Children.OfType<CrossControl>() select x; }
+            get { return from x in Flags select x; }
         }
     }
 }

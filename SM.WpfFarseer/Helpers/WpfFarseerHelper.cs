@@ -14,6 +14,11 @@ namespace WpfFarseer
         {
             return new F.Vertices(from p in poly.Points select poly.TranslatePoint(p, uielement).ToFarseer());
         }
+
+        public static F.Vertices ToFarseerVertices(this W.Media.PointCollection points)
+        {
+            return new F.Vertices(from p in points select p.ToFarseer());
+        }
         public static F.Vertices ToFarseerVertices(this W.UIElement uielement, WShape.Shape shape)
         {
             if (shape is W.Shapes.Polygon)
@@ -39,14 +44,14 @@ namespace WpfFarseer
         {
             return new W.Point(p.X, p.Y);
         }
-        public static W.Shapes.Polygon ToWpf(this F.Vertices ps)
+        public static W.Media.PointCollection ToWpf(this F.Vertices ps)
         {
-            var poly = new W.Shapes.Polygon();
+            var pointCollection = new W.Media.PointCollection();
             foreach(var p in ps)
             {
-                poly.Points.Add(p.ToWpf());
+                pointCollection.Add(p.ToWpf());
             }
-            return poly;
+            return pointCollection;
         }
 
         public static Xna.Vector2 GetOrigin(this W.FrameworkElement elem)

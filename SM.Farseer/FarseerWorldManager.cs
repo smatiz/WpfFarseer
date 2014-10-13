@@ -125,11 +125,11 @@ namespace SM.Farseer
             {
                 return true;
 
-                if (_world == null) return false;
-                if (_world.ContactList.Count == 0) return true;
-                //  _world.ContactList[0].
+                //if (_world == null) return false;
+                //if (_world.ContactList.Count == 0) return true;
+                ////  _world.ContactList[0].
 
-                return (from x in _world.ContactList where !x.IsTouching select x).Count() == 0;
+                //return (from x in _world.ContactList where !x.IsTouching select x).Count() == 0;
             }
         }
         public void Save()

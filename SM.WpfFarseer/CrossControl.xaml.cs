@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 
 namespace WpfFarseer
 {
-    public partial class CrossControl : BasicControl, IPointControl
+    public partial class CrossControl : Canvas, IPointControl
     {
         public CrossControl()
         {
@@ -47,6 +47,8 @@ namespace WpfFarseer
         public float Y { get { return (float)Canvas.GetTop(this); } }
 
         public string ParentId { get { return ((BasicControl)Parent).Id; } }
-      
+
+
+        public string Id { get; set; }
     }
 }

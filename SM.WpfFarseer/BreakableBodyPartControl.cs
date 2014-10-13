@@ -21,19 +21,19 @@ namespace WpfFarseer
             }
         }
 
-        public Shape Shape
+        public ShapeControl Shape
         {
-            get { return (Shape)GetValue(ShapeProperty); }
+            get { return (ShapeControl)GetValue(ShapeProperty); }
             set { SetValue(ShapeProperty, value); }
         }
         public static readonly DependencyProperty ShapeProperty =
-            DependencyProperty.Register("Shape", typeof(Shape), typeof(BreakableBodyPartControl),
+            DependencyProperty.Register("Shape", typeof(ShapeControl), typeof(BreakableBodyPartControl),
             new PropertyMetadata(null, new PropertyChangedCallback(ShapePropertyChanged)));
         private static void ShapePropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
             var _obj = ((BreakableBodyPartControl)obj);
-            _obj.Children.Clear();
-            _obj.Children.Add(_obj.Shape);
+            _obj._canvas.Children.Clear();
+            _obj._canvas.Children.Add(_obj.Shape.Shape);
         }
     }
 }

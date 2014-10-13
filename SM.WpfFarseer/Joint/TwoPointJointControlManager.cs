@@ -21,10 +21,10 @@ namespace WpfFarseer
 
         public void Update()
         {
-            _line.X1 = _ropeJointInfo.BodyControlA.TranslatePoint(_ropeJointInfo.AnchorA, _farseerCanvas).X;
-            _line.Y1 = _ropeJointInfo.BodyControlA.TranslatePoint(_ropeJointInfo.AnchorA, _farseerCanvas).Y;
-            _line.X2 = _ropeJointInfo.BodyControlB.TranslatePoint(_ropeJointInfo.AnchorB, _farseerCanvas).X;
-            _line.Y2 = _ropeJointInfo.BodyControlB.TranslatePoint(_ropeJointInfo.AnchorB, _farseerCanvas).Y;
+            _line.X1 = _ropeJointInfo.BodyControlA._canvas.TranslatePoint(_ropeJointInfo.AnchorA, _farseerCanvas).X;
+            _line.Y1 = _ropeJointInfo.BodyControlA._canvas.TranslatePoint(_ropeJointInfo.AnchorA, _farseerCanvas).Y;
+            _line.X2 = _ropeJointInfo.BodyControlB._canvas.TranslatePoint(_ropeJointInfo.AnchorB, _farseerCanvas).X;
+            _line.Y2 = _ropeJointInfo.BodyControlB._canvas.TranslatePoint(_ropeJointInfo.AnchorB, _farseerCanvas).Y;
         }
     }
 }
