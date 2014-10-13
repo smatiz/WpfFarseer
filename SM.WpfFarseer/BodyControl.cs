@@ -59,7 +59,7 @@ namespace WpfFarseer
             {
                 var poly = shape.Shape;
                 _canvas.Children.Add(poly);
-                poly.Fill = brush;
+                ((Polygon)poly).Fill = brush;
             }
         }
 
@@ -141,7 +141,7 @@ namespace WpfFarseer
             {
                 foreach (var x in e.NewItems)
                 {
-                    _canvas.Children.Add((Shape)x);
+                    _canvas.Children.Add(((ShapeControl)x).Shape);
                 }
             }
         }

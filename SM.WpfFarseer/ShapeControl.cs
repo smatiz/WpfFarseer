@@ -15,7 +15,7 @@ namespace WpfFarseer
     {
         public ShapeControl()
         {
-            //Points = new PointCollection();
+            Points = new PointCollection();
         }
 
         public PointCollection Points
@@ -24,14 +24,16 @@ namespace WpfFarseer
             set { SetValue(PointsProperty, value); }
         }
         public static readonly DependencyProperty PointsProperty =
-            DependencyProperty.Register("Points", typeof(PointCollection), typeof(ShapeControl), new PropertyMetadata(null));
+            DependencyProperty.Register("Points", typeof(PointCollection), typeof(ShapeControl), new PropertyMetadata(null, new PropertyChangedCallback(Points_PropertyChanged)));
+        static void Points_PropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
 
-        public virtual Shape Shape
+        }
+        public virtual UIElement Shape
         {
             get
             {
                 var poly = new Polygon();
-                _canvas.Children.Add(poly);
                 foreach (var p in Points)
                 {
                     poly.Points.Add(p);

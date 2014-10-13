@@ -109,7 +109,7 @@ namespace WpfFarseer
                         {
                            // var shapes = breakableBodyControl.Parts.SelectMany<BodyControl, FShape.Shape>(c => (from x in c.Shapes select breakableBodyControl.ToFarseerShape(x)));
 
-                            var shapes = from x in breakableBodyControl.Parts select breakableBodyControl._canvas.ToFarseerShape(x.Shape.Shape);
+                            var shapes = from x in breakableBodyControl.Parts select breakableBodyControl._canvas.ToFarseerShape((Polygon)x.Shape.Shape);
                             _worldManager.AddBreakableBodyControl(breakableBodyControl, breakableBodyControl.Parts, shapes, breakableBodyControl._canvas.GetOrigin());
                             handled = true;
                         }
