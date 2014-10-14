@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace WpfFarseer
 {
-    public interface IFarseerBehaviourWpf : IFarseerBehaviour
+    public interface IFarseerBehaviourWpf : IBehaviour
     {
         // nel thread grafico quando wpf ha finito
         IEnumerator<BasicCoroutine> Start(FarseerWorldManager farseerWorld);

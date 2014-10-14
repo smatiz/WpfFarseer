@@ -6,7 +6,7 @@ using System.Text;
 
 namespace SM.Farseer
 {
-    internal class RopeJointObject : IFarseerObject
+    internal class RopeJointObject : IMaterial
     {
         private IJointControl _jointControl;
         RopeJoint _joint;

@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SM.Farseer
+namespace SM
 {
-    public interface IFarseerBehaviour
+    public interface IBehaviour
     {
-        // loop di Farseer
         IEnumerator<BasicCoroutine> Loop(float dt);
     }
 }

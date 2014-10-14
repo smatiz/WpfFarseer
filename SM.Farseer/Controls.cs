@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace SM.Farseer
 {
-    public interface IBodyControl : IFarseerId
+    public interface IBodyControl : IIdentifiable
     {
         void Set(float x, float y, float a);
         BodyType BodyType { get; }
         IEnumerable<FarseerPhysics.Dynamics.Fixture> GetAttachFixtures(Body body);
-        IEnumerable<IPointControl> Points { get; }
+        IEnumerable<IPointControl> FlagsPoints { get; }
     }
 
     public interface IBreakableBodyPartControl 
@@ -26,18 +26,8 @@ namespace SM.Farseer
     //    IEnumerable<IUpdatable> ChildrenBodyUpdater { get; }
     //}
 
-    public interface IVector2Control : IFarseerId
-    {
-        float X { get; }
-        float Y { get; }
-    }
 
-    public interface IPointControl : IVector2Control
-    {
-        string ParentId { get; }
-    }
-
-    public interface IJointControl : IFarseerId
+    public interface IJointControl : IIdentifiable
     {
         bool CollideConnected { get; }
     }

@@ -1,5 +1,4 @@
-﻿using FarseerPhysics.Dynamics;
-using FarseerPhysics.Factories;
+﻿using SM;
 using SM.Farseer;
 using SM.Wpf;
 using System;
@@ -21,11 +20,16 @@ using System.Windows.Shapes;
 
 namespace WpfFarseer
 {
+    /*public enum BodyType
+    {
+        Static,
+        Kinematic,
+        Dynamic,
+    }*/
 
     [ContentPropertyAttribute("Shapes")]
     public class BodyControl : BasicControl, IBodyControl
     {
-
         const float AngleSubst = 180f / (float)Math.PI;
 
         private RotateTransform _rotation; 
@@ -36,7 +40,7 @@ namespace WpfFarseer
             Shapes = new ObservableCollection<ShapeControl>();
             Shapes.CollectionChanged += Shapes_CollectionChanged;
 
-            Flags = new ObservableCollection<CrossControl>();
+            Flags = new ObservableCollection<FlagControl>();
             Flags.CollectionChanged += Flags_CollectionChanged;
 
             _rotation = new RotateTransform();
@@ -98,24 +102,12 @@ namespace WpfFarseer
             _rotation.Angle = a * AngleSubst;
         }
 
-
-        private Fixture _getAttachFixture(ShapeControl shape, Body body)
+        private FarseerPhysics.Dynamics.Fixture _getAttachFixture(ShapeControl shape, FarseerPhysics.Dynamics.Body body)
         {
-            //if (shape is Polygon)
-            {
-                return FixtureFactory.AttachPolygon(shape.Points.ToFarseerVertices(), BodyControl.GetDensity(shape), body);
-            }
-            //else if (shape is System.Windows.Shapes.Path)
-            //{
-            //    return FixtureFactory.AttachPolygon(uielement.ToFarseer((Polygon)shape), BodyControl.GetDensity(shape), body);
-            //}
-            //else
-            //{
-            //    return FixtureFactory.AttachCircle(1, BodyControl.GetDensity(shape), body);
-            //}
+            return FarseerPhysics.Factories.FixtureFactory.AttachPolygon(shape.Points.ToFarseerVertices(), BodyControl.GetDensity(shape), body);
         } 
 
-        public IEnumerable<FarseerPhysics.Dynamics.Fixture> GetAttachFixtures(Body body)
+        public IEnumerable<FarseerPhysics.Dynamics.Fixture> GetAttachFixtures(FarseerPhysics.Dynamics.Body body)
         {
             return from shape in Shapes select _getAttachFixture(shape, body);
         }
@@ -128,13 +120,13 @@ namespace WpfFarseer
         public static readonly DependencyProperty ShapesProperty =
             DependencyProperty.Register("Shapes", typeof(ObservableCollection<ShapeControl>), typeof(BodyControl), new PropertyMetadata(null));
 
-        public ObservableCollection<CrossControl> Flags
+        public ObservableCollection<FlagControl> Flags
         {
-            get { return (ObservableCollection<CrossControl>)GetValue(FlagsProperty); }
+            get { return (ObservableCollection<FlagControl>)GetValue(FlagsProperty); }
             set { SetValue(FlagsProperty, value); }
         }
         public static readonly DependencyProperty FlagsProperty =
-            DependencyProperty.Register("Flags", typeof(ObservableCollection<CrossControl>), typeof(BodyControl), new PropertyMetadata(null));
+            DependencyProperty.Register("Flags", typeof(ObservableCollection<FlagControl>), typeof(BodyControl), new PropertyMetadata(null));
 
         void Shapes_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
@@ -153,14 +145,20 @@ namespace WpfFarseer
             {
                 foreach (var x in e.NewItems)
                 {
-                    _canvas.Children.Add((CrossControl)x);
+                    _canvas.Children.Add((FlagControl)x);
                 }
             }
         }
         
-        public IEnumerable<IPointControl> Points
+        public IEnumerable<IPointControl> FlagsPoints
         {
             get { return from x in Flags select x; }
         }
+
+        public IEnumerable<IPointControl> MaterialShapes
+        {
+            get { return from x in Flags select x; }
+        }
+
     }
 }

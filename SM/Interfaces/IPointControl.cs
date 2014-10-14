@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SM.Farseer
+namespace SM
 {
-    public interface IFarseerId
+    public interface IPointControl : IVector2Control
     {
-        string Id { get; }
+        string ParentId { get; }
     }
 }

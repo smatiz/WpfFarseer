@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SM.Farseer
+namespace SM
 {
-    public interface IFarseerObject : IFarseerId
+    public interface IMaterial : IIdentifiable
     {
         object Object { get; }
     }

@@ -16,8 +16,8 @@
                            
                         </l:ShapeControl>
                         <l:BodyControl.Flags>
-                            <l:CrossControl Id="x" Canvas.Left="229" Canvas.Top="30">
-                            </l:CrossControl>   
+                            <l:FlagControl Id="x" Canvas.Left="229" Canvas.Top="30">
+                            </l:FlagControl>   
                         </l:BodyControl.Flags>
                     </l:BodyControl>
                     <!--<l:BreakableBodyControl Id="ccc" >
@@ -28,9 +28,9 @@
                     <l:BodyControl Id="b2"   BodyType="Static"   >
                         <l:ShapeControl  Points="0,0,200,0,200,200"  ></l:ShapeControl>
                         <l:BodyControl.Flags>
-                        <l:CrossControl Id="y" Canvas.Left="387" Canvas.Top="-159">
+                            <l:FlagControl Id="y" Canvas.Left="387" Canvas.Top="-159">
 
-                        </l:CrossControl>
+                        </l:FlagControl>
                         </l:BodyControl.Flags>
                     </l:BodyControl>
 

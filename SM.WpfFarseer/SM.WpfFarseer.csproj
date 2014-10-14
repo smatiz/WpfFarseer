@@ -108,15 +108,11 @@
     <Compile Include="BreakableBodyControl.cs" />
     <Compile Include="AutoBreakableBodyControl.cs" />
     <Compile Include="BreakableBodyPartControl.cs" />
-    <Compile Include="Coroutines\StartCoroutine.cs" />
-    <Compile Include="Coroutines\UpdateCoroutine.cs" />
-    <Compile Include="CrossControl.xaml.cs">
-      <DependentUpon>CrossControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="FarseerCanvas.xaml.cs">
       <DependentUpon>FarseerCanvas.xaml</DependentUpon>
       <Generator>MSBuild:Compile</Generator>
     </Compile>
+    <Compile Include="FlagControl.cs" />
     <Compile Include="Helpers\WpfFarseerHelper.cs" />
     <Compile Include="IFarseerBehaviourWpf.cs" />
     <Compile Include="Joint\BasicJointControl.cs" />
@@ -156,12 +152,6 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="CrossControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Include="FarseerCanvas.xaml">

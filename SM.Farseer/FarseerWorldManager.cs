@@ -25,7 +25,7 @@ namespace SM.Farseer
         private WorldWatch _worldWatch;
         private World _world;
 
-        private Dictionary<string, IFarseerId> _map = new Dictionary<string, IFarseerId>();
+        private Dictionary<string, IIdentifiable> _map = new Dictionary<string, IIdentifiable>();
         private List<LoopCoroutine> _loopCoroutine = new List<LoopCoroutine>();
 
         public FarseerWorldManager()
@@ -34,7 +34,7 @@ namespace SM.Farseer
             _worldWatch = new WorldWatch(dt => step(dt));
         }
 
-        private void _addFarseerObject(IFarseerId obj)
+        private void _addFarseerObject(IIdentifiable obj)
         {
             _map.Add(obj.Id, obj);
         }
@@ -56,14 +56,14 @@ namespace SM.Farseer
 
         public T FindObject<T>(string name) where T : class
         {
-            var x = Find(name) as IFarseerObject;
+            var x = Find(name) as IMaterial;
             if(x == null) return null;
             var y = x.Object;
             if (typeof(T) != y.GetType()) return null;
             return (T)y;
         }
 
-        public void AddFarseerBehaviour(IFarseerBehaviour x)
+        public void AddFarseerBehaviour(IBehaviour x)
         {
             _loopCoroutine.Add(new LoopCoroutine(x.Loop));
         }
@@ -72,7 +72,7 @@ namespace SM.Farseer
             var body = BodyFactory.CreateBody(_world, Vector2.Zero);
             CodeGenerator.AddCode(String.Format("var {0} = BodyFactory.CreateBody(World, Vector2.Zero);", body.g()));
             _addFarseerObject(new BodyUpdater(bodyControl, body, originPosition));
-            foreach(var p in bodyControl.Points)
+            foreach(var p in bodyControl.FlagsPoints)
             {
                 _addFarseerObject(p);
             }

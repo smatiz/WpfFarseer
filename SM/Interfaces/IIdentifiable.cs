@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SM.Farseer
+namespace SM
 {
-    public interface IUpdatable : IFarseerObject
+    public interface IIdentifiable
     {
-        void Update();
+        string Id { get; }
     }
 }
