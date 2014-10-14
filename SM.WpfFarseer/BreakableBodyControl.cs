@@ -18,11 +18,11 @@ namespace WpfFarseer
     [ContentPropertyAttribute("Parts")]
     public class BreakableBodyControl : BodyControl
     {
-        public override BodyType BodyType
+        public override SM.BodyType BodyType
         {
             get
             {
-                return BodyType.Dynamic;
+                return SM.BodyType.Dynamic;
             }
          }
 

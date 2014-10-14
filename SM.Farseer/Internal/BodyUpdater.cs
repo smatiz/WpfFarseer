@@ -22,7 +22,7 @@ namespace SM.Farseer
         {
             body.UserData = bodyControl.Id;
             body.FixtureList.AddRange(bodyControl.GetAttachFixtures(body));
-            body.BodyType = bodyControl.BodyType;
+            body.BodyType = (FarseerPhysics.Dynamics.BodyType)bodyControl.BodyType;
             CodeGenerator.AddCode(String.Format("{1}.BodyType = BodyType.{0};", Enum.GetName(typeof(BodyType), bodyControl.BodyType), body.g()));
             body.Position = originPosition;
             CodeGenerator.AddCode(String.Format("{1}.Position = {0};", originPosition.g(), body.g()));

@@ -20,12 +20,6 @@ using System.Windows.Shapes;
 
 namespace WpfFarseer
 {
-    /*public enum BodyType
-    {
-        Static,
-        Kinematic,
-        Dynamic,
-    }*/
 
     [ContentPropertyAttribute("Shapes")]
     public class BodyControl : BasicControl, IBodyControl
@@ -87,13 +81,13 @@ namespace WpfFarseer
         public static readonly DependencyProperty DensityProperty =
             DependencyProperty.RegisterAttached("Density", typeof(float), typeof(BodyControl), new PropertyMetadata(Const.Density));
 
-        public virtual FarseerPhysics.Dynamics.BodyType BodyType
+        public virtual BodyType BodyType
         {
-            get { return (FarseerPhysics.Dynamics.BodyType)GetValue(BodyTypeProperty); }
+            get { return (BodyType)GetValue(BodyTypeProperty); }
             set { SetValue(BodyTypeProperty, value); }
         }
         public static readonly DependencyProperty BodyTypeProperty =
-            DependencyProperty.Register("BodyType", typeof(FarseerPhysics.Dynamics.BodyType), typeof(BodyControl), new PropertyMetadata(FarseerPhysics.Dynamics.BodyType.Static));
+            DependencyProperty.Register("BodyType", typeof(BodyType), typeof(BodyControl), new PropertyMetadata(BodyType.Static));
 
         public void Set(float x, float y, float a)
         {

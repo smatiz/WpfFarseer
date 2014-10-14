@@ -94,6 +94,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BasicCommand.cs" />
+    <Compile Include="BodyType.cs" />
     <Compile Include="Coroutines\Coroutinator.cs" />
     <Compile Include="Coroutines\BasicCoroutine.cs" />
     <Compile Include="Coroutines\EmptyCoroutine.cs" />
