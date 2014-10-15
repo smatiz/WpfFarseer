@@ -107,7 +107,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Compile>
     <Compile Include="Helpers\WpfFarseerHelper.cs" />
-    <Compile Include="IFarseerBehaviourWpf.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -121,11 +120,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="ShortTheRopeBehaviour.cs" />
-    <Compile Include="StepControl.xaml.cs">
-      <DependentUpon>StepControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="StepViewModel.cs" />
     <Compile Include="WpfDebugView.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -142,15 +136,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="StepControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="wall.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Farseer Physics Engine 3.5 Samples\Farseer Physics Engine 3.5\Farseer Physics XNA.csproj">

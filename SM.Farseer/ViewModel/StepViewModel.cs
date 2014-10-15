@@ -1,6 +1,4 @@
-﻿using FarseerPhysics.Common;
-using SM;
-using SM.Farseer;
+﻿using SM;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace WpfFarseer
+namespace  SM.Farseer
 {
     public class StepViewModel : NotifyObjectViewer
     {

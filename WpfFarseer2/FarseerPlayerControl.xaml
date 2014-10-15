@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:l="clr-namespace:WpfFarseer;assembly=SM.WpfFarseer"
+        xmlns:l3="clr-namespace:SM.Wpf;assembly=SM.Wpf"
         xmlns:l2="clr-namespace:WpfFarseer"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
@@ -15,6 +16,6 @@
         <Grid Name="farseerContainer">
             
         </Grid>
-        <l:StepControl x:Name="stepControl"  Grid.Row="1"></l:StepControl>
+        <l3:StepControl x:Name="stepControl"  Grid.Row="1"></l3:StepControl>
     </Grid>
 </UserControl>

@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WpfFarseer
+namespace SM.Wpf
 {
     /// <summary>
     /// Interaction logic for StepControl.xaml

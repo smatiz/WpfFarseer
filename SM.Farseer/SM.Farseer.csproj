@@ -94,6 +94,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Coroutines\IFarseerBehaviourWpf.cs" />
     <Compile Include="Coroutines\StartCoroutine.cs" />
     <Compile Include="Coroutines\UpdateCoroutine.cs" />
     <Compile Include="Helpers\FarseerHelper.cs" />
@@ -107,6 +108,8 @@
     <Compile Include="Internal\TwoPointJointInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ShortTheRopeBehaviour.cs" />
+    <Compile Include="ViewModel\StepViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Farseer Physics Engine 3.5 Samples\Farseer Physics Engine 3.5\Farseer Physics XNA.csproj">
