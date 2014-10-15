@@ -29,8 +29,10 @@ namespace SM.Farseer
             _body = body;
             _bodyControl = bodyControl;
 
-            var fixtures = from shape in _bodyControl.Shapes_X select
-                               FarseerPhysics.Factories.FixtureFactory.AttachPolygon(shape.Points_X.ToFarseerVertices(), shape.Density_X, body);
+            foreach(var shape in _bodyControl.Shapes_X)
+            {
+                FarseerPhysics.Factories.FixtureFactory.AttachPolygon(shape.Points_X.ToFarseerVertices(), shape.Density_X, body);
+            }
         }
         public virtual object Object { get { return _body; } }
         public string Id { get { return (string)_body.UserData; } }
