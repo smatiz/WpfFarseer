@@ -96,6 +96,7 @@
   <ItemGroup>
     <Compile Include="Coroutines\StartCoroutine.cs" />
     <Compile Include="Coroutines\UpdateCoroutine.cs" />
+    <Compile Include="Helpers\FarseerHelper.cs" />
     <Compile Include="Internal\BreakableBodyUpdater.cs" />
     <Compile Include="Internal\BodyUpdater.cs" />
     <Compile Include="Internal\CodeGenerator.cs" />

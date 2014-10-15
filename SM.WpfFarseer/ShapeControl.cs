@@ -1,4 +1,5 @@
-﻿using SM.Wpf;
+﻿using SM;
+using SM.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,7 +13,9 @@ using System.Windows.Shapes;
 
 namespace WpfFarseer
 {
-    public class ShapeControl : BasicControl
+
+
+    public class ShapeControl : BasicControl, IShape
     {
         public ShapeControl()
         {
@@ -41,6 +44,24 @@ namespace WpfFarseer
                 }
                 return poly;
             }
+        }
+
+
+        public IEnumerable<IVector2> Points_X
+        { 
+            get
+            {
+                foreach(var p in Points)
+                {
+                    yield return new SM.float2() { X = (float)p.X, Y = (float)p.Y };
+                }
+            }
+         }
+
+        
+        public float Density_X
+        {
+            get { throw new NotImplementedException(); }
         }
     }
 }

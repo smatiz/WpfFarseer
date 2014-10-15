@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 
 namespace SM.Farseer
 {
+    
+
     // si occupa di gestire il dialogo tra Body e BodyControl
     internal class BodyUpdater : IUpdatable
     {
@@ -21,7 +23,8 @@ namespace SM.Farseer
         public BodyUpdater(IBodyControl bodyControl, Body body, Vector2 originPosition)
         {
             body.UserData = bodyControl.Id;
-            body.FixtureList.AddRange(bodyControl.GetAttachFixtures(body));
+
+
             body.BodyType = (FarseerPhysics.Dynamics.BodyType)bodyControl.BodyType;
             CodeGenerator.AddCode(String.Format("{1}.BodyType = BodyType.{0};", Enum.GetName(typeof(BodyType), bodyControl.BodyType), body.g()));
             body.Position = originPosition;
@@ -30,9 +33,13 @@ namespace SM.Farseer
             _originalPosition = originPosition;
             _body = body;
             _bodyControl = bodyControl;
+
+            var fixtures = from shape in _bodyControl.Shapes_X select
+                               FarseerPhysics.Factories.FixtureFactory.AttachPolygon(shape.Points_X.ToFarseerVertices(), shape.Density_X, body);
         }
         public virtual object Object { get { return _body; } }
         public string Id { get { return (string)_body.UserData; } }
+
 
 
         public virtual void Update()

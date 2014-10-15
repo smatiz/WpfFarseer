@@ -12,8 +12,9 @@ namespace SM.Farseer
     {
         void Set(float x, float y, float a);
         BodyType BodyType { get; }
-        IEnumerable<FarseerPhysics.Dynamics.Fixture> GetAttachFixtures(Body body);
+        //IEnumerable<FarseerPhysics.Dynamics.Fixture> GetAttachFixtures(Body body);
         IEnumerable<IPointControl> FlagsPoints { get; }
+        IEnumerable<IShape> Shapes_X { get; }
     }
 
     public interface IBreakableBodyPartControl 
@@ -21,12 +22,7 @@ namespace SM.Farseer
         void Activate();
     }  
     
-    //public interface IBreakableBodyControl : IBodyControl
-    //{
-    //    IEnumerable<IUpdatable> ChildrenBodyUpdater { get; }
-    //}
-
-
+   
     public interface IJointControl : IIdentifiable
     {
         bool CollideConnected { get; }

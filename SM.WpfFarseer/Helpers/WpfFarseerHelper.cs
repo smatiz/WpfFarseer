@@ -6,6 +6,7 @@ using Xna = Microsoft.Xna.Framework;
 using WShape = System.Windows.Shapes;
 using FShape = FarseerPhysics.Collision.Shapes;
 
+
 namespace WpfFarseer
 {
     public static class WpfFarseerHelper
@@ -18,6 +19,14 @@ namespace WpfFarseer
         public static F.Vertices ToFarseerVertices(this W.Media.PointCollection points)
         {
             return new F.Vertices(from p in points select p.ToFarseer());
+        }
+        public static F.Vertices ToFarseerVertices(this IEnumerable<SM.IVector2> points)
+        {
+            return new F.Vertices(from p in points select p.ToFarseer());
+        }
+        public static Xna.Vector2 ToFarseer(this SM.IVector2 p)
+        {
+            return new Xna.Vector2((float)p.X, (float)p.Y);
         }
         public static F.Vertices ToFarseerVertices(this W.UIElement uielement, WShape.Shape shape)
         {
