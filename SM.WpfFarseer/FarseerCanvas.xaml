@@ -3,6 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:l="clr-namespace:WpfFarseer">
     <Canvas.Resources>
-        <ResourceDictionary Source="Styles.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="pack://application:,,,/SM.Wpf;component/Styles.xaml"></ResourceDictionary>
     </Canvas.Resources>
 </Canvas>

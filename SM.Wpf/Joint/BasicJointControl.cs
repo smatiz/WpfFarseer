@@ -1,5 +1,4 @@
 ﻿using System;
-using SM.Farseer;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +8,7 @@ using System.Windows.Controls;
 using SM.Wpf;
 using SM;
 
-namespace WpfFarseer
+namespace SM.Wpf
 {
     public class BasicJointControl : BasicControl, IJointControl
     {

@@ -100,7 +100,18 @@ namespace WpfFarseer
                             var autoBreakableBodyControl = child as AutoBreakableBodyControl;
                             if (autoBreakableBodyControl != null)
                             {
-                                breakableBodyControl = autoBreakableBodyControl.BreakableBodyControl;
+                                var polyF = autoBreakableBodyControl.Shape.Points.ToFarseerVertices();
+                                var vss = FarseerPhysics.Common.Decomposition.Triangulate.ConvexPartition(polyF, (FarseerPhysics.Common.Decomposition.TriangulationAlgorithm)autoBreakableBodyControl.TriangulationAlgorithm);
+                                var bbc = new BreakableBodyControl();
+
+                                foreach (var p in vss)
+                                {
+                                    var bbcp = new BreakableBodyPartControl();
+                                    bbcp.Shape.Points = p.ToWpf();
+                                    bbc.Parts.Add(bbcp);
+                                }
+
+                                breakableBodyControl = bbc;
                                 autoBreakableBodyControl._canvas.Visibility = System.Windows.Visibility.Hidden;
                                 tobeadded.Add(breakableBodyControl._canvas);
                             }

@@ -1,5 +1,4 @@
 ﻿using SM;
-using SM.Farseer;
 using SM.Wpf;
 using System;
 using System.Collections.Generic;
@@ -16,7 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WpfFarseer
+namespace SM.Wpf
 {
     public partial class FlagControl : Canvas, IPointControl
     {

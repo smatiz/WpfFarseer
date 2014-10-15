@@ -1,6 +1,4 @@
-﻿using FarseerPhysics.Dynamics.Joints;
-using SM;
-using SM.Farseer;
+﻿using SM;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Shapes;
 
-namespace WpfFarseer
+namespace SM.Wpf
 {
     public class WeldJointControl : TwoPointJointControl, IWeldJointControl
     {

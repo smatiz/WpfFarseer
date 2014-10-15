@@ -1,8 +1,4 @@
-﻿using FarseerPhysics.Dynamics;
-using FarseerPhysics.Factories;
-using Microsoft.Xna.Framework;
-using SM.Farseer;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -11,9 +7,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Markup;
 using System.Windows.Shapes;
-using WpfFarseer;
 
-namespace WpfFarseer
+namespace SM.Wpf
 {
     [ContentPropertyAttribute("Parts")]
     public class BreakableBodyControl : BodyControl

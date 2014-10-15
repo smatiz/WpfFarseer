@@ -1,5 +1,4 @@
-﻿using FarseerPhysics.Dynamics;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +7,7 @@ using System.Windows;
 using System.Windows.Markup;
 using System.Windows.Shapes;
 
-namespace WpfFarseer
+namespace SM.Wpf
 {
     [ContentPropertyAttribute("Shape")]
     public class BreakableBodyPartControl : BodyControl

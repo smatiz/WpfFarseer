@@ -1,6 +1,4 @@
-﻿using SM.Farseer;
-using FarseerPhysics.Dynamics.Joints;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Shapes;
 using SM;
 
-namespace WpfFarseer
+namespace SM.Wpf
 {
     public class RopeJointControl : TwoPointJointControl, IRopeJointControl
     {
