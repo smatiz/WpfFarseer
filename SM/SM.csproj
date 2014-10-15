@@ -95,6 +95,8 @@
   <ItemGroup>
     <Compile Include="BasicCommand.cs" />
     <Compile Include="BodyType.cs" />
+    <Compile Include="float2.cs" />
+    <Compile Include="Interfaces\IVector2.cs" />
     <Compile Include="TriangulationAlgorithm.cs" />
     <Compile Include="Const.cs" />
     <Compile Include="Coroutines\Coroutinator.cs" />

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace SM
 {
-    public interface IVector2Control : IIdentifiable, IVector2
+    public struct float2 : IVector2
     {
+        public float X { get; set; }
+        public float Y { get; set; }
     }
-
-
 }
