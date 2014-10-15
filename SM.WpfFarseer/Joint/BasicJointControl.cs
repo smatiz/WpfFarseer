@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using SM.Wpf;
+using SM;
 
 namespace WpfFarseer
 {

@@ -5,6 +5,7 @@ using W = System.Windows;
 using Xna = Microsoft.Xna.Framework;
 using WShape = System.Windows.Shapes;
 using FShape = FarseerPhysics.Collision.Shapes;
+using SM;
 
 
 namespace WpfFarseer
@@ -37,7 +38,7 @@ namespace WpfFarseer
 
             return null;
         }
-        public static FShape.Shape ToFarseerShape(this W.UIElement uielement, WShape.Shape shape, float density = SM.Farseer.Const.Density)
+        public static FShape.Shape ToFarseerShape(this W.UIElement uielement, WShape.Shape shape, float density = Const.Density)
         {
             if (shape is W.Shapes.Polygon)
             {

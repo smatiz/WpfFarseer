@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SM.Farseer
+namespace SM
 {
-    public class Const
-     {
-         public const float Density = 100f;
-     }
+    public interface IJointControl : IIdentifiable
+    {
+        bool CollideConnected { get; }
+    }
 }
