@@ -95,16 +95,6 @@ namespace SM.Wpf
             _rotation.Angle = a * AngleSubst;
         }
 
-        //private FarseerPhysics.Dynamics.Fixture _getAttachFixture(ShapeControl shape, FarseerPhysics.Dynamics.Body body)
-        //{
-        //    return FarseerPhysics.Factories.FixtureFactory.AttachPolygon(shape.Points.ToFarseerVertices(), BodyControl.GetDensity(shape), body);
-        //} 
-
-        //public IEnumerable<FarseerPhysics.Dynamics.Fixture> GetAttachFixtures(FarseerPhysics.Dynamics.Body body)
-        //{
-        //    return from shape in Shapes select _getAttachFixture(shape, body);
-        //}
-
         public ObservableCollection<ShapeControl> Shapes
         {
             get { return (ObservableCollection<ShapeControl>)GetValue(ShapesProperty); }

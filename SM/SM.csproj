@@ -108,7 +108,7 @@
     <Compile Include="Interfaces\IJointControl.cs" />
     <Compile Include="Interfaces\IBehaviour.cs" />
     <Compile Include="Interfaces\IBodyControl.cs" />
-    <Compile Include="Interfaces\IFarseerObject.cs" />
+    <Compile Include="Interfaces\Material\IMaterial.cs" />
     <Compile Include="Interfaces\IIdentifiable.cs" />
     <Compile Include="Interfaces\IRevoluteJointControl.cs" />
     <Compile Include="Interfaces\IUpdatable.cs" />

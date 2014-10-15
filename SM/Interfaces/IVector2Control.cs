@@ -9,6 +9,4 @@ namespace SM
     public interface IVector2Control : IIdentifiable, IVector2
     {
     }
-
-
 }
