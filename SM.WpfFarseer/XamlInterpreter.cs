@@ -20,10 +20,9 @@ namespace SM.WpfFarseer
     public class XamlInterpreter
     {
 
-        public static void xxx(Dispatcher dispacher, IEnumerable<BasicControl> objects, bool isInDesignMode = false)
+        public static void BuildFarseerWorldManager(FarseerWorldManager worldManager, IEnumerable<BasicControl> objects, bool isInDesignMode = false)
         {
-            var timer = new ViewWatch(dispacher);
-            FarseerWorldManager _worldManager = new FarseerWorldManager(timer);
+            //FarseerWorldManager _worldManager = new FarseerWorldManager(timer);
 
 
 
@@ -73,7 +72,7 @@ namespace SM.WpfFarseer
                         var bodyControl = child as BodyControl;
                         if (bodyControl != null)
                         {
-                            _worldManager.AddObject(new BodyManager(bodyControl, _worldManager.CreateBodyMaterial()));
+                            worldManager.AddObject(new BodyManager(bodyControl, worldManager.CreateBodyMaterial()));
 
                             //_worldManager.AddBodyControl(bodyControl, bodyControl._canvas.GetOrigin());
                             handled = true;
@@ -109,8 +108,6 @@ namespace SM.WpfFarseer
             }
 
 
-
-            _worldManager.Play();
           
         }
     }

@@ -12,8 +12,9 @@ namespace  SM.Farseer
     public class StepViewModel : NotifyObjectViewer
     {
 
-        FarseerWorldManager_old _worldManager;
-        public StepViewModel(FarseerWorldManager_old worldManager)
+        FarseerWorldManager _worldManager;
+
+        public StepViewModel(FarseerWorldManager worldManager)
         {
             _worldManager = worldManager;
         }
@@ -23,18 +24,19 @@ namespace  SM.Farseer
             NotifyPropertyChanged(() => PauseCommand);
             NotifyPropertyChanged(() => PlayCommand);
             NotifyPropertyChanged(() => BackCommand);
-            NotifyPropertyChanged(() => SaveCommand);
-            NotifyPropertyChanged(() => LoadCommand);
         }
 
         void play()
         {
+            //_worldManager_old.Play();
+       
             _worldManager.Play();
             notifyCommands();
         }
 
         void pause()
         {
+            //_worldManager_old.Pause();
             _worldManager.Pause();
             notifyCommands();
         }
@@ -46,13 +48,9 @@ namespace  SM.Farseer
 
         void save()
         {
-            if (_worldManager == null) return;
-            _worldManager.Save();
         }
         void load()
         {
-            if (_worldManager == null) return;
-            _worldManager.Load();
         }
         void restart()
         {
@@ -65,8 +63,6 @@ namespace  SM.Farseer
         public ICommand PauseCommand { get { return new BasicCommand(pause, () => _dt == 0); } }
         public ICommand RestartCommand { get { return new BasicCommand(restart, () => _dt == 0); } }
         public ICommand BackCommand { get { return new BasicCommand(back, () => _dt == 0); } }
-        public ICommand SaveCommand { get { return new BasicCommand(save, () => _worldManager != null && _dt == 0 && _worldManager.Savable); } }
-        public ICommand LoadCommand { get { return new BasicCommand(load, () => _worldManager != null && _dt == 0); } }
         
         public ICommand VoidCommand { get { return new BasicCommand(() => { }, () => false); } }
 

@@ -33,9 +33,11 @@ namespace WpfFarseer
     public partial class FarseerCanvas : Canvas
     {
         List<TwoPointJointControlManager> _ropeJointManager = new List<TwoPointJointControlManager>();
-        DispatcherTimer _timer = new DispatcherTimer();
 
-        FarseerWorldManager_old _worldManager;
+
+
+        FarseerWorldManager_old _worldManager_old;
+       FarseerWorldManager _worldManager;
 
         private List<IFarseerBehaviourWpf> _farseerBehaviours = new List<IFarseerBehaviourWpf>();
 
@@ -44,10 +46,10 @@ namespace WpfFarseer
 
         public void AddFarseerBehaviour(IFarseerBehaviourWpf x)
         {
-            _startCoroutine.Add(new StartCoroutine(_worldManager, x.Start));
+            _startCoroutine.Add(new StartCoroutine(_worldManager_old, x.Start));
             _updateCoroutine.Add(new UpdateCoroutine(x.Update));
             _farseerBehaviours.Add(x);
-            _worldManager.AddFarseerBehaviour(x);
+            _worldManager_old.AddFarseerBehaviour(x);
         }
         public FarseerCanvas()
         {
@@ -56,18 +58,12 @@ namespace WpfFarseer
             FarseerObjects = new ObservableCollection<BasicControl>();
             FarseerObjects.CollectionChanged += FarseerObjects_CollectionChanged;
 
-            _timer.Tick += (s, e) => Update();
-            _timer.Interval = new TimeSpan(0,0,0,0, 40);
-            _worldManager = new FarseerWorldManager_old();
-
+            _worldManager_old = new FarseerWorldManager_old();
+            _worldManager = new FarseerWorldManager(new ViewWatch(Dispatcher));
             Loaded += (s, e) =>
             {
-                _controlUpdate();
-                _timer.Start();
-                foreach (var x in _farseerBehaviours)
-                {
-                    x.Start(_worldManager);
-                }
+                bool b = System.ComponentModel.DesignerProperties.GetIsInDesignMode(this);
+                XamlInterpreter.BuildFarseerWorldManager(_worldManager, FarseerObjects, b);
             };
         }
 
@@ -83,100 +79,11 @@ namespace WpfFarseer
         }
 
         
-        void _controlUpdate()
-        {
-
-            XamlInterpreter.xxx(Dispatcher, FarseerObjects);
-
-            return;
-
-
-
-            var tobeadded = new List<UIElement>();
-           
-            foreach (var child in FarseerObjects)
-            {
-                bool handled = false;
-                if (!System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
-                {
-
-                    {
-                        var breakableBodyControl = child as BreakableBodyControl;
-                        if (breakableBodyControl == null)
-                        {
-                            var autoBreakableBodyControl = child as AutoBreakableBodyControl;
-                            if (autoBreakableBodyControl != null)
-                            {
-                                var polyF = autoBreakableBodyControl.Shape.Points.ToFarseerVertices();
-                                var vss = FarseerPhysics.Common.Decomposition.Triangulate.ConvexPartition(polyF, (FarseerPhysics.Common.Decomposition.TriangulationAlgorithm)autoBreakableBodyControl.TriangulationAlgorithm);
-                                var bbc = new BreakableBodyControl();
-
-                                foreach (var p in vss)
-                                {
-                                    var bbcp = new BreakableBodyPartControl();
-                                    bbcp.Shape.Points = p.ToWpf();
-                                    bbc.Parts.Add(bbcp);
-                                }
-
-                                breakableBodyControl = bbc;
-                                autoBreakableBodyControl._canvas.Visibility = System.Windows.Visibility.Hidden;
-                                tobeadded.Add(breakableBodyControl._canvas);
-                            }
-                        }
-
-                        if (breakableBodyControl != null)
-                        {
-                           // var shapes = breakableBodyControl.Parts.SelectMany<BodyControl, FShape.Shape>(c => (from x in c.Shapes select breakableBodyControl.ToFarseerShape(x)));
-
-                            var shapes = from x in breakableBodyControl.Parts select breakableBodyControl._canvas.ToFarseerShape((Polygon)x.Shape.Shape);
-                            _worldManager.AddBreakableBodyControl(breakableBodyControl, breakableBodyControl.Parts, shapes, breakableBodyControl._canvas.GetOrigin());
-                            handled = true;
-                        }
-                    }
-                    if(!handled)
-                    {
-                        var bodyControl = child as BodyControl;
-                        if (bodyControl != null)
-                        {
-                            _worldManager.AddBodyControl(bodyControl, bodyControl._canvas.GetOrigin());
-                            handled = true;
-                        }
-                    }
-                }
-
-                if (!handled)
-                {
-                    var jointControl = child as RopeJointControl;
-                    if (jointControl != null)
-                    {
-                        var ropeJointControlInfo = _resolve(jointControl);
-
-                        var line = new Line();
-                        line.Stroke = new SolidColorBrush(Colors.Green);
-                        line.StrokeThickness = 1;
-                        tobeadded.Add(line);
-
-                        _ropeJointManager.Add(new TwoPointJointControlManager(this, ropeJointControlInfo, line));
-
-                        if (!System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
-                        {
-                            _worldManager.AddRopeJoint(jointControl);
-                        }
-                    }
-                }
-            }
-
-            foreach (var tba in tobeadded)
-            {
-                Children.Add(tba);
-            }
-        }
-
         public void Update()
         {
-            if (_worldManager == null) return;
+            if (_worldManager_old == null) return;
             if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this)) return;
-            _worldManager.Update();
+            _worldManager_old.Update();
             foreach (var x in _ropeJointManager)
             {
                 x.Update();
@@ -220,12 +127,7 @@ namespace WpfFarseer
 
             return new TwoPointJointControlInfo(bodyControlA, bodyControlB, anchorA, anchorB);
         }
-#if DEBUG
-        protected override void OnRender(DrawingContext drawingContext)
-        {
-            base.OnRender(drawingContext);
-        }
-#endif
+
         
         public StepViewModel StepViewModel
         { 
