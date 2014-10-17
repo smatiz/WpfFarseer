@@ -123,6 +123,7 @@
     <Compile Include="StepControl.xaml.cs">
       <DependentUpon>StepControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewWatch.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SM\SM.csproj">

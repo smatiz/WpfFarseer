@@ -53,7 +53,7 @@ namespace SM.Wpf
             {
                 foreach(var p in Points)
                 {
-                    yield return new SM.float2() { X = (float)p.X, Y = (float)p.Y };
+                    yield return new SM.float2((float)p.X, (float)p.Y);
                 }
             }
          }

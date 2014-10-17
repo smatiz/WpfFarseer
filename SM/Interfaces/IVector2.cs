@@ -11,4 +11,10 @@ namespace SM
         float X { get; }
         float Y { get; }
     }
+
+    //public interface IRotoTranslation
+    //{
+    //    IVector2 Translation { get; set; }
+    //    float Angle { get; set; }
+    //}
 }

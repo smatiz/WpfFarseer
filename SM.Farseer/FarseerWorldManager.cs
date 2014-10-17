@@ -20,7 +20,7 @@ namespace SM.Farseer
     // quindi l'unico in grado di creare oggetti Farseer
     public class FarseerWorldManager
     {
-        private WorldWatch _worldWatch;
+        private MaterialWatch _worldWatch;
         private World _world;
 
         private Dictionary<string, IIdentifiable> _map = new Dictionary<string, IIdentifiable>();
@@ -29,7 +29,7 @@ namespace SM.Farseer
         public FarseerWorldManager()
         {
             _world = new World(new Microsoft.Xna.Framework.Vector2(0, 10));
-            _worldWatch = new WorldWatch(dt => step(dt));
+            _worldWatch = new MaterialWatch(dt => step(dt));
         }
 
         private void _addFarseerObject(IIdentifiable obj)

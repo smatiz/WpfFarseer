@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SM.Farseer
+namespace SM
 {
-    internal class LoopCoroutine : BasicCoroutine
+    public class LoopCoroutine : BasicCoroutine
     {
         private Func<float, IEnumerator<BasicCoroutine>> _func;
         float _dt;
