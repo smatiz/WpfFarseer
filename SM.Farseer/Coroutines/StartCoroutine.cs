@@ -10,9 +10,9 @@ namespace SM.Farseer
 {
     public class StartCoroutine : BasicCoroutine
     {
-        private Func<FarseerWorldManager, IEnumerator<BasicCoroutine>> _func;
-        FarseerWorldManager _farseerWorldManager;
-        public StartCoroutine(FarseerWorldManager farseerWorldManager, Func<FarseerWorldManager, IEnumerator<BasicCoroutine>> func)
+        private Func<FarseerWorldManager_old, IEnumerator<BasicCoroutine>> _func;
+        FarseerWorldManager_old _farseerWorldManager;
+        public StartCoroutine(FarseerWorldManager_old farseerWorldManager, Func<FarseerWorldManager_old, IEnumerator<BasicCoroutine>> func)
         {
             _farseerWorldManager = farseerWorldManager;
             _func = func;

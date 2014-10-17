@@ -16,9 +16,41 @@ using System.Threading.Tasks;
 
 namespace SM.Farseer
 {
+
+    public class FarseerWorldManager : WorldManager
+    {
+        World _world = new World(new Vector2(0, 10));
+        protected override void Step(float dt)
+        {
+            _world.Step(dt);
+        }
+
+        protected override void Loop()
+        {
+            // throw new NotImplementedException();
+        }
+
+        public FarseerWorldManager(IViewWatch viewWatch)
+            : base(viewWatch)
+        {
+        }
+        public IBodyMaterial CreateBodyMaterial()
+        {
+            return new BodyMaterial(_world);
+        }
+
+    }
+
+
+
+
+
+
+
+
     // Unico detentore del oggetto World
     // quindi l'unico in grado di creare oggetti Farseer
-    public class FarseerWorldManager
+    public class FarseerWorldManager_old
     {
         private MaterialWatch _worldWatch;
         private World _world;
@@ -26,7 +58,7 @@ namespace SM.Farseer
         private Dictionary<string, IIdentifiable> _map = new Dictionary<string, IIdentifiable>();
         private List<LoopCoroutine> _loopCoroutine = new List<LoopCoroutine>();
 
-        public FarseerWorldManager()
+        public FarseerWorldManager_old()
         {
             _world = new World(new Microsoft.Xna.Framework.Vector2(0, 10));
             _worldWatch = new MaterialWatch(dt => step(dt));

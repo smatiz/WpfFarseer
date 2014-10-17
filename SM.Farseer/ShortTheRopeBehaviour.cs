@@ -13,7 +13,7 @@ namespace SM.Farseer
     {
         RopeJoint jointC;
 
-        public IEnumerator<BasicCoroutine> Start(FarseerWorldManager farseerWorld)
+        public IEnumerator<BasicCoroutine> Start(FarseerWorldManager_old farseerWorld)
         {
             jointC = farseerWorld.FindObject<RopeJoint>("jointC");
             return null;

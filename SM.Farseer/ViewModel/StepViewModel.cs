@@ -12,8 +12,8 @@ namespace  SM.Farseer
     public class StepViewModel : NotifyObjectViewer
     {
 
-        FarseerWorldManager _worldManager;
-        public StepViewModel(FarseerWorldManager worldManager)
+        FarseerWorldManager_old _worldManager;
+        public StepViewModel(FarseerWorldManager_old worldManager)
         {
             _worldManager = worldManager;
         }

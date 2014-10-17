@@ -35,7 +35,7 @@ namespace WpfFarseer
         List<TwoPointJointControlManager> _ropeJointManager = new List<TwoPointJointControlManager>();
         DispatcherTimer _timer = new DispatcherTimer();
 
-        FarseerWorldManager _worldManager;
+        FarseerWorldManager_old _worldManager;
 
         private List<IFarseerBehaviourWpf> _farseerBehaviours = new List<IFarseerBehaviourWpf>();
 
@@ -58,7 +58,7 @@ namespace WpfFarseer
 
             _timer.Tick += (s, e) => Update();
             _timer.Interval = new TimeSpan(0,0,0,0, 40);
-            _worldManager = new FarseerWorldManager();
+            _worldManager = new FarseerWorldManager_old();
 
             Loaded += (s, e) =>
             {

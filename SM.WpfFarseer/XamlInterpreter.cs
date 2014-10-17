@@ -16,35 +16,14 @@ using Microsoft.Xna.Framework;
 namespace SM.WpfFarseer
 {
 
-    public class WorldManager_X : WorldManager
-    {
-        World _world = new World(new Vector2(0, 10));
-        protected override void Step(float dt)
-        {  _world.Step(dt);
-        }
-
-        protected override void Loop()
-        {
-           // throw new NotImplementedException();
-        }
-
-        public WorldManager_X(IViewWatch viewWatch)
-            : base(viewWatch)
-        {
-         }
-        public IBodyMaterial CreateBodyMaterial()
-        {
-            return new BodyMaterial(_world);
-        }
-
-    }
+   
     public class XamlInterpreter
     {
 
         public static void xxx(Dispatcher dispacher, IEnumerable<BasicControl> objects, bool isInDesignMode = false)
         {
             var timer = new ViewWatch(dispacher);
-            WorldManager_X _worldManager = new WorldManager_X(timer);
+            FarseerWorldManager _worldManager = new FarseerWorldManager(timer);
 
 
 

@@ -10,5 +10,6 @@ namespace SM
     {
         void UpdateMaterial();
         void UpdateView();
+        void Build();
     }
 }

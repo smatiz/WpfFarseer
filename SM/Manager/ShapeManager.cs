@@ -14,8 +14,7 @@ namespace SM
 
     public interface IShapeMaterial
     {
-        IEnumerable<IVector2> Points_X { set; }
-        float Density_X { set; }
+        void Build(IEnumerable<IVector2> points, float density);
     }
 
     public class ShapeManager
@@ -27,13 +26,16 @@ namespace SM
         {
             ShapeView = shapeView;
             ShapeMaterial = shapeMaterial;
+            Build();
         }
 
-        public void Build()
+        private void Build()
         {
-            ShapeMaterial.Points_X = ShapeView.Points_X;
-            ShapeMaterial.Density_X = ShapeView.Density_X;
+            ShapeMaterial.Build(ShapeView.Points_X, ShapeView.Density_X);
         }
-    
+        public static void Build(IShapeView shapeView, IShapeMaterial shapeMaterial)
+        {
+            shapeMaterial.Build(shapeView.Points_X, shapeView.Density_X);
+        }
     }
 }

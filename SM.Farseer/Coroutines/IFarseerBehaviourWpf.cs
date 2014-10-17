@@ -11,7 +11,7 @@ namespace SM.Farseer
     public interface IFarseerBehaviourWpf : IBehaviour
     {
         // nel thread grafico quando wpf ha finito
-        IEnumerator<BasicCoroutine> Start(FarseerWorldManager farseerWorld);
+        IEnumerator<BasicCoroutine> Start(FarseerWorldManager_old farseerWorld);
         // loop del thread grafico (DispatcherTimer)
         IEnumerator<BasicCoroutine> Update();
     }

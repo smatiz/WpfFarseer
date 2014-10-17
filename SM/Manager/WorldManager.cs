@@ -51,8 +51,14 @@ namespace SM
         public void AddObject(IIdentifiable obj)
         {
             _map.Add(obj.Id, obj);
+            var x = obj as IManager;
+            if (x != null)
+            {
+                x.Build();
+            }
         }
-   
+
+        private bool built = false;
         public void Play()
         {
             _viewWatch.Play();

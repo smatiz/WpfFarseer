@@ -16,7 +16,7 @@ namespace SM
 
     public interface IBodyMaterial
     {
-        IEnumerable<ShapeManager> Build(string id, SM.BodyType bodyType, IEnumerable<IShapeView> shapes); 
+        IShapeMaterial Build(string id, SM.BodyType bodyType, IShapeView shapes); 
         rotoTranslation RotoTranslation { get; }
     }
 
@@ -35,13 +35,19 @@ namespace SM
 
         public void Build()
         {
-            var shapeMaterials = BodyMaterial.Build(BodyView.Id, BodyView.BodyType, BodyView.Shapes_Y);
+            var shapes = from shape in BodyView.Shapes_Y
+                                 select new
+                                     {
+                                         ShapeMaterial = BodyMaterial.Build(BodyView.Id, BodyView.BodyType, shape),
+                                         ShapeView = shape,
+                                     };
 
 
             // la parte successiva e' giusto venga fatta dentro il BodyMaterial o qui ??
-            foreach (var shapeMaterial in shapeMaterials)
+            // qui se riesco a evitare che un XxxMaterial contenga e conosca un YyyManager
+            foreach (var shape in shapes)
             {
-                shapeMaterial.Build();
+                shape.ShapeMaterial.Build(shape.ShapeView.Points_X, shape.ShapeView.Density_X);
             }
         }
 
