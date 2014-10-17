@@ -32,6 +32,7 @@ namespace SM
 
         public void Play()
         {
+            if (_status == Status.Stopped) _timer.Start();
             _status = Status.Play;
         }
 

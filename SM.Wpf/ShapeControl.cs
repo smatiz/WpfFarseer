@@ -61,7 +61,7 @@ namespace SM.Wpf
         
         public float Density_X
         {
-            get { throw new NotImplementedException(); }
+            get { return 0; }
         }
     }
 }

@@ -56,7 +56,10 @@ namespace SM
 
         public string Id
         {
-            get { throw new NotImplementedException(); }
+            get
+            { 
+                return BodyView.Id; 
+            }
         }
     }
 }

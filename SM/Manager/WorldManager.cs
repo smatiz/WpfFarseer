@@ -55,11 +55,13 @@ namespace SM
    
         public void Play()
         {
+            _viewWatch.Play();
             _materialWatch.Play();
         }
         public void Pause()
         {
             _materialWatch.Pause();
+            _viewWatch.Pause();
         }
         public void Back()
         {
@@ -98,5 +100,6 @@ namespace SM
             }
             Loop();
         }
+
     }
 }

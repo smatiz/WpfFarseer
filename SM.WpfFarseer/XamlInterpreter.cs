@@ -10,34 +10,41 @@ using System.Windows;
 using System.Windows.Threading;
 using System.Windows.Shapes;
 using System.Windows.Media;
+using FarseerPhysics.Dynamics;
+using Microsoft.Xna.Framework;
 
 namespace SM.WpfFarseer
 {
 
     public class WorldManager_X : WorldManager
     {
+        World _world = new World(new Vector2(0, 10));
         protected override void Step(float dt)
-        {
-            throw new NotImplementedException();
+        {  _world.Step(dt);
         }
 
         protected override void Loop()
         {
-            throw new NotImplementedException();
+           // throw new NotImplementedException();
         }
 
         public WorldManager_X(IViewWatch viewWatch)
             : base(viewWatch)
         {
          }
+        public IBodyMaterial CreateBodyMaterial()
+        {
+            return new BodyMaterial(_world);
+        }
 
     }
-    class XamlInterpreter
+    public class XamlInterpreter
     {
 
         public static void xxx(Dispatcher dispacher, IEnumerable<BasicControl> objects, bool isInDesignMode = false)
         {
-            WorldManager _worldManager = new WorldManager_X(new ViewWatch(dispacher));
+            var timer = new ViewWatch(dispacher);
+            WorldManager_X _worldManager = new WorldManager_X(timer);
 
 
 
@@ -87,7 +94,7 @@ namespace SM.WpfFarseer
                         var bodyControl = child as BodyControl;
                         if (bodyControl != null)
                         {
-                            _worldManager.AddObject(new BodyManager(bodyControl, new BodyMaterial()));
+                            _worldManager.AddObject(new BodyManager(bodyControl, _worldManager.CreateBodyMaterial()));
 
                             //_worldManager.AddBodyControl(bodyControl, bodyControl._canvas.GetOrigin());
                             handled = true;
@@ -121,6 +128,11 @@ namespace SM.WpfFarseer
             {
                 //Children.Add(tba);
             }
+
+
+
+            _worldManager.Play();
+          
         }
     }
 }

@@ -85,6 +85,13 @@ namespace WpfFarseer
         
         void _controlUpdate()
         {
+
+            XamlInterpreter.xxx(Dispatcher, FarseerObjects);
+
+            return;
+
+
+
             var tobeadded = new List<UIElement>();
            
             foreach (var child in FarseerObjects)

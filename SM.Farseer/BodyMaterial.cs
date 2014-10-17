@@ -1,4 +1,5 @@
 ﻿using FarseerPhysics.Dynamics;
+using FarseerPhysics.Factories;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -11,10 +12,16 @@ namespace SM.Farseer
     public class BodyMaterial : IBodyMaterial
     {
         private Vector2 _originalPosition = Vector2.Zero;
-        private Body _body = null;
+        private Body _body;
 
         public virtual object Object { get { return _body; } }
         public string Id { get { return (string)_body.UserData; } }
+
+        public BodyMaterial(World world)
+        {
+            _body = BodyFactory.CreateBody(world);
+        }
+
 
         public IEnumerable<ShapeManager> Build(string id, SM.BodyType bodyType,  IEnumerable<IShapeView> shapes)
         {
