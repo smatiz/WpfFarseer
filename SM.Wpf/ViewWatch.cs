@@ -7,12 +7,12 @@ using System.Windows.Threading;
 
 namespace SM
 {
-    class ViewWatch : IViewWatch
+    public class ViewWatch : IViewWatch
     {
         private enum Status { Stopped, Play, Pause }
         private Status _status = Status.Stopped;
         private const long Interval = 40;
-        DispatcherTimer _timer;
+        private DispatcherTimer _timer;
         public Action Callback { private get; set; }
 
         public ViewWatch(Dispatcher dispacher)

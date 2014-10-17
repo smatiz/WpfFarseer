@@ -94,6 +94,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BodyMaterial.cs" />
     <Compile Include="Coroutines\IFarseerBehaviourWpf.cs" />
     <Compile Include="Coroutines\StartCoroutine.cs" />
     <Compile Include="Coroutines\UpdateCoroutine.cs" />

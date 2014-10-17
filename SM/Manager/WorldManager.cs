@@ -6,13 +6,8 @@ using System.Threading.Tasks;
 
 namespace SM
 {
-    public interface IManager : IIdentifiable
-    {
-        void UpdateMaterial();
-        void UpdateView();
-    }
 
-    abstract class WorldManager
+    public abstract class WorldManager
     {
         private MaterialWatch _materialWatch;
         private IViewWatch _viewWatch;
@@ -53,7 +48,7 @@ namespace SM
         {
             _materialLoopCoroutine.Add(new LoopCoroutine(x.Loop));
         }
-        protected void AddObject(IIdentifiable obj)
+        public void AddObject(IIdentifiable obj)
         {
             _map.Add(obj.Id, obj);
         }

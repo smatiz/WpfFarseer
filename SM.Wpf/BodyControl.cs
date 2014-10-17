@@ -21,7 +21,7 @@ namespace SM.Wpf
 {
 
     [ContentPropertyAttribute("Shapes")]
-    public class BodyControl : BasicControl, IBodyControl
+    public class BodyControl : BasicControl, IBodyControl, IBodyView
     {
         const float AngleSubst = 180f / (float)Math.PI;
 
@@ -145,5 +145,21 @@ namespace SM.Wpf
 
 
 
+
+
+        public IEnumerable<IShapeView> Shapes_Y
+        {
+            get { return from x in Shapes select x; }
+        }
+
+        public rotoTranslation RotoTranslation
+        {
+            set
+            {
+                _traslation.X = value.Translation.X;
+                _traslation.Y = value.Translation.Y;
+                _rotation.Angle = value.Angle;
+            }
+        }
     }
 }

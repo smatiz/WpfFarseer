@@ -8,13 +8,15 @@ namespace SM
 {
     public interface IBodyView
     {
-        IEnumerable<IShapeView> Shapes_X { get; }
+        BodyType BodyType { get; }
+        IEnumerable<IShapeView> Shapes_Y { get; }
         rotoTranslation RotoTranslation { set; }
+        string Id { get; }
     }
 
     public interface IBodyMaterial
     {
-        IEnumerable<ShapeManager> Build(IEnumerable<IShapeView> shapes); 
+        IEnumerable<ShapeManager> Build(string id, SM.BodyType bodyType, IEnumerable<IShapeView> shapes); 
         rotoTranslation RotoTranslation { get; }
     }
 
@@ -33,7 +35,7 @@ namespace SM
 
         public void Build()
         {
-            var shapeMaterials = BodyMaterial.Build(BodyView.Shapes_X);
+            var shapeMaterials = BodyMaterial.Build(BodyView.Id, BodyView.BodyType, BodyView.Shapes_Y);
 
 
             // la parte successiva e' giusto venga fatta dentro il BodyMaterial o qui ??

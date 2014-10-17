@@ -15,7 +15,7 @@ namespace SM.Wpf
 {
 
 
-    public class ShapeControl : BasicControl, IShape
+    public class ShapeControl : BasicControl, IShape, IShapeView
     {
         public ShapeControl()
         {

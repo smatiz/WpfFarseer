@@ -8,7 +8,7 @@ using FShape = FarseerPhysics.Collision.Shapes;
 using SM;
 
 
-namespace WpfFarseer
+namespace SM.WpfFarseer
 {
     public static class WpfFarseerHelper
     {
