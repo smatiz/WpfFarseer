@@ -31,7 +31,7 @@ namespace SM.Farseer
             //_body = body;
             _breakableBody = BodyFactory.CreateBreakableBody(__world, from x in shapes select x.ToFarseerVertices());
             _breakableBody.MainBody.UserData = id;
-
+            _breakableBody.Strength = 1;
             //_breakableBody.MainBody.BodyType = FarseerPhysics.Dynamics.BodyType.Dynamic;
 
 
@@ -60,7 +60,8 @@ namespace SM.Farseer
         {
             get
             { 
-                return _breakableBody.Broken; }
+                return _breakableBody.Broken; 
+            }
         }
 
 
@@ -68,6 +69,7 @@ namespace SM.Farseer
         public IEnumerable<IBodyMaterial> GetPieces()
         {
             int i = 0;
+            _breakableBody.Update();
             foreach(var b in _breakableBody.Parts)
             {
                 yield return new BodyMaterial(b.Body, Id + ":" + i++);

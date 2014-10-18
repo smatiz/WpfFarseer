@@ -17,20 +17,8 @@ namespace SM.Wpf
         public BreakableBodyControl()
         {
             Parts = new ObservableCollection<BreakableBodyPartControl>();
-            //Parts.CollectionChanged += Parts_CollectionChanged;
         }
-
-        //void Parts_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        //{
-        //    if(e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
-        //    {
-        //        foreach (var x in e.NewItems)
-        //        {
-        //            //_canvas.Children.Add(((BreakableBodyPartControl)x)._canvas);
-        //        }
-        //    }
-        //}
-
+        
         public ObservableCollection<BreakableBodyPartControl> Parts
         {
             get { return (ObservableCollection<BreakableBodyPartControl>)GetValue(PartsProperty); }
@@ -48,6 +36,7 @@ namespace SM.Wpf
                 bc.BodyType = SM.BodyType.Dynamic;
                 bc.Id = part.Id;
                 bc.Shapes.Add(part.Shape);
+                bc.RegisterTo(_parent);
                 yield return bc;
             }
         }
@@ -64,7 +53,7 @@ namespace SM.Wpf
 
         protected override Brush Brush
         {
-            get { return new SolidColorBrush(Colors.AliceBlue); }
+            get { return new SolidColorBrush(Colors.Blue); }
         }
 
         protected override IEnumerable<Polygon> Polygons

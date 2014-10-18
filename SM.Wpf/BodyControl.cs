@@ -19,11 +19,9 @@ using System.Windows.Shapes;
 
 namespace SM.Wpf
 {
-
     [ContentPropertyAttribute("Shapes")]
     public class BodyControl : BasicBodyControl, IBodyView
     {
-
         private RotateTransform _rotation; 
         private TranslateTransform _traslation;
 
@@ -36,20 +34,7 @@ namespace SM.Wpf
             _traslation = new TranslateTransform();
         }
         
-        //protected override void OnLoaded()
-        //{
-        //    var brush = DefaultBrush;
-
-        //    foreach (var shape in Shapes)
-        //    {
-        //        var poly = shape.Shape;
-        //        _canvas.Children.Add(poly);
-        //        ((Polygon)poly).Fill = brush;
-        //    }
-        //}
-
         protected override Brush Brush { get { return DefaultBrush; } }
-
         public Brush DefaultBrush
         {
             private get { return (Brush)GetValue(DefaultBrushProperty); }
@@ -90,17 +75,11 @@ namespace SM.Wpf
             get { return from x in Shapes select x; }
         }
 
-
-
-
-
         public IEnumerable<IShapeView> Shapes_Y
         {
             get { return from x in Shapes select x; }
         }
-
-
-
+        
         protected override IEnumerable<Polygon> Polygons
         {
             get

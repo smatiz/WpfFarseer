@@ -11,7 +11,7 @@ namespace SM.Wpf
     public class BasicControl : DependencyObject
     {
         protected Canvas _canvas = new Canvas();
-        private Panel _parent;
+        protected Panel _parent;
         public void RegisterTo(Panel parent)
         {
             _parent = parent;

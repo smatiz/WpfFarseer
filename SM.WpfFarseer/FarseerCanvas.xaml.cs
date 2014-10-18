@@ -69,9 +69,23 @@ namespace WpfFarseer
                 foreach (var x in e.NewItems)
                 {
                     ((BasicControl)x).RegisterTo(this);
+
+                    if(x is BreakableBodyControl)
+                    {
+                        BreakableBodyControl y = (BreakableBodyControl)x;
+                        
+                    }
                 }
             }
         }
+        public StepViewModel StepViewModel
+        {
+            get
+            {
+                return new StepViewModel(_worldManager);
+            }
+        }
+
 
         
         public void Update()
@@ -124,14 +138,6 @@ namespace WpfFarseer
         }
 
         
-        public StepViewModel StepViewModel
-        { 
-            get
-            { 
-                return new StepViewModel(_worldManager);
-            }
-        }
-
 
         public static string GetAngleJoint(DependencyObject obj)
         {
