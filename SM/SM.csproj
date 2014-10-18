@@ -119,7 +119,6 @@
     <Compile Include="Interfaces\IBreakableBodyPartControl.cs" />
     <Compile Include="Interfaces\IJointControl.cs" />
     <Compile Include="Interfaces\IMaterialBehaviour.cs" />
-    <Compile Include="Interfaces\IBodyControl.cs" />
     <Compile Include="Interfaces\Material\IMaterial.cs" />
     <Compile Include="Interfaces\IIdentifiable.cs" />
     <Compile Include="Interfaces\IRevoluteJointControl.cs" />

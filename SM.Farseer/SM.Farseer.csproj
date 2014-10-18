@@ -97,8 +97,6 @@
     <Compile Include="BreakableBodyMaterial.cs" />
     <Compile Include="BodyMaterial.cs" />
     <Compile Include="Helpers\FarseerHelper.cs" />
-    <Compile Include="Internal\BreakableBodyUpdater.cs" />
-    <Compile Include="Internal\BodyUpdater.cs" />
     <Compile Include="Internal\CodeGenerator.cs" />
     <Compile Include="FarseerWorldManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -10,8 +10,13 @@ namespace SM.Wpf
 {
     public class BasicControl : DependencyObject
     {
-        //protected
-        public Canvas _canvas = new Canvas();
+        protected Canvas _canvas = new Canvas();
+        private Panel _parent;
+        public void RegisterTo(Panel parent)
+        {
+            _parent = parent;
+            _parent.Children.Add(_canvas);
+        }
         static int i = 0;
         private string _generateName()
         {

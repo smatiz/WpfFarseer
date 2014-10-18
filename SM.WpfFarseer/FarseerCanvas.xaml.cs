@@ -68,7 +68,7 @@ namespace WpfFarseer
             {
                 foreach (var x in e.NewItems)
                 {
-                    Children.Add(((BasicControl)x)._canvas);
+                    ((BasicControl)x).RegisterTo(this);
                 }
             }
         }
@@ -108,12 +108,12 @@ namespace WpfFarseer
                             if( crossControl.Id == jointControl.TargetNameA)
                             {
                                 bodyControlA = bodyControl;
-                                anchorA = crossControl.TranslatePoint(new Point(0, 0), bodyControl._canvas);
+                                //anchorA = crossControl.TranslatePoint(new Point(0, 0), bodyControl._canvas);
                             }
                             else if (crossControl.Id == jointControl.TargetNameB)
                             {
                                 bodyControlB = bodyControl;
-                                anchorB = crossControl.TranslatePoint(new Point(0, 0), bodyControl._canvas);
+                                //anchorB = crossControl.TranslatePoint(new Point(0, 0), bodyControl._canvas);
                             }
                         }
                     }

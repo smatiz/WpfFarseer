@@ -30,7 +30,7 @@ namespace SM.WpfFarseer
                 if (!isInDesignMode)
                 {
                     var breakableBodyControl = child as BreakableBodyControl;
-                    if (breakableBodyControl == null)
+                    if (breakableBodyControl != null)
                     {
                         var autoBreakableBodyControl = child as AutoBreakableBodyControl;
                         if (autoBreakableBodyControl != null)
@@ -47,18 +47,13 @@ namespace SM.WpfFarseer
                             }
 
                             breakableBodyControl = bbc;
-                            autoBreakableBodyControl._canvas.Visibility = System.Windows.Visibility.Hidden;
-                            tobeadded.Add(breakableBodyControl._canvas);
+                            //autoBreakableBodyControl._canvas.Visibility = System.Windows.Visibility.Hidden;
+                            //tobeadded.Add(breakableBodyControl._canvas);
                         }
 
                         if (breakableBodyControl != null)
                         {
-                            // var shapes = breakableBodyControl.Parts.SelectMany<BodyControl, FShape.Shape>(c => (from x in c.Shapes select breakableBodyControl.ToFarseerShape(x)));
-                            
-                            //var shapes = from x in breakableBodyControl.Parts select breakableBodyControl._canvas.ToFarseerShape((Polygon)x.Shape.Shape);
-                            //_worldManager.AddBreakableBodyControl(breakableBodyControl, breakableBodyControl.Parts, shapes, breakableBodyControl._canvas.GetOrigin());
                             worldManager.AddBreakableBodyView(breakableBodyControl);
-                            
                             handled = true;
                         }
                     }

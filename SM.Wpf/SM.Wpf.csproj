@@ -101,6 +101,9 @@
   <ItemGroup>
     <Compile Include="AutoBreakableBodyControl.cs" />
     <Compile Include="BasicControl.cs" />
+    <Compile Include="BasicBodyControl.cs">
+      <Generator>MSBuild:Compile</Generator>
+    </Compile>
     <Compile Include="BodyControl.cs">
       <Generator>MSBuild:Compile</Generator>
     </Compile>

@@ -22,10 +22,10 @@ namespace SM.Wpf
 
         public void Update()
         {
-            _line.X1 = _ropeJointInfo.BodyControlA._canvas.TranslatePoint(_ropeJointInfo.AnchorA, _parent).X;
-            _line.Y1 = _ropeJointInfo.BodyControlA._canvas.TranslatePoint(_ropeJointInfo.AnchorA, _parent).Y;
-            _line.X2 = _ropeJointInfo.BodyControlB._canvas.TranslatePoint(_ropeJointInfo.AnchorB, _parent).X;
-            _line.Y2 = _ropeJointInfo.BodyControlB._canvas.TranslatePoint(_ropeJointInfo.AnchorB, _parent).Y;
+            //_line.X1 = _ropeJointInfo.BodyControlA._canvas.TranslatePoint(_ropeJointInfo.AnchorA, _parent).X;
+            //_line.Y1 = _ropeJointInfo.BodyControlA._canvas.TranslatePoint(_ropeJointInfo.AnchorA, _parent).Y;
+            //_line.X2 = _ropeJointInfo.BodyControlB._canvas.TranslatePoint(_ropeJointInfo.AnchorB, _parent).X;
+            //_line.Y2 = _ropeJointInfo.BodyControlB._canvas.TranslatePoint(_ropeJointInfo.AnchorB, _parent).Y;
         }
     }
 }

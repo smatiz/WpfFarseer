@@ -104,31 +104,7 @@ namespace SM.Farseer
         {
             _loopCoroutine.Add(new LoopCoroutine(x.Loop));
         }
-        public void AddBodyControl(IBodyControl bodyControl, Vector2 originPosition)
-        {
-            var body = BodyFactory.CreateBody(_world, Vector2.Zero);
-            CodeGenerator.AddCode(String.Format("var {0} = BodyFactory.CreateBody(World, Vector2.Zero);", body.g()));
-            _addFarseerObject(new BodyUpdater(bodyControl, body, originPosition));
-            foreach(var p in bodyControl.FlagsPoints)
-            {
-                _addFarseerObject(p);
-            }
-        }
-
-        public void AddBreakableBodyControl(IBodyControl bodyControl,  IEnumerable<IBodyControl> bodyPartControl, IEnumerable<Shape> shapes, Vector2 originPosition)
-        {
-            var body = BodyFactory.CreateBreakableBody(_world, shapes);
-            var bbu = new BreakableBodyUpdater(bodyControl, body, originPosition);
-            bbu.OnBroke += () =>
-            {
-                foreach (var a in bodyPartControl.Zip(body.Parts, (x, y) => new { BodyPartControl = x, Part = y }))
-                {
-                    _addFarseerObject(new BodyUpdater(a.BodyPartControl, a.Part.Body, body.MainBody.Position));
-                }
-            };
-            _addFarseerObject(bbu);
-        }
-
+        
         public void Update()
         {
             int n = _map.Count;
@@ -247,24 +223,24 @@ namespace SM.Farseer
         public void AddRopeJoint(IRopeJointControl jointControl)
         {
 
-            var xA = (IPointControl)Find(jointControl.TargetNameA);
-            var xB = (IPointControl)Find(jointControl.TargetNameB);
-            var _bA = (Body)((BodyUpdater)Find(xA.ParentId)).Object;
-            var _bB = (Body)((BodyUpdater)Find(xB.ParentId)).Object;
-            var _aA = new Vector2(xA.X, xA.Y);
-            var _aB = new Vector2(xB.X, xB.Y);
-            TwoPointJointInfo jointInfo = new TwoPointJointInfo(_bA, _bB, _aA, _aB);
-            var j = (RopeJoint)addJoint(jointInfo, jointControl, (w, bA, bB, pA, pB) => JointFactory.CreateRopeJoint(w, bA, bB, pA, pB), "CreateRopeJoint");
+            //var xA = (IPointControl)Find(jointControl.TargetNameA);
+            //var xB = (IPointControl)Find(jointControl.TargetNameB);
+            //var _bA = (Body)((BodyUpdater)Find(xA.ParentId)).Object;
+            //var _bB = (Body)((BodyUpdater)Find(xB.ParentId)).Object;
+            //var _aA = new Vector2(xA.X, xA.Y);
+            //var _aB = new Vector2(xB.X, xB.Y);
+            //TwoPointJointInfo jointInfo = new TwoPointJointInfo(_bA, _bB, _aA, _aB);
+            //var j = (RopeJoint)addJoint(jointInfo, jointControl, (w, bA, bB, pA, pB) => JointFactory.CreateRopeJoint(w, bA, bB, pA, pB), "CreateRopeJoint");
 
-            if (jointControl.MaxLength != -1)
-            {
-                j.MaxLength = jointControl.MaxLength;
-            }
-            else if (jointControl.MaxLengthFactor != -1)
-            {
-                j.MaxLength *= jointControl.MaxLengthFactor;
-            }
-            CodeGenerator.AddCode(String.Format("{1}.MaxLength = {0};", j.MaxLength, j.g()));
+            //if (jointControl.MaxLength != -1)
+            //{
+            //    j.MaxLength = jointControl.MaxLength;
+            //}
+            //else if (jointControl.MaxLengthFactor != -1)
+            //{
+            //    j.MaxLength *= jointControl.MaxLengthFactor;
+            //}
+            //CodeGenerator.AddCode(String.Format("{1}.MaxLength = {0};", j.MaxLength, j.g()));
         }
         /*public void AddWeldJoint(TwoPointJointInfo jointInfo, IWeldJointControl jointControl)
         {

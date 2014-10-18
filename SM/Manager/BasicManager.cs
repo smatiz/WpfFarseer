@@ -84,7 +84,7 @@ namespace SM
         protected abstract void Step(float dt);
         protected abstract void Loop();
 
-
+        
         private void updateMaterial(float dt)
         {
             Step(dt);

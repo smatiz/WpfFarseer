@@ -6,37 +6,30 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Markup;
+using System.Windows.Media;
 using System.Windows.Shapes;
 
 namespace SM.Wpf
 {
     [ContentPropertyAttribute("Parts")]
-    public class BreakableBodyControl : BodyControl, IBreakableBodyView
+    public class BreakableBodyControl : BasicBodyControl, IBreakableBodyView
     {
-        public override SM.BodyType BodyType
-        {
-            get
-            {
-                return SM.BodyType.Dynamic;
-            }
-         }
-
         public BreakableBodyControl()
         {
             Parts = new ObservableCollection<BreakableBodyPartControl>();
-            Parts.CollectionChanged += Parts_CollectionChanged;
+            //Parts.CollectionChanged += Parts_CollectionChanged;
         }
 
-        void Parts_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            if(e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
-            {
-                foreach (var x in e.NewItems)
-                {
-                    _canvas.Children.Add(((BreakableBodyPartControl)x)._canvas);
-                }
-            }
-        }
+        //void Parts_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        //{
+        //    if(e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
+        //    {
+        //        foreach (var x in e.NewItems)
+        //        {
+        //            //_canvas.Children.Add(((BreakableBodyPartControl)x)._canvas);
+        //        }
+        //    }
+        //}
 
         public ObservableCollection<BreakableBodyPartControl> Parts
         {
@@ -56,6 +49,29 @@ namespace SM.Wpf
                 bc.Id = part.Id;
                 bc.Shapes.Add(part.Shape);
                 yield return bc;
+            }
+        }
+
+       
+
+        public IEnumerable<IShapeView> Shapes_Y
+        {
+            get 
+            { 
+                return from x in Parts select x.Shape;
+            }
+        }
+
+        protected override Brush Brush
+        {
+            get { return new SolidColorBrush(Colors.AliceBlue); }
+        }
+
+        protected override IEnumerable<Polygon> Polygons
+        {
+            get
+            {
+                return from x in Parts select (Polygon)x.Shape.Shape;
             }
         }
     }
