@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace SM.Farseer
 {
-    public class ShortTheRopeBehaviour : IFarseerBehaviourWpf
+    public class ShortTheRopeBehaviour : IViewBehaviour
     {
         RopeJoint jointC;
 
-        public IEnumerator<BasicCoroutine> Start(FarseerWorldManager_old farseerWorld)
+        public IEnumerator<BasicCoroutine> Start(BasicManager farseerWorld)
         {
             jointC = farseerWorld.FindObject<RopeJoint>("jointC");
             return null;

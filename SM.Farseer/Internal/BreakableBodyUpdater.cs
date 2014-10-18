@@ -38,6 +38,7 @@ namespace SM.Farseer
             {
                 base.Update();
             }
+
         }
 
         public override object Object { get { return _breakableBody; } }

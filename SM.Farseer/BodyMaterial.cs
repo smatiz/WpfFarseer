@@ -23,21 +23,12 @@ namespace SM.Farseer
         }
 
 
-        public IShapeMaterial Build(string id, SM.BodyType bodyType, IShapeView shape)
+        public void Build(string id, SM.BodyType bodyType)
         {
-            //_body = body;
-
             _body.UserData = id;
-
             _body.BodyType = (FarseerPhysics.Dynamics.BodyType)bodyType;
             //_body.Position = originPosition;
-
             //_originalPosition = originPosition;
-
-            //foreach (var shape in shapes)
-            {
-                return new ShapeMaterial(_body);
-            }
         }
 
         public rotoTranslation RotoTranslation
@@ -47,6 +38,12 @@ namespace SM.Farseer
                 var q = _body.Position - _originalPosition; 
                 return new rotoTranslation(new float2(q.X, q.Y), _body.Rotation);
             }
+        }
+
+
+        public void AddShape(IEnumerable<IVector2> points, float density)
+        {
+            FarseerPhysics.Factories.FixtureFactory.AttachPolygon(points.ToFarseerVertices(), density, _body);
         }
     }
 }

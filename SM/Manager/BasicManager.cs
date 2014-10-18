@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace SM
 {
-
-    public abstract class WorldManager
+    public abstract class BasicManager
     {
         private MaterialWatch _materialWatch;
         private IViewWatch _viewWatch;
@@ -15,7 +14,10 @@ namespace SM
         private Dictionary<string, IIdentifiable> _map = new Dictionary<string, IIdentifiable>();
         private List<LoopCoroutine> _materialLoopCoroutine = new List<LoopCoroutine>();
 
-        public WorldManager(IViewWatch viewWatch)
+        private List<BasicCoroutine> _startCoroutine = new List<BasicCoroutine>();
+        private List<BasicCoroutine> _updateCoroutine = new List<BasicCoroutine>();
+
+        public BasicManager(IViewWatch viewWatch)
         {
             _materialWatch = new MaterialWatch(dt => updateMaterial(dt));
             _viewWatch = viewWatch;// new ViewWatch(() => updateView());
@@ -44,11 +46,18 @@ namespace SM
             return (T)y;
         }
 
-        public void AddBehaviour(IBehaviour x)
+        public void AddMaterialBehaviour(IMaterialBehaviour x)
         {
             _materialLoopCoroutine.Add(new LoopCoroutine(x.Loop));
         }
-        public void AddObject(IIdentifiable obj)
+
+        public void AddViewBehaviour(IViewBehaviour x)
+        {
+            _startCoroutine.Add(new StartCoroutine(this, x.Start));
+            _updateCoroutine.Add(new UpdateCoroutine(x.Update));
+            //_farseerBehaviours.Add(x);
+        }
+        protected void AddObject(IIdentifiable obj)
         {
             _map.Add(obj.Id, obj);
             var x = obj as IManager;
@@ -57,8 +66,7 @@ namespace SM
                 x.Build();
             }
         }
-
-        private bool built = false;
+       
         public void Play()
         {
             _viewWatch.Play();
@@ -75,6 +83,7 @@ namespace SM
 
         protected abstract void Step(float dt);
         protected abstract void Loop();
+
 
         private void updateMaterial(float dt)
         {

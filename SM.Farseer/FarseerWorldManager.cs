@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 namespace SM.Farseer
 {
 
-    public class FarseerWorldManager : WorldManager
+    public class FarseerWorldManager : BasicWorldManager
     {
         World _world = new World(new Vector2(0, 10));
         protected override void Step(float dt)
@@ -34,7 +34,9 @@ namespace SM.Farseer
             : base(viewWatch)
         {
         }
-        public IBodyMaterial CreateBodyMaterial()
+
+
+        public override IBodyMaterial CreateBodyMaterial()
         {
             return new BodyMaterial(_world);
         }
@@ -93,7 +95,7 @@ namespace SM.Farseer
             return (T)y;
         }
 
-        public void AddFarseerBehaviour(IBehaviour x)
+        public void AddFarseerBehaviour(IMaterialBehaviour x)
         {
             _loopCoroutine.Add(new LoopCoroutine(x.Loop));
         }

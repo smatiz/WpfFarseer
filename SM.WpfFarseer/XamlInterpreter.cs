@@ -22,10 +22,6 @@ namespace SM.WpfFarseer
 
         public static void BuildFarseerWorldManager(FarseerWorldManager worldManager, IEnumerable<BasicControl> objects, bool isInDesignMode = false)
         {
-            //FarseerWorldManager _worldManager = new FarseerWorldManager(timer);
-
-
-
             var tobeadded = new List<UIElement>();
 
             foreach (var child in objects)
@@ -33,46 +29,43 @@ namespace SM.WpfFarseer
                 bool handled = false;
                 if (!isInDesignMode)
                 {
-
+                    var breakableBodyControl = child as BreakableBodyControl;
+                    if (breakableBodyControl == null)
                     {
-                        var breakableBodyControl = child as BreakableBodyControl;
-                        if (breakableBodyControl == null)
+                        var autoBreakableBodyControl = child as AutoBreakableBodyControl;
+                        if (autoBreakableBodyControl != null)
                         {
-                            var autoBreakableBodyControl = child as AutoBreakableBodyControl;
-                            if (autoBreakableBodyControl != null)
+                            var polyF = autoBreakableBodyControl.Shape.Points.ToFarseerVertices();
+                            var vss = FarseerPhysics.Common.Decomposition.Triangulate.ConvexPartition(polyF, (FarseerPhysics.Common.Decomposition.TriangulationAlgorithm)autoBreakableBodyControl.TriangulationAlgorithm);
+                            var bbc = new BreakableBodyControl();
+
+                            foreach (var p in vss)
                             {
-                                var polyF = autoBreakableBodyControl.Shape.Points.ToFarseerVertices();
-                                var vss = FarseerPhysics.Common.Decomposition.Triangulate.ConvexPartition(polyF, (FarseerPhysics.Common.Decomposition.TriangulationAlgorithm)autoBreakableBodyControl.TriangulationAlgorithm);
-                                var bbc = new BreakableBodyControl();
-
-                                foreach (var p in vss)
-                                {
-                                    var bbcp = new BreakableBodyPartControl();
-                                    bbcp.Shape.Points = p.ToWpf();
-                                    bbc.Parts.Add(bbcp);
-                                }
-
-                                breakableBodyControl = bbc;
-                                autoBreakableBodyControl._canvas.Visibility = System.Windows.Visibility.Hidden;
-                                tobeadded.Add(breakableBodyControl._canvas);
+                                var bbcp = new BreakableBodyPartControl();
+                                bbcp.Shape.Points = p.ToWpf();
+                                bbc.Parts.Add(bbcp);
                             }
+
+                            breakableBodyControl = bbc;
+                            autoBreakableBodyControl._canvas.Visibility = System.Windows.Visibility.Hidden;
+                            tobeadded.Add(breakableBodyControl._canvas);
                         }
 
-                        //if (breakableBodyControl != null)
-                        //{
-                        //    // var shapes = breakableBodyControl.Parts.SelectMany<BodyControl, FShape.Shape>(c => (from x in c.Shapes select breakableBodyControl.ToFarseerShape(x)));
+                        if (breakableBodyControl != null)
+                        {
+                            // var shapes = breakableBodyControl.Parts.SelectMany<BodyControl, FShape.Shape>(c => (from x in c.Shapes select breakableBodyControl.ToFarseerShape(x)));
 
-                        //    var shapes = from x in breakableBodyControl.Parts select breakableBodyControl._canvas.ToFarseerShape((Polygon)x.Shape.Shape);
-                        //    _worldManager.AddBreakableBodyControl(breakableBodyControl, breakableBodyControl.Parts, shapes, breakableBodyControl._canvas.GetOrigin());
-                        //    handled = true;
-                        //}
+                            //var shapes = from x in breakableBodyControl.Parts select breakableBodyControl._canvas.ToFarseerShape((Polygon)x.Shape.Shape);
+                            //_worldManager.AddBreakableBodyControl(breakableBodyControl, breakableBodyControl.Parts, shapes, breakableBodyControl._canvas.GetOrigin());
+                            //handled = true;
+                        }
                     }
                     if (!handled)
                     {
                         var bodyControl = child as BodyControl;
                         if (bodyControl != null)
                         {
-                            worldManager.AddObject(new BodyManager(bodyControl, worldManager.CreateBodyMaterial()));
+                            worldManager.AddBodyView(bodyControl);
 
                             //_worldManager.AddBodyControl(bodyControl, bodyControl._canvas.GetOrigin());
                             handled = true;

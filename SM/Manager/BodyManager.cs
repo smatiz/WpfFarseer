@@ -16,8 +16,9 @@ namespace SM
 
     public interface IBodyMaterial
     {
-        IShapeMaterial Build(string id, SM.BodyType bodyType, IShapeView shapes); 
+        void Build(string id, SM.BodyType bodyType); 
         rotoTranslation RotoTranslation { get; }
+        void AddShape(IEnumerable<IVector2> points, float density);
     }
 
     public class BodyManager : IManager
@@ -35,19 +36,28 @@ namespace SM
 
         public void Build()
         {
-            var shapes = from shape in BodyView.Shapes_Y
-                                 select new
-                                     {
-                                         ShapeMaterial = BodyMaterial.Build(BodyView.Id, BodyView.BodyType, shape),
-                                         ShapeView = shape,
-                                     };
+            //var shapeManagers = from shape in BodyView.Shapes_Y
+            //                     select new ShapeManager
+            //                         {
+            //                             ShapeMaterial = BodyMaterial.Build(BodyView.Id, BodyView.BodyType),
+            //                             ShapeView = shape,
+            //                         };
 
 
-            // la parte successiva e' giusto venga fatta dentro il BodyMaterial o qui ??
-            // qui se riesco a evitare che un XxxMaterial contenga e conosca un YyyManager
-            foreach (var shape in shapes)
+            //// la parte successiva e' giusto venga fatta dentro il BodyMaterial o qui ??
+            //// qui se riesco a evitare che un XxxMaterial contenga e conosca un YyyManager
+            //// dentro nel ShapeManager
+            //foreach (var sm in shapeManagers)
+            //{
+            //    sm.Build();
+            //}
+
+
+            BodyMaterial.Build(BodyView.Id, BodyView.BodyType);
+            foreach (var shape in BodyView.Shapes_Y)
             {
-                shape.ShapeMaterial.Build(shape.ShapeView.Points_X, shape.ShapeView.Density_X);
+                BodyMaterial.AddShape(shape.Points_X, shape.Density_X);
+
             }
         }
 

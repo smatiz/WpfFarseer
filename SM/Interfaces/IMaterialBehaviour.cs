@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SM
 {
-    public interface IBehaviour
+    public interface IMaterialBehaviour
     {
         IEnumerator<BasicCoroutine> Loop(float dt);
     }

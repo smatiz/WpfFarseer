@@ -1,18 +1,17 @@
 ﻿using SM;
-using SM.Farseer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SM.Farseer
+namespace SM
 {
     public class StartCoroutine : BasicCoroutine
     {
-        private Func<FarseerWorldManager_old, IEnumerator<BasicCoroutine>> _func;
-        FarseerWorldManager_old _farseerWorldManager;
-        public StartCoroutine(FarseerWorldManager_old farseerWorldManager, Func<FarseerWorldManager_old, IEnumerator<BasicCoroutine>> func)
+        private Func<BasicManager, IEnumerator<BasicCoroutine>> _func;
+        BasicManager _farseerWorldManager;
+        public StartCoroutine(BasicManager farseerWorldManager, Func<BasicManager, IEnumerator<BasicCoroutine>> func)
         {
             _farseerWorldManager = farseerWorldManager;
             _func = func;

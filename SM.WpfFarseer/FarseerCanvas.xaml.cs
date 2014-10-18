@@ -39,17 +39,12 @@ namespace WpfFarseer
         FarseerWorldManager_old _worldManager_old;
        FarseerWorldManager _worldManager;
 
-        private List<IFarseerBehaviourWpf> _farseerBehaviours = new List<IFarseerBehaviourWpf>();
+        private List<IViewBehaviour> _farseerBehaviours = new List<IViewBehaviour>();
 
-        private List<BasicCoroutine> _startCoroutine = new List<BasicCoroutine>();
-        private List<BasicCoroutine> _updateCoroutine = new List<BasicCoroutine>();
 
-        public void AddFarseerBehaviour(IFarseerBehaviourWpf x)
+        public void AddFarseerBehaviour(IViewBehaviour x)
         {
-            _startCoroutine.Add(new StartCoroutine(_worldManager_old, x.Start));
-            _updateCoroutine.Add(new UpdateCoroutine(x.Update));
-            _farseerBehaviours.Add(x);
-            _worldManager_old.AddFarseerBehaviour(x);
+            _worldManager.AddViewBehaviour(x);
         }
         public FarseerCanvas()
         {

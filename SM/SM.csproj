@@ -94,15 +94,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BasicCommand.cs" />
+    <Compile Include="BasicWorldManager.cs" />
     <Compile Include="BodyType.cs" />
     <Compile Include="Coroutines\LoopCoroutine.cs" />
     <Compile Include="float2.cs" />
+    <Compile Include="float2s.cs" />
     <Compile Include="IManager.cs" />
+    <Compile Include="Interfaces\IViewBehaviour.cs" />
     <Compile Include="Interfaces\IVector2.cs" />
     <Compile Include="IViewWatch.cs" />
+    <Compile Include="Manager\BreakableBodyManager.cs" />
     <Compile Include="Manager\BodyManager.cs" />
-    <Compile Include="Manager\ShapeManager.cs" />
-    <Compile Include="Manager\WorldManager.cs" />
+    <Compile Include="Interfaces\IShapeView.cs" />
+    <Compile Include="Coroutines\StartCoroutine.cs" />
+    <Compile Include="Coroutines\UpdateCoroutine.cs" />
+    <Compile Include="Manager\BasicManager.cs" />
+    <Compile Include="rotoTranslation.cs" />
     <Compile Include="TriangulationAlgorithm.cs" />
     <Compile Include="Const.cs" />
     <Compile Include="Coroutines\Coroutinator.cs" />
@@ -112,7 +119,7 @@
     <Compile Include="Coroutines\FuncCoroutine.cs" />
     <Compile Include="Interfaces\IBreakableBodyPartControl.cs" />
     <Compile Include="Interfaces\IJointControl.cs" />
-    <Compile Include="Interfaces\IBehaviour.cs" />
+    <Compile Include="Interfaces\IMaterialBehaviour.cs" />
     <Compile Include="Interfaces\IBodyControl.cs" />
     <Compile Include="Interfaces\Material\IMaterial.cs" />
     <Compile Include="Interfaces\IIdentifiable.cs" />
@@ -129,6 +136,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Coroutines\WaitSecondsCoroutine.cs" />
     <Compile Include="MaterialWatch.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Objects\Body\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

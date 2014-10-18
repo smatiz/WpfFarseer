@@ -94,10 +94,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BreakableBodyMaterial.cs" />
     <Compile Include="BodyMaterial.cs" />
-    <Compile Include="Coroutines\IFarseerBehaviourWpf.cs" />
-    <Compile Include="Coroutines\StartCoroutine.cs" />
-    <Compile Include="Coroutines\UpdateCoroutine.cs" />
     <Compile Include="Helpers\FarseerHelper.cs" />
     <Compile Include="Internal\BreakableBodyUpdater.cs" />
     <Compile Include="Internal\BodyUpdater.cs" />
