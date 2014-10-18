@@ -4,7 +4,7 @@
         xmlns:l="clr-namespace:WpfFarseer;assembly=SM.WpfFarseer"
         xmlns:l2="clr-namespace:WpfFarseer"
         Title="MainWindow" Height="550" Width="525">
-    <TabControl SelectedIndex="0">
+    <TabControl SelectedIndex="1">
         <TabControl.Items>
             <TabItem Header="1">
                 <l2:Sample1></l2:Sample1>

@@ -20,5 +20,11 @@ namespace SM
         }
         public abstract IBodyMaterial CreateBodyMaterial();
 
+        public void AddBreakableBodyView(IBreakableBodyView body)
+        {
+            AddObject(new BreakableBodyManager(body, CreateBreakableBodyMaterial()));
+        }
+        public abstract IBreakableBodyMaterial CreateBreakableBodyMaterial();
+
     }
 }

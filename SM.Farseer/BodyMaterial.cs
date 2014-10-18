@@ -21,6 +21,12 @@ namespace SM.Farseer
         {
             _body = BodyFactory.CreateBody(world);
         }
+        public BodyMaterial(Body body, string id)
+        {
+            _body = body;
+            _body.UserData = id;
+            _body.BodyType = FarseerPhysics.Dynamics.BodyType.Dynamic;
+        }
 
 
         public void Build(string id, SM.BodyType bodyType)
@@ -40,10 +46,10 @@ namespace SM.Farseer
             }
         }
 
-
-        public void AddShape(IEnumerable<IVector2> points, float density)
+        public void AddShape(IShapeView shape)
         {
-            FarseerPhysics.Factories.FixtureFactory.AttachPolygon(points.ToFarseerVertices(), density, _body);
+
+            FarseerPhysics.Factories.FixtureFactory.AttachPolygon(shape.Points_X.ToFarseerVertices(), shape.Density_X, _body);
         }
     }
 }

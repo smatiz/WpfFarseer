@@ -11,7 +11,7 @@ using System.Windows.Shapes;
 namespace SM.Wpf
 {
     [ContentPropertyAttribute("Parts")]
-    public class BreakableBodyControl : BodyControl
+    public class BreakableBodyControl : BodyControl, IBreakableBodyView
     {
         public override SM.BodyType BodyType
         {
@@ -45,5 +45,18 @@ namespace SM.Wpf
         }
         public static readonly DependencyProperty PartsProperty =
             DependencyProperty.Register("Parts", typeof(ObservableCollection<BreakableBodyPartControl>), typeof(BreakableBodyControl), new PropertyMetadata(null));
+
+
+        public IEnumerable<IBodyView> Break()
+        {
+            foreach(var part in Parts)
+            {
+                var bc = new BodyControl();
+                bc.BodyType = SM.BodyType.Dynamic;
+                bc.Id = part.Id;
+                bc.Shapes.Add(part.Shape);
+                yield return bc;
+            }
+        }
     }
 }

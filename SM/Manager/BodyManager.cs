@@ -18,12 +18,12 @@ namespace SM
     {
         void Build(string id, SM.BodyType bodyType); 
         rotoTranslation RotoTranslation { get; }
-        void AddShape(IEnumerable<IVector2> points, float density);
+        void AddShape(IShapeView shape);
     }
 
     public class BodyManager : IManager
     {
-        rotoTranslation RotoTranslation;
+        rotoTranslation _rotoTranslation;
 
         public IBodyView BodyView { get; private set; }
         public IBodyMaterial BodyMaterial { get; private set; }
@@ -36,38 +36,21 @@ namespace SM
 
         public void Build()
         {
-            //var shapeManagers = from shape in BodyView.Shapes_Y
-            //                     select new ShapeManager
-            //                         {
-            //                             ShapeMaterial = BodyMaterial.Build(BodyView.Id, BodyView.BodyType),
-            //                             ShapeView = shape,
-            //                         };
-
-
-            //// la parte successiva e' giusto venga fatta dentro il BodyMaterial o qui ??
-            //// qui se riesco a evitare che un XxxMaterial contenga e conosca un YyyManager
-            //// dentro nel ShapeManager
-            //foreach (var sm in shapeManagers)
-            //{
-            //    sm.Build();
-            //}
-
-
             BodyMaterial.Build(BodyView.Id, BodyView.BodyType);
             foreach (var shape in BodyView.Shapes_Y)
             {
-                BodyMaterial.AddShape(shape.Points_X, shape.Density_X);
+                BodyMaterial.AddShape(shape);
 
             }
         }
 
         public void UpdateMaterial()
         {
-            RotoTranslation = BodyMaterial.RotoTranslation;
+            _rotoTranslation = BodyMaterial.RotoTranslation;
         }
         public void UpdateView()
         {
-            BodyView.RotoTranslation = RotoTranslation;
+            BodyView.RotoTranslation = _rotoTranslation;
         }
 
         public string Id

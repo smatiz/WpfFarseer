@@ -18,5 +18,9 @@ namespace SM.Farseer
         {
             return new Xna.Vector2((float)p.X, (float)p.Y);
         }
+        public static FShape.PolygonShape ToFarseerVertices(this IShapeView shape)
+        {
+            return new FShape.PolygonShape(shape.Points_X.ToFarseerVertices(), shape.Density_X);
+        }
     }
 }

@@ -12,7 +12,7 @@
         <l2:FarseerPlayerControl x:Name="_farseerPlayer">
             <l2:FarseerPlayerControl.FarseerCanvas>
                 <l3:FarseerCanvas  Grid.Row="0" >
-                    <l:BreakableBodyControl Id="bb">
+                    <l:BreakableBodyControl >
                         <l:BreakableBodyPartControl Id="bb1" >
                             <l:ShapeControl l:BodyControl.Density="123" Points="0 0,100 0,100 100" >
                             </l:ShapeControl>

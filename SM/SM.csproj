@@ -98,7 +98,6 @@
     <Compile Include="BodyType.cs" />
     <Compile Include="Coroutines\LoopCoroutine.cs" />
     <Compile Include="float2.cs" />
-    <Compile Include="float2s.cs" />
     <Compile Include="IManager.cs" />
     <Compile Include="Interfaces\IViewBehaviour.cs" />
     <Compile Include="Interfaces\IVector2.cs" />

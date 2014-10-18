@@ -6,83 +6,91 @@ using System.Threading.Tasks;
 
 namespace SM
 {
-    //public interface IBreakableBodyView
-    //{
-    //    IEnumerable<IShapeView> Shapes_Y { get; }
-    //    rotoTranslation RotoTranslation { set; }
-    //    void Break();
-    //    string Id { get; }
-    //}
+    public interface IBreakableBodyView
+    {
+        IEnumerable<IShapeView> Shapes_Y { get; }
+        rotoTranslation RotoTranslation { set; }
+        IEnumerable<IBodyView> Break();
+        string Id { get; }
+    }
 
-    //public interface IBreakableBodyMaterial
-    //{
-    //    IShapeMaterial Build(string id, SM.BodyType bodyType, IShapeView shapes);
-    //    rotoTranslation RotoTranslation { get; }
-    //    bool Broken { get; }
-    //}
+    public interface IBreakableBodyMaterial
+    {
+        void Build(string id, IEnumerable<IShapeView> shapes);
+        rotoTranslation RotoTranslation { get; }
+        bool IsBroken { get; }
+        IEnumerable<IBodyMaterial> GetPieces();
+    }
 
-    //public class BreakableBodyManager : IManager
-    //{
-    //    rotoTranslation RotoTranslation;
-    //    enum Status { NotBroken, JustBroken, Broken  }
+    public class BreakableBodyManager : IManager
+    {
+        rotoTranslation _rotoTranslation;
+        BodyManager[] _bodyManagers = null;
+        IEnumerable<IBodyMaterial> _bodyMaterials = null;
 
-    //    Status _status = Status.NotBroken;
-
-    //    public IBreakableBodyView BodyView { get; private set; }
-    //    public IBreakableBodyMaterial BodyMaterial { get; private set; }
-
-    //    public BreakableBodyManager(IBreakableBodyView bodyView, IBreakableBodyMaterial bodyMaterial)
-    //    {
-    //        BodyView = bodyView;
-    //        BodyMaterial = bodyMaterial;
-    //    }
-
-    //    public void Build()
-    //    {
-    //        //var shapes = from shape in BodyView.Shapes_Y
-    //        //                     select new
-    //        //                         {
-    //        //                             ShapeMaterial = BodyMaterial.Build(BodyView.Id, BodyType.Dynamic, shape),
-    //        //                             ShapeView = shape,
-    //        //                         };
+        public IBreakableBodyView BreakableBodyView { get; private set; }
+        public IBreakableBodyMaterial BreakableBodyMaterial { get; private set; }
 
 
-    //        //// la parte successiva e' giusto venga fatta dentro il BodyMaterial o qui ??
-    //        //// qui se riesco a evitare che un XxxMaterial contenga e conosca un YyyManager
-    //        //foreach (var shape in shapes)
-    //        //{
-    //        //    shape.ShapeMaterial.Build(shape.ShapeView.Points_X, shape.ShapeView.Density_X);
-    //        //}
-    //    }
 
-    //    public void UpdateMaterial()
-    //    {
-    //        RotoTranslation = BodyMaterial.RotoTranslation;
-    //        if (_status == Status.NotBroken)
-    //        {
-    //            if (BodyMaterial.Broken)
-    //            {
-    //                _status = Status.JustBroken;
-    //            }
-    //        }
-    //    }
+        public BreakableBodyManager(IBreakableBodyView breakableBodyView, IBreakableBodyMaterial breakableBodyMaterial)
+        {
+            BreakableBodyView = breakableBodyView;
+            BreakableBodyMaterial = breakableBodyMaterial;
+        }
 
-    //    public void UpdateView()
-    //    {
-    //        BodyView.RotoTranslation = RotoTranslation;
-    //        if (_status == Status.JustBroken)
-    //        {
-    //            _status = Status.Broken;
-    //            BodyView.Break();
-    //        }
-    //    }
+        public void Build()
+        {
+            BreakableBodyMaterial.Build(BreakableBodyView.Id, BreakableBodyView.Shapes_Y);
+        }
 
-    //    public string Id
-    //    {
-    //        get
-    //        { 
-    //            return BodyView.Id; 
-    //        }
-    //    }
-    //}
+        public void UpdateMaterial()
+        {
+            if (_bodyMaterials == null && _bodyManagers == null)
+            {
+                _rotoTranslation = BreakableBodyMaterial.RotoTranslation;
+                _bodyMaterials = BreakableBodyMaterial.GetPieces();
+                if (BreakableBodyMaterial.IsBroken)
+                {
+                    _bodyMaterials = BreakableBodyMaterial.GetPieces();
+                }
+            }
+            else
+            {
+                foreach (var m in _bodyManagers)
+                {
+                    m.UpdateMaterial();
+                }
+            }
+        }
+
+        public void UpdateView()
+        {
+            if (_bodyManagers == null)
+            {
+                BreakableBodyView.RotoTranslation = _rotoTranslation;
+                if (_bodyMaterials != null)
+                {
+                    var bodyviews = BreakableBodyView.Break();
+                    _bodyManagers = bodyviews.Zip(_bodyMaterials, (v, m) => new BodyManager(v, m)).ToArray();
+                    _bodyMaterials = null;
+                }
+            }
+            else
+            {
+                foreach(var m in _bodyManagers)
+                {
+                    m.UpdateView();
+                }
+            }
+        }
+
+        public string Id
+        {
+            get
+            { 
+                return BreakableBodyView.Id; 
+            }
+        }
+    }
 }
