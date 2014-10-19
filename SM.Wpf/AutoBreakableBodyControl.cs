@@ -9,8 +9,6 @@ using System.Windows.Shapes;
 
 namespace SM.Wpf
 {
-
-
     [ContentPropertyAttribute("Shape")]
     public class AutoBreakableBodyControl : BodyControl
     {

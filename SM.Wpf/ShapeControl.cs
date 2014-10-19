@@ -15,7 +15,7 @@ namespace SM.Wpf
 {
 
 
-    public class ShapeControl : BasicControl, IShape, IShapeView
+    public class ShapeControl : DependencyObject, IShape, IShapeView
     {
         public ShapeControl()
         {
@@ -80,5 +80,6 @@ namespace SM.Wpf
                 return Density; 
             }
         }
+
     }
 }

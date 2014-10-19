@@ -22,16 +22,11 @@ namespace SM.Wpf
     [ContentPropertyAttribute("Shapes")]
     public class BodyControl : BasicBodyControl, IBodyView
     {
-        private RotateTransform _rotation; 
-        private TranslateTransform _traslation;
 
         public BodyControl()
         {
             Shapes = new ObservableCollection<ShapeControl>();
             Shapes.CollectionChanged += Shapes_CollectionChanged;
-
-            _rotation = new RotateTransform();
-            _traslation = new TranslateTransform();
         }
         
         protected override Brush Brush { get { return DefaultBrush; } }

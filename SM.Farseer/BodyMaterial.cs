@@ -31,9 +31,10 @@ namespace SM.Farseer
         }
 
 
-        public void Build(string id, SM.BodyType bodyType)
+        public void Build(string id, float2 position, SM.BodyType bodyType)
         {
             _body.UserData = id;
+            _originalPosition = position.ToFarseer();
             CodeGenerator.AddCode("Body {0} = BodyFactory.CreateBody(W);", _body.n());
             _body.BodyType = (FarseerPhysics.Dynamics.BodyType)bodyType;
             CodeGenerator.AddCode(@"{0}.UserData = ""{1}"";", _body.n(), _body.UserData);

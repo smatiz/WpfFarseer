@@ -30,15 +30,18 @@ namespace SM.Wpf
 
         public IEnumerable<IBodyView> Break()
         {
+            _parent.Children.Remove(_canvas);
             foreach(var part in Parts)
             {
                 var bc = new BodyControl();
                 bc.BodyType = SM.BodyType.Dynamic;
                 bc.Id = part.Id;
                 bc.Shapes.Add(part.Shape);
-                bc.RegisterTo(_parent);
+                bc.RegisterToParent(_parent);
+                bc.RotoTranslation = RotoTranslation;
                 yield return bc;
             }
+            //_parent = null;
         }
 
        

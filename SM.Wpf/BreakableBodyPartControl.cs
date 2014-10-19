@@ -34,5 +34,7 @@ namespace SM.Wpf
             _obj._canvas.Children.Clear();
             _obj._canvas.Children.Add(_obj.Shape.Shape);
         }
+
+        
     }
 }

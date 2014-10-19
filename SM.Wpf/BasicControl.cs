@@ -8,11 +8,12 @@ using System.Windows.Controls;
 
 namespace SM.Wpf
 {
+    // controlli in grado di agganciare il proprio canvas al canvas padre
     public class BasicControl : DependencyObject
     {
         protected Canvas _canvas = new Canvas();
-        protected Panel _parent;
-        public void RegisterTo(Panel parent)
+        protected Canvas _parent;
+        public void RegisterToParent(Canvas parent)
         {
             _parent = parent;
             _parent.Children.Add(_canvas);

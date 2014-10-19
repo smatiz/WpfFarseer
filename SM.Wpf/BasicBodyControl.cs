@@ -83,7 +83,31 @@ namespace SM.Wpf
                 }
             }
         }
+
+
+
+        public float X
+        {
+            get { return (float)GetValue(XProperty); }
+            set { SetValue(XProperty, value); }
+        }
+        public static readonly DependencyProperty XProperty =
+            DependencyProperty.Register("X", typeof(float), typeof(BasicBodyControl), new PropertyMetadata(0f));
+
+
+
+        public float Y
+        {
+            get { return (float)GetValue(YProperty); }
+            set { SetValue(YProperty, value); }
+        }
+        public static readonly DependencyProperty YProperty =
+            DependencyProperty.Register("Y", typeof(float), typeof(BasicBodyControl), new PropertyMetadata(0f));
+
+        public float2 Position { get { return new float2(X, Y); } }
         
+
+
         public IEnumerable<IPointControl> FlagsPoints
         {
             get { return from x in Flags select x; }
@@ -91,11 +115,15 @@ namespace SM.Wpf
 
         public rotoTranslation RotoTranslation
         {
+            get 
+            {
+                return rotoTranslation.FromDegree(new float2((float)_traslation.X, (float)_traslation.Y), (float)_rotation.Angle);
+            }
             set
             {
                 _traslation.X = value.Translation.X;
                 _traslation.Y = value.Translation.Y;
-                _rotation.Angle = value.Angle;
+                _rotation.Angle = value.DegreeAngle;
             }
         }
     }

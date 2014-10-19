@@ -16,6 +16,10 @@ namespace SM
             _translation = translation;
             _angle = angle;
         }
+        public static rotoTranslation FromDegree(float2 translation, float angle)
+        {
+            return new rotoTranslation(translation, angle / AngleSubst);
+        }
         public float2 Translation { get { return _translation; } }
         public float Angle { get { return _angle; } }
 

@@ -75,7 +75,7 @@ namespace WpfFarseer
             {
                 foreach (var x in e.NewItems)
                 {
-                    ((BasicControl)x).RegisterTo(this);
+                    ((BasicControl)x).RegisterToParent(this);
 
                     if(x is BreakableBodyControl)
                     {
