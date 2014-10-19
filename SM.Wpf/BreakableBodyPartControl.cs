@@ -9,32 +9,32 @@ using System.Windows.Shapes;
 
 namespace SM.Wpf
 {
-    [ContentPropertyAttribute("Shape")]
-    public class BreakableBodyPartControl : BodyControl
-    {
-        public override SM.BodyType BodyType
-        {
-            get
-            {
-                return SM.BodyType.Dynamic;
-            }
-        }
+    //[ContentPropertyAttribute("Shape")]
+    //public class BreakableBodyPartControl : BodyControl
+    //{
+    //    public override SM.BodyType BodyType
+    //    {
+    //        get
+    //        {
+    //            return SM.BodyType.Dynamic;
+    //        }
+    //    }
 
-        public ShapeControl Shape
-        {
-            get { return (ShapeControl)GetValue(ShapeProperty); }
-            set { SetValue(ShapeProperty, value); }
-        }
-        public static readonly DependencyProperty ShapeProperty =
-            DependencyProperty.Register("Shape", typeof(ShapeControl), typeof(BreakableBodyPartControl),
-            new PropertyMetadata(null, new PropertyChangedCallback(ShapePropertyChanged)));
-        private static void ShapePropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
-        {
-            var _obj = ((BreakableBodyPartControl)obj);
-            _obj._canvas.Children.Clear();
-            _obj._canvas.Children.Add(_obj.Shape.Shape);
-        }
+    //    public ShapeControl Shape
+    //    {
+    //        get { return (ShapeControl)GetValue(ShapeProperty); }
+    //        set { SetValue(ShapeProperty, value); }
+    //    }
+    //    public static readonly DependencyProperty ShapeProperty =
+    //        DependencyProperty.Register("Shape", typeof(ShapeControl), typeof(BreakableBodyPartControl),
+    //        new PropertyMetadata(null, new PropertyChangedCallback(ShapePropertyChanged)));
+    //    private static void ShapePropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
+    //    {
+    //        var _obj = ((BreakableBodyPartControl)obj);
+    //        _obj._canvas.Children.Clear();
+    //        _obj._canvas.Children.Add(_obj.Shape.Shape);
+    //    }
 
         
-    }
+    //}
 }

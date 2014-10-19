@@ -13,14 +13,10 @@
             <l2:FarseerPlayerControl.FarseerCanvas>
                 <l3:FarseerCanvas  Grid.Row="0" >
                     <l:BreakableBodyControl >
-                        <l:BreakableBodyPartControl Id="bb1" >
                             <l:ShapeControl Density="123" Points="0 0,100 0,100 100" >
                             </l:ShapeControl>
-                        </l:BreakableBodyPartControl>
-                        <l:BreakableBodyPartControl Id="bb2" >
                             <l:ShapeControl Density="123" Points="100,50,150,0,150,100" >
                             </l:ShapeControl>
-                        </l:BreakableBodyPartControl>
                     </l:BreakableBodyControl>
                     <l:BodyControl Id="b">
                         <l:ShapeControl Density="123" Points="0 200,300 200,150 250" >

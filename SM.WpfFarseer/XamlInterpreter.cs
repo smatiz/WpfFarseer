@@ -41,9 +41,9 @@ namespace SM.WpfFarseer
 
                             foreach (var p in vss)
                             {
-                                var bbcp = new BreakableBodyPartControl();
-                                bbcp.Shape.Points = p.ToWpf();
-                                bbc.Parts.Add(bbcp);
+                                var shape = new ShapeControl();
+                                shape.Points = p.ToWpf();
+                                bbc.Shapes.Add(shape);
                             }
 
                             breakableBodyControl = bbc;
