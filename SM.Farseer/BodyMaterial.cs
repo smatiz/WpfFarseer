@@ -26,13 +26,18 @@ namespace SM.Farseer
             _body = body;
             _body.UserData = id;
             _body.BodyType = FarseerPhysics.Dynamics.BodyType.Dynamic;
+            CodeGenerator.AddCode("{0}.UserData = {1};", _body.n(), _body.UserData);
+            CodeGenerator.AddCode("{0}.BodyType = FarseerPhysics.Dynamics.BodyType.Dynamic;", _body.n());
         }
 
 
         public void Build(string id, SM.BodyType bodyType)
         {
             _body.UserData = id;
+            CodeGenerator.AddCode("Body {0} = BodyFactory.CreateBody(W);", _body.n());
             _body.BodyType = (FarseerPhysics.Dynamics.BodyType)bodyType;
+            CodeGenerator.AddCode(@"{0}.UserData = ""{1}"";", _body.n(), _body.UserData);
+            CodeGenerator.AddCode("{0}.BodyType = BodyType.{1};", _body.n(), _body.BodyType.ToString());
             //_body.Position = originPosition;
             //_originalPosition = originPosition;
         }
@@ -48,8 +53,12 @@ namespace SM.Farseer
 
         public void AddShape(IShapeView shape)
         {
+            var vs = shape.Points_X.ToFarseerVertices();
+            FarseerPhysics.Factories.FixtureFactory.AttachPolygon(vs, shape.Density_X, _body);
 
-            FarseerPhysics.Factories.FixtureFactory.AttachPolygon(shape.Points_X.ToFarseerVertices(), shape.Density_X, _body);
+            string shapeName = CodeGenerator.N("vs_");
+            vs.AddCode(shapeName);
+            CodeGenerator.AddCode("FarseerPhysics.Factories.FixtureFactory.AttachPolygon({0}, {1}, {2});", shapeName, shape.Density_X, _body.n());
         }
     }
 }

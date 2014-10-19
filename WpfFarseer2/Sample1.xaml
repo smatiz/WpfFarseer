@@ -13,7 +13,7 @@
             <l2:FarseerPlayerControl.FarseerCanvas>
                 <l3:FarseerCanvas  Grid.Row="0" >
                     <l:BodyControl Id="fallingBody"  BodyType="Dynamic"  >
-                        <l:ShapeControl l:BodyControl.Density="123" Points="0 0,100 0,100 100" >
+                        <l:ShapeControl Density="123" Points="0 0,100 0,100 100" >
                            
                         </l:ShapeControl>
                         <l:BodyControl.Flags>

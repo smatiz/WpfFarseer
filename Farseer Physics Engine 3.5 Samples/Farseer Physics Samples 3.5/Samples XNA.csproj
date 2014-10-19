@@ -104,6 +104,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Demos\AdvancedDemo2B.cs" />
+    <Compile Include="Demos\FromXaml.cs" />
     <Compile Include="Demos\AdvancedDemo5B.cs" />
     <Compile Include="Demos\CameraTests.cs" />
     <Compile Include="Demos\Worm.cs" />

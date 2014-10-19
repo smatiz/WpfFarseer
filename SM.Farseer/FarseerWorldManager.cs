@@ -30,9 +30,10 @@ namespace SM.Farseer
             // throw new NotImplementedException();
         }
 
-        public FarseerWorldManager(IViewWatch viewWatch)
+        public FarseerWorldManager(string id, IViewWatch viewWatch)
             : base(viewWatch)
         {
+            Id = id;
         }
 
 
@@ -46,6 +47,8 @@ namespace SM.Farseer
         {
             return new BreakableBodyMaterial(_world);
         }
+
+        public string Id { get; private set; }
     }
 
 
@@ -204,7 +207,7 @@ namespace SM.Farseer
         {
             j.UserData = jointControl.Id;
             j.CollideConnected = jointControl.CollideConnected;
-            CodeGenerator.AddCode(String.Format("{0}.CollideConnected = {1};", j.g(),  jointControl.CollideConnected.g()));
+            CodeGenerator.AddCode(String.Format("{0}.CollideConnected = {1};", j.n(),  jointControl.CollideConnected.g()));
             _addFarseerObject(new RopeJointObject(jointControl, ( RopeJoint)j));
         }
         private Joint addJoint(TwoPointJointInfo jointInfo, IJointControl jointControl, Func<World, Body, Body, Vector2, Vector2, Joint> func, string name)
@@ -217,7 +220,7 @@ namespace SM.Farseer
 
             var j = JointFactory.CreateRopeJoint(_world, bA, bB, pA, pB);
             addJoint(j, jointControl);
-            CodeGenerator.AddCode(String.Format("var {4} = JointFactory.{5}(_world, {0}, {1}, {2}, {3});", bA.g(), bB.g(), pA.g(), pB.g(), j.g(), name));
+            CodeGenerator.AddCode(String.Format("var {4} = JointFactory.{5}(_world, {0}, {1}, {2}, {3});", bA.n(), bB.n(), pA.g(), pB.g(), j.n(), name));
             return j;
         }
         public void AddRopeJoint(IRopeJointControl jointControl)

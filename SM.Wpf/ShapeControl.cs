@@ -58,10 +58,27 @@ namespace SM.Wpf
             }
          }
 
+
+
+        public float Density
+        {
+            get { return (float)GetValue(DensityProperty); }
+            set { SetValue(DensityProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Density.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty DensityProperty =
+            DependencyProperty.Register("Density", typeof(float), typeof(ShapeControl), new PropertyMetadata(1f));
+
+        
+
         
         public float Density_X
         {
-            get { return 0; }
+            get
+            {
+                return Density; 
+            }
         }
     }
 }

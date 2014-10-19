@@ -28,21 +28,28 @@ namespace SM.Farseer
 
         public void Build(string id, IEnumerable<IShapeView> shapes)
         {
-            //_body = body;
-            _breakableBody = BodyFactory.CreateBreakableBody(__world, from x in shapes select x.ToFarseerVertices());
+            var vss =  from x in shapes select x.ToFarseerVertices();
+            _breakableBody = BodyFactory.CreateBreakableBody(__world, vss);
             _breakableBody.MainBody.UserData = id;
             _breakableBody.Strength = 1;
-            //_breakableBody.MainBody.BodyType = FarseerPhysics.Dynamics.BodyType.Dynamic;
 
 
-            //_body.Position = originPosition;
-            //_originalPosition = originPosition;
-
-            //foreach (var shape in shapes)
+            var shapeNames = new List<string>();
+            var polygonsName = CodeGenerator.N("ps_");
+            CodeGenerator.AddCode("var {0} = new List<FarseerPhysics.Collision.Shapes.PolygonShape>();", polygonsName);
+            foreach(var poly in vss)
             {
-              //  return new ShapeMaterial(_breakableBody.MainBody);
+                var shapeName = CodeGenerator.N("vs_");
+                shapeNames.Add(shapeName);
+                var polyName = shapeName + "_V";
+                poly.AddCode(polyName, shapeName);
+                CodeGenerator.AddCode("{0}.Add({1});", polygonsName, polyName);
             }
 
+
+            var breakableBodyName = CodeGenerator.N("bb_");
+            CodeGenerator.AddCode("var {0} = BodyFactory.CreateBreakableBody(W, {1});", breakableBodyName, polygonsName);
+            CodeGenerator.AddCode("{0}.Strength = {1};", breakableBodyName, _breakableBody.Strength);
 
         }
 

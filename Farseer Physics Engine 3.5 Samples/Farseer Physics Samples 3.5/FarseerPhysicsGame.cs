@@ -73,11 +73,16 @@ namespace FarseerPhysics.Samples
             AdvancedDemo4 advanced4 = new AdvancedDemo4();
             AdvancedDemo5 advanced5 = new AdvancedDemo5();
 
+
             GameDemo1 game1 = new GameDemo1();
 
             MenuScreen menuScreen = new MenuScreen("Farseer Samples");
 
+            menuScreen.AddMenuItem("", EntryType.Screen, new FromXaml());
             menuScreen.AddMenuItem(advanced5.GetTitle(), EntryType.Screen, advanced5);
+
+
+
 
             menuScreen.AddMenuItem("", EntryType.Screen, new Empty());
             menuScreen.AddMenuItem("", EntryType.Screen, new Worm());

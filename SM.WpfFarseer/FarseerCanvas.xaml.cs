@@ -48,13 +48,20 @@ namespace WpfFarseer
         }
         public FarseerCanvas()
         {
+
+
             InitializeComponent();
+
+            if(Id == null || Id == "")
+            {
+                Id = BasicControl.AutoGenerateName();
+            }
 
             FarseerObjects = new ObservableCollection<BasicControl>();
             FarseerObjects.CollectionChanged += FarseerObjects_CollectionChanged;
 
             _worldManager_old = new FarseerWorldManager_old();
-            _worldManager = new FarseerWorldManager(new ViewWatch(Dispatcher));
+            _worldManager = new FarseerWorldManager(Id, new ViewWatch(Dispatcher));
             Loaded += (s, e) =>
             {
                 bool b = System.ComponentModel.DesignerProperties.GetIsInDesignMode(this);
@@ -159,7 +166,8 @@ namespace WpfFarseer
         public static readonly DependencyProperty FarseerObjectsProperty =
             DependencyProperty.Register("FarseerObjects", typeof(ObservableCollection<BasicControl>), typeof(FarseerCanvas), new PropertyMetadata(null));
 
-        
+
+        public string Id { get; set; }
     }
 }
 

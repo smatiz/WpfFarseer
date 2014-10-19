@@ -54,16 +54,16 @@ namespace SM.Wpf
         protected abstract Brush Brush { get; }
         protected abstract IEnumerable<Polygon> Polygons { get; }
 
-        public static float GetDensity(DependencyObject obj)
-        {
-            return (float)obj.GetValue(DensityProperty);
-        }
-        public static void SetDensity(DependencyObject obj, float value)
-        {
-            obj.SetValue(DensityProperty, value);
-        }
-        public static readonly DependencyProperty DensityProperty =
-            DependencyProperty.RegisterAttached("Density", typeof(float), typeof(BodyControl), new PropertyMetadata(Const.Density));
+        //public static float GetDensity(DependencyObject obj)
+        //{
+        //    return (float)obj.GetValue(DensityProperty);
+        //}
+        //public static void SetDensity(DependencyObject obj, float value)
+        //{
+        //    obj.SetValue(DensityProperty, value);
+        //}
+        //public static readonly DependencyProperty DensityProperty =
+        //    DependencyProperty.RegisterAttached("Density", typeof(float), typeof(BodyControl), new PropertyMetadata(Const.Density));
 
         public ObservableCollection<FlagControl> Flags
         {

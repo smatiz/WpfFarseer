@@ -15,13 +15,13 @@ using Microsoft.Xna.Framework;
 
 namespace SM.WpfFarseer
 {
-
-   
     public class XamlInterpreter
     {
 
         public static void BuildFarseerWorldManager(FarseerWorldManager worldManager, IEnumerable<BasicControl> objects, bool isInDesignMode = false)
         {
+            CodeGenerator.Header = "Farseer Code Generator" + " : " + worldManager.Id;
+
             var tobeadded = new List<UIElement>();
 
             foreach (var child in objects)
