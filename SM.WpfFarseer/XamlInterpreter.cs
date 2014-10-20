@@ -18,44 +18,46 @@ namespace SM.WpfFarseer
     public class XamlInterpreter
     {
 
-        public static void BuildFarseerWorldManager(FarseerWorldManager worldManager, IEnumerable<BasicControl> objects, bool isInDesignMode = false)
+        public static IEnumerable<BasicControl> BuildFarseerWorldManager(FarseerWorldManager worldManager, IEnumerable<BasicControl> objects, bool isInDesignMode = false)
         {
             CodeGenerator.Header = "Farseer Code Generator" + " : " + worldManager.Id;
 
-            var tobeadded = new List<UIElement>();
+            var tobeadded = new List<BasicControl>();
 
             foreach (var child in objects)
             {
                 bool handled = false;
                 if (!isInDesignMode)
                 {
-                    var breakableBodyControl = child as BreakableBodyControl;
+                    BreakableBodyControl breakableBodyControl = null;
+                    var autoBreakableBodyControl = child as AutoBreakableBodyControl;
+                    if (autoBreakableBodyControl != null)
+                    {
+                        var polyF = autoBreakableBodyControl.Shape.Points.ToFarseerVertices();
+                        var vss = FarseerPhysics.Common.Decomposition.Triangulate.ConvexPartition(polyF, (FarseerPhysics.Common.Decomposition.TriangulationAlgorithm)autoBreakableBodyControl.TriangulationAlgorithm);
+                        var bbc = new BreakableBodyControl();
+                        bbc.DefaultBrush = new SolidColorBrush(Colors.AliceBlue);
+                        foreach (var p in vss)
+                        {
+                            var shape = new ShapeControl();
+                            
+                            shape.Points = p.ToWpf();
+                            bbc.Shapes.Add(shape);
+                        }
+
+                        breakableBodyControl = bbc;
+                        //autoBreakableBodyControl._canvas.Visibility = System.Windows.Visibility.Hidden;
+                        tobeadded.Add(breakableBodyControl);
+                    }
+
+                    if (breakableBodyControl == null)
+                    {
+                        breakableBodyControl = child as BreakableBodyControl;
+                    }
                     if (breakableBodyControl != null)
                     {
-                        var autoBreakableBodyControl = child as AutoBreakableBodyControl;
-                        if (autoBreakableBodyControl != null)
-                        {
-                            var polyF = autoBreakableBodyControl.Shape.Points.ToFarseerVertices();
-                            var vss = FarseerPhysics.Common.Decomposition.Triangulate.ConvexPartition(polyF, (FarseerPhysics.Common.Decomposition.TriangulationAlgorithm)autoBreakableBodyControl.TriangulationAlgorithm);
-                            var bbc = new BreakableBodyControl();
-
-                            foreach (var p in vss)
-                            {
-                                var shape = new ShapeControl();
-                                shape.Points = p.ToWpf();
-                                bbc.Shapes.Add(shape);
-                            }
-
-                            breakableBodyControl = bbc;
-                            //autoBreakableBodyControl._canvas.Visibility = System.Windows.Visibility.Hidden;
-                            //tobeadded.Add(breakableBodyControl._canvas);
-                        }
-
-                        if (breakableBodyControl != null)
-                        {
                             worldManager.AddBreakableBodyView(breakableBodyControl);
                             handled = true;
-                        }
                     }
                     if (!handled)
                     {
@@ -92,10 +94,7 @@ namespace SM.WpfFarseer
                 //}
             }
 
-            foreach (var tba in tobeadded)
-            {
-                //Children.Add(tba);
-            }
+            return tobeadded;
 
 
           

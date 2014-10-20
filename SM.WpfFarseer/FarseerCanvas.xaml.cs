@@ -34,8 +34,6 @@ namespace WpfFarseer
     {
         List<TwoPointJointControlManager> _ropeJointManager = new List<TwoPointJointControlManager>();
 
-
-
         FarseerWorldManager_old _worldManager_old;
        FarseerWorldManager _worldManager;
 
@@ -48,8 +46,6 @@ namespace WpfFarseer
         }
         public FarseerCanvas()
         {
-
-
             InitializeComponent();
 
             if(Id == null || Id == "")
@@ -65,7 +61,11 @@ namespace WpfFarseer
             Loaded += (s, e) =>
             {
                 bool b = System.ComponentModel.DesignerProperties.GetIsInDesignMode(this);
-                XamlInterpreter.BuildFarseerWorldManager(_worldManager, FarseerObjects, b);
+                var tobeadded = XamlInterpreter.BuildFarseerWorldManager(_worldManager, FarseerObjects, b);
+                foreach (var x in tobeadded)
+                {
+                    ((BasicControl)x).RegisterToParent(this);
+                }
             };
         }
 
@@ -76,12 +76,6 @@ namespace WpfFarseer
                 foreach (var x in e.NewItems)
                 {
                     ((BasicControl)x).RegisterToParent(this);
-
-                    if(x is BreakableBodyControl)
-                    {
-                        BreakableBodyControl y = (BreakableBodyControl)x;
-                        
-                    }
                 }
             }
         }
