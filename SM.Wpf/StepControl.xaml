@@ -14,7 +14,7 @@
         <Button Width="100" Command = "{Binding VoidCommand}">Forward</Button>
         <Button Width="100" Command = "{Binding BackCommand}">Backward</Button>
 
-        <Button Width="100" Command = "{Binding SaveCommand}">Save</Button>
-        <Button Width="100" Command = "{Binding LoadCommand}">Load</Button>
+        <!--<Button Width="100" Command = "{Binding SaveCommand}">Save</Button>-->
+        <!--<Button Width="100" Command = "{Binding LoadCommand}">Load</Button>-->
     </StackPanel>
 </UserControl>

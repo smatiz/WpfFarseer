@@ -12,7 +12,7 @@ namespace SM
             : base(viewWatch)
         {
         }
-
+        
 
         public void AddBodyView(IBodyView body)
         {
@@ -26,5 +26,10 @@ namespace SM
         }
         public abstract IBreakableBodyMaterial CreateBreakableBodyMaterial();
 
+        public void AddRopeJointControl(IRopeJointView body)
+        {
+            AddObject(new RopeJointManager(body, CreateRopeJointMaterial()));
+        }
+        public abstract IRopeJointMaterial CreateRopeJointMaterial();
     }
 }

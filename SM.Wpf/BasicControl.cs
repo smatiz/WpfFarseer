@@ -5,18 +5,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace SM.Wpf
 {
-    // controlli in grado di agganciare il proprio canvas al canvas padre
-    public class BasicControl : DependencyObject
+    // controlli in grado di agganciare il proprio canvas o il canvas di un altro BasicControl al canvas padre
+    public class BasicControl : Visual
     {
         protected Canvas _canvas = new Canvas();
-        protected Canvas _parent;
-        public void RegisterToParent(Canvas parent)
+        protected UIElementCollection _parentChildrens;
+        public void AddToUIElementCollection(UIElementCollection parentChildrens)
         {
-            _parent = parent;
-            _parent.Children.Add(_canvas);
+            _parentChildrens = parentChildrens;
+            _parentChildrens.Add(_canvas);
         }
         static int i = 0;
         public static string AutoGenerateName()
@@ -29,6 +30,7 @@ namespace SM.Wpf
             {
                 Id = BasicControl.AutoGenerateName();
             }
+            //_canvas.Tag = this;
         }
 
         public string Id

@@ -35,6 +35,7 @@ namespace SM.Farseer
         {
             Id = id;
         }
+        public string Id { get; private set; }
 
 
         public override IBodyMaterial CreateBodyMaterial()
@@ -48,7 +49,11 @@ namespace SM.Farseer
             return new BreakableBodyMaterial(_world);
         }
 
-        public string Id { get; private set; }
+
+        public override IRopeJointMaterial CreateRopeJointMaterial()
+        {
+            return new RopeJointMaterial(_world, this);
+        }
     }
 
 

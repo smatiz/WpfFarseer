@@ -28,20 +28,20 @@ namespace SM
         BodyManager[] _bodyManagers = null;
         IEnumerable<IBodyMaterial> _bodyMaterials = null;
 
-        public IBreakableBodyView BreakableBodyView { get; private set; }
-        public IBreakableBodyMaterial BreakableBodyMaterial { get; private set; }
+        IBreakableBodyView _breakableBodyView;
+        IBreakableBodyMaterial _breakableBodyMaterial;
 
 
 
         public BreakableBodyManager(IBreakableBodyView breakableBodyView, IBreakableBodyMaterial breakableBodyMaterial)
         {
-            BreakableBodyView = breakableBodyView;
-            BreakableBodyMaterial = breakableBodyMaterial;
+            _breakableBodyView = breakableBodyView;
+            _breakableBodyMaterial = breakableBodyMaterial;
         }
 
         public void Build()
         {
-            BreakableBodyMaterial.Build(BreakableBodyView.Id, BreakableBodyView.Shapes_Y);
+            _breakableBodyMaterial.Build(_breakableBodyView.Id, _breakableBodyView.Shapes_Y);
         }
 
         enum Status { Entire, MaterialBroking, ViewBroking, Broken }
@@ -51,11 +51,11 @@ namespace SM
             switch (_status)
             {
                 case Status.Entire:
-                    _rotoTranslation = BreakableBodyMaterial.RotoTranslation;
-                    if (BreakableBodyMaterial.IsBroken)
+                    _rotoTranslation = _breakableBodyMaterial.RotoTranslation;
+                    if (_breakableBodyMaterial.IsBroken)
                     {
                         _status = Status.MaterialBroking;
-                        _bodyMaterials = BreakableBodyMaterial.GetPieces();
+                        _bodyMaterials = _breakableBodyMaterial.GetPieces();
                         _status = Status.ViewBroking;
                     }
                     break;
@@ -79,12 +79,12 @@ namespace SM
             switch (_status)
             {
                 case Status.Entire:
-                    BreakableBodyView.RotoTranslation = _rotoTranslation;
+                    _breakableBodyView.RotoTranslation = _rotoTranslation;
                     break;
                 case Status.ViewBroking:
                     if (_bodyMaterials != null)
                     {
-                        var bodyviews = BreakableBodyView.Break();
+                        var bodyviews = _breakableBodyView.Break();
                         _bodyManagers = bodyviews.Zip(_bodyMaterials, (v, m) => new BodyManager(v, m)).ToArray();
                         _bodyMaterials = null;
                     }
@@ -105,7 +105,7 @@ namespace SM
         {
             get
             { 
-                return BreakableBodyView.Id; 
+                return _breakableBodyView.Id; 
             }
         }
     }

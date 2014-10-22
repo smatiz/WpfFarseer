@@ -10,7 +10,7 @@ using SM;
 
 namespace SM.Wpf
 {
-    public class RopeJointControl : TwoPointJointControl, IRopeJointControl
+    public class RopeJointControl : TwoPointJointControl, IRopeJointControl, IRopeJointView
     {
         public float MaxLength
         {
@@ -27,5 +27,8 @@ namespace SM.Wpf
         }
         public static readonly DependencyProperty MaxLengthFactorProperty =
             DependencyProperty.Register("MaxLengthFactor", typeof(float), typeof(RopeJointControl), new PropertyMetadata(-1f));
+
+
+
     }
 }

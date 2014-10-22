@@ -19,7 +19,12 @@ using System.Windows.Shapes;
 
 namespace SM.Wpf
 {
-    public abstract class BasicBodyControl : BasicControl
+    public interface IFlaggable : IIdentifiable
+    {
+        ObservableCollection<FlagControl> Flags { get; }
+    }
+
+    public abstract class BasicBodyControl : BasicControl, IFlaggable
     {
         private RotateTransform _rotation; 
         private TranslateTransform _traslation;
@@ -79,7 +84,8 @@ namespace SM.Wpf
             {
                 foreach (var x in e.NewItems)
                 {
-                    _canvas.Children.Add((FlagControl)x);
+                    ((FlagControl)x).AddToUIElementCollection(_canvas.Children);
+                    //_canvas.Children.Add((FlagControl)x);
                 }
             }
         }
@@ -108,10 +114,10 @@ namespace SM.Wpf
         
 
 
-        public IEnumerable<IPointControl> FlagsPoints
-        {
-            get { return from x in Flags select x; }
-        }
+        //public IEnumerable<IPointControl> FlagsPoints
+        //{
+        //    get { return from x in Flags select x; }
+        //}
 
         public rotoTranslation RotoTranslation
         {

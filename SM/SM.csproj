@@ -98,16 +98,17 @@
     <Compile Include="BodyType.cs" />
     <Compile Include="Coroutines\LoopCoroutine.cs" />
     <Compile Include="float2.cs" />
-    <Compile Include="IManager.cs" />
+    <Compile Include="Interfaces\IManager.cs" />
     <Compile Include="Interfaces\IViewBehaviour.cs" />
     <Compile Include="Interfaces\IVector2.cs" />
-    <Compile Include="IViewWatch.cs" />
+    <Compile Include="Interfaces\IViewWatch.cs" />
     <Compile Include="Manager\BreakableBodyManager.cs" />
     <Compile Include="Manager\BodyManager.cs" />
     <Compile Include="Interfaces\IShapeView.cs" />
     <Compile Include="Coroutines\StartCoroutine.cs" />
     <Compile Include="Coroutines\UpdateCoroutine.cs" />
     <Compile Include="Manager\BasicManager.cs" />
+    <Compile Include="Manager\RopeJointManager.cs" />
     <Compile Include="rotoTranslation.cs" />
     <Compile Include="TriangulationAlgorithm.cs" />
     <Compile Include="Const.cs" />
@@ -135,9 +136,7 @@
     <Compile Include="Coroutines\WaitSecondsCoroutine.cs" />
     <Compile Include="MaterialWatch.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Objects\Body\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

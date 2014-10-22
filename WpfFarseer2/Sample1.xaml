@@ -17,20 +17,20 @@
                            
                         </l:ShapeControl>
                         <l:BodyControl.Flags>
-                            <l:FlagControl Id="x" Canvas.Left="229" Canvas.Top="30">
+                            <l:FlagControl Id="x" X="50" Y="30">
                             </l:FlagControl>   
                         </l:BodyControl.Flags>
                     </l:BodyControl>
                     <l:BodyControl Id="b2"   BodyType="Static"   >
-                        <l:ShapeControl  Points="0,0,200,0,200,200"  ></l:ShapeControl>
+                        <l:ShapeControl  Points="100,100,200,0,200,200"  ></l:ShapeControl>
                         <l:BodyControl.Flags>
-                            <l:FlagControl Id="y" Canvas.Left="387" Canvas.Top="-159">
+                            <l:FlagControl Id="y" X="150" Y="150">
 
                         </l:FlagControl>
                         </l:BodyControl.Flags>
                     </l:BodyControl>
 
-                    <l:RopeJointControl Id="jointC" TargetNameA="x" TargetNameB="y" >
+                    <l:RopeJointControl Id="jointC" TargetFlagIdA="x" TargetFlagIdB="y" >
                     </l:RopeJointControl>
                 </l3:FarseerCanvas>
             </l2:FarseerPlayerControl.FarseerCanvas>

@@ -51,7 +51,7 @@ namespace SM.Wpf
                 bc.BodyType = SM.BodyType.Dynamic;
                 //bc.Id = part.Id;
                 bc.Shapes.Add(shape);
-                bc.RegisterToParent(_parent);
+                bc.AddToUIElementCollection(_parentChildrens);
                 bc.RotoTranslation = RotoTranslation;
                 yield return bc;
             }

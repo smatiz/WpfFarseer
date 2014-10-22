@@ -8,7 +8,7 @@ namespace SM
 {
     public interface ITwoPointJointControl : IJointControl
     {
-        string TargetNameA { get; }
-        string TargetNameB { get; }
+        string TargetFlagIdA { get; }
+        string TargetFlagIdB { get; }
     }
 }

@@ -61,11 +61,8 @@ namespace WpfFarseer
             Loaded += (s, e) =>
             {
                 bool b = System.ComponentModel.DesignerProperties.GetIsInDesignMode(this);
-                var tobeadded = XamlInterpreter.BuildFarseerWorldManager(_worldManager, FarseerObjects, b);
-                foreach (var x in tobeadded)
-                {
-                    ((BasicControl)x).RegisterToParent(this);
-                }
+                XamlInterpreter.BuildFarseerWorldManager(Children, _worldManager, FarseerObjects, b);
+                
             };
         }
 
@@ -75,7 +72,7 @@ namespace WpfFarseer
             {
                 foreach (var x in e.NewItems)
                 {
-                    ((BasicControl)x).RegisterToParent(this);
+                    ((BasicControl)x).AddToUIElementCollection(this.Children);
                 }
             }
         }
@@ -120,12 +117,12 @@ namespace WpfFarseer
                     {
                         if (crossControl != null)
                         {
-                            if( crossControl.Id == jointControl.TargetNameA)
+                            if( crossControl.Id == jointControl.TargetFlagIdA)
                             {
                                 bodyControlA = bodyControl;
                                 //anchorA = crossControl.TranslatePoint(new Point(0, 0), bodyControl._canvas);
                             }
-                            else if (crossControl.Id == jointControl.TargetNameB)
+                            else if (crossControl.Id == jointControl.TargetFlagIdB)
                             {
                                 bodyControlB = bodyControl;
                                 //anchorB = crossControl.TranslatePoint(new Point(0, 0), bodyControl._canvas);

@@ -104,6 +104,7 @@
     <Compile Include="Internal\TwoPointJointInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="RopeJointMaterial.cs" />
     <Compile Include="ShortTheRopeBehaviour.cs" />
     <Compile Include="ViewModel\StepViewModel.cs" />
   </ItemGroup>

@@ -6,60 +6,65 @@ using System.Threading.Tasks;
 
 namespace SM
 {
-    public interface IBodyView
+
+    public interface IBodyView : IIdentifiable
     {
         BodyType BodyType { get; }
         float2 Position { get; }
         IEnumerable<IShapeView> Shapes_Y { get; }
         rotoTranslation RotoTranslation { set; }
-        string Id { get; }
     }
 
-    public interface IBodyMaterial
+    public interface IBodyMaterial : IMaterial
     {
         void Build(string id, float2 position, SM.BodyType bodyType); 
         rotoTranslation RotoTranslation { get; }
         void AddShape(IShapeView shape);
     }
 
-    public class BodyManager : IManager
+    public class BodyManager : IManager, IMaterial
     {
         rotoTranslation _rotoTranslation;
 
-        public IBodyView BodyView { get; private set; }
-        public IBodyMaterial BodyMaterial { get; private set; }
+        IBodyView _bodyView;
+        IBodyMaterial _bodyMaterial;
 
         public BodyManager(IBodyView bodyView, IBodyMaterial bodyMaterial)
         {
-            BodyView = bodyView;
-            BodyMaterial = bodyMaterial;
+            _bodyView = bodyView;
+            _bodyMaterial = bodyMaterial;
         }
 
         public void Build()
         {
-            BodyMaterial.Build(BodyView.Id, BodyView.Position, BodyView.BodyType);
-            foreach (var shape in BodyView.Shapes_Y)
+            _bodyMaterial.Build(_bodyView.Id, _bodyView.Position, _bodyView.BodyType);
+            foreach (var shape in _bodyView.Shapes_Y)
             {
-                BodyMaterial.AddShape(shape);
+                _bodyMaterial.AddShape(shape);
 
             }
         }
 
         public void UpdateMaterial()
         {
-            _rotoTranslation = BodyMaterial.RotoTranslation;
+            _rotoTranslation = _bodyMaterial.RotoTranslation;
         }
         public void UpdateView()
         {
-            BodyView.RotoTranslation = _rotoTranslation;
+            _bodyView.RotoTranslation = _rotoTranslation;
         }
 
         public string Id
         {
             get
             { 
-                return BodyView.Id; 
+                return _bodyView.Id; 
             }
+        }
+
+        public object Object
+        {
+            get { return _bodyMaterial.Object; }
         }
     }
 }
