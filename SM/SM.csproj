@@ -108,7 +108,11 @@
     <Compile Include="Coroutines\StartCoroutine.cs" />
     <Compile Include="Coroutines\UpdateCoroutine.cs" />
     <Compile Include="Manager\BasicManager.cs" />
-    <Compile Include="Manager\RopeJointManager.cs" />
+    <Compile Include="Manager\Joint\DistanceJointManager.cs" />
+    <Compile Include="Manager\Joint\RevoluteJointManager.cs" />
+    <Compile Include="Manager\Joint\RopeJointManager.cs" />
+    <Compile Include="Manager\Joint\TwoPointJointManager.cs" />
+    <Compile Include="Manager\Joint\WeldJointManager.cs" />
     <Compile Include="rotoTranslation.cs" />
     <Compile Include="TriangulationAlgorithm.cs" />
     <Compile Include="Const.cs" />

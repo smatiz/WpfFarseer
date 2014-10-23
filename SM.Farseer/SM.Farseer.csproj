@@ -94,8 +94,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BreakableBodyMaterial.cs" />
-    <Compile Include="BodyMaterial.cs" />
+    <Compile Include="Materials\BreakableBodyMaterial.cs" />
+    <Compile Include="Materials\BodyMaterial.cs" />
     <Compile Include="Helpers\FarseerHelper.cs" />
     <Compile Include="Internal\CodeGenerator.cs" />
     <Compile Include="FarseerWorldManager.cs" />
@@ -104,7 +104,7 @@
     <Compile Include="Internal\TwoPointJointInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="RopeJointMaterial.cs" />
+    <Compile Include="Materials\RopeJointMaterial.cs" />
     <Compile Include="ShortTheRopeBehaviour.cs" />
     <Compile Include="ViewModel\StepViewModel.cs" />
   </ItemGroup>

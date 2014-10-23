@@ -28,7 +28,5 @@ namespace SM.Wpf
         public static readonly DependencyProperty MaxLengthFactorProperty =
             DependencyProperty.Register("MaxLengthFactor", typeof(float), typeof(RopeJointControl), new PropertyMetadata(-1f));
 
-
-
     }
 }

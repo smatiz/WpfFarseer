@@ -44,5 +44,17 @@ namespace SM.Farseer
                 return _joint.WorldAnchorB.ToFarseer();
             }
         }
+
+        public float MaxLength
+        {
+            get
+            {
+                return _joint.MaxLength;
+            }
+            set
+            {
+                _joint.MaxLength = value;
+            }
+        }
     }
 }
