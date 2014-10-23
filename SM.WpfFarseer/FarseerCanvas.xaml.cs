@@ -58,11 +58,13 @@ namespace WpfFarseer
 
             _worldManager_old = new FarseerWorldManager_old();
             _worldManager = new FarseerWorldManager(Id, new ViewWatch(Dispatcher));
+            bool loaded = false;
             Loaded += (s, e) =>
             {
+                if (loaded) return;
+                loaded = true;
                 bool b = System.ComponentModel.DesignerProperties.GetIsInDesignMode(this);
                 XamlInterpreter.BuildFarseerWorldManager(Children, _worldManager, FarseerObjects, b);
-                
             };
         }
 

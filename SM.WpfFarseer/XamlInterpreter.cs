@@ -134,7 +134,7 @@ namespace SM.WpfFarseer
                         jointControl.SetLine(line);
                         jointControl.SetTargets(targetA.ParentId, targetB.ParentId);
 
-                        //if (!isInDesignMode)
+                        if (!isInDesignMode)
                         {
                             worldManager.AddRopeJointControl(jointControl);
                         }
