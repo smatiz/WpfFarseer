@@ -100,10 +100,6 @@
     <Compile Include="Internal\CodeGenerator.cs" />
     <Compile Include="FarseerWorldManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Internal\RopeJointObject.cs" />
-    <Compile Include="Internal\TwoPointJointInfo.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Materials\RopeJointMaterial.cs" />
     <Compile Include="ShortTheRopeBehaviour.cs" />
     <Compile Include="ViewModel\StepViewModel.cs" />

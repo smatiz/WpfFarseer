@@ -32,13 +32,7 @@ namespace WpfFarseer
     [ContentPropertyAttribute("FarseerObjects")]
     public partial class FarseerCanvas : Canvas
     {
-        List<TwoPointJointControlManager> _ropeJointManager = new List<TwoPointJointControlManager>();
-
-        FarseerWorldManager_old _worldManager_old;
-       FarseerWorldManager _worldManager;
-
-        private List<IViewBehaviour> _farseerBehaviours = new List<IViewBehaviour>();
-
+        FarseerWorldManager _worldManager;
 
         public void AddFarseerBehaviour(IViewBehaviour x)
         {
@@ -56,7 +50,6 @@ namespace WpfFarseer
             FarseerObjects = new ObservableCollection<BasicControl>();
             FarseerObjects.CollectionChanged += FarseerObjects_CollectionChanged;
 
-            _worldManager_old = new FarseerWorldManager_old();
             _worldManager = new FarseerWorldManager(Id, new ViewWatch(Dispatcher));
             bool loaded = false;
             Loaded += (s, e) =>
@@ -87,57 +80,6 @@ namespace WpfFarseer
         }
 
 
-        
-        public void Update()
-        {
-            if (_worldManager_old == null) return;
-            if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this)) return;
-            _worldManager_old.Update();
-            foreach (var x in _ropeJointManager)
-            {
-                x.Update();
-            }
-#if DEBUG
-            InvalidateVisual();
-#endif
-            foreach (var c in _farseerBehaviours)
-            {
-                c.Update();
-            }
-        }
-
-        private TwoPointJointControlInfo _resolve(RopeJointControl jointControl)
-        {
-            BodyControl bodyControlA = null, bodyControlB = null;
-            Point anchorA = new Point(), anchorB = new Point();
-            foreach (var child in Children)
-            {
-                var bodyControl = child as BodyControl;
-                if (bodyControl != null)
-                {
-                    foreach (var crossControl in bodyControl.Flags)
-                    {
-                        if (crossControl != null)
-                        {
-                            if( crossControl.Id == jointControl.TargetFlagIdA)
-                            {
-                                bodyControlA = bodyControl;
-                                //anchorA = crossControl.TranslatePoint(new Point(0, 0), bodyControl._canvas);
-                            }
-                            else if (crossControl.Id == jointControl.TargetFlagIdB)
-                            {
-                                bodyControlB = bodyControl;
-                                //anchorB = crossControl.TranslatePoint(new Point(0, 0), bodyControl._canvas);
-                            }
-                        }
-                    }
-                }
-            }
-
-            return new TwoPointJointControlInfo(bodyControlA, bodyControlB, anchorA, anchorB);
-        }
-
-        
 
         public static string GetAngleJoint(DependencyObject obj)
         {
