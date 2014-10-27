@@ -37,8 +37,11 @@ namespace SM.Wpf
             _rotation = new RotateTransform();
             _traslation = new TranslateTransform();
 
-            _canvas.Loaded += (s, e) =>
+            bool loaded = false;
+            _canvas.Initialized += (s, e) =>
             {
+                if (loaded) return;
+                loaded = true;
                 var gt = new TransformGroup();
                 gt.Children.Add(_rotation);
                 gt.Children.Add(_traslation);

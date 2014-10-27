@@ -29,7 +29,7 @@ namespace SM
             base.Build();
 
             var ropeJointView = (IRopeJointView)_jointView;
-            var ropeJointMaterial = (IRopeJointMaterial)_jointView;
+            var ropeJointMaterial = (IRopeJointMaterial)_jointMaterial;
 
             if (ropeJointView.MaxLength != -1)
             {

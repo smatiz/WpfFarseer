@@ -25,8 +25,8 @@ namespace SM.Farseer
         {
 
             _joint = JointFactory.CreateRopeJoint(_world,
-                _farseerWorldManager.FindObject<Body>(targetNameA),
-                _farseerWorldManager.FindObject<Body>(targetNameB),
+                _farseerWorldManager.Find<Body>(targetNameA),
+                _farseerWorldManager.Find<Body>(targetNameB),
                 anchorA.ToFarseer(), anchorB.ToFarseer());
         }
 
@@ -55,6 +55,19 @@ namespace SM.Farseer
             {
                 _joint.MaxLength = value;
             }
+        }
+
+        public object Object
+        {
+            get
+            { 
+                return _joint; 
+            }
+        }
+
+        public string Id
+        {
+            get { throw new NotImplementedException(); }
         }
     }
 }

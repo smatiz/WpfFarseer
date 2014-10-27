@@ -23,7 +23,7 @@ namespace WpfFarseer
         {
             InitializeComponent();
 
-            _farseerPlayer.FarseerCanvas.AddFarseerBehaviour(new ShortTheRopeBehaviour());
+            _farseerPlayer.FarseerCanvas.AddBehaviour(new ShortTheRopeBehaviour());
         }
     }
 }

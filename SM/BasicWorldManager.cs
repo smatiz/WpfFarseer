@@ -16,19 +16,19 @@ namespace SM
 
         public void AddBodyView(IBodyView body)
         {
-            AddObject(new BodyManager(body, CreateBodyMaterial()));
+            AddManager(new BodyManager(body, CreateBodyMaterial()));
         }
         public abstract IBodyMaterial CreateBodyMaterial();
 
         public void AddBreakableBodyView(IBreakableBodyView body)
         {
-            AddObject(new BreakableBodyManager(body, CreateBreakableBodyMaterial()));
+            AddManager(new BreakableBodyManager(body, CreateBreakableBodyMaterial()));
         }
         public abstract IBreakableBodyMaterial CreateBreakableBodyMaterial();
 
         public void AddRopeJointControl(IRopeJointView body)
         {
-            AddObject(new RopeJointManager(body, CreateRopeJointMaterial()));
+            AddManager(new RopeJointManager(body, CreateRopeJointMaterial()));
         }
         public abstract IRopeJointMaterial CreateRopeJointMaterial();
     }

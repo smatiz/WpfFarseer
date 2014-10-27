@@ -11,5 +11,6 @@ namespace SM
         void UpdateMaterial();
         void UpdateView();
         void Build();
+        object Object { get; }
     }
 }

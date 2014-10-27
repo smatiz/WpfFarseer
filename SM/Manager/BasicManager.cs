@@ -11,10 +11,9 @@ namespace SM
         private MaterialWatch _materialWatch;
         private IViewWatch _viewWatch;
 
-        private Dictionary<string, IIdentifiable> _map = new Dictionary<string, IIdentifiable>();
+        private Dictionary<string, IManager> _managers = new Dictionary<string, IManager>();
         private List<LoopCoroutine> _materialLoopCoroutine = new List<LoopCoroutine>();
 
-        private List<BasicCoroutine> _startCoroutine = new List<BasicCoroutine>();
         private List<BasicCoroutine> _updateCoroutine = new List<BasicCoroutine>();
 
         public BasicManager(IViewWatch viewWatch)
@@ -24,27 +23,29 @@ namespace SM
             _viewWatch.Callback = () => updateView();
         }
 
-        private object Find(string name)
+        private IManager Find(string name)
         {
-            if (_map.ContainsKey(name))
-                return _map[name];
+            if (_managers.ContainsKey(name))
+                return _managers[name];
             // WARNING
             return null;
         }
-        private T Find<T>(string name) where T : class
+        public T Find<T>(string name) where T : class
         {
             var x = Find(name);
-            if (typeof(T) != x.GetType()) return null;
-            return (T)x;
-        }
-        public T FindObject<T>(string name) where T : class
-        {
-            var x = Find(name) as IMaterial;
-            if(x == null) return null;
+            if (x == null) return null;
             var y = x.Object;
             if (typeof(T) != y.GetType()) return null;
             return (T)y;
         }
+        //public T FindObject<T>(string name) where T : class
+        //{
+        //    var x = Find(name) as IMaterial;
+        //    if(x == null) return null;
+        //    var y = x.Object;
+        //    if (typeof(T) != y.GetType()) return null;
+        //    return (T)y;
+        //}
 
         public void AddMaterialBehaviour(IMaterialBehaviour x)
         {
@@ -53,18 +54,13 @@ namespace SM
 
         public void AddViewBehaviour(IViewBehaviour x)
         {
-            _startCoroutine.Add(new StartCoroutine(this, x.Start));
             _updateCoroutine.Add(new UpdateCoroutine(x.Update));
             //_farseerBehaviours.Add(x);
         }
-        protected void AddObject(IIdentifiable obj)
+        protected void AddManager(IManager manager)
         {
-            _map.Add(obj.Id, obj);
-            var x = obj as IManager;
-            if (x != null)
-            {
-                x.Build();
-            }
+            _managers.Add(manager.Id, manager);
+            manager.Build();
         }
        
         public void Play()
@@ -94,7 +90,7 @@ namespace SM
                 c.Do(dt);
             }
 
-            foreach (var y in _map.Values)
+            foreach (var y in _managers.Values)
             {
                 var x = y as IManager;
                 if (x != null)
@@ -105,7 +101,13 @@ namespace SM
         }
         private void updateView()
         {
-            foreach (var y in _map.Values)
+
+            foreach (var c in _updateCoroutine)
+            {
+                c.Do();
+            }
+
+            foreach (var y in _managers.Values)
             {
                 var x = y as IManager;
                 if (x != null)

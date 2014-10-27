@@ -19,6 +19,10 @@ namespace SM
             {
                 _doIt = DoIt();
             }
+            if (_doIt == null)
+            {
+                return false;
+            }
             if (_doIt.Current == null)
             {
                 return _doIt.MoveNext();

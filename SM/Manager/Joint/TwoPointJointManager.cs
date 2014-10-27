@@ -20,7 +20,7 @@ namespace SM
     }
 
 
-    public interface ITwoPointJointMaterial
+    public interface ITwoPointJointMaterial : IMaterial
     {
         void Build(string id, string targetNameA, float2 anchorA, string targetNameB, float2 anchorB);
         float2 AnchorA { get; }
@@ -65,6 +65,15 @@ namespace SM
             get
             {
                 return _jointView.Id;
+            }
+        }
+
+
+        public new object Object
+        {
+            get
+            { 
+                return _jointMaterial.Object;
             }
         }
     }

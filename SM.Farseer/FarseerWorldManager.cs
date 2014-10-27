@@ -16,7 +16,6 @@ using System.Threading.Tasks;
 
 namespace SM.Farseer
 {
-
     public class FarseerWorldManager : BasicWorldManager
     {
         World _world = new World(new Vector2(0, 10));
@@ -27,7 +26,6 @@ namespace SM.Farseer
 
         protected override void Loop()
         {
-            // throw new NotImplementedException();
         }
 
         public FarseerWorldManager(string id, IViewWatch viewWatch)
@@ -35,6 +33,7 @@ namespace SM.Farseer
         {
             Id = id;
         }
+
         public string Id { get; private set; }
 
 
@@ -43,12 +42,10 @@ namespace SM.Farseer
             return new BodyMaterial(_world);
         }
 
-
         public override IBreakableBodyMaterial CreateBreakableBodyMaterial()
         {
             return new BreakableBodyMaterial(_world);
         }
-
 
         public override IRopeJointMaterial CreateRopeJointMaterial()
         {

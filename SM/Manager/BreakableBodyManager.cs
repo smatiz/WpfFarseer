@@ -14,7 +14,7 @@ namespace SM
         string Id { get; }
     }
 
-    public interface IBreakableBodyMaterial
+    public interface IBreakableBodyMaterial : IMaterial
     {
         void Build(string id, IEnumerable<IShapeView> shapes);
         rotoTranslation RotoTranslation { get; }
@@ -30,8 +30,6 @@ namespace SM
 
         IBreakableBodyView _breakableBodyView;
         IBreakableBodyMaterial _breakableBodyMaterial;
-
-
 
         public BreakableBodyManager(IBreakableBodyView breakableBodyView, IBreakableBodyMaterial breakableBodyMaterial)
         {
@@ -68,14 +66,10 @@ namespace SM
                 default:
                     break;
             }
-
-
-          
         }
 
         public void UpdateView()
         {
-
             switch (_status)
             {
                 case Status.Entire:
@@ -106,6 +100,14 @@ namespace SM
             get
             { 
                 return _breakableBodyView.Id; 
+            }
+        }
+
+        public object Object
+        {
+            get
+            {
+                return _breakableBodyMaterial.Object;
             }
         }
     }

@@ -7,16 +7,16 @@
     <TabControl SelectedIndex="0">
         <TabControl.Items>
             <TabItem Header="1">
-                <l2:Sample1></l2:Sample1>
+                <!--<l2:Sample1></l2:Sample1>-->
             </TabItem>
             <TabItem Header="2">
                 <l2:Sample2></l2:Sample2>
             </TabItem>
             <TabItem Header="3">
-                <l2:Sample3></l2:Sample3>
+                <!--<l2:Sample3></l2:Sample3>-->
             </TabItem>
             <TabItem Header="4">
-                <l2:Sample4></l2:Sample4>
+                <!--<l2:Sample4></l2:Sample4>-->
             </TabItem>
             <TabItem Header="____next">
             </TabItem>

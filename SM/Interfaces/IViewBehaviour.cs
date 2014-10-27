@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace SM
 {
 
-    public interface IViewBehaviour : IMaterialBehaviour
+    public interface IViewBehaviour 
     {
         // nel thread grafico quando il load e concluso
         IEnumerator<BasicCoroutine> Start(BasicManager farseerWorld);

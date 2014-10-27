@@ -10,7 +10,7 @@ using System.Windows.Media;
 namespace SM.Wpf
 {
     // controlli in grado di agganciare il proprio canvas o il canvas di un altro BasicControl al canvas padre
-    public class BasicControl : Visual
+    public class BasicControl : FrameworkElement//Visual
     {
         protected Canvas _canvas = new Canvas();
         protected UIElementCollection _parentChildrens;
@@ -30,14 +30,8 @@ namespace SM.Wpf
             {
                 Id = BasicControl.AutoGenerateName();
             }
-            //_canvas.Tag = this;
         }
 
-        public string Id
-        {
-            get;
-            set;
-        }
-
+        public string Id { get; set; }
     }
 }

@@ -33,11 +33,21 @@ namespace WpfFarseer
     public partial class FarseerCanvas : Canvas
     {
         FarseerWorldManager _worldManager;
+        
+        private List<BasicCoroutine> _startCoroutine = new List<BasicCoroutine>();
 
-        public void AddFarseerBehaviour(IViewBehaviour x)
+        public void AddBehaviour(IViewBehaviour x)
         {
+            _startCoroutine.Add(new StartCoroutine(_worldManager, x.Start));
+
             _worldManager.AddViewBehaviour(x);
         }
+
+        public void AddBehaviour(IMaterialBehaviour x)
+        {
+            _worldManager.AddMaterialBehaviour(x);
+        }
+
         public FarseerCanvas()
         {
             InitializeComponent();
@@ -52,12 +62,16 @@ namespace WpfFarseer
 
             _worldManager = new FarseerWorldManager(Id, new ViewWatch(Dispatcher));
             bool loaded = false;
-            Loaded += (s, e) =>
+            Initialized += (s, e) =>
             {
                 if (loaded) return;
                 loaded = true;
                 bool b = System.ComponentModel.DesignerProperties.GetIsInDesignMode(this);
                 XamlInterpreter.BuildFarseerWorldManager(Children, _worldManager, FarseerObjects, b);
+                foreach(var x in _startCoroutine)
+                {
+                    x.Do();
+                }
             };
         }
 

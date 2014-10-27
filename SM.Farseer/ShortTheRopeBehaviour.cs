@@ -15,19 +15,15 @@ namespace SM.Farseer
 
         public IEnumerator<BasicCoroutine> Start(BasicManager farseerWorld)
         {
-            jointC = farseerWorld.FindObject<RopeJoint>("jointC");
+            jointC = farseerWorld.Find<RopeJoint>("jointC");
             return null;
         }
 
         public IEnumerator<BasicCoroutine> Update()
         {
-            return null;
-        }
-
-        public IEnumerator<BasicCoroutine> Loop(float dt)
-        {
             yield return new WaitSecondsCoroutine(5);
             jointC.MaxLength *= 0.4f;
         }
+
     }
 }
