@@ -62,5 +62,30 @@ namespace SM.Farseer
                 return _id;
             }
         }
+
+
+        public float Breakpoint
+        {
+            get
+            {
+                return _joint.Breakpoint;
+            }
+            set
+            {
+                _joint.Breakpoint = value;
+            }
+        }
+
+        public bool CollideConnected
+        {
+            get
+            {
+                return _joint.CollideConnected;
+            }
+            set
+            {
+                _joint.CollideConnected = value;
+            }
+        }
     }
 }

@@ -99,6 +99,9 @@
     <Compile Include="Helpers\FarseerHelper.cs" />
     <Compile Include="Internal\CodeGenerator.cs" />
     <Compile Include="FarseerWorldManager.cs" />
+    <Compile Include="Materials\Joints\WeldJointMaterial.cs" />
+    <Compile Include="Materials\Joints\RevoluteJointMaterial.cs" />
+    <Compile Include="Materials\Joints\DistanceJointMaterial.cs" />
     <Compile Include="Materials\Joints\TwoPointJointMaterial.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Materials\Joints\RopeJointMaterial.cs" />

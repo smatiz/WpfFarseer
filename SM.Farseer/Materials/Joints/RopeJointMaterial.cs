@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SM.Farseer
 {
-    class RopeJointMaterial : TwoPointJointMaterial, IRopeJointMaterial
+    public class RopeJointMaterial : TwoPointJointMaterial, IRopeJointMaterial
     {
         RopeJoint __joint;
 
@@ -37,16 +37,5 @@ namespace SM.Farseer
             }
         }
 
-        public float Breakpoint
-        {
-            get
-            {
-                return __joint.Breakpoint;
-            }
-            set
-            {
-                __joint.Breakpoint = value;
-            }
-        }
     }
 }
