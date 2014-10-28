@@ -70,7 +70,7 @@ namespace SM.Wpf
             get { return from x in Shapes select x; }
         }
 
-        public IEnumerable<IShapeView> Shapes_Y
+        public IEnumerable<IShape> Shapes_Y
         {
             get { return from x in Shapes select x; }
         }

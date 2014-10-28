@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SM.Wpf
 {
-    public class DistanceJointControl : TwoPointJointControl, IDistanceJointControl, IDistanceJointView
+    public class DistanceJointControl : TwoPointJointControl, IDistanceJointView
     {
 
     }

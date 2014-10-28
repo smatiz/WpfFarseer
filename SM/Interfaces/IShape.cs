@@ -8,7 +8,7 @@ namespace SM
 {
     public interface IShape
     {
-        IEnumerable<IVector2> Points_X { get; }
+        IEnumerable<float2> Points_X { get; }
         float Density_X { get; }
     }
 }

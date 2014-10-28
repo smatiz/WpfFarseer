@@ -10,7 +10,7 @@ using System.Windows.Shapes;
 
 namespace SM.Wpf
 {
-    public class WeldJointControl : TwoPointJointControl, IWeldJointControl, IWeldJointView
+    public class WeldJointControl : TwoPointJointControl, IWeldJointView
     {
         public float ReferenceAngle
         {

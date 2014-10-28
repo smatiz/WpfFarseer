@@ -52,7 +52,7 @@ namespace SM.Farseer
             }
         }
 
-        public void AddShape(IShapeView shape)
+        public void AddShape(IShape shape)
         {
             var vs = shape.Points_X.ToFarseerVertices();
             FarseerPhysics.Factories.FixtureFactory.AttachPolygon(vs, shape.Density_X, _body);

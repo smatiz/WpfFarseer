@@ -10,7 +10,7 @@ using SM;
 
 namespace SM.Wpf
 {
-    public class RopeJointControl : TwoPointJointControl, IRopeJointControl, IRopeJointView
+    public class RopeJointControl : TwoPointJointControl, IRopeJointView
     {
         public float MaxLength
         {

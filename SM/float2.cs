@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SM
 {
-    public struct float2 : IVector2
+    public struct float2
     {
         readonly float _x;
         readonly float _y;

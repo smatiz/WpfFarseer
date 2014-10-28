@@ -21,11 +21,11 @@ namespace SM.WpfFarseer
         {
             return new F.Vertices(from p in points select p.ToFarseer());
         }
-        public static F.Vertices ToFarseerVertices(this IEnumerable<SM.IVector2> points)
+        public static F.Vertices ToFarseerVertices(this IEnumerable<SM.float2> points)
         {
             return new F.Vertices(from p in points select p.ToFarseer());
         }
-        public static Xna.Vector2 ToFarseer(this SM.IVector2 p)
+        public static Xna.Vector2 ToFarseer(this SM.float2 p)
         {
             return new Xna.Vector2((float)p.X, (float)p.Y);
         }

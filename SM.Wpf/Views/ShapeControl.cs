@@ -15,7 +15,7 @@ namespace SM.Wpf
 {
 
 
-    public class ShapeControl : DependencyObject, IShape, IShapeView
+    public class ShapeControl : DependencyObject, IShape
     {
         public ShapeControl()
         {
@@ -47,7 +47,7 @@ namespace SM.Wpf
         }
 
 
-        public IEnumerable<IVector2> Points_X
+        public IEnumerable<float2> Points_X
         { 
             get
             {

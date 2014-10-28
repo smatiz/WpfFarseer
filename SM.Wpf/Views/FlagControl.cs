@@ -17,7 +17,7 @@ using System.Windows.Shapes;
 
 namespace SM.Wpf
 {
-    public partial class FlagControl : BasicControl, IPointControl
+    public partial class FlagControl : BasicControl
     {
 
         public float X

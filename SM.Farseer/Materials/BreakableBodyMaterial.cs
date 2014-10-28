@@ -26,7 +26,7 @@ namespace SM.Farseer
         }
 
 
-        public void Build(string id, IEnumerable<IShapeView> shapes)
+        public void Build(string id, IEnumerable<IShape> shapes)
         {
             var vss =  from x in shapes select x.ToFarseerVertices();
             _breakableBody = BodyFactory.CreateBreakableBody(__world, vss);

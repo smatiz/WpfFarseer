@@ -8,7 +8,7 @@ namespace SM
 {
     public interface IBreakableBodyView
     {
-        IEnumerable<IShapeView> Shapes_Y { get; }
+        IEnumerable<IShape> Shapes_Y { get; }
         rotoTranslation RotoTranslation { set; }
         IEnumerable<IBodyView> Break();
         string Id { get; }
@@ -16,7 +16,7 @@ namespace SM
 
     public interface IBreakableBodyMaterial : IMaterial
     {
-        void Build(string id, IEnumerable<IShapeView> shapes);
+        void Build(string id, IEnumerable<IShape> shapes);
         rotoTranslation RotoTranslation { get; }
         bool IsBroken { get; }
         IEnumerable<IBodyMaterial> GetPieces();

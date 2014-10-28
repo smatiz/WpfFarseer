@@ -10,7 +10,7 @@ using SM;
 
 namespace SM.Wpf
 {
-    public class BasicJointControl : BasicControl, IJointControl
+    public class BasicJointControl : BasicControl
     {
         public bool CollideConnected
         {

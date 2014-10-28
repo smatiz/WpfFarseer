@@ -10,11 +10,11 @@ namespace SM.Farseer
 {
     public static class WpfFarseerHelper
     {
-        public static F.Vertices ToFarseerVertices(this IEnumerable<SM.IVector2> points)
+        public static F.Vertices ToFarseerVertices(this IEnumerable<SM.float2> points)
         {
             return new F.Vertices(from p in points select p.ToFarseer());
         }
-        public static Xna.Vector2 ToFarseer(this SM.IVector2 p)
+        public static Xna.Vector2 ToFarseer(this SM.float2 p)
         {
             return new Xna.Vector2((float)p.X, (float)p.Y);
         }
@@ -23,7 +23,7 @@ namespace SM.Farseer
         {
             return new float2(p.X, p.Y);
         }
-        public static FShape.PolygonShape ToFarseerVertices(this IShapeView shape)
+        public static FShape.PolygonShape ToFarseerVertices(this IShape shape)
         {
             return new FShape.PolygonShape(shape.Points_X.ToFarseerVertices(), shape.Density_X);
         }
