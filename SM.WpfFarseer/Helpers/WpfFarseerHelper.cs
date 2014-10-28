@@ -35,7 +35,6 @@ namespace SM.WpfFarseer
             {
                 return uielement.ToFarseerVertices(shape as WShape.Polygon);
             }
-
             return null;
         }
         public static FShape.Shape ToFarseerShape(this W.UIElement uielement, WShape.Shape shape, float density = Consts.Density)

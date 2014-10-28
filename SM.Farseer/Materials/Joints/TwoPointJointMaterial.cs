@@ -1,6 +1,6 @@
 ﻿using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Joints;
-using FarseerPhysics.Factories;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,27 +9,29 @@ using System.Threading.Tasks;
 
 namespace SM.Farseer
 {
-    class RopeJointMaterial : IRopeJointMaterial
+    public abstract class TwoPointJointMaterial : ITwoPointJointMaterial
     {
-        World _world;
+        protected World _world;
         FarseerWorldManager _farseerWorldManager;
-        RopeJoint _joint;
+        Joint _joint;
+        string _id;
 
-        public RopeJointMaterial(World world, FarseerWorldManager farseerWorldManager)
+        public TwoPointJointMaterial(World world, FarseerWorldManager farseerWorldManager)
         {
             _world = world;
             _farseerWorldManager = farseerWorldManager;
         }
 
+
         public void Build(string id, string targetNameA, float2 anchorA, string targetNameB, float2 anchorB)
         {
-
-            _joint = JointFactory.CreateRopeJoint(_world,
-                _farseerWorldManager.Find<Body>(targetNameA),
-                _farseerWorldManager.Find<Body>(targetNameB),
-                anchorA.ToFarseer(), anchorB.ToFarseer());
+            _id = id;
+            _joint = Build(
+                _farseerWorldManager.Find<Body>(targetNameA), anchorA.ToFarseer(),
+                _farseerWorldManager.Find<Body>(targetNameB), anchorB.ToFarseer());
         }
 
+        protected abstract Joint Build(Body targetA, Vector2 anchorA, Body targetB, Vector2 anchorB);
         public float2 AnchorA
         {
             get
@@ -45,29 +47,20 @@ namespace SM.Farseer
             }
         }
 
-        public float MaxLength
-        {
-            get
-            {
-                return _joint.MaxLength;
-            }
-            set
-            {
-                _joint.MaxLength = value;
-            }
-        }
-
         public object Object
         {
             get
-            { 
-                return _joint; 
+            {
+                return _joint;
             }
         }
 
         public string Id
         {
-            get { throw new NotImplementedException(); }
+            get
+            {
+                return _id;
+            }
         }
     }
 }
