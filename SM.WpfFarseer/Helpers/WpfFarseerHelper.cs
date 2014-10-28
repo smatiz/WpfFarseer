@@ -38,7 +38,7 @@ namespace SM.WpfFarseer
 
             return null;
         }
-        public static FShape.Shape ToFarseerShape(this W.UIElement uielement, WShape.Shape shape, float density = Const.Density)
+        public static FShape.Shape ToFarseerShape(this W.UIElement uielement, WShape.Shape shape, float density = Consts.Density)
         {
             if (shape is W.Shapes.Polygon)
             {

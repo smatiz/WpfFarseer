@@ -38,7 +38,7 @@ namespace SM.Wpf
             _traslation = new TranslateTransform();
 
             bool loaded = false;
-            _canvas.Initialized += (s, e) =>
+            _canvas.Loaded += (s, e) =>
             {
                 if (loaded) return;
                 loaded = true;

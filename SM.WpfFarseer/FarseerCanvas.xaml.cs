@@ -62,7 +62,7 @@ namespace WpfFarseer
 
             _worldManager = new FarseerWorldManager(Id, new ViewWatch(Dispatcher));
             bool loaded = false;
-            Initialized += (s, e) =>
+            Loaded += (s, e) =>
             {
                 if (loaded) return;
                 loaded = true;
