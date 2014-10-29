@@ -10,22 +10,13 @@ using System.Threading.Tasks;
 
 namespace SM.Farseer
 {
-    public class WeldJointMaterial : TwoPointJointMaterial, IDistanceJointMaterial
+    public class WeldJointMaterial : BasicTwoPointJointMaterial, IDistanceJointMaterial
     {
         WeldJoint __joint;
 
          public WeldJointMaterial(World world, FarseerWorldManager farseerWorldManager)
             : base(world, farseerWorldManager)
         {
-            FarseerPhysics.Dynamics.Joints.AngleJoint x1;
-            FarseerPhysics.Dynamics.Joints.FixedMouseJoint x2;
-            FarseerPhysics.Dynamics.Joints.FrictionJoint x3;
-            FarseerPhysics.Dynamics.Joints.GearJoint x4;
-            FarseerPhysics.Dynamics.Joints.JointEdge x5;
-            FarseerPhysics.Dynamics.Joints.MotorJoint x6;
-            FarseerPhysics.Dynamics.Joints.PrismaticJoint x7;
-            FarseerPhysics.Dynamics.Joints.PulleyJoint x8;
-            FarseerPhysics.Dynamics.Joints.WheelJoint x9;
         }
 
         protected override Joint Build(Body targetA, Vector2 anchorA, Body targetB, Vector2 anchorB)

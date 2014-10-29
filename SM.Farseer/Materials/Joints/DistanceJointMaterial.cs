@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SM.Farseer
 {
-    public class DistanceJointMaterial : TwoPointJointMaterial, IDistanceJointMaterial
+    public class DistanceJointMaterial : BasicTwoPointJointMaterial, IDistanceJointMaterial
     {
          DistanceJoint __joint;
 

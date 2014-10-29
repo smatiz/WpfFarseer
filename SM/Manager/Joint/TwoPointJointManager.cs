@@ -11,6 +11,15 @@ namespace SM
         string Id { get; }
     }
 
+
+    public interface IJointMaterial : IMaterial
+    {
+        float Breakpoint { get; set; }
+        bool CollideConnected { get; set; }
+        float2 AnchorA { get; }
+        float2 AnchorB { get; }
+    }
+
     public interface ITwoPointJointView : IJointView
     {
         string TargetBodyIdA { get; }
@@ -20,11 +29,9 @@ namespace SM
     }
 
 
-    public interface ITwoPointJointMaterial : IMaterial
+    public interface ITwoPointJointMaterial : IJointMaterial 
     {
         void Build(string id, string targetNameA, float2 anchorA, string targetNameB, float2 anchorB);
-        float2 AnchorA { get; }
-        float2 AnchorB { get; }
     }
 
     public class TwoPointJointManager : IManager

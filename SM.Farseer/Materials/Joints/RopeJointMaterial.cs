@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SM.Farseer
 {
-    public class RopeJointMaterial : TwoPointJointMaterial, IRopeJointMaterial
+    public class RopeJointMaterial : BasicTwoPointJointMaterial, IRopeJointMaterial
     {
         RopeJoint __joint;
 

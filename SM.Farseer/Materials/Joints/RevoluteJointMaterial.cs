@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SM.Farseer
 {
-    public class RevoluteJointMaterial : TwoPointJointMaterial, IRevoluteJointMaterial
+    public class RevoluteJointMaterial : BasicTwoPointJointMaterial, IRevoluteJointMaterial
     {
         RevoluteJoint __joint;
 

@@ -1,5 +1,6 @@
 ﻿using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Joints;
+using FarseerPhysics.Factories;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -9,29 +10,20 @@ using System.Threading.Tasks;
 
 namespace SM.Farseer
 {
-    public abstract class TwoPointJointMaterial : ITwoPointJointMaterial
+    public abstract class BasicJointMaterial : IJointMaterial
     {
-        protected World _world;
-        FarseerWorldManager _farseerWorldManager;
-        Joint _joint;
-        string _id;
+         protected World _world;
+         protected FarseerWorldManager _farseerWorldManager;
+         protected Joint _joint;
+         protected string _id;
 
-        public TwoPointJointMaterial(World world, FarseerWorldManager farseerWorldManager)
+        public BasicJointMaterial(World world, FarseerWorldManager farseerWorldManager)
         {
             _world = world;
             _farseerWorldManager = farseerWorldManager;
         }
 
 
-        public void Build(string id, string targetNameA, float2 anchorA, string targetNameB, float2 anchorB)
-        {
-            _id = id;
-            _joint = Build(
-                _farseerWorldManager.Find<Body>(targetNameA), anchorA.ToFarseer(),
-                _farseerWorldManager.Find<Body>(targetNameB), anchorB.ToFarseer());
-        }
-
-        protected abstract Joint Build(Body targetA, Vector2 anchorA, Body targetB, Vector2 anchorB);
         public float2 AnchorA
         {
             get
@@ -88,4 +80,5 @@ namespace SM.Farseer
             }
         }
     }
+    
 }
