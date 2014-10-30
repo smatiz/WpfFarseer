@@ -60,7 +60,14 @@ namespace SM
         protected void AddManager(IManager manager)
         {
             _managers.Add(manager.Id, manager);
-            manager.Build();
+        }
+
+        public void Build()
+        {
+            foreach(var manager in _managers.Values)
+            {
+                manager.Build();
+            }
         }
        
         public void Play()

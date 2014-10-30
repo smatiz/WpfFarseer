@@ -16,6 +16,30 @@ namespace SM.WpfFarseer
 {
     public static class WpfFarseerHelper
     {
+        static uint[] GetData(System.Drawing.Bitmap img)
+        {
+            int n = img.Width * img.Height;
+            var array = new uint[n];
+            for (int i = 0; i < img.Width; i++)
+            {
+                for (int j = 0; j < img.Height; j++)
+                {
+                    System.Drawing.Color pixel = img.GetPixel(i, j);
+                    array[i * (img.Height - 1) + j] = pixel.R;
+                }
+            }
+
+            return array;
+        }
+
+         public static uint[] GetData(this BitmapSource img)
+        {
+            int stride = 4 * img.PixelWidth;
+            int size = stride * img.PixelWidth;
+            var pixels = new uint[size];
+            img.CopyPixels(pixels, stride, 0);
+            return pixels;
+        }
 
 
         public static System.Drawing.Bitmap ToBitmap(this UIElement element)
@@ -46,28 +70,28 @@ namespace SM.WpfFarseer
         //    }
         //    return p;
         //}
-        public static System.Windows.Point ToWpf(this ClipperLib.IntPoint c)
-        {
-            return new System.Windows.Point(c.X, c.Y);
-        }
-        public static System.Windows.Shapes.Polygon ToWpfPolygon(this List<ClipperLib.IntPoint> ps)
-        {
-            var p = new System.Windows.Shapes.Polygon();
-            foreach (var c in ps)
-            {
-                p.Points.Add(c.ToWpf());
-            }
-            return p;
-        }
-        public static List<System.Windows.Point> ToWpf(this List<ClipperLib.IntPoint> ps)
-        {
-            var p = new List<System.Windows.Point>();
-            foreach (var c in ps)
-            {
-                p.Add(c.ToWpf());
-            }
-            return p;
-        }
+        //public static System.Windows.Point ToWpf(this ClipperLib.IntPoint c)
+        //{
+        //    return new System.Windows.Point(c.X, c.Y);
+        //}
+        //public static System.Windows.Shapes.Polygon ToWpfPolygon(this List<ClipperLib.IntPoint> ps)
+        //{
+        //    var p = new System.Windows.Shapes.Polygon();
+        //    foreach (var c in ps)
+        //    {
+        //        p.Points.Add(c.ToWpf());
+        //    }
+        //    return p;
+        //}
+        //public static List<System.Windows.Point> ToWpf(this List<ClipperLib.IntPoint> ps)
+        //{
+        //    var p = new List<System.Windows.Point>();
+        //    foreach (var c in ps)
+        //    {
+        //        p.Add(c.ToWpf());
+        //    }
+        //    return p;
+        //}
         #endregion
 
 
@@ -123,6 +147,15 @@ namespace SM.WpfFarseer
             return pointCollection;
         }
 
+        public static WShape.Polygon ToWpfPolygon(this F.Vertices ps)
+        {
+            var poly = new WShape.Polygon();
+            foreach (var p in ps)
+            {
+                poly.Points.Add(p.ToWpf());
+            }
+            return poly;
+        }
         public static Xna.Vector2 GetOrigin(this W.FrameworkElement elem)
         {
             return WpfFarseerHelper.ToFarseer(elem.TranslatePoint(new System.Windows.Point(0, 0), (System.Windows.UIElement)elem.Parent));

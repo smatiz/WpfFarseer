@@ -15,6 +15,7 @@
                     <l:SkinnedBodyControl BodyType="Dynamic">
                         <Canvas Width="200" Height="200">
                             <Button  Width="40" Height="40">ciao</Button>
+                            <Button Canvas.Left="20" Canvas.Top="10" Width="10" Height="40">ciao</Button>
                         </Canvas>
                     </l:SkinnedBodyControl>
                     <l:BodyControl Id="b2"   BodyType="Dynamic"   >
@@ -27,5 +28,8 @@
                 </l3:FarseerCanvas>
             </l2:FarseerPlayerControl.FarseerCanvas>
         </l2:FarseerPlayerControl>
+
+
+        <Canvas Name="_resultCanvas"></Canvas>
     </Grid>
 </UserControl>

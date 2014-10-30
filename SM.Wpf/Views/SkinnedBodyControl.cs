@@ -24,6 +24,11 @@ namespace SM.Wpf
     {
         public static ISkinnableCanvas Skinner { private get; set; }
 
+        public SkinnedBodyControl()
+        {
+            MaxWidth = 100;
+            MaxHeight = 100;
+        }
 
         public Canvas Content
         {
@@ -34,16 +39,52 @@ namespace SM.Wpf
             DependencyProperty.Register("Content", typeof(Canvas), typeof(SkinnedBodyControl), new PropertyMetadata(null, new PropertyChangedCallback(ContentPropertyChanged)));
         private static void ContentPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e) { ((SkinnedBodyControl)obj).OnContentChanged(); }
         VisualBrush _brush;
-        List<ShapeControl> _shapes;
+        List<ShapeControl> _shapes = new List<ShapeControl>();
         private void OnContentChanged()
         {
+            Content.Loaded += Content_Loaded;
+            Content.Measure(new Size(MaxWidth, MaxHeight));
+            Content.Arrange(new Rect(0, 0, MaxWidth, MaxHeight));
+            Content.UpdateLayout();
             _brush = Content.GetVisualBrush();
             Content.UpdateLayout();
-
-            var polys = Skinner.FindBorder(_brush, Content.RenderSize.Width, Content.RenderSize.Height, 1);
-
         }
 
+        void Content_Loaded(object sender, RoutedEventArgs e)
+        {
+            var polys = Skinner.FindBorder(_brush, MaxWidth, MaxHeight, 1);
+            foreach(var poly in polys)
+            {
+                var shapecontrol = new ShapeControl();
+                foreach(var p in poly)
+                {
+                    shapecontrol.Points.Add(p);
+                }
+                _shapes.Add(shapecontrol);
+            }
+        }
+
+
+
+
+
+        //public int MaxWidth
+        //{
+        //    get { return (int)GetValue(MaxWidthProperty); }
+        //    set { SetValue(MaxWidthProperty, value); }
+        //}
+        //public static readonly DependencyProperty MaxWidthProperty =
+        //    DependencyProperty.Register("MaxWidth", typeof(int), typeof(SkinnedBodyControl), new PropertyMetadata(100));
+        //public int MaxHeight
+        //{
+        //    get { return (int)GetValue(MaxHeightProperty); }
+        //    set { SetValue(MaxHeightProperty, value); }
+        //}
+        //public static readonly DependencyProperty MaxHeightProperty =
+        //    DependencyProperty.Register("MaxHeight", typeof(int), typeof(SkinnedBodyControl), new PropertyMetadata(100));
+
+        
+        
 
         protected override Brush Brush { get { return _brush; } }
        
@@ -67,7 +108,7 @@ namespace SM.Wpf
         
         public IEnumerable<IShape> Shapes_X
         {
-            get { return from x in Shapes_X__() select x; }
+            get { return from x in _shapes select x; }
         }
 
         protected override IEnumerable<Polygon> Polygons

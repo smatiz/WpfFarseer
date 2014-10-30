@@ -172,8 +172,7 @@ namespace SM.WpfFarseer
                 ((BasicControl)x).AddToUIElementCollection(parentChildrens);
             }
 
-
-          
+            
         }
     }
 }

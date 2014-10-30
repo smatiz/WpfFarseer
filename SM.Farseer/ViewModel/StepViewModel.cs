@@ -29,6 +29,7 @@ namespace  SM.Farseer
         void play()
         {
             //_worldManager_old.Play();
+            _worldManager.Build();
        
             _worldManager.Play();
             notifyCommands();

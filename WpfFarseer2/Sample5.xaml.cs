@@ -11,7 +11,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
+using SM.Wpf;
+using SM.Farseer;
+using SM.WpfFarseer;
 
 namespace WpfFarseer
 {
@@ -23,6 +25,23 @@ namespace WpfFarseer
         public Sample5()
         {
             InitializeComponent();
+            Loaded += Sample5_Loaded;
+        }
+
+        void Sample5_Loaded(object sender, RoutedEventArgs e)
+        {
+
+            //var img = new BitmapImage(new System.Uri(@"file://C:\Users\Developer\Desktop\TEMP\imm\aaa.bmp"));
+            //uint[] us = img.GetData();
+            ////for (int i = 0; i < n; i++)
+            ////{
+            ////    us[i] = (uint)bs[i * 4];
+            ////}
+            //var vs = FarseerPhysics.Common.TextureTools.TextureConverter.DetectVertices(us, (int)img.Width);
+            //System.Windows.Shapes.Polygon poly = vs.ToWpfPolygon();
+            //poly.Stroke = new SolidColorBrush(Colors.CadetBlue);
+
+            //_resultCanvas.Children.Add(poly);
         }
     }
 }

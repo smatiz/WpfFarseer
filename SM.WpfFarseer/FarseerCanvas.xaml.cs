@@ -28,6 +28,7 @@ namespace WpfFarseer
     using xna = Microsoft.Xna.Framework;
     using FShape = FarseerPhysics.Collision.Shapes;
     using SM.Wpf;
+    using FarseerPhysics;
 
     [ContentPropertyAttribute("FarseerObjects")]
     public partial class FarseerCanvas : Canvas
@@ -52,7 +53,7 @@ namespace WpfFarseer
         {
             InitializeComponent();
 
-
+            Settings.MaxPolygonVertices = 100;
 
             SkinnedBodyControl.Skinner = new CanvasSkinner();
 
@@ -76,6 +77,7 @@ namespace WpfFarseer
                 {
                     x.Do();
                 }
+
             };
         } 
 

@@ -10,6 +10,8 @@ namespace SM.Farseer
 {
     public static class WpfFarseerHelper
     {
+       
+
         public static F.Vertices ToFarseerVertices(this IEnumerable<SM.float2> points)
         {
             return new F.Vertices(from p in points select p.ToFarseer());
