@@ -6,12 +6,72 @@ using Xna = Microsoft.Xna.Framework;
 using WShape = System.Windows.Shapes;
 using FShape = FarseerPhysics.Collision.Shapes;
 using SM;
+using SM.Wpf;
+using System.Windows;
+using System.Windows.Media.Imaging;
+using System.IO;
 
 
 namespace SM.WpfFarseer
 {
     public static class WpfFarseerHelper
     {
+
+
+        public static System.Drawing.Bitmap ToBitmap(this UIElement element)
+        {
+            return element.ConvertToRenderTargetBitmap().ConvertToBitmap();
+        }
+
+        public static System.Drawing.Bitmap ConvertToBitmap(this RenderTargetBitmap target)
+        {
+            MemoryStream stream = new MemoryStream();
+            var encoder = new PngBitmapEncoder();
+            encoder.Frames.Add(BitmapFrame.Create(target));
+            encoder.Save(stream);
+            return new System.Drawing.Bitmap(stream);
+        }
+
+        #region To Wpf
+        //public static System.Windows.Point ToWpf(this AForge.IntPoint c)
+        //{
+        //    return new System.Windows.Point(c.X, c.Y);
+        //}
+        //public static System.Windows.Shapes.Polygon ToWpfPolygon(this List<AForge.IntPoint> ps)
+        //{
+        //    var p = new System.Windows.Shapes.Polygon();
+        //    foreach (var c in ps)
+        //    {
+        //        p.Points.Add(c.ToWpf());
+        //    }
+        //    return p;
+        //}
+        public static System.Windows.Point ToWpf(this ClipperLib.IntPoint c)
+        {
+            return new System.Windows.Point(c.X, c.Y);
+        }
+        public static System.Windows.Shapes.Polygon ToWpfPolygon(this List<ClipperLib.IntPoint> ps)
+        {
+            var p = new System.Windows.Shapes.Polygon();
+            foreach (var c in ps)
+            {
+                p.Points.Add(c.ToWpf());
+            }
+            return p;
+        }
+        public static List<System.Windows.Point> ToWpf(this List<ClipperLib.IntPoint> ps)
+        {
+            var p = new List<System.Windows.Point>();
+            foreach (var c in ps)
+            {
+                p.Add(c.ToWpf());
+            }
+            return p;
+        }
+        #endregion
+
+
+
         private static F.Vertices ToFarseerVertices(this W.UIElement uielement, WShape.Polygon poly)
         {
             return new F.Vertices(from p in poly.Points select poly.TranslatePoint(p, uielement).ToFarseer());

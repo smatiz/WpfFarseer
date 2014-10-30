@@ -52,6 +52,10 @@ namespace WpfFarseer
         {
             InitializeComponent();
 
+
+
+            SkinnedBodyControl.Skinner = new CanvasSkinner();
+
             if(Id == null || Id == "")
             {
                 Id = BasicControl.AutoGenerateName();
@@ -73,7 +77,7 @@ namespace WpfFarseer
                     x.Do();
                 }
             };
-        }
+        } 
 
         void FarseerObjects_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {

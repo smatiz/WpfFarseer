@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SM.AForgeClipperFarseer
 {
-    class FindBorder
+    public class FindBorder
     {
         System.Drawing.Bitmap _bitmap;
         List<List<AForge.IntPoint>> _polys;

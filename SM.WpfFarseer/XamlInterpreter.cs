@@ -111,6 +111,18 @@ namespace SM.WpfFarseer
                             handled = true;
                         }
                     }
+
+                    if (!handled)
+                    {
+                        var bodyControl = child as SkinnedBodyControl;
+                        if (bodyControl != null)
+                        {
+                            worldManager.AddBodyView(bodyControl);
+
+                            //_worldManager.AddBodyControl(bodyControl, bodyControl._canvas.GetOrigin());
+                            handled = true;
+                        }
+                    }
                 }
 
                 if (!handled)

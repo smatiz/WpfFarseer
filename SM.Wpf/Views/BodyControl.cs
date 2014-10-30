@@ -70,11 +70,6 @@ namespace SM.Wpf
             get { return from x in Shapes select x; }
         }
 
-        public IEnumerable<IShape> Shapes_Y
-        {
-            get { return from x in Shapes select x; }
-        }
-        
         protected override IEnumerable<Polygon> Polygons
         {
             get

@@ -76,7 +76,7 @@ namespace SM
         }
 
 
-        public new object Object
+        public object Object
         {
             get
             { 

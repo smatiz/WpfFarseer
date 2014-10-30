@@ -8,7 +8,7 @@ namespace SM
 {
     public interface IBreakableBodyView
     {
-        IEnumerable<IShape> Shapes_Y { get; }
+        IEnumerable<IShape> Shapes_X { get; }
         rotoTranslation RotoTranslation { set; }
         IEnumerable<IBodyView> Break();
         string Id { get; }
@@ -39,7 +39,7 @@ namespace SM
 
         public void Build()
         {
-            _breakableBodyMaterial.Build(_breakableBodyView.Id, _breakableBodyView.Shapes_Y);
+            _breakableBodyMaterial.Build(_breakableBodyView.Id, _breakableBodyView.Shapes_X);
         }
 
         enum Status { Entire, MaterialBroking, ViewBroking, Broken }

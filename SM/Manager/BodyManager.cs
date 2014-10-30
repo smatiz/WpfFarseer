@@ -11,7 +11,7 @@ namespace SM
     {
         BodyType BodyType { get; }
         float2 Position { get; }
-        IEnumerable<IShape> Shapes_Y { get; }
+        IEnumerable<IShape> Shapes_X { get; }
         rotoTranslation RotoTranslation { set; }
     }
 
@@ -38,7 +38,7 @@ namespace SM
         public void Build()
         {
             _bodyMaterial.Build(_bodyView.Id, _bodyView.Position, _bodyView.BodyType);
-            foreach (var shape in _bodyView.Shapes_Y)
+            foreach (var shape in _bodyView.Shapes_X)
             {
                 _bodyMaterial.AddShape(shape);
 

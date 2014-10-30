@@ -9,34 +9,14 @@ namespace SM.AForgeClipperFarseer
 {
     public static class Helper
     {
-        //#region To Wpf
-        //public static Point ToWpf(this AForge.IntPoint c)
-        //{
-        //    return new Point(c.X, c.Y);
-        //}
-        //public static Point ToWpf(this ClipperLib.IntPoint c)
-        //{
-        //    return new Point(c.X, c.Y);
-        //}
-        //public static Polygon ToWpfPolygon(this List<AForge.IntPoint> ps)
-        //{
-        //    var p = new Polygon();
-        //    foreach (var c in ps)
-        //    {
-        //        p.Points.Add(c.ToWpf());
-        //    }
-        //    return p;
-        //}
-        //public static Polygon ToWpfPolygon(this List<ClipperLib.IntPoint> ps)
-        //{
-        //    var p = new Polygon();
-        //    foreach (var c in ps)
-        //    {
-        //        p.Points.Add(c.ToWpf());
-        //    }
-        //    return p;
-        //}
-        //#endregion
+
+        public static List<List<ClipperLib.IntPoint>> GetBorder(this System.Drawing.Bitmap b, int n = 1)
+        {
+            var x = new FindBorder(b);
+            return x.Process(n);
+        }
+
+
         #region To Win Form
         public static System.Drawing.Point ToWinForm(this ClipperLib.IntPoint ps)
         {

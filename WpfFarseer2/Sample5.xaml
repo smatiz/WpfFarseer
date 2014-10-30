@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="WpfFarseer.Sample5"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+            xmlns:l3="clr-namespace:WpfFarseer;assembly=SM.WpfFarseer"
+            xmlns:l="clr-namespace:SM.Wpf;assembly=SM.Wpf"
+        xmlns:l2="clr-namespace:WpfFarseer"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <l2:FarseerPlayerControl x:Name="_farseerPlayer">
+            <l2:FarseerPlayerControl.FarseerCanvas>
+                <l3:FarseerCanvas  Grid.Row="0" >
+                    <l:SkinnedBodyControl BodyType="Dynamic">
+                        <Canvas Width="200" Height="200">
+                            <Button  Width="40" Height="40">ciao</Button>
+                        </Canvas>
+                    </l:SkinnedBodyControl>
+                    <l:BodyControl Id="b2"   BodyType="Dynamic"   >
+                        <l:ShapeControl  Points="100,100,200,0,200,200"  ></l:ShapeControl>
+                    </l:BodyControl>
+                    <l:BodyControl Id="b">
+                        <l:ShapeControl Density="123" Points="0 200,300 200,150 250" >
+                        </l:ShapeControl>
+                    </l:BodyControl>
+                </l3:FarseerCanvas>
+            </l2:FarseerPlayerControl.FarseerCanvas>
+        </l2:FarseerPlayerControl>
+    </Grid>
+</UserControl>
