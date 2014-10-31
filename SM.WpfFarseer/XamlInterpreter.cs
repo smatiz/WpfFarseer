@@ -55,14 +55,30 @@ namespace SM.WpfFarseer
         public static void BuildFarseerWorldManager(UIElementCollection parentChildrens, FarseerWorldManager worldManager, 
             IEnumerable<BasicControl> objects, bool isInDesignMode = false)
         {
+
+
+
+
+
+
+
+
+            isInDesignMode = false;
+
+
+
+
+
+
+
+
+
+
+
+
             CodeGenerator.Header = "Farseer Code Generator" + " : " + worldManager.Id;
 
             var flags = FindAllFlag(objects);
-            //foreach(var flag in flags)
-            //{
-            //    flag.Set(root);
-            //}
-
             var tobeadded = new List<BasicControl>();
 
             foreach (var child in objects)
@@ -87,7 +103,6 @@ namespace SM.WpfFarseer
                         }
 
                         breakableBodyControl = bbc;
-                        //autoBreakableBodyControl._canvas.Visibility = System.Windows.Visibility.Hidden;
                         tobeadded.Add(breakableBodyControl);
                     }
 
@@ -106,8 +121,6 @@ namespace SM.WpfFarseer
                         if (bodyControl != null)
                         {
                             worldManager.AddBodyView(bodyControl);
-
-                            //_worldManager.AddBodyControl(bodyControl, bodyControl._canvas.GetOrigin());
                             handled = true;
                         }
                     }
@@ -118,8 +131,6 @@ namespace SM.WpfFarseer
                         if (bodyControl != null)
                         {
                             worldManager.AddBodyView(bodyControl);
-
-                            //_worldManager.AddBodyControl(bodyControl, bodyControl._canvas.GetOrigin());
                             handled = true;
                         }
                     }
@@ -151,18 +162,6 @@ namespace SM.WpfFarseer
                             worldManager.AddRopeJointControl(jointControl);
                         }
                         handled = true;
-
-                       
-                        //var bindingX1 = new Binding { Source = targetA, Path = new PropertyPath("AbsoluteLocation.X"), Mode = BindingMode.OneWay };
-                        //line.SetBinding(Line.X1Property, bindingX1);
-                        //var bindingY1 = new Binding { Source = targetA, Path = new PropertyPath("AbsoluteLocation.Y"), Mode = BindingMode.OneWay };
-                        //line.SetBinding(Line.Y1Property, bindingY1);
-                        //var bindingX2 = new Binding { Source = targetB, Path = new PropertyPath("AbsoluteLocation.X"), Mode = BindingMode.OneWay };
-                        //line.SetBinding(Line.X2Property, bindingX2);
-                        //var bindingY2 = new Binding { Source = targetB, Path = new PropertyPath("AbsoluteLocation.Y"), Mode = BindingMode.OneWay };
-                        //line.SetBinding(Line.Y2Property, bindingY2);
-
-                        
                     }
                 }
             }

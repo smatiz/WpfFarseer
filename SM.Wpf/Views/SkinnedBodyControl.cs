@@ -64,28 +64,6 @@ namespace SM.Wpf
             }
         }
 
-
-
-
-
-        //public int MaxWidth
-        //{
-        //    get { return (int)GetValue(MaxWidthProperty); }
-        //    set { SetValue(MaxWidthProperty, value); }
-        //}
-        //public static readonly DependencyProperty MaxWidthProperty =
-        //    DependencyProperty.Register("MaxWidth", typeof(int), typeof(SkinnedBodyControl), new PropertyMetadata(100));
-        //public int MaxHeight
-        //{
-        //    get { return (int)GetValue(MaxHeightProperty); }
-        //    set { SetValue(MaxHeightProperty, value); }
-        //}
-        //public static readonly DependencyProperty MaxHeightProperty =
-        //    DependencyProperty.Register("MaxHeight", typeof(int), typeof(SkinnedBodyControl), new PropertyMetadata(100));
-
-        
-        
-
         protected override Brush Brush { get { return _brush; } }
        
         public virtual BodyType BodyType
