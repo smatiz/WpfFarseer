@@ -35,12 +35,8 @@ namespace WpfFarseer
     {
         FarseerWorldManager _worldManager;
         
-        private List<BasicCoroutine> _startCoroutine = new List<BasicCoroutine>();
-
         public void AddBehaviour(IViewBehaviour x)
         {
-            _startCoroutine.Add(new StartCoroutine(_worldManager, x.Start));
-
             _worldManager.AddViewBehaviour(x);
         }
 
@@ -71,11 +67,19 @@ namespace WpfFarseer
             {
                 if (loaded) return;
                 loaded = true;
-                bool b = System.ComponentModel.DesignerProperties.GetIsInDesignMode(this);
-                XamlInterpreter.BuildFarseerWorldManager(Children, _worldManager, FarseerObjects, b);
-                foreach(var x in _startCoroutine)
+                var views = XamlInterpreter.BuildViews(Children, FarseerObjects);
+
+                foreach(var x in views.Bodies)
                 {
-                    x.Do();
+                    _worldManager.AddBodyView(x);
+                }
+                foreach (var x in views.BreakableBodies)
+                {
+                    _worldManager.AddBreakableBodyView(x);
+                }
+                foreach (var x in views.Joints)
+                {
+                    _worldManager.AddRopeJointControl((IRopeJointView)x);
                 }
 
             };

@@ -130,6 +130,7 @@
       <DependentUpon>StepControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewWatch.cs" />
+    <Compile Include="XamlInterpreter.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SM\SM.csproj">

@@ -11,14 +11,18 @@ namespace SM
         private MaterialWatch _materialWatch;
         private IViewWatch _viewWatch;
 
-        private Dictionary<string, IManager> _managers = new Dictionary<string, IManager>();
-        private List<LoopCoroutine> _materialLoopCoroutine = new List<LoopCoroutine>();
+        bool _built = false;
 
+        private Dictionary<string, IManager> _managers = new Dictionary<string, IManager>();
+
+        private List<BasicCoroutine> _materialLoopCoroutine = new List<BasicCoroutine>();
+
+        private List<BasicCoroutine> _startCoroutine = new List<BasicCoroutine>();
         private List<BasicCoroutine> _updateCoroutine = new List<BasicCoroutine>();
 
         public BasicManager(IViewWatch viewWatch)
         {
-            _materialWatch = new MaterialWatch(dt => updateMaterial(dt));
+            _materialWatch = new MaterialWatch(() => updateMaterial());
             _viewWatch = viewWatch;// new ViewWatch(() => updateView());
             _viewWatch.Callback = () => updateView();
         }
@@ -38,45 +42,45 @@ namespace SM
             if (typeof(T) != y.GetType()) return null;
             return (T)y;
         }
-        //public T FindObject<T>(string name) where T : class
-        //{
-        //    var x = Find(name) as IMaterial;
-        //    if(x == null) return null;
-        //    var y = x.Object;
-        //    if (typeof(T) != y.GetType()) return null;
-        //    return (T)y;
-        //}
 
         public void AddMaterialBehaviour(IMaterialBehaviour x)
         {
-            _materialLoopCoroutine.Add(new LoopCoroutine(x.Loop));
+            if (_built) return;
+            _materialLoopCoroutine.Add(new FuncCoroutine(x.Step));
         }
 
         public void AddViewBehaviour(IViewBehaviour x)
         {
+            if (_built) return;
+            _startCoroutine.Add(new StartCoroutine(this, x.Start));
             _updateCoroutine.Add(new UpdateCoroutine(x.Update));
             //_farseerBehaviours.Add(x);
         }
         protected void AddManager(IManager manager)
         {
+            if (_built) return;
             _managers.Add(manager.Id, manager);
         }
 
         public void Build()
         {
+            if (_built) return;
             foreach(var manager in _managers.Values)
             {
                 manager.Build();
             }
+            _built = true;
         }
        
         public void Play()
         {
+            if (!_built) return;
             _viewWatch.Play();
             _materialWatch.Play();
         }
         public void Pause()
         {
+            if (!_built) return;
             _materialWatch.Pause();
             _viewWatch.Pause();
         }
@@ -88,13 +92,15 @@ namespace SM
         protected abstract void Loop();
 
         
-        private void updateMaterial(float dt)
+        private void updateMaterial()
         {
-            Step(dt);
+            if (!_built) return;
+
+            Step(MaterialWatch.DT);
 
             foreach (var c in _materialLoopCoroutine)
             {
-                c.Do(dt);
+                c.Do();
             }
 
             foreach (var y in _managers.Values)
@@ -106,8 +112,20 @@ namespace SM
                 }
             }
         }
+
+        bool _started = false;
         private void updateView()
         {
+            if (!_built) return;
+            if(!_started)
+            {
+                foreach (var x in _startCoroutine)
+                {
+                    x.Do();
+                }
+                _started = true;
+                return;
+            }
 
             foreach (var c in _updateCoroutine)
             {

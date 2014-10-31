@@ -1,6 +1,5 @@
 ﻿using SM;
 using SM.Wpf;
-using SM.Farseer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,13 +9,13 @@ using System.Windows;
 using System.Windows.Threading;
 using System.Windows.Shapes;
 using System.Windows.Media;
-using FarseerPhysics.Dynamics;
-using Microsoft.Xna.Framework;
 using System.Windows.Data;
 using System.Windows.Controls;
 
-namespace SM.WpfFarseer
+namespace SM.Wpf
 {
+   
+
     public class XamlInterpreter
     {
         private static IEnumerable<FlagControl> FindAllFlag(IEnumerable<BasicControl> objects)
@@ -52,31 +51,11 @@ namespace SM.WpfFarseer
             return null;
         }
 
-        public static void BuildFarseerWorldManager(UIElementCollection parentChildrens, FarseerWorldManager worldManager, 
-            IEnumerable<BasicControl> objects, bool isInDesignMode = false)
+        public static Views BuildViews(UIElementCollection parentChildrens, IEnumerable<BasicControl> objects)
         {
+            Views _views = new Views();
 
-
-
-
-
-
-
-
-            isInDesignMode = false;
-
-
-
-
-
-
-
-
-
-
-
-
-            CodeGenerator.Header = "Farseer Code Generator" + " : " + worldManager.Id;
+            
 
             var flags = FindAllFlag(objects);
             var tobeadded = new List<BasicControl>();
@@ -84,8 +63,7 @@ namespace SM.WpfFarseer
             foreach (var child in objects)
             {
                 bool handled = false;
-                if (!isInDesignMode)
-                {
+
                     BreakableBodyControl breakableBodyControl = null;
                     var autoBreakableBodyControl = child as AutoBreakableBodyControl;
                     if (autoBreakableBodyControl != null)
@@ -97,7 +75,7 @@ namespace SM.WpfFarseer
                         foreach (var p in vss)
                         {
                             var shape = new ShapeControl();
-                            
+
                             shape.Points = p.ToWpf();
                             bbc.Shapes.Add(shape);
                         }
@@ -112,7 +90,7 @@ namespace SM.WpfFarseer
                     }
                     if (breakableBodyControl != null)
                     {
-                            worldManager.AddBreakableBodyView(breakableBodyControl);
+                        _views.BreakableBodies.Add(breakableBodyControl);
                             handled = true;
                     }
                     if (!handled)
@@ -120,7 +98,7 @@ namespace SM.WpfFarseer
                         var bodyControl = child as BodyControl;
                         if (bodyControl != null)
                         {
-                            worldManager.AddBodyView(bodyControl);
+                            _views.Bodies.Add(bodyControl);
                             handled = true;
                         }
                     }
@@ -130,11 +108,11 @@ namespace SM.WpfFarseer
                         var bodyControl = child as SkinnedBodyControl;
                         if (bodyControl != null)
                         {
-                            worldManager.AddBodyView(bodyControl);
+                            _views.Bodies.Add(bodyControl);
                             handled = true;
                         }
                     }
-                }
+                
 
                 if (!handled)
                 {
@@ -157,10 +135,8 @@ namespace SM.WpfFarseer
                         jointControl.SetLine(line);
                         jointControl.SetTargets(targetA.ParentId, targetB.ParentId);
 
-                        if (!isInDesignMode)
-                        {
-                            worldManager.AddRopeJointControl(jointControl);
-                        }
+                        _views.Joints.Add(jointControl);
+                        
                         handled = true;
                     }
                 }
@@ -171,6 +147,7 @@ namespace SM.WpfFarseer
                 ((BasicControl)x).AddToUIElementCollection(parentChildrens);
             }
 
+            return _views;
             
         }
     }

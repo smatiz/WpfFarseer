@@ -32,6 +32,7 @@ namespace SM.Farseer
             : base(viewWatch)
         {
             Id = id;
+            CodeGenerator.Header = "Farseer Code Generator" + " : " + Id;
         }
 
         public string Id { get; private set; }

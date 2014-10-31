@@ -8,6 +8,6 @@ namespace SM
 {
     public interface IMaterialBehaviour
     {
-        IEnumerator<BasicCoroutine> Loop(float dt);
+        IEnumerator<BasicCoroutine> Step();
     }
 }

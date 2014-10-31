@@ -96,7 +96,6 @@
     <Compile Include="Wpf\BasicCommand.cs" />
     <Compile Include="Manager\BasicWorldManager.cs" />
     <Compile Include="BodyTypeEnum.cs" />
-    <Compile Include="Coroutines\LoopCoroutine.cs" />
     <Compile Include="float2.cs" />
     <Compile Include="Interfaces\IManager.cs" />
     <Compile Include="Interfaces\IViewBehaviour.cs" />
@@ -127,6 +126,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Coroutines\WaitSecondsCoroutine.cs" />
     <Compile Include="MaterialWatch.cs" />
+    <Compile Include="Manager\Views.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

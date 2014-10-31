@@ -13,8 +13,6 @@ using System.Windows.Shapes;
 
 namespace SM.Wpf
 {
-
-
     public class ShapeControl : DependencyObject, IShape
     {
         public ShapeControl()
@@ -46,7 +44,6 @@ namespace SM.Wpf
             }
         }
 
-
         public IEnumerable<float2> Points_X
         { 
             get
@@ -58,20 +55,13 @@ namespace SM.Wpf
             }
          }
 
-
-
         public float Density
         {
             get { return (float)GetValue(DensityProperty); }
             set { SetValue(DensityProperty, value); }
         }
-
-        // Using a DependencyProperty as the backing store for Density.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty DensityProperty =
             DependencyProperty.Register("Density", typeof(float), typeof(ShapeControl), new PropertyMetadata(1f));
-
-        
-
         
         public float Density_X
         {
