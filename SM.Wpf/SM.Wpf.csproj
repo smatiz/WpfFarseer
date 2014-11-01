@@ -99,19 +99,18 @@
   <ItemGroup>
     <Compile Include="Helper.cs" />
     <Compile Include="ISkinnableCanvas.cs" />
-    <Compile Include="Views\AutoBreakableBodyControl.cs" />
+    <Compile Include="Views\Body\AutoBreakableBodyControl.cs" />
     <Compile Include="Views\BasicControl.cs" />
-    <Compile Include="Views\BasicBodyControl.cs">
+    <Compile Include="Views\Body\BasicBodyControl.cs">
       <Generator>MSBuild:Compile</Generator>
     </Compile>
-    <Compile Include="Views\SkinnedBodyControl.cs">
+    <Compile Include="Views\Body\SkinnedBodyControl.cs">
       <Generator>MSBuild:Compile</Generator>
     </Compile>
-    <Compile Include="Views\BodyControl.cs">
+    <Compile Include="Views\Body\BodyControl.cs">
       <Generator>MSBuild:Compile</Generator>
     </Compile>
-    <Compile Include="Views\BreakableBodyControl.cs" />
-    <Compile Include="Views\BreakableBodyPartControl.cs" />
+    <Compile Include="Views\Body\BreakableBodyControl.cs" />
     <Compile Include="CrossControl.xaml.cs">
       <DependentUpon>CrossControl.xaml</DependentUpon>
     </Compile>

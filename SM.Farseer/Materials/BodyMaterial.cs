@@ -39,8 +39,6 @@ namespace SM.Farseer
             _body.BodyType = (FarseerPhysics.Dynamics.BodyType)bodyType;
             CodeGenerator.AddCode(@"{0}.UserData = ""{1}"";", _body.n(), _body.UserData);
             CodeGenerator.AddCode("{0}.BodyType = BodyType.{1};", _body.n(), _body.BodyType.ToString());
-            //_body.Position = originPosition;
-            //_originalPosition = originPosition;
         }
 
         public rotoTranslation RotoTranslation
@@ -56,6 +54,7 @@ namespace SM.Farseer
         {
             var vs = shape.Points_X.ToFarseerVertices();
             FarseerPhysics.Factories.FixtureFactory.AttachPolygon(vs, shape.Density_X, _body);
+
 
             string shapeName = CodeGenerator.N("vs_");
             vs.AddCode(shapeName);

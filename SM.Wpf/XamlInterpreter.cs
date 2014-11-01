@@ -18,28 +18,48 @@ namespace SM.Wpf
 
     public class XamlInterpreter
     {
-        private static IEnumerable<FlagControl> FindAllFlag(IEnumerable<BasicControl> objects)
+        class Flag
+        {
+            public float X { get; set; }
+            public float Y { get; set; }
+            public string Id { get; set; }
+            public string ParentId { get; set; }
+        }
+
+        private static IEnumerable<Flag> FindAllFlag(IEnumerable<BasicControl> objects)
         {
             foreach (var child in objects)
             {
                 var fc = child as FlagControl;
                 if (fc != null)
                 {
-                    fc.ParentId = null;
-                    yield return fc;
+                    var flag = new Flag()
+                    {
+                        X = fc.X,
+                        Y = fc.Y,
+                        Id = fc.Id,
+                        ParentId = null,
+                    };
+                    yield return flag;
                 }
                 var fcp = child as IFlaggable;
                 if (fcp != null)
                 {
-                    foreach (var flag in fcp.Flags)
+                    foreach (var f in fcp.Flags)
                     {
-                        flag.ParentId = fcp.Id;
+                        var flag = new Flag()
+                        {
+                            X = f.X,
+                            Y = f.Y,
+                            Id = f.Id,
+                            ParentId = fcp.Id,
+                        };
                         yield return flag;
                     }
                 }
             }
         }
-        private static FlagControl FindFlag(IEnumerable<FlagControl> flags, string name)
+        private static Flag FindFlag(IEnumerable<Flag> flags, string name)
         {
             foreach (var f in flags)
             {
@@ -68,20 +88,20 @@ namespace SM.Wpf
                     var autoBreakableBodyControl = child as AutoBreakableBodyControl;
                     if (autoBreakableBodyControl != null)
                     {
-                        var polyF = autoBreakableBodyControl.Shape.Points.ToFarseerVertices();
-                        var vss = FarseerPhysics.Common.Decomposition.Triangulate.ConvexPartition(polyF, (FarseerPhysics.Common.Decomposition.TriangulationAlgorithm)autoBreakableBodyControl.TriangulationAlgorithm);
-                        var bbc = new BreakableBodyControl();
-                        bbc.DefaultBrush = new SolidColorBrush(Colors.AliceBlue);
-                        foreach (var p in vss)
-                        {
-                            var shape = new ShapeControl();
+                        //var polyF = autoBreakableBodyControl.Shape.Points.ToFarseerVertices();
+                        //var vss = FarseerPhysics.Common.Decomposition.Triangulate.ConvexPartition(polyF, (FarseerPhysics.Common.Decomposition.TriangulationAlgorithm)autoBreakableBodyControl.TriangulationAlgorithm);
+                        //var bbc = new BreakableBodyControl();
+                        //bbc.DefaultBrush = new SolidColorBrush(Colors.AliceBlue);
+                        //foreach (var p in vss)
+                        //{
+                        //    var shape = new ShapeControl();
 
-                            shape.Points = p.ToWpf();
-                            bbc.Shapes.Add(shape);
-                        }
+                        //    shape.Points = p.ToWpf();
+                        //    bbc.Shapes.Add(shape);
+                        //}
 
-                        breakableBodyControl = bbc;
-                        tobeadded.Add(breakableBodyControl);
+                        //breakableBodyControl = bbc;
+                        //tobeadded.Add(breakableBodyControl);
                     }
 
                     if (breakableBodyControl == null)

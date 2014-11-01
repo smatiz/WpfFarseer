@@ -24,10 +24,13 @@ namespace SM.Wpf
     {
         public static ISkinnableCanvas Skinner { private get; set; }
 
+        VisualBrush _brush;
+        List<ShapeControl> _shapes = new List<ShapeControl>();
+
         public SkinnedBodyControl()
         {
-            MaxWidth = 100;
-            MaxHeight = 100;
+            MaxWidth = 1000;
+            MaxHeight = 1000;
         }
 
         public Canvas Content
@@ -38,8 +41,6 @@ namespace SM.Wpf
         public static readonly DependencyProperty ContentProperty =
             DependencyProperty.Register("Content", typeof(Canvas), typeof(SkinnedBodyControl), new PropertyMetadata(null, new PropertyChangedCallback(ContentPropertyChanged)));
         private static void ContentPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e) { ((SkinnedBodyControl)obj).OnContentChanged(); }
-        VisualBrush _brush;
-        List<ShapeControl> _shapes = new List<ShapeControl>();
         private void OnContentChanged()
         {
             Content.Loaded += Content_Loaded;
@@ -49,7 +50,6 @@ namespace SM.Wpf
             _brush = Content.GetVisualBrush();
             Content.UpdateLayout();
         }
-
         void Content_Loaded(object sender, RoutedEventArgs e)
         {
             var polys = Skinner.FindBorder(_brush, MaxWidth, MaxHeight, 1);

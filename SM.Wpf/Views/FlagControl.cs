@@ -19,7 +19,6 @@ namespace SM.Wpf
 {
     public partial class FlagControl : BasicControl
     {
-
         public float X
         {
             get { return (float)GetValue(XProperty); }
@@ -35,27 +34,5 @@ namespace SM.Wpf
         }
         public static readonly DependencyProperty YProperty =
             DependencyProperty.Register("Y", typeof(float), typeof(FlagControl), new PropertyMetadata(0f));
-
-        //Visual _root;
-        //public void Set(Visual root)
-        //{
-        //    _root = root;
-        //}
-
-
-        public string ParentId { get; set; }// ((BasicControl)_parent).Id; } }
-        public string Id { get; set; }
-
-
-        //public Point AbsoluteLocation
-        //{
-        //    get
-        //    {
-        //        return TransformToAncestor(_root).Transform(new Point(X, Y)); ;
-        //    }
-        //}
-
-        
-
     }
 }

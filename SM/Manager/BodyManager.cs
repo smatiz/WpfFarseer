@@ -6,6 +6,35 @@ using System.Threading.Tasks;
 
 namespace SM
 {
+    // __IBodyView => 
+
+    public enum __BodyType
+    {
+        Static,
+        Kinematic,
+        Dynamic,
+        Breakable
+    }
+
+    public interface __IShape : IIdentifiable
+    {
+        IEnumerable<float2> Points_X { get; }
+        float Density_X { get; }
+    }
+
+    public interface __IBodyView : IIdentifiable
+    {
+        __BodyType BodyType { get; }
+        IEnumerable<IShape> Shapes { get; }
+        rotoTranslation RotoTranslation { get; }
+    }
+
+    public interface __IBodyMaterial : IMaterial
+    {
+        void Build(string id, float2 position, SM.BodyType bodyType);
+        rotoTranslation RotoTranslation { get; }
+        void AddShape(IShape shape);
+    }
 
     public interface IBodyView : IIdentifiable
     {
