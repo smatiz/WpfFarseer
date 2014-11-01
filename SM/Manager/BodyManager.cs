@@ -19,7 +19,7 @@ namespace SM
 
     public interface __IBodyMaterial : IMaterial
     {
-        void Build(string id, SM.__BodyType bodyType);
+        void Build(string id, SM.__BodyType bodyType, rotoTranslation rt);
         rotoTranslation RotoTranslation { get; }
         void AddShape(__IShape shape);
     }
@@ -55,7 +55,7 @@ namespace SM
 
         public void Build()
         {
-            _bodyMaterial.Build(_bodyView.Id, _bodyView.BodyType);
+            _bodyMaterial.Build(_bodyView.Id, _bodyView.BodyType, _bodyView.RotoTranslation);
             foreach (var shape in _bodyView.Shapes_X)
             {
                 _bodyMaterial.AddShape(shape);

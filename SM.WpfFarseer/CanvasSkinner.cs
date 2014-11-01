@@ -27,6 +27,9 @@ namespace SM.WpfFarseer
             var img = brush.ConvertToRenderTargetBitmap(w, h);
             uint[] us = img.GetData();
             var vs = FarseerPhysics.Common.TextureTools.TextureConverter.DetectVertices(us, (int)img.Width);
+
+            ///vs.Holes
+
             return new List<IEnumerable<float2>>() { vs.ToSM() };
         }
     }
