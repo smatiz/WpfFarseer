@@ -27,10 +27,10 @@ namespace SM.WpfFarseer
             var img = brush.ConvertToRenderTargetBitmap(w, h);
             uint[] us = img.GetData();
             var vs = FarseerPhysics.Common.TextureTools.TextureConverter.DetectVertices(us, (int)img.Width);
-
+            var vsp = FarseerPhysics.Common.Decomposition.Triangulate.ConvexPartition(vs, FarseerPhysics.Common.Decomposition.TriangulationAlgorithm.Bayazit);
             ///vs.Holes
-
-            return new List<IEnumerable<float2>>() { vs.ToSM() };
+            return from x in vsp select x.ToSM();
+            //return new List<IEnumerable<float2>>() { vs.ToSM() };
         }
     }
 }

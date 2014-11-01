@@ -18,6 +18,10 @@ namespace SM
         {
             AddManager(new __BodyManager(body, __CreateBodyMaterial()));
         }
+        public void __AddBreakableBodyView(__IBodyView body)
+        {
+            AddManager(new __BreakableBodyManager(body, __CreateBreakableBodyMaterial()));
+        }
 
         public void AddBodyView(IBodyView body)
         {
@@ -25,6 +29,7 @@ namespace SM
         }
         public abstract IBodyMaterial CreateBodyMaterial();
         public abstract __IBodyMaterial __CreateBodyMaterial();
+        public abstract __IBreakableBodyMaterial __CreateBreakableBodyMaterial();
 
         public void AddBreakableBodyView(IBreakableBodyView body)
         {

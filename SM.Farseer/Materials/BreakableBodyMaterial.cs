@@ -10,6 +10,103 @@ using System.Threading.Tasks;
 
 namespace SM.Farseer
 {
+
+    public class __BreakableBodyMaterial : __IBreakableBodyMaterial
+    {
+        World _world;
+        Body _body;
+        private BreakableBody _breakableBody;
+
+        public virtual object Object { get { return _breakableBody; } }
+        public string Id { get { return (string)_body.UserData; } }
+
+
+        public __BreakableBodyMaterial(World world)
+        {
+            _world = world;
+        }
+
+
+        public void Build(string id, rotoTranslation rt, IEnumerable<__IShape> shapes)
+        {
+            var allShapes = shapes.SelectMany<__IShape, Shape>(x => ToShapes(x));
+
+
+            _breakableBody = BodyFactory.CreateBreakableBody(_world, allShapes);
+            //_breakableBody.Strength = 1;
+            _body = _breakableBody.MainBody;
+            _body.UserData = id;
+            //_originalPosition = position.ToFarseer();
+            CodeGenerator.AddCode("Body {0} = BodyFactory.CreateBody(W);", _body.n());
+            CodeGenerator.AddCode(@"{0}.UserData = ""{1}"";", _body.n(), _body.UserData);
+            _body.Position = new Vector2(rt.Translation.X, rt.Translation.Y);
+            CodeGenerator.AddCode(@"{0}.Position = new Vector2({1},{2});", _body.n(), rt.Translation.X, rt.Translation.Y);
+            _body.Rotation = rt.Angle;
+            CodeGenerator.AddCode("{0}.Angle = {1};", _body.n(), rt.Angle);
+        }
+
+        public rotoTranslation RotoTranslation
+        {
+            get
+            {
+                var q = _breakableBody.MainBody.Position;
+                return new rotoTranslation(new float2(q.X, q.Y), _body.Rotation);
+            }
+        }
+
+
+        public bool IsBroken
+        {
+            get
+            {
+                return _breakableBody.Broken;
+            }
+        }
+
+
+
+        public IEnumerable<__IBodyMaterial> GetPieces()
+        {
+            int i = 0;
+            _breakableBody.Update();
+            foreach (var b in _breakableBody.Parts)
+            {
+                yield return new __BodyMaterial(b.Body, Id + ":" + i++);
+            }
+        }
+
+
+        private IEnumerable<Shape> ToShapes(__IShape shape)
+        {
+            var circle = shape as ICircleShape;
+            if (circle != null)
+            {
+                yield return new CircleShape(circle.Radius, shape.Density);
+            }
+
+            var poly = shape as IPolygonShape;
+            if (poly != null)
+            {
+                yield return new PolygonShape(poly.Points_X.ToFarseerVertices(), poly.Density);
+            }
+
+            var polys = shape as IPolygonsShape;
+            if (polys != null)
+            {
+                foreach (var x in polys.PolygonShapes)
+                {
+                    yield return new PolygonShape(x.ToFarseerVertices(), polys.Density);
+                }
+            }
+        }
+
+
+
+    }
+
+
+
+
     public class BreakableBodyMaterial : IBreakableBodyMaterial
     {
         private Vector2 _originalPosition = Vector2.Zero;

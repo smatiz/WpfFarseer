@@ -36,15 +36,9 @@ namespace SM.Farseer
         }
 
 
-        public void Build(string id, SM.__BodyType bodyType, rotoTranslation rt)
+        public void Build(string id, SM.__BodyType bodyType, rotoTranslation rt, IEnumerable<__IShape> shapes)
         {
-            if(bodyType == SM.__BodyType.Breakable)
-            {
-
-            }
-            else
-            {
-
+           
                 _body = BodyFactory.CreateBody(_world);
                 _body.UserData = id;
                 //_originalPosition = position.ToFarseer();
@@ -53,8 +47,14 @@ namespace SM.Farseer
                 CodeGenerator.AddCode(@"{0}.UserData = ""{1}"";", _body.n(), _body.UserData);
                 CodeGenerator.AddCode("{0}.BodyType = BodyType.{1};", _body.n(), _body.BodyType.ToString());
                 _body.Position = new Vector2(rt.Translation.X, rt.Translation.Y);
+                CodeGenerator.AddCode(@"{0}.Position = new Vector2({1},{2});", _body.n(), rt.Translation.X, rt.Translation.Y);
                 _body.Rotation = rt.Angle;
-            }
+                CodeGenerator.AddCode("{0}.Angle = {1};", _body.n(), rt.Angle);
+                foreach(var shape in shapes)
+                {
+                    AddShape(shape);
+                }
+            
         }
 
         public rotoTranslation RotoTranslation
@@ -76,25 +76,21 @@ namespace SM.Farseer
             CodeGenerator.AddCode("FarseerPhysics.Factories.FixtureFactory.AttachPolygon({0}, {1}, {2});", shapeName, density, _body.n());
        
         }
-
-        public void AddShape(__IShape shape)
+        private void AddShape(__IShape shape)
         {
             var circle = shape as ICircleShape;
             if (circle != null)
             {
                 FarseerPhysics.Factories.FixtureFactory.AttachCircle(circle.Radius, shape.Density, _body);
-
                 string shapeName = CodeGenerator.N("vs_");
                 CodeGenerator.AddCode("FarseerPhysics.Factories.FixtureFactory.AttachCircle({0}, {1}, {2});", circle.Radius, shape.Density, _body.n());
-       
-
                 return;
             }
 
             var poly = shape as IPolygonShape;
             if (poly != null)
             {
-                addPolygon(shape.Density, poly.Points);
+                addPolygon(shape.Density, poly.Points_X);
                 return;
             }
 

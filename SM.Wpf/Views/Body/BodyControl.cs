@@ -19,8 +19,57 @@ using System.Windows.Shapes;
 
 namespace SM.Wpf
 {
+    //enum xxx
+    //{
+    //    Convex, Concave, Triangulated
+    //}
+
+
+
+    public class BasicShapeControl : DependencyObject
+    {
+        public float Density
+        {
+            get { return (float)GetValue(DensityProperty); }
+            set { SetValue(DensityProperty, value); }
+        }
+        public static readonly DependencyProperty DensityProperty =
+            DependencyProperty.Register("Density", typeof(float), typeof(BasicShapeControl), new PropertyMetadata(1f));
+
+    }
+
+    public class PolygonShapeControl : BasicShapeControl, IPolygonShape
+    {
+        public PolygonShapeControl()
+        {
+
+        }
+
+        public PolygonShapeControl(IEnumerable<float2> poly, float density)
+        {
+            //Points = poly;
+            Density = density;
+        }
+
+        public PointCollection Points
+        {
+            get { return (PointCollection)GetValue(PointsProperty); }
+            set { SetValue(PointsProperty, value); }
+        }
+        public static readonly DependencyProperty PointsProperty =
+            DependencyProperty.Register("Points", typeof(PointCollection), typeof(PolygonShapeControl), new PropertyMetadata(null, new PropertyChangedCallback(Points_PropertyChanged)));
+        static void Points_PropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+
+        }
+
+        public IEnumerable<float2> Points_X { get; private set; }
+        public float Density { get; private set; }
+
+    }
+
     [ContentPropertyAttribute("Content")]
-    public class SkinnedShapeControl : DependencyObject, IPolygonsShape
+    public class SkinnedShapeControl : BasicShapeControl, IPolygonsShape
     {
         public static __ISkinnableCanvas Skinner { private get; set; }
         public IEnumerable<IEnumerable<float2>> PolygonShapes
@@ -31,14 +80,7 @@ namespace SM.Wpf
             }
         }
 
-        public float Density
-        {
-            get { return (float)GetValue(DensityProperty); }
-            set { SetValue(DensityProperty, value); }
-        }
-        public static readonly DependencyProperty DensityProperty =
-            DependencyProperty.Register("Density", typeof(float), typeof(SkinnedShapeControl), new PropertyMetadata(1f));
-
+        
         public int MaxWidth
         {
             get { return (int)GetValue(MaxWidthProperty); }
@@ -101,6 +143,8 @@ namespace SM.Wpf
                 gt.Children.Add(_rotation);
                 gt.Children.Add(_traslation);
                 _canvas.RenderTransform = gt;
+
+
                 OnLoaded();
             };
         }
@@ -116,8 +160,6 @@ namespace SM.Wpf
                 }
             }
         }
-
-
 
         public ObservableCollection<FlagControl> Flags
         {
@@ -142,8 +184,6 @@ namespace SM.Wpf
             Flags = new ObservableCollection<FlagControl>();
             Flags.CollectionChanged += Flags_CollectionChanged;
         }
-
-
 
         public float X
         {
@@ -192,9 +232,6 @@ namespace SM.Wpf
         public static readonly DependencyProperty BodyTypeProperty =
             DependencyProperty.Register("BodyType", typeof(__BodyType), typeof(__BodyControl), new PropertyMetadata(__BodyType.Static));
 
-
-
-
         public ObservableCollection<__IShape> Shapes
         {
             get { return (ObservableCollection<__IShape>)GetValue(ShapesProperty); }
@@ -218,8 +255,6 @@ namespace SM.Wpf
             Shapes = new ObservableCollection<__IShape>();
             Shapes.CollectionChanged += Shapes_CollectionChanged;
         }
-        
-
 
         public rotoTranslation RotoTranslation
         {
@@ -235,11 +270,70 @@ namespace SM.Wpf
             }
         }
 
-
         public IEnumerable<__IShape> Shapes_X
         {
             get { return from x in Shapes select x; }
         }
+
+        public IEnumerable<__IBodyView> Break()
+        {
+            _canvas.Children.Clear();
+            foreach (var shape in Shapes)
+            {
+
+                if (shape is ICircleShape || shape is IPolygonShape)
+                {
+                    var bc = new __BodyControl();
+                    bc.BodyType = SM.__BodyType.Dynamic;
+                    bc.Shapes.Add(shape);
+                    bc.AddToUIElementCollection(_parentChildrens);
+                    bc.RotoTranslation = RotoTranslation;
+                    yield return bc;
+                }
+                else if (shape is IPolygonsShape)
+                {
+                    foreach (var subshape in ((IPolygonsShape)shape).PolygonShapes)
+                    {
+                        var bc = new __BodyControl();
+                        bc.BodyType = SM.__BodyType.Dynamic;
+                        bc.Shapes.Add(new PolygonShapeControl(subshape, ((IPolygonsShape)shape).Density));
+                        bc.AddToUIElementCollection(_parentChildrens);
+                        bc.RotoTranslation = RotoTranslation;
+                        yield return bc;
+                    }
+                }
+
+
+                
+
+            }
+        }
+
+
+        //private IEnumerable<__IBodyView> ToBodyViews(__IShape shape)
+        //{
+        //    if (shape is ICircleShape || shape is IPolygonShape)
+        //    {
+        //        var bc = new __BodyControl();
+        //        bc.Shapes.Add(shape);
+        //        yield return bc;
+        //    }
+
+
+        //    var polys = shape as IPolygonsShape;
+        //    if (polys != null)
+        //    {
+        //        foreach (var x in polys.PolygonShapes)
+        //        {
+        //            var bc = new __BodyControl();
+        //            bc.Shapes.Add(new PolygonShapeControl(x, polys.Density));
+        //            yield return bc;
+        //        }
+        //    }
+        //}
+
+
+
     }
 
 

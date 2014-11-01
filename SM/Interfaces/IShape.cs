@@ -12,7 +12,7 @@ namespace SM
     }
     public interface IPolygonShape : __IShape
     {
-        IEnumerable<float2> Points { get; }
+        IEnumerable<float2> Points_X { get; }
     }
     public interface ICircleShape : __IShape
     {

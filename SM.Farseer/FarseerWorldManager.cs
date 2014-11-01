@@ -47,11 +47,16 @@ namespace SM.Farseer
         {
             return new __BodyMaterial(_world);
         }
-
+        public override __IBreakableBodyMaterial __CreateBreakableBodyMaterial()
+        {
+            return new __BreakableBodyMaterial(_world);
+        }
         public override IBreakableBodyMaterial CreateBreakableBodyMaterial()
         {
             return new BreakableBodyMaterial(_world);
         }
+
+
 
         public override IRopeJointMaterial CreateRopeJointMaterial()
         {

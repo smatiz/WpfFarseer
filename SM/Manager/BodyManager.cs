@@ -15,13 +15,14 @@ namespace SM
         __BodyType BodyType { get; }
         IEnumerable<__IShape> Shapes_X { get; }
         rotoTranslation RotoTranslation { get; set; }
+
+        IEnumerable<__IBodyView> Break();
     }
 
     public interface __IBodyMaterial : IMaterial
     {
-        void Build(string id, SM.__BodyType bodyType, rotoTranslation rt);
+        void Build(string id, SM.__BodyType bodyType, rotoTranslation rt, IEnumerable<__IShape> shapes);
         rotoTranslation RotoTranslation { get; }
-        void AddShape(__IShape shape);
     }
 
     public interface IBodyView : IIdentifiable
@@ -55,12 +56,7 @@ namespace SM
 
         public void Build()
         {
-            _bodyMaterial.Build(_bodyView.Id, _bodyView.BodyType, _bodyView.RotoTranslation);
-            foreach (var shape in _bodyView.Shapes_X)
-            {
-                _bodyMaterial.AddShape(shape);
-
-            }
+            _bodyMaterial.Build(_bodyView.Id, _bodyView.BodyType, _bodyView.RotoTranslation, _bodyView.Shapes_X);
         }
 
         public void UpdateMaterial()
