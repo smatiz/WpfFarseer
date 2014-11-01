@@ -12,13 +12,19 @@ namespace SM
             : base(viewWatch)
         {
         }
-        
+
+
+        public void __AddBodyView(__IBodyView body)
+        {
+            AddManager(new __BodyManager(body, __CreateBodyMaterial()));
+        }
 
         public void AddBodyView(IBodyView body)
         {
             AddManager(new BodyManager(body, CreateBodyMaterial()));
         }
         public abstract IBodyMaterial CreateBodyMaterial();
+        public abstract __IBodyMaterial __CreateBodyMaterial();
 
         public void AddBreakableBodyView(IBreakableBodyView body)
         {

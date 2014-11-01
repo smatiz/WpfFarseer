@@ -99,6 +99,8 @@ namespace FarseerPhysics.Samples.Demos
                 vertices.Scale(ref vertScale);
             }
 
+
+
             //Create a single body with multiple fixtures
             _compound = BodyFactory.CreateCompoundPolygon(World, list, 1f, BodyType.Dynamic);
             _compound.BodyType = BodyType.Dynamic;

@@ -12,12 +12,20 @@
         <l2:FarseerPlayerControl x:Name="_farseerPlayer">
             <l2:FarseerPlayerControl.FarseerCanvas>
                 <l3:FarseerCanvas  Grid.Row="0" >
-                    <l:SkinnedBodyControl BodyType="Dynamic">
+                    <l:__BodyControl BodyType="Dynamic">
+                        <l:SkinnedShapeControl>
+                            <Canvas Width="200" Height="200">
+                                <Button  Width="40" Height="40">ciao</Button>
+                                <Button Canvas.Left="20" Canvas.Top="10" Width="10" Height="40">ciao</Button>
+                            </Canvas>
+                        </l:SkinnedShapeControl>
+                    </l:__BodyControl>
+                    <!--<l:SkinnedBodyControl BodyType="Dynamic">
                         <Canvas Width="200" Height="200">
                             <Button  Width="40" Height="40">ciao</Button>
                             <Button Canvas.Left="20" Canvas.Top="10" Width="10" Height="40">ciao</Button>
                         </Canvas>
-                    </l:SkinnedBodyControl>
+                    </l:SkinnedBodyControl>-->
                     <l:BodyControl Id="b2"   BodyType="Dynamic"   >
                         <l:ShapeControl  Points="100,100,200,0,200,200"  ></l:ShapeControl>
                     </l:BodyControl>

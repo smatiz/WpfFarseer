@@ -10,7 +10,7 @@ namespace SM.Wpf
     /// </summary>
     public static class Helper 
     {
-       
+      
 
         public static VisualBrush GetVisualBrush(this UIElement element)
         {

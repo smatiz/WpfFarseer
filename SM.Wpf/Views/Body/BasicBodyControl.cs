@@ -24,6 +24,7 @@ namespace SM.Wpf
         ObservableCollection<FlagControl> Flags { get; }
     }
 
+
     public abstract class BasicBodyControl : BasicControl, IFlaggable
     {
         private RotateTransform _rotation; 
@@ -112,6 +113,9 @@ namespace SM.Wpf
         }
         public static readonly DependencyProperty YProperty =
             DependencyProperty.Register("Y", typeof(float), typeof(BasicBodyControl), new PropertyMetadata(0f));
+
+
+
 
         public float2 Position { get { return new float2(X, Y); } }
         

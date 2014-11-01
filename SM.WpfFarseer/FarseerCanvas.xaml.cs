@@ -51,7 +51,7 @@ namespace WpfFarseer
 
             Settings.MaxPolygonVertices = 100;
 
-            SkinnedBodyControl.Skinner = new CanvasSkinner();
+            SkinnedShapeControl.Skinner = new CanvasSkinner();
 
             if(Id == null || Id == "")
             {
@@ -67,6 +67,16 @@ namespace WpfFarseer
             {
                 if (loaded) return;
                 loaded = true;
+
+
+                var __views = XamlInterpreter.__BuildViews(Children, FarseerObjects);
+
+                foreach (var x in __views.Bodies)
+                {
+                    _worldManager.__AddBodyView(x);
+                }
+
+
                 var views = XamlInterpreter.BuildViews(Children, FarseerObjects);
 
                 foreach(var x in views.Bodies)

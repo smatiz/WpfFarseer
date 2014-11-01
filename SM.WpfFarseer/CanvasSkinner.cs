@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SM.Farseer;
 using SM.Wpf;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -11,7 +12,7 @@ using FarseerPhysics.Common;
 
 namespace SM.WpfFarseer
 {
-    class CanvasSkinner : ISkinnableCanvas
+    public class CanvasSkinner : ISkinnableCanvas, __ISkinnableCanvas
     {
         public List<PointCollection> FindBorder(VisualBrush brush, double w, double h, int n)
         {
@@ -19,6 +20,14 @@ namespace SM.WpfFarseer
             uint[] us = img.GetData();
             var vs = FarseerPhysics.Common.TextureTools.TextureConverter.DetectVertices(us, (int)img.Width);
             return new List<PointCollection>(){ vs.ToWpf()};
+        }
+
+        public IEnumerable<IEnumerable<float2>> __FindBorder(VisualBrush brush, double w, double h)
+        {
+            var img = brush.ConvertToRenderTargetBitmap(w, h);
+            uint[] us = img.GetData();
+            var vs = FarseerPhysics.Common.TextureTools.TextureConverter.DetectVertices(us, (int)img.Width);
+            return new List<IEnumerable<float2>>() { vs.ToSM() };
         }
     }
 }

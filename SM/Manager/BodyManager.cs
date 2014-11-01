@@ -8,32 +8,20 @@ namespace SM
 {
     // __IBodyView => 
 
-    public enum __BodyType
-    {
-        Static,
-        Kinematic,
-        Dynamic,
-        Breakable
-    }
 
-    public interface __IShape : IIdentifiable
-    {
-        IEnumerable<float2> Points_X { get; }
-        float Density_X { get; }
-    }
-
+   
     public interface __IBodyView : IIdentifiable
     {
         __BodyType BodyType { get; }
-        IEnumerable<IShape> Shapes { get; }
-        rotoTranslation RotoTranslation { get; }
+        IEnumerable<__IShape> Shapes_X { get; }
+        rotoTranslation RotoTranslation { get; set; }
     }
 
     public interface __IBodyMaterial : IMaterial
     {
-        void Build(string id, float2 position, SM.BodyType bodyType);
+        void Build(string id, SM.__BodyType bodyType);
         rotoTranslation RotoTranslation { get; }
-        void AddShape(IShape shape);
+        void AddShape(__IShape shape);
     }
 
     public interface IBodyView : IIdentifiable
@@ -49,6 +37,53 @@ namespace SM
         void Build(string id, float2 position, SM.BodyType bodyType); 
         rotoTranslation RotoTranslation { get; }
         void AddShape(IShape shape);
+    }
+
+
+    public class __BodyManager : IManager, IMaterial
+    {
+        rotoTranslation _rotoTranslation;
+
+        __IBodyView _bodyView;
+        __IBodyMaterial _bodyMaterial;
+
+        public __BodyManager(__IBodyView bodyView, __IBodyMaterial bodyMaterial)
+        {
+            _bodyView = bodyView;
+            _bodyMaterial = bodyMaterial;
+        }
+
+        public void Build()
+        {
+            _bodyMaterial.Build(_bodyView.Id, _bodyView.BodyType);
+            foreach (var shape in _bodyView.Shapes_X)
+            {
+                _bodyMaterial.AddShape(shape);
+
+            }
+        }
+
+        public void UpdateMaterial()
+        {
+            _rotoTranslation = _bodyMaterial.RotoTranslation;
+        }
+        public void UpdateView()
+        {
+            _bodyView.RotoTranslation = _rotoTranslation;
+        }
+
+        public string Id
+        {
+            get
+            {
+                return _bodyView.Id;
+            }
+        }
+
+        public object Object
+        {
+            get { return _bodyMaterial.Object; }
+        }
     }
 
     public class BodyManager : IManager, IMaterial

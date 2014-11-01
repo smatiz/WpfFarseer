@@ -61,7 +61,54 @@ namespace FarseerPhysics.Samples.Demos
 
         private void test1(World W)
         {
+            var vs = new Vertices() { new Vector2(0, 0), new Vector2(10, 0), new Vector2(10, 10), new Vector2(0, 10) };
+            var vs2 = new Vertices() { new Vector2(15, 4), new Vector2(20, 4), new Vector2(20, 8), new Vector2(15, 8) };
+             float density =  1f;
+
+
+
+             var list = new List<FarseerPhysics.Common.Vertices>();
+             list.Add(vs);
+             list.Add(vs2);
+         
+             //var b = BodyFactory.CreateCompoundPolygon(World, list,density, BodyType.Dynamic);
+             //    FixtureFactory.AttachPolygon(vs2, 1, b);
+             //b.BodyType = BodyType.Dynamic;
+
+             //FixtureFactory.AttachCircle(1, 1, b, new Vector2(-2, -2));
+           
+
+
+
+
+            var bb = BodyFactory.CreateBreakableBody(World, new List<Shape>() { 
+                new PolygonShape(vs, 1),
+                new CircleShape(1, 1),
+                new PolygonShape(vs2, 1),
+
+            },new Vector2(-10,0));
+            bb.Strength = 10000;
+
+            var b_bb = BodyFactory.CreateBody(World);
+
+
+            //bb.Parts.Add(FixtureFactory.AttachCompoundPolygon(list, 1f, b_bb));
+
+
+            var b2 = BodyFactory.CreateCircle(World, 1, 1, new Vector2(-10, -10));
+            b2.BodyType = BodyType.Dynamic;
+
+             var _border = new Border(World, ScreenManager, Camera);
+
+            return;
+        
+            
             Camera.Zoom = 0.1f;
+
+
+
+
+
 
 
             var ps_1 = new List<FarseerPhysics.Collision.Shapes.PolygonShape>();

@@ -9,6 +9,12 @@ using System.Windows.Media;
 
 namespace SM.Wpf
 {
+    public interface __ISkinnableCanvas
+    {
+        IEnumerable<IEnumerable<float2>> __FindBorder(VisualBrush brush, double w, double h);
+    }
+
+
     public interface ISkinnableCanvas
     {
         List<PointCollection> FindBorder(VisualBrush brush, double w, double h, int n);

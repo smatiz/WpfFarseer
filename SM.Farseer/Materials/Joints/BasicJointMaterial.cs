@@ -28,14 +28,14 @@ namespace SM.Farseer
         {
             get
             {
-                return _joint.WorldAnchorA.ToFarseer();
+                return _joint.WorldAnchorA.ToSM();
             }
         }
         public float2 AnchorB
         {
             get
             {
-                return _joint.WorldAnchorB.ToFarseer();
+                return _joint.WorldAnchorB.ToSM();
             }
         }
 

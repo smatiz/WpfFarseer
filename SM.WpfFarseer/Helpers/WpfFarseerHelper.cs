@@ -147,6 +147,8 @@ namespace SM.WpfFarseer
             return pointCollection;
         }
 
+        
+
         public static WShape.Polygon ToWpfPolygon(this F.Vertices ps)
         {
             var poly = new WShape.Polygon();

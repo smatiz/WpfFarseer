@@ -21,9 +21,19 @@ namespace SM.Farseer
             return new Xna.Vector2((float)p.X, (float)p.Y);
         }
        
-        public static float2 ToFarseer(this Xna.Vector2 p)
+        public static float2 ToSM(this Xna.Vector2 p)
         {
             return new float2(p.X, p.Y);
+        }
+
+        public static List<float2> ToSM(this F.Vertices ps)
+        {
+            var list = new List<float2>();
+            foreach (var p in ps)
+            {
+                list.Add(p.ToSM());
+            }
+            return list;
         }
         public static FShape.PolygonShape ToFarseerVertices(this IShape shape)
         {
