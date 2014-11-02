@@ -226,7 +226,7 @@ namespace SM.Wpf
                 //poly.Polygon.Stroke = new SolidColorBrush(Colors.Black);
                 var bc = new __BodyControl();
                 bc.BodyType = SM.__BodyType.Dynamic;
-                bc.Shapes.Add(new PolygonShapeControl(poly.Polygon, 1f));
+                bc.Shapes.Add(new PolygonShapeControl(poly.Polygon, poly.ShapeControl.Density));
                 bc.AddToUIElementCollection(_parentChildrens);
                 bc.RotoTranslation = RotoTranslation;
                 bodies.Add(bc);

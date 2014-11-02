@@ -32,12 +32,25 @@ namespace SM.Farseer
             var allShapes = shapes.SelectMany<__IShape, Shape>(x => ToShapes(x));
 
 
+
+
+            //CodeGenerator.AddCode("var allShapes_{0} = new List<Shape>();", id);
+            int i = 0;
+            foreach(var shape in allShapes)
+            {
+
+                //CodeGenerator.AddCode("var allShapes_{0}_item{1} = ;", id, i, shape);
+
+            }
+
+
+
             _breakableBody = BodyFactory.CreateBreakableBody(_world, allShapes);
             //_breakableBody.Strength = 1;
             _body = _breakableBody.MainBody;
             _body.UserData = id;
             //_originalPosition = position.ToFarseer();
-            CodeGenerator.AddCode("Body {0} = BodyFactory.CreateBody(W);", _body.n());
+            CodeGenerator.AddCode("var {0} = BodyFactory.CreateBreakableBody(W, allShapes);", _body.n());
             CodeGenerator.AddCode(@"{0}.UserData = ""{1}"";", _body.n(), _body.UserData);
             _body.Position = new Vector2(rt.Translation.X, rt.Translation.Y);
             CodeGenerator.AddCode(@"{0}.Position = new Vector2({1},{2});", _body.n(), rt.Translation.X, rt.Translation.Y);

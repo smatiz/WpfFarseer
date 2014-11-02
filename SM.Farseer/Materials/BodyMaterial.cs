@@ -38,23 +38,21 @@ namespace SM.Farseer
 
         public void Build(string id, SM.__BodyType bodyType, rotoTranslation rt, IEnumerable<__IShape> shapes)
         {
-           
-                _body = BodyFactory.CreateBody(_world);
-                _body.UserData = id;
-                //_originalPosition = position.ToFarseer();
-                CodeGenerator.AddCode("Body {0} = BodyFactory.CreateBody(W);", _body.n());
-                _body.BodyType = (FarseerPhysics.Dynamics.BodyType)bodyType;
-                CodeGenerator.AddCode(@"{0}.UserData = ""{1}"";", _body.n(), _body.UserData);
-                CodeGenerator.AddCode("{0}.BodyType = BodyType.{1};", _body.n(), _body.BodyType.ToString());
-                _body.Position = new Vector2(rt.Translation.X, rt.Translation.Y);
-                CodeGenerator.AddCode(@"{0}.Position = new Vector2({1}f,{2}f);", _body.n(), rt.Translation.X, rt.Translation.Y);
-                _body.Rotation = rt.Angle;
-                CodeGenerator.AddCode("{0}.Rotation = {1}f;", _body.n(), rt.Angle);
-                foreach(var shape in shapes)
-                {
-                    AddShape(shape);
-                }
-            
+            _body = BodyFactory.CreateBody(_world);
+            _body.UserData = id;
+            //_originalPosition = position.ToFarseer();
+            CodeGenerator.AddCode("Body {0} = BodyFactory.CreateBody(W);", _body.n());
+            _body.BodyType = (FarseerPhysics.Dynamics.BodyType)bodyType;
+            CodeGenerator.AddCode(@"{0}.UserData = ""{1}"";", _body.n(), _body.UserData);
+            CodeGenerator.AddCode("{0}.BodyType = BodyType.{1};", _body.n(), _body.BodyType.ToString());
+            _body.Position = new Vector2(rt.Translation.X, rt.Translation.Y);
+            CodeGenerator.AddCode(@"{0}.Position = new Vector2({1}f,{2}f);", _body.n(), rt.Translation.X, rt.Translation.Y);
+            _body.Rotation = rt.Angle;
+            CodeGenerator.AddCode("{0}.Rotation = {1}f;", _body.n(), rt.Angle);
+            foreach (var shape in shapes)
+            {
+                AddShape(shape);
+            }
         }
 
         public rotoTranslation RotoTranslation
