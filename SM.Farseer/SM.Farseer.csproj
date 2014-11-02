@@ -94,10 +94,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CodeGenerator.cs" />
     <Compile Include="Materials\BreakableBodyMaterial.cs" />
     <Compile Include="Materials\BodyMaterial.cs" />
     <Compile Include="Helpers\FarseerHelper.cs" />
-    <Compile Include="Internal\CodeGenerator.cs" />
     <Compile Include="FarseerWorldManager.cs" />
     <Compile Include="Materials\Joints\BasicUnanchoredJointMaterial.cs" />
     <Compile Include="Materials\Joints\todo\BasicAxedJointMaterial.cs" />

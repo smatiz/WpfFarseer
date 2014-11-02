@@ -1,9 +1,28 @@
-  public class Executed : IExecutable
+using System.Collections.Generic;
+using System.Text;
+using FarseerPhysics.Collision;
+using FarseerPhysics.Common;
+using FarseerPhysics.Common.Decomposition;
+using FarseerPhysics.Common.PolygonManipulation;
+using FarseerPhysics.Samples.Demos.Prefabs;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using FarseerPhysics.Collision.Shapes;
+using System.Linq;
+using FarseerPhysics.Factories;
+using System.Reflection;
+using FarseerPhysics;
+using FarseerPhysics.Samples.ScreenSystem;
+using FarseerPhysics.Dynamics;
+using FarseerPhysics.DebugView;
+
+public class Executed : IExecutable
     {
-        public void DoIt(World World, Camera2D Camera)
+  public  void Execute(FarseerPhysics.Dynamics.World World, FarseerPhysics.DebugView.DebugViewXNA DebugView, FarseerPhysics.Samples.ScreenSystem.Camera2D Camera)
         {
 		
- DebugView.AppendFlags(DebugViewFlags.PolygonPoints);
+			DebugView.AppendFlags(DebugViewFlags.PolygonPoints);
             DebugView.AppendFlags(DebugViewFlags.Shape);
 var W = World;
             Camera.Zoom = 0.1f;

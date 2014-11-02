@@ -14,6 +14,7 @@ namespace SM.Farseer
 {
    public static class CodeGenerator
     {
+       static Dictionary<string, StringBuilder> _textMap = new Dictionary<string, StringBuilder>();
        static int i = 1;
        public static string N(string s = "")
        {
@@ -26,9 +27,59 @@ namespace SM.Farseer
            set;
        }
 
+       static StringBuilder get(string header)
+       {
+           if (_textMap.ContainsKey(header))
+           {
+               return _textMap[header];
+           }
+           var text = new StringBuilder();
+           text.Append(@"
+using System.Collections.Generic;
+using System.Text;
+using FarseerPhysics.Collision;
+using FarseerPhysics.Common;
+using FarseerPhysics.Common.Decomposition;
+using FarseerPhysics.Common.PolygonManipulation;
+using FarseerPhysics.Samples.Demos.Prefabs;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using FarseerPhysics.Collision.Shapes;
+using System.Linq;
+using FarseerPhysics.Factories;
+using System.Reflection;
+using FarseerPhysics;
+using FarseerPhysics.Samples.ScreenSystem;
+using FarseerPhysics.Dynamics;
+using FarseerPhysics.DebugView;
+
+public class Executed : IExecutable
+    {
+  public  void Execute(FarseerPhysics.Dynamics.World World, FarseerPhysics.DebugView.DebugViewXNA DebugView, FarseerPhysics.Samples.ScreenSystem.Camera2D Camera)
+        {
+		var W = World;
+
+               "
+              );
+
+           _textMap.Add(header, text);
+           return text;
+       }
+
+
         public static void AddCode(string line)
         {
             Trace.WriteLine(line, Header);
+            get(Header).AppendLine(line);
+        }
+
+        public static string Code
+        {
+            get
+            {
+                return get(Header).ToString() + "}}";
+            }
         }
 
         public static void AddCode(string line, params object[] args )

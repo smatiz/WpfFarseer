@@ -92,6 +92,27 @@
     <Reference Include="mscorlib">
       <Private>False</Private>
     </Reference>
+    <Reference Include="Roslyn.Compilers">
+      <HintPath>C:\ROOT\OneDrive\NET_DLL\Roslyn_dll.1.2.20906.2\Roslyn.Compilers.dll</HintPath>
+    </Reference>
+    <Reference Include="Roslyn.Compilers.CSharp">
+      <HintPath>C:\ROOT\OneDrive\NET_DLL\Roslyn_dll.1.2.20906.2\Roslyn.Compilers.CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Roslyn.Compilers.VisualBasic">
+      <HintPath>C:\ROOT\OneDrive\NET_DLL\Roslyn_dll.1.2.20906.2\Roslyn.Compilers.VisualBasic.dll</HintPath>
+    </Reference>
+    <Reference Include="Roslyn.Services">
+      <HintPath>C:\ROOT\OneDrive\NET_DLL\Roslyn_dll.1.2.20906.2\Roslyn.Services.dll</HintPath>
+    </Reference>
+    <Reference Include="Roslyn.Services.CSharp">
+      <HintPath>C:\ROOT\OneDrive\NET_DLL\Roslyn_dll.1.2.20906.2\Roslyn.Services.CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Roslyn.Services.VisualBasic">
+      <HintPath>C:\ROOT\OneDrive\NET_DLL\Roslyn_dll.1.2.20906.2\Roslyn.Services.VisualBasic.dll</HintPath>
+    </Reference>
+    <Reference Include="Roslyn.Utilities">
+      <HintPath>C:\ROOT\OneDrive\NET_DLL\Roslyn_dll.1.2.20906.2\Roslyn.Utilities.dll</HintPath>
+    </Reference>
     <Reference Include="System">
       <Private>False</Private>
     </Reference>
@@ -103,6 +124,12 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CodeDom\CodeDomCompiler.cs" />
+    <Compile Include="CodeDom\AssemblyManager.cs" />
+    <Compile Include="CodeDom\Result.cs" />
+    <Compile Include="CodeDom\ResultAssembly.cs" />
+    <Compile Include="CodeDom\Variable.cs" />
+    <Compile Include="CodeDom\CSharpCompiler.cs" />
     <Compile Include="Demos\AdvancedDemo2B.cs" />
     <Compile Include="Demos\RoslynGame.cs" />
     <Compile Include="Demos\FromXaml.cs" />
@@ -170,10 +197,6 @@
     <Content Include="GameThumbnail.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\FLAME_2014\Flame\Flame.Base\Flame.Base.csproj">
-      <Project>{6e8df0fa-f9d6-496d-ae08-99c3b7ec757c}</Project>
-      <Name>Flame.Base</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\FLAME_2014\Flame\Flame.Debug\Flame.Debug.csproj">
       <Project>{167938e9-7883-4d27-a78a-3a1c20f0fe90}</Project>
       <Name>Flame.Debug</Name>

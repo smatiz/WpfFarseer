@@ -62,7 +62,7 @@ namespace SM
             _managers.Add(manager.Id, manager);
         }
 
-        public void Build()
+        public virtual void Build()
         {
             if (_built) return;
             foreach(var manager in _managers.Values)

@@ -47,9 +47,9 @@ namespace SM.Farseer
                 CodeGenerator.AddCode(@"{0}.UserData = ""{1}"";", _body.n(), _body.UserData);
                 CodeGenerator.AddCode("{0}.BodyType = BodyType.{1};", _body.n(), _body.BodyType.ToString());
                 _body.Position = new Vector2(rt.Translation.X, rt.Translation.Y);
-                CodeGenerator.AddCode(@"{0}.Position = new Vector2({1},{2});", _body.n(), rt.Translation.X, rt.Translation.Y);
+                CodeGenerator.AddCode(@"{0}.Position = new Vector2({1}f,{2}f);", _body.n(), rt.Translation.X, rt.Translation.Y);
                 _body.Rotation = rt.Angle;
-                CodeGenerator.AddCode("{0}.Angle = {1};", _body.n(), rt.Angle);
+                CodeGenerator.AddCode("{0}.Rotation = {1}f;", _body.n(), rt.Angle);
                 foreach(var shape in shapes)
                 {
                     AddShape(shape);

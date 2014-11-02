@@ -33,6 +33,11 @@ namespace SM.Farseer
                 _fixedMouseJoint.WorldAnchorB = position;
             }
         }
+        public override void Build()
+        {
+            CodeGenerator.Header = Id;
+            base.Build();
+        }
 
         public void StopMouseJoint()
         {
@@ -57,7 +62,6 @@ namespace SM.Farseer
             : base(viewWatch)
         {
             Id = id;
-            CodeGenerator.Header = "Farseer Code Generator" + " : " + Id;
 
             
 
