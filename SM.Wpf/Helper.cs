@@ -1,8 +1,10 @@
 ﻿
+using System.Collections.Generic;
 using System.IO;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 namespace SM.Wpf
 {
     /// <summary>
@@ -10,7 +12,59 @@ namespace SM.Wpf
     /// </summary>
     public static class Helper 
     {
-      
+        public static Point ToWpf(this float2 p)
+        {
+            return new Point(p.X,p.Y);
+        }
+        public static Polygon ToWpfPolygon(this IEnumerable<float2> ps)
+        {
+            var poly = new Polygon();
+            foreach (var p in ps)
+            {
+                poly.Points.Add(p.ToWpf());
+            }
+            return poly;
+        }
+
+        public static Rect BBox(this PointCollection ps)
+        {
+            Rect r = Rect.Empty;
+            foreach (var x in ps)
+            {
+                r.Union(x);
+            }
+            return r;
+        }
+
+        public static Rect BBox(this Polygon ps)
+        {
+            return ps.Points.BBox();
+        }
+        public static void FillPolygons(this VisualBrush vb, Polygon[] ps)
+        {
+            Rect[] bbs = new Rect[ps.Length];
+            for (int i = 0; i < ps.Length; i++)
+            {
+                bbs[i] = ps[i].BBox();
+            }
+
+            var bb = bbs[0];
+            for (int i = 1; i < ps.Length; i++)
+            {
+                bb.Union(bbs[i]);
+            }
+
+
+            for (int i = 0; i < ps.Length; i++)
+            {
+                //var vb = new VisualBrush(uiElement);
+                vb.AlignmentX = AlignmentX.Left;
+                vb.AlignmentY = AlignmentY.Top;
+                vb.Stretch = Stretch.None;
+                vb.Viewport = new Rect((bb.X - bbs[i].X) / bbs[i].Width, (bb.Y - bbs[i].Y) / bbs[i].Height, 1, 1);
+                ps[i].Fill = vb;
+            }
+        }
 
         public static VisualBrush GetVisualBrush(this UIElement element)
         {

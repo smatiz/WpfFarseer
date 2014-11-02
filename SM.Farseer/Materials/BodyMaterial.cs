@@ -90,7 +90,7 @@ namespace SM.Farseer
             var poly = shape as IPolygonShape;
             if (poly != null)
             {
-                addPolygon(shape.Density, poly.Points_X);
+                addPolygon(shape.Density, poly.Points);
                 return;
             }
 

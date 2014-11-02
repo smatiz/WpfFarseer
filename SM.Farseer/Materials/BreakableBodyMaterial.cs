@@ -87,7 +87,7 @@ namespace SM.Farseer
             var poly = shape as IPolygonShape;
             if (poly != null)
             {
-                yield return new PolygonShape(poly.Points_X.ToFarseerVertices(), poly.Density);
+                yield return new PolygonShape(poly.Points.ToFarseerVertices(), poly.Density);
             }
 
             var polys = shape as IPolygonsShape;
