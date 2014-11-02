@@ -15,8 +15,8 @@
                     <l:__BodyControl BodyType="Breakable" X="10" Angle="9">
                         <l:SkinnedShapeControl>
                             <Canvas Width="200" Height="200">
-                                <Button  Width="40" Height="40">ciao</Button>
-                                <Button Canvas.Left="20" Canvas.Top="10" Width="10" Height="40">ciao</Button>
+                                <Button Background="Red" Width="40" Height="40">ciao</Button>
+                                <Button Background="Blue" Canvas.Left="20" Canvas.Top="10" Width="10" Height="40">ciao</Button>
                             </Canvas>
                         </l:SkinnedShapeControl>
                     </l:__BodyControl>

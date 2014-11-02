@@ -221,13 +221,12 @@ namespace SM.Wpf
             foreach (var poly in polys)
             {
                 var vb = filler.GetBrush(poly.Polygon, poly.ShapeControl.Content);
-                var newPoly = new Polygon();
-                newPoly.Points = poly.Polygon.Points.Clone();
-                newPoly.Fill = vb;
-                //newPoly.Fill = new SolidColorBrush(Colors.Red);
+                poly.Polygon.Fill = vb;
+
+                //poly.Polygon.Stroke = new SolidColorBrush(Colors.Black);
                 var bc = new __BodyControl();
                 bc.BodyType = SM.__BodyType.Dynamic;
-                bc.Shapes.Add(new PolygonShapeControl(newPoly, 1f));
+                bc.Shapes.Add(new PolygonShapeControl(poly.Polygon, 1f));
                 bc.AddToUIElementCollection(_parentChildrens);
                 bc.RotoTranslation = RotoTranslation;
                 bodies.Add(bc);

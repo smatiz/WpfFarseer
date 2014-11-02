@@ -19,6 +19,30 @@ namespace SM.Farseer
     public class FarseerWorldManager : BasicWorldManager
     {
         World _world = new World(new Vector2(0, 10));
+        FixedMouseJoint _fixedMouseJoint = null;
+
+        public void StartMouseJoint(Body body, Vector2 position)
+        {
+            _fixedMouseJoint = JointFactory.CreateFixedMouseJoint(_world, body, position);
+        }
+
+        public void UpdateMouseJoint(Vector2 position)
+        {
+            if (_fixedMouseJoint != null)
+            {
+                _fixedMouseJoint.WorldAnchorB = position;
+            }
+        }
+
+        public void StopMouseJoint()
+        {
+            if (_fixedMouseJoint != null)
+            {
+                _world.RemoveJoint(_fixedMouseJoint);
+                _fixedMouseJoint = null;
+            }
+        }
+
         protected override void Step(float dt)
         {
             _world.Step(dt);
@@ -26,6 +50,7 @@ namespace SM.Farseer
 
         protected override void Loop()
         {
+
         }
 
         public FarseerWorldManager(string id, IViewWatch viewWatch)
@@ -33,6 +58,11 @@ namespace SM.Farseer
         {
             Id = id;
             CodeGenerator.Header = "Farseer Code Generator" + " : " + Id;
+
+            
+
+            var worldBody = BodyFactory.CreateBody(_world);
+            _fixedMouseJoint = new FixedMouseJoint(worldBody, worldBody.Position);
         }
 
         public string Id { get; private set; }

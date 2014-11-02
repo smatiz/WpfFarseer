@@ -98,6 +98,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BasicShapeControl.cs" />
+    <Compile Include="CanvasId.cs" />
     <Compile Include="CircleShapeControl.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="ISkinnableCanvas.cs" />

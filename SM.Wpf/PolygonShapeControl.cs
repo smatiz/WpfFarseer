@@ -37,6 +37,5 @@ namespace SM.Wpf
                 return Polygon.Points.Select(p => new float2((float)p.X, (float)p.Y));
             }
         }
-
     }
 }

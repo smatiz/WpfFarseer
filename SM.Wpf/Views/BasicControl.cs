@@ -12,7 +12,8 @@ namespace SM.Wpf
     // controlli in grado di agganciare il proprio canvas o il canvas di un altro BasicControl al canvas padre
     public class BasicControl : FrameworkElement//Visual
     {
-        protected Canvas _canvas = new Canvas();
+        string _id;
+        protected CanvasId _canvas = new CanvasId();
         protected UIElementCollection _parentChildrens;
         public void AddToUIElementCollection(UIElementCollection parentChildrens)
         {
@@ -30,8 +31,20 @@ namespace SM.Wpf
             {
                 Id = BasicControl.AutoGenerateName();
             }
+
         }
 
-        public string Id { get; set; }
+        public string Id
+        {
+            get
+            { 
+                return _id; 
+            }
+            set
+            {
+                _id = value;
+                _canvas.Id = value;
+            }
+        }
     }
 }

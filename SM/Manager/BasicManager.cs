@@ -58,7 +58,7 @@ namespace SM
         }
         protected void AddManager(IManager manager)
         {
-            if (_built) return;
+            //if (_built) return;
             _managers.Add(manager.Id, manager);
         }
 
@@ -103,13 +103,35 @@ namespace SM
                 c.Do();
             }
 
+            List<__BodyManager> managerstobeadded = new List<__BodyManager>();
+            List<string> managersIdtoberemoved = new List<string>();
             foreach (var y in _managers.Values)
             {
                 var x = y as IManager;
                 if (x != null)
                 {
+                    var z = y as __BreakableBodyManager;
+                    if (z != null)
+                     {
+                         if(z.IsBroken)
+                         {
+                             managersIdtoberemoved.Add(z.Id);
+                             foreach (var m in z.BodyManagers)
+                             {
+                                 managerstobeadded.Add(m);
+                             }
+                         }
+                     }
                     x.UpdateMaterial();
                 }
+            }
+            foreach (var s in managersIdtoberemoved)
+            {
+                _managers.Remove(s);
+            }
+            foreach (var m in managerstobeadded)
+            {
+                AddManager(m);
             }
         }
 
@@ -142,6 +164,7 @@ namespace SM
             }
             Loop();
         }
+
 
     }
 }

@@ -104,6 +104,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Demos\AdvancedDemo2B.cs" />
+    <Compile Include="Demos\RoslynGame.cs" />
     <Compile Include="Demos\FromXaml.cs" />
     <Compile Include="Demos\AdvancedDemo5B.cs" />
     <Compile Include="Demos\CameraTests.cs" />
@@ -118,6 +119,7 @@
     <Compile Include="Demos\AdvancedDemo3.cs" />
     <Compile Include="Demos\AdvancedDemo4.cs" />
     <Compile Include="Demos\AdvancedDemo5.cs" />
+    <Compile Include="RoslynFarseerPhysicsGame.cs" />
     <Compile Include="ScreenSystem\FramerateCounterComponent.cs" />
     <Compile Include="DrawingSystem\AssetCreator.cs" />
     <Compile Include="DrawingSystem\Sprite.cs" />
@@ -168,6 +170,10 @@
     <Content Include="GameThumbnail.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\FLAME_2014\Flame\Flame.Base\Flame.Base.csproj">
+      <Project>{6e8df0fa-f9d6-496d-ae08-99c3b7ec757c}</Project>
+      <Name>Flame.Base</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\FLAME_2014\Flame\Flame.Debug\Flame.Debug.csproj">
       <Project>{167938e9-7883-4d27-a78a-3a1c20f0fe90}</Project>
       <Name>Flame.Debug</Name>

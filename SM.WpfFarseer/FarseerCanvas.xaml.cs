@@ -29,6 +29,9 @@ namespace WpfFarseer
     using FShape = FarseerPhysics.Collision.Shapes;
     using SM.Wpf;
     using FarseerPhysics;
+    using FarseerPhysics.Dynamics.Joints;
+    using FarseerPhysics.Dynamics;
+    using FarseerPhysics.Factories;
 
     [ContentPropertyAttribute("FarseerObjects")]
     public partial class FarseerCanvas : Canvas
@@ -48,6 +51,12 @@ namespace WpfFarseer
         public FarseerCanvas()
         {
             InitializeComponent();
+
+            Background = new SolidColorBrush(Color.FromArgb(1, 0, 0, 0));
+
+            MouseDown += FarseerCanvas_MouseDown;
+            MouseUp += FarseerCanvas_MouseUp;
+            MouseMove += FarseerCanvas_MouseMove;
 
             Settings.MaxPolygonVertices = 100;
 
@@ -96,6 +105,43 @@ namespace WpfFarseer
                 }
 
             };
+        }
+
+        void FarseerCanvas_MouseMove(object sender, MouseEventArgs e)
+        {
+            _worldManager.UpdateMouseJoint( new xna.Vector2((float)Mouse.GetPosition(this).X, (float)Mouse.GetPosition(this).Y));
+        }
+
+        void FarseerCanvas_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            _worldManager.StopMouseJoint();
+        }
+
+
+        string getId(object x)
+        {
+            var canvasId = x as CanvasId;
+            if (canvasId != null)
+            {
+                return canvasId.Id;
+            }
+            var frameworkElement = x as FrameworkElement;
+            if (frameworkElement != null)
+            {
+                return getId(frameworkElement.Parent);
+            }
+
+            return null;
+        }
+
+        void FarseerCanvas_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            string id = getId(Mouse.DirectlyOver);
+            if(id == null) return;
+           var body = _worldManager.Find<Body>(id);
+           if (body == null) return;
+           _worldManager.StartMouseJoint(body, new xna.Vector2((float)Mouse.GetPosition(this).X, (float)Mouse.GetPosition(this).Y));
+
         } 
 
         void FarseerObjects_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)

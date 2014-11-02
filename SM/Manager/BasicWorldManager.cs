@@ -13,7 +13,6 @@ namespace SM
         {
         }
 
-
         public void __AddBodyView(__IBodyView body)
         {
             AddManager(new __BodyManager(body, __CreateBodyMaterial()));

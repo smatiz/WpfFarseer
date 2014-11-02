@@ -33,8 +33,9 @@ namespace SM
     public class __BreakableBodyManager : IManager
     {
         rotoTranslation _rotoTranslation;
-        __BodyManager[] _bodyManagers = null;
+        public __BodyManager[] BodyManagers { get; private set; }
         IEnumerable<__IBodyMaterial> _bodyMaterials = null;
+        //public Action<__BodyManager[]> Broken;
 
         __IBodyView _breakableBodyView;
         __IBreakableBodyMaterial _breakableBodyMaterial;
@@ -52,6 +53,7 @@ namespace SM
 
         enum Status { Entire, MaterialBroking, ViewBroking, Broken }
         Status _status = Status.Entire;
+        //bool _added = false;
         public void UpdateMaterial()
         {
             switch (_status)
@@ -66,7 +68,16 @@ namespace SM
                     }
                     break;
                 case Status.Broken:
-                    foreach (var m in _bodyManagers)
+
+                    //if (!_added)
+                    //{
+                    //    foreach (var bm in _bodyManagers)
+                    //    {
+                    //        _manager.AddManager(bm);
+                    //    }
+                    //    _added = true;
+                    //}
+                    foreach (var m in BodyManagers)
                     {
                         m.UpdateMaterial();
                     }
@@ -87,19 +98,29 @@ namespace SM
                     if (_bodyMaterials != null)
                     {
                         var bodyviews = _breakableBodyView.Break();
-                        _bodyManagers = bodyviews.Zip(_bodyMaterials, (v, m) => new __BodyManager(v, m)).ToArray();
+                        BodyManagers = bodyviews.Zip(_bodyMaterials, (v, m) => new __BodyManager(v, m)).ToArray();
+                        //Broken(_bodyManagers);
                         _bodyMaterials = null;
                     }
+
                     _status = Status.Broken;
                     break;
                 case Status.Broken:
-                    foreach (var m in _bodyManagers)
+                    foreach (var m in BodyManagers)
                     {
                         m.UpdateView();
                     }
                     break;
                 default:
                     break;
+            }
+        }
+
+        public bool IsBroken
+        {
+            get
+            {
+                return _status == Status.Broken;
             }
         }
 

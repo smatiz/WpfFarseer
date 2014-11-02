@@ -1,0 +1,7 @@
+circle to ellipse
+remove _X
+remove __
+baco con il visualbrush
+aggiornare codeGenerator
+creare un sistema di debug wpf
+creare un sistema per testare il CodeGenerator in modo semplice
