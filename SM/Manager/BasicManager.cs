@@ -103,14 +103,14 @@ namespace SM
                 c.Do();
             }
 
-            List<__BodyManager> managerstobeadded = new List<__BodyManager>();
+            List<BodyManager> managerstobeadded = new List<BodyManager>();
             List<string> managersIdtoberemoved = new List<string>();
             foreach (var y in _managers.Values)
             {
                 var x = y as IManager;
                 if (x != null)
                 {
-                    var z = y as __BreakableBodyManager;
+                    var z = y as BreakableBodyManager;
                     if (z != null)
                      {
                          if(z.IsBroken)

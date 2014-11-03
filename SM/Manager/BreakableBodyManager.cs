@@ -7,26 +7,26 @@ using System.Threading.Tasks;
 namespace SM
 {
 
-    public interface __IBreakableBodyMaterial : IMaterial
+    public interface IBreakableBodyMaterial : IMaterial
     {
         void Build(string id, rotoTranslation rt, IEnumerable<__IShape> shapes);
         rotoTranslation RotoTranslation { get; }
         bool IsBroken { get; }
-        IEnumerable<__IBodyMaterial> GetPieces();
+        IEnumerable<IBodyMaterial> GetPieces();
     }
 
 
-    public class __BreakableBodyManager : IManager
+    public class BreakableBodyManager : IManager
     {
         rotoTranslation _rotoTranslation;
-        public __BodyManager[] BodyManagers { get; private set; }
-        IEnumerable<__IBodyMaterial> _bodyMaterials = null;
+        public BodyManager[] BodyManagers { get; private set; }
+        IEnumerable<IBodyMaterial> _bodyMaterials = null;
         //public Action<__BodyManager[]> Broken;
 
-        __IBodyView _breakableBodyView;
-        __IBreakableBodyMaterial _breakableBodyMaterial;
+        IBodyView _breakableBodyView;
+        IBreakableBodyMaterial _breakableBodyMaterial;
 
-        public __BreakableBodyManager(__IBodyView breakableBodyView, __IBreakableBodyMaterial breakableBodyMaterial)
+        public BreakableBodyManager(IBodyView breakableBodyView, IBreakableBodyMaterial breakableBodyMaterial)
         {
             _breakableBodyView = breakableBodyView;
             _breakableBodyMaterial = breakableBodyMaterial;
@@ -84,7 +84,7 @@ namespace SM
                     if (_bodyMaterials != null)
                     {
                         var bodyviews = _breakableBodyView.Break();
-                        BodyManagers = bodyviews.Zip(_bodyMaterials, (v, m) => new __BodyManager(v, m)).ToArray();
+                        BodyManagers = bodyviews.Zip(_bodyMaterials, (v, m) => new BodyManager(v, m)).ToArray();
                         //Broken(_bodyManagers);
                         _bodyMaterials = null;
                     }

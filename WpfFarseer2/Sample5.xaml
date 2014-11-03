@@ -12,38 +12,38 @@
         <l2:FarseerPlayerControl x:Name="_farseerPlayer">
             <l2:FarseerPlayerControl.FarseerCanvas>
                 <l3:FarseerCanvas  Grid.Row="0" >
-                    <l:__BodyControl BodyType="Breakable" X="10" Angle="9">
+                    <l:BodyControl BodyType="Breakable" X="10" Angle="9">
                         <l:SkinnedShapeControl>
                             <Canvas Width="200" Height="200">
                                 <Button Background="Red" Width="40" Height="40">ciao</Button>
                                 <Button Background="Blue" Canvas.Left="20" Canvas.Top="10" Width="10" Height="40">ciao</Button>
                             </Canvas>
                         </l:SkinnedShapeControl>
-                    </l:__BodyControl>
-                    <!--<l:__BodyControl BodyType="Dynamic" X="10" Angle="9">
+                    </l:BodyControl>
+                    <!--<l:BodyControl BodyType="Dynamic" X="10" Angle="9">
                         <l:SkinnedShapeControl>
                             <Canvas Width="200" Height="200">
                                 <Button  Width="40" Height="40">ciao</Button>
                                 <Button Canvas.Left="20" Canvas.Top="10" Width="10" Height="40">ciao</Button>
                             </Canvas>
                         </l:SkinnedShapeControl>
-                    </l:__BodyControl>-->
+                    </l:BodyControl>-->
                     <!--<l:SkinnedBodyControl BodyType="Dynamic">
                         <Canvas Width="200" Height="200">
                             <Button  Width="40" Height="40">ciao</Button>
                             <Button Canvas.Left="20" Canvas.Top="10" Width="10" Height="40">ciao</Button>
                         </Canvas>
                     </l:SkinnedBodyControl>-->
-                    <l:__BodyControl Id="b2" BodyType="Dynamic">
+                    <l:BodyControl Id="b2" BodyType="Dynamic">
                         <l:PolygonShapeControl Density="123"  >
                             <Polygon Points="100,100,200,0,200,200" Fill="Black"></Polygon>
                         </l:PolygonShapeControl>
-                    </l:__BodyControl>
-                    <l:__BodyControl Id="b" >
+                    </l:BodyControl>
+                    <l:BodyControl Id="b" >
                         <l:PolygonShapeControl Density="123"  >
                             <Polygon Points="0 200,300 200,150 250" Fill="Green"></Polygon>
                         </l:PolygonShapeControl>
-                    </l:__BodyControl>
+                    </l:BodyControl>
                   
                 </l3:FarseerCanvas>
             </l2:FarseerPlayerControl.FarseerCanvas>

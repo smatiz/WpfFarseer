@@ -12,25 +12,25 @@
         <l2:FarseerPlayerControl x:Name="_farseerPlayer">
             <l2:FarseerPlayerControl.FarseerCanvas>
                 <l3:FarseerCanvas  Grid.Row="0" >
-                    <l:__BodyControl Id="fallingBody"  BodyType="Dynamic"  >
+                    <l:BodyControl Id="fallingBody"  BodyType="Dynamic"  >
                         <l:PolygonShapeControl Density="123"  >
                             <Polygon Points="0 0,100 0,100 100" Fill="Red"></Polygon>
                         </l:PolygonShapeControl>
-                        <l:__BodyControl.Flags>
+                        <l:BodyControl.Flags>
                             <l:FlagControl Id="x" X="50" Y="30">
                             </l:FlagControl>
-                        </l:__BodyControl.Flags>
-                    </l:__BodyControl>
-                    <l:__BodyControl Id="b2"   BodyType="Static"   >
+                        </l:BodyControl.Flags>
+                    </l:BodyControl>
+                    <l:BodyControl Id="b2"   BodyType="Static"   >
                         <l:PolygonShapeControl Density="123"  >
                             <Polygon Points="100,100,200,0,200,200" Fill="Gray"></Polygon>
                         </l:PolygonShapeControl>
-                        <l:__BodyControl.Flags>
+                        <l:BodyControl.Flags>
                             <l:FlagControl Id="y" X="150" Y="150">
 
                         </l:FlagControl>
-                        </l:__BodyControl.Flags>
-                    </l:__BodyControl>
+                        </l:BodyControl.Flags>
+                    </l:BodyControl>
 
                     <l:RopeJointControl Id="jointC" TargetFlagIdA="x" TargetFlagIdB="y" >
                     </l:RopeJointControl>

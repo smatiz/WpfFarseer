@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace SM.Farseer
 {
 
-    public class __BreakableBodyMaterial : __IBreakableBodyMaterial
+    public class __BreakableBodyMaterial : IBreakableBodyMaterial
     {
         World _world;
         Body _body;
@@ -79,7 +79,7 @@ namespace SM.Farseer
 
 
 
-        public IEnumerable<__IBodyMaterial> GetPieces()
+        public IEnumerable<IBodyMaterial> GetPieces()
         {
             int i = 0;
             _breakableBody.Update();

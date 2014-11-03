@@ -9,12 +9,12 @@ namespace SM
 
     public class __Views
     {
-        public List<__IBodyView> Bodies { get; private set; }
+        public List<IBodyView> Bodies { get; private set; }
         public List<IJointView> Joints { get; private set; }
 
         public __Views()
         {
-            Bodies = new List<__IBodyView>();
+            Bodies = new List<IBodyView>();
             Joints = new List<IJointView>();
         }
     }

@@ -13,7 +13,7 @@ namespace SM.Farseer
 
 
 
-    public class __BodyMaterial : __IBodyMaterial
+    public class __BodyMaterial : IBodyMaterial
     {
         // private Vector2 _originalPosition = Vector2.Zero;
         private World _world;

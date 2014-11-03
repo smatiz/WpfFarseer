@@ -20,7 +20,7 @@ using System.Windows.Shapes;
 namespace SM.Wpf
 {
     [ContentPropertyAttribute("Shapes")]
-    public class __BodyControl : BasicControl, IFlaggable, __IBodyView
+    public class BodyControl : BasicControl, IFlaggable, IBodyView
     {
         class SkinnedShapeItem
         {
@@ -32,7 +32,7 @@ namespace SM.Wpf
         private RotateTransform _rotation;
         private TranslateTransform _traslation;
 
-        public __BodyControl()
+        public BodyControl()
         {
             initializeShapes();
             initializeFlags();
@@ -88,7 +88,7 @@ namespace SM.Wpf
             set { SetValue(FlagsProperty, value); }
         }
         public static readonly DependencyProperty FlagsProperty =
-            DependencyProperty.Register("Flags", typeof(ObservableCollection<FlagControl>), typeof(__BodyControl), new PropertyMetadata(null));
+            DependencyProperty.Register("Flags", typeof(ObservableCollection<FlagControl>), typeof(BodyControl), new PropertyMetadata(null));
         void Flags_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
@@ -112,8 +112,8 @@ namespace SM.Wpf
             set { SetValue(XProperty, value); }
         }
         public static readonly DependencyProperty XProperty =
-            DependencyProperty.Register("X", typeof(float), typeof(__BodyControl), new PropertyMetadata(0f, new PropertyChangedCallback(XPropertyChanged)));
-        private static void XPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e) { ((__BodyControl)obj).OnXChanged(); }
+            DependencyProperty.Register("X", typeof(float), typeof(BodyControl), new PropertyMetadata(0f, new PropertyChangedCallback(XPropertyChanged)));
+        private static void XPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e) { ((BodyControl)obj).OnXChanged(); }
         private void OnXChanged()
         {
             _traslation.X = X;
@@ -125,8 +125,8 @@ namespace SM.Wpf
             set { SetValue(YProperty, value); }
         }
         public static readonly DependencyProperty YProperty =
-            DependencyProperty.Register("Y", typeof(float), typeof(__BodyControl), new PropertyMetadata(0f, new PropertyChangedCallback(YPropertyChanged)));
-        private static void YPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e) { ((__BodyControl)obj).OnYChanged(); }
+            DependencyProperty.Register("Y", typeof(float), typeof(BodyControl), new PropertyMetadata(0f, new PropertyChangedCallback(YPropertyChanged)));
+        private static void YPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e) { ((BodyControl)obj).OnYChanged(); }
         private void OnYChanged()
         {
             _traslation.Y = Y;
@@ -138,8 +138,8 @@ namespace SM.Wpf
             set { SetValue(AngleProperty, value); }
         }
         public static readonly DependencyProperty AngleProperty =
-            DependencyProperty.Register("Angle", typeof(float), typeof(__BodyControl), new PropertyMetadata(0f, new PropertyChangedCallback(AnglePropertyChanged)));
-        private static void AnglePropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e) { ((__BodyControl)obj).OnAngleChanged(); }
+            DependencyProperty.Register("Angle", typeof(float), typeof(BodyControl), new PropertyMetadata(0f, new PropertyChangedCallback(AnglePropertyChanged)));
+        private static void AnglePropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e) { ((BodyControl)obj).OnAngleChanged(); }
         private void OnAngleChanged()
         {
             _rotation.Angle = Angle;
@@ -151,7 +151,7 @@ namespace SM.Wpf
             set { SetValue(BodyTypeProperty, value); }
         }
         public static readonly DependencyProperty BodyTypeProperty =
-            DependencyProperty.Register("BodyType", typeof(__BodyType), typeof(__BodyControl), new PropertyMetadata(__BodyType.Static));
+            DependencyProperty.Register("BodyType", typeof(__BodyType), typeof(BodyControl), new PropertyMetadata(__BodyType.Static));
 
         public ObservableCollection<__IShape> Shapes
         {
@@ -159,7 +159,7 @@ namespace SM.Wpf
             set { SetValue(ShapesProperty, value); }
         }
         public static readonly DependencyProperty ShapesProperty =
-            DependencyProperty.Register("Shapes", typeof(ObservableCollection<__IShape>), typeof(__BodyControl), new PropertyMetadata(null));
+            DependencyProperty.Register("Shapes", typeof(ObservableCollection<__IShape>), typeof(BodyControl), new PropertyMetadata(null));
 
         void Shapes_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
@@ -196,7 +196,7 @@ namespace SM.Wpf
             get { return from x in Shapes select x; }
         }
 
-        public IEnumerable<__IBodyView> Break()
+        public IEnumerable<IBodyView> Break()
         {
             var filler = new VisualBrushFiller();
             var skinned = new List<SkinnedShapeItem>();
@@ -231,10 +231,10 @@ namespace SM.Wpf
             }
 
             _canvas.Children.Clear();
-            List<__BodyControl> bodies = new List<__BodyControl>();
+            List<BodyControl> bodies = new List<BodyControl>();
             foreach (var poly in polygons)
             {
-                var bc = new __BodyControl();
+                var bc = new BodyControl();
                 bc.BodyType = SM.__BodyType.Dynamic;
                 bc.Shapes.Add(new PolygonShapeControl(poly.Polygon, poly.Density));
                 bc.AddToUIElementCollection(_parentChildrens);
@@ -249,7 +249,7 @@ namespace SM.Wpf
                 var vb = filler.GetBrush(poly.Polygon, poly.ShapeControl.Content);
                 poly.Polygon.Fill = vb;
 
-                var bc = new __BodyControl();
+                var bc = new BodyControl();
                 bc.BodyType = SM.__BodyType.Dynamic;
                 bc.Shapes.Add(new PolygonShapeControl(poly.Polygon, poly.ShapeControl.Density));
                 bc.AddToUIElementCollection(_parentChildrens);
@@ -264,7 +264,7 @@ namespace SM.Wpf
 
             //    if (shape is ICircleShape || shape is IPolygonShape)
             //    {
-            //        var bc = new __BodyControl();
+            //        var bc = new BodyControl();
             //        bc.BodyType = SM.__BodyType.Dynamic;
             //        bc.Shapes.Add(shape);
             //        bc.AddToUIElementCollection(_parentChildrens);
@@ -275,7 +275,7 @@ namespace SM.Wpf
             //    {
             //        foreach (var subshape in ((IPolygonsShape)shape).PolygonShapes)
             //        {
-            //            var bc = new __BodyControl();
+            //            var bc = new BodyControl();
             //            bc.BodyType = SM.__BodyType.Dynamic;
             //            //bc.Shapes.Add(new PolygonShapeControl(subshape, ((IPolygonsShape)shape).Density));
             //            bc.AddToUIElementCollection(_parentChildrens);
@@ -295,7 +295,7 @@ namespace SM.Wpf
         //{
         //    if (shape is ICircleShape || shape is IPolygonShape)
         //    {
-        //        var bc = new __BodyControl();
+        //        var bc = new BodyControl();
         //        bc.Shapes.Add(shape);
         //        yield return bc;
         //    }
@@ -306,7 +306,7 @@ namespace SM.Wpf
         //    {
         //        foreach (var x in polys.PolygonShapes)
         //        {
-        //            var bc = new __BodyControl();
+        //            var bc = new BodyControl();
         //            bc.Shapes.Add(new PolygonShapeControl(x, polys.Density));
         //            yield return bc;
         //        }

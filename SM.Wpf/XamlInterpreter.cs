@@ -71,7 +71,7 @@ namespace SM.Wpf
             return null;
         }
 
-        public static __Views __BuildViews(UIElementCollection parentChildrens, IEnumerable<BasicControl> objects)
+        public static __Views BuildViews(UIElementCollection parentChildrens, IEnumerable<BasicControl> objects)
         {
             var _views = new __Views();
 
@@ -124,7 +124,7 @@ namespace SM.Wpf
 
                 if (!handled)
                 {
-                    var bodyControl = child as __BodyControl;
+                    var bodyControl = child as BodyControl;
                     if (bodyControl != null)
                     {
                         _views.Bodies.Add(bodyControl);

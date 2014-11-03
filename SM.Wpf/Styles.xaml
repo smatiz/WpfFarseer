@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:l="clr-namespace:SM.Wpf">
-    <!--<Style TargetType="l:__BodyControl">
+    <!--<Style TargetType="l:BodyControl">
         <Style.Triggers>
             <Trigger Property="BodyType" Value="Static">
                 <Setter Property="DefaultBrush" >

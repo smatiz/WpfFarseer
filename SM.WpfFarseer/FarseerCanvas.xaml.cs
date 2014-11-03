@@ -82,9 +82,9 @@ namespace WpfFarseer
                 loaded = true;
 
 
-                var __views = XamlInterpreter.__BuildViews(Children, FarseerObjects);
+                var views = XamlInterpreter.BuildViews(Children, FarseerObjects);
 
-                foreach (var x in __views.Bodies)
+                foreach (var x in views.Bodies)
                 {
                     if(x.BodyType == __BodyType.Breakable)
                         _worldManager.AddBreakableBodyView(x);

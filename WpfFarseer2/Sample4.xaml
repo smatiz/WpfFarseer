@@ -12,11 +12,11 @@
         <l2:FarseerPlayerControl x:Name="_farseerPlayer">
             <l2:FarseerPlayerControl.FarseerCanvas>
                 <l3:FarseerCanvas   >
-                    <l:__BodyControl Id="b" BodyType="Dynamic">
+                    <l:BodyControl Id="b" BodyType="Dynamic">
                         <l:PolygonShapeControl Density="123"  >
                             <Polygon Points="0 200,300 200,150 250" Fill="Black"></Polygon>
                         </l:PolygonShapeControl>
-                    </l:__BodyControl>
+                    </l:BodyControl>
                 </l3:FarseerCanvas>
             </l2:FarseerPlayerControl.FarseerCanvas>
         </l2:FarseerPlayerControl>

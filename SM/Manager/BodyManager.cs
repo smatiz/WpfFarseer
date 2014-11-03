@@ -6,29 +6,29 @@ using System.Threading.Tasks;
 
 namespace SM
 {
-    public interface __IBodyView : IIdentifiable
+    public interface IBodyView : IIdentifiable
     {
         __BodyType BodyType { get; }
         IEnumerable<__IShape> Shapes_X { get; }
         rotoTranslation RotoTranslation { get; set; }
 
-        IEnumerable<__IBodyView> Break();
+        IEnumerable<IBodyView> Break();
     }
 
-    public interface __IBodyMaterial : IMaterial
+    public interface IBodyMaterial : IMaterial
     {
         void Build(string id, SM.__BodyType bodyType, rotoTranslation rt, IEnumerable<__IShape> shapes);
         rotoTranslation RotoTranslation { get; }
     }
 
-    public class __BodyManager : IManager, IMaterial
+    public class BodyManager : IManager, IMaterial
     {
         rotoTranslation _rotoTranslation;
 
-        __IBodyView _bodyView;
-        __IBodyMaterial _bodyMaterial;
+        IBodyView _bodyView;
+        IBodyMaterial _bodyMaterial;
 
-        public __BodyManager(__IBodyView bodyView, __IBodyMaterial bodyMaterial)
+        public BodyManager(IBodyView bodyView, IBodyMaterial bodyMaterial)
         {
             _bodyView = bodyView;
             _bodyMaterial = bodyMaterial;

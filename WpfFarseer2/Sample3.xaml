@@ -15,16 +15,16 @@
                     <!--<l:AutoBreakableBodyControl Id="bb">
                         <l:ShapeControl Points="0,0 100,0 100,100 75,25" ></l:ShapeControl>
                     </l:AutoBreakableBodyControl>-->
-                    <l:__BodyControl Id="b" BodyType="Breakable">
+                    <l:BodyControl Id="b" BodyType="Breakable">
                         <l:PolygonShapeControl Density="123"  >
                             <Polygon Points="0,0 100,0 100,100 75,25" Fill="Black"></Polygon>
                         </l:PolygonShapeControl>
-                    </l:__BodyControl>
-                    <l:__BodyControl Id="b" BodyType="Dynamic">
+                    </l:BodyControl>
+                    <l:BodyControl Id="b" BodyType="Dynamic">
                         <l:PolygonShapeControl Density="123"  >
                             <Polygon Points="0 200,300 200,150 250" Fill="Black"></Polygon>
                         </l:PolygonShapeControl>
-                    </l:__BodyControl>
+                    </l:BodyControl>
                 </l3:FarseerCanvas>
             </l2:FarseerPlayerControl.FarseerCanvas>
         </l2:FarseerPlayerControl>
