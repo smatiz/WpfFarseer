@@ -78,7 +78,6 @@ namespace SM.Wpf
 
 
             var flags = FindAllFlag(objects);
-            var tobeadded = new List<BasicControl>();
 
             foreach (var child in objects)
             {
@@ -155,7 +154,7 @@ namespace SM.Wpf
                         var line = new Line();
                         line.Stroke = new SolidColorBrush(Colors.Green);
                         line.StrokeThickness = 1;
-                        parentChildrens.Add(line);
+                        //parentChildrens.Add(line);
 
                         line.X1 = targetA.X;
                         line.Y1 = targetA.Y;
@@ -172,10 +171,7 @@ namespace SM.Wpf
                 }
             }
 
-            foreach (var x in tobeadded)
-            {
-                ((BasicControl)x).AddToUIElementCollection(parentChildrens);
-            }
+            
 
             return _views;
 

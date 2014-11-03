@@ -22,7 +22,7 @@ namespace SM.Wpf
     [ContentPropertyAttribute("Shapes")]
     public class __BodyControl : BasicControl, IFlaggable, __IBodyView
     {
-        class ShapeItem
+        class SkinnedShapeItem
         {
             public Polygon Polygon { get; set; }
             public SkinnedShapeControl ShapeControl { get; set; }
@@ -189,8 +189,8 @@ namespace SM.Wpf
         public IEnumerable<__IBodyView> Break()
         {
             var filler = new VisualBrushFiller();
-           var polys = new List<ShapeItem>();
-           // List<Polygon> polys = new List<Polygon>();
+            var skinned = new List<SkinnedShapeItem>();
+            var polygons = new List<PolygonShapeControl>();
             List<Ellipse> ellipses = new List<Ellipse>();
             foreach (var shape in Shapes)
             {
@@ -198,7 +198,7 @@ namespace SM.Wpf
                 {
                     var p = ((PolygonShapeControl)shape).Polygon;
                     filler.Add(p);
-                    //polys.Add(p);
+                    polygons.Add((PolygonShapeControl)shape);
                 }
                 else if (shape is CircleShapeControl)
                 {
@@ -211,26 +211,36 @@ namespace SM.Wpf
                     {
                         var p = subshape.ToWpfPolygon();
                         filler.Add(p);
-                        polys.Add(new ShapeItem { Polygon = p, ShapeControl = ((SkinnedShapeControl)shape) });
+                        skinned.Add(new SkinnedShapeItem { Polygon = p, ShapeControl = (SkinnedShapeControl)shape });
                     }
                 }
             }
 
             _canvas.Children.Clear();
             List<__BodyControl> bodies = new List<__BodyControl>();
-            foreach (var poly in polys)
+            foreach (var poly in polygons)
+            {
+                var bc = new __BodyControl();
+                bc.BodyType = SM.__BodyType.Dynamic;
+                bc.Shapes.Add(new PolygonShapeControl(poly.Polygon, poly.Density));
+                bc.AddToUIElementCollection(_parentChildrens);
+                bc.RotoTranslation = RotoTranslation;
+                bodies.Add(bc);
+            }
+
+
+
+            foreach (var poly in skinned)
             {
                 var vb = filler.GetBrush(poly.Polygon, poly.ShapeControl.Content);
                 poly.Polygon.Fill = vb;
 
-                //poly.Polygon.Stroke = new SolidColorBrush(Colors.Black);
                 var bc = new __BodyControl();
                 bc.BodyType = SM.__BodyType.Dynamic;
                 bc.Shapes.Add(new PolygonShapeControl(poly.Polygon, poly.ShapeControl.Density));
                 bc.AddToUIElementCollection(_parentChildrens);
                 bc.RotoTranslation = RotoTranslation;
                 bodies.Add(bc);
-                //yield return bc;
             }
 
             return bodies;
