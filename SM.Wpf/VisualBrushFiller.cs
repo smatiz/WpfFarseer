@@ -42,13 +42,14 @@ namespace SM.Wpf
 
         public VisualBrush GetBrush(Polygon polygon, UIElement uiElement)
         {
-            var bb = ComputeBBox();
-            var bbs = _map[polygon];
+            var maxbb = ComputeBBox();
+            var polygonBB = _map[polygon];
             var vb = new VisualBrush(uiElement);
             vb.AlignmentX = AlignmentX.Left;
             vb.AlignmentY = AlignmentY.Top;
             vb.Stretch = Stretch.None;
-            vb.Viewport = new Rect((bb.X - bbs.X) / bbs.Width, (bb.Y - bbs.Y) / bbs.Height, 1, 1);
+            vb.Viewport = new Rect((maxbb.X - polygonBB.X) / polygonBB.Width, (maxbb.Y - polygonBB.Y) / polygonBB.Height, 1, 1); 
+            //new Rect((bb.X - bbs.X) / bbs.Width, -(bb.Y - bbs.Y) / bbs.Height, 1, 1);
             return vb;
         }
     }
