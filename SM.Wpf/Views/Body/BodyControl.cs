@@ -64,6 +64,16 @@ namespace SM.Wpf
                 {
                     _canvas.Children.Add(poly.Polygon);
                 }
+                var ellipse = shape as EllipseShapeControl;
+                if (ellipse != null)
+                {
+                    _canvas.Children.Add(ellipse.Ellipse);
+                }
+                var circle = shape as CircleShapeControl;
+                if (circle != null)
+                {
+                    _canvas.Children.Add(circle.Ellipse);
+                }
                 var skinned = shape as SkinnedShapeControl;
                 if (skinned != null)
                 {
@@ -202,8 +212,11 @@ namespace SM.Wpf
                 }
                 else if (shape is CircleShapeControl)
                 {
-
-                    //filler.Add(((CircleShapeControl)shape).Ci);
+                    filler.Add(((CircleShapeControl)shape).Ellipse);
+                }
+                else if (shape is EllipseShapeControl)
+                {
+                    filler.Add(((EllipseShapeControl)shape).Ellipse);
                 }
                 else if (shape is SkinnedShapeControl)
                 {

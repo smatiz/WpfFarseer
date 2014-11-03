@@ -79,7 +79,16 @@ namespace SM.Farseer
             var circle = shape as ICircleShape;
             if (circle != null)
             {
-                FarseerPhysics.Factories.FixtureFactory.AttachCircle(circle.Radius, shape.Density, _body);
+                FarseerPhysics.Factories.FixtureFactory.AttachCircle(circle.Radius, shape.Density, _body, new Vector2(circle.X, circle.Y));
+                string shapeName = CodeGenerator.N("vs_");
+                CodeGenerator.AddCode("FarseerPhysics.Factories.FixtureFactory.AttachCircle({0}, {1}, {2});", circle.Radius, shape.Density, _body.n());
+                return;
+            }
+
+            var ellipse = shape as IEllipseShape;
+            if (ellipse != null)
+            {
+                FarseerPhysics.Factories.FixtureFactory.AttachPolygon(ellipse.ToVertices(), ellipse.Density, _body);
                 string shapeName = CodeGenerator.N("vs_");
                 CodeGenerator.AddCode("FarseerPhysics.Factories.FixtureFactory.AttachCircle({0}, {1}, {2});", circle.Radius, shape.Density, _body.n());
                 return;

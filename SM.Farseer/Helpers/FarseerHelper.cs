@@ -10,7 +10,56 @@ namespace SM.Farseer
 {
     public static class WpfFarseerHelper
     {
-       
+        public static int EllipseNumberOfEdges = 4;
+
+
+        public static F.Vertices ToVertices(this IEllipseShape ellipse)
+        {
+            return F.PolygonTools.CreateEllipse(ellipse.RadiusX, ellipse.RadiusY, EllipseNumberOfEdges);
+        }
+        public static FShape.PolygonShape ToShape(this IEllipseShape ellipse)
+        {
+            return new FShape.PolygonShape(ellipse.ToVertices(), ellipse.Density);
+        }
+        public static FShape.CircleShape ToShape(this ICircleShape circle)
+        {
+            return new FShape.CircleShape(circle.Radius, circle.Density);
+        }
+        public static FShape.PolygonShape ToShape(this IPolygonShape poly)
+        {
+            return new FShape.PolygonShape(poly.Points.ToFarseerVertices(), poly.Density);
+        }
+
+        public static IEnumerable<FShape.Shape> ToShapes(this __IShape shape)
+        {
+            var circle = shape as ICircleShape;
+            if (circle != null)
+            {
+                yield return circle.ToShape();
+            }
+
+            var ellipse = shape as IEllipseShape;
+            if (ellipse != null)
+            {
+                yield return ellipse.ToShape();
+            }
+
+            var poly = shape as IPolygonShape;
+            if (poly != null)
+            {
+                yield return poly.ToShape();
+            }
+
+            var polys = shape as IPolygonsShape;
+            if (polys != null)
+            {
+                foreach (var x in polys.PolygonShapes)
+                {
+                    yield return new FShape.PolygonShape(x.ToFarseerVertices(), polys.Density);
+                }
+            }
+        }
+
 
         public static F.Vertices ToFarseerVertices(this IEnumerable<SM.float2> points)
         {

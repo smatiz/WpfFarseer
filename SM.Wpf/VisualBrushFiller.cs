@@ -25,8 +25,7 @@ namespace SM.Wpf
 
         public void Add(System.Windows.Shapes.Ellipse ellipse)
         {
-            //ellipse.
-            //_map.Add(polygon, polygon.BBox());
+            _map.Add(ellipse, ellipse.BBox());
         }
 
         private Rect ComputeBBox()

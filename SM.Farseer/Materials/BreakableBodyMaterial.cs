@@ -1,4 +1,5 @@
 ﻿using FarseerPhysics.Collision.Shapes;
+using FarseerPhysics.Common;
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Factories;
 using Microsoft.Xna.Framework;
@@ -29,7 +30,7 @@ namespace SM.Farseer
 
         public void Build(string id, rotoTranslation rt, IEnumerable<__IShape> shapes)
         {
-            var allShapes = shapes.SelectMany<__IShape, Shape>(x => ToShapes(x));
+            var allShapes = shapes.SelectMany<__IShape, Shape>(x => x.ToShapes());
 
 
 
@@ -89,30 +90,7 @@ namespace SM.Farseer
         }
 
 
-        private IEnumerable<Shape> ToShapes(__IShape shape)
-        {
-            var circle = shape as ICircleShape;
-            if (circle != null)
-            {
-                yield return new CircleShape(circle.Radius, shape.Density);
-            }
-
-            var poly = shape as IPolygonShape;
-            if (poly != null)
-            {
-                yield return new PolygonShape(poly.Points.ToFarseerVertices(), poly.Density);
-            }
-
-            var polys = shape as IPolygonsShape;
-            if (polys != null)
-            {
-                foreach (var x in polys.PolygonShapes)
-                {
-                    yield return new PolygonShape(x.ToFarseerVertices(), polys.Density);
-                }
-            }
-        }
-
+        
 
 
     }

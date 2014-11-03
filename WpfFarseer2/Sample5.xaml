@@ -34,13 +34,17 @@
                             <Button Canvas.Left="20" Canvas.Top="10" Width="10" Height="40">ciao</Button>
                         </Canvas>
                     </l:SkinnedBodyControl>-->
-                    <l:BodyControl Id="b2"   BodyType="Dynamic"   >
-                        <l:ShapeControl  Points="100,100,200,0,200,200"  ></l:ShapeControl>
-                    </l:BodyControl>
-                    <l:BodyControl Id="b">
-                        <l:ShapeControl Density="123" Points="0 200,300 200,150 250" >
-                        </l:ShapeControl>
-                    </l:BodyControl>
+                    <l:__BodyControl Id="b2" BodyType="Dynamic">
+                        <l:PolygonShapeControl Density="123"  >
+                            <Polygon Points="100,100,200,0,200,200" Fill="Black"></Polygon>
+                        </l:PolygonShapeControl>
+                    </l:__BodyControl>
+                    <l:__BodyControl Id="b" >
+                        <l:PolygonShapeControl Density="123"  >
+                            <Polygon Points="0 200,300 200,150 250" Fill="Green"></Polygon>
+                        </l:PolygonShapeControl>
+                    </l:__BodyControl>
+                  
                 </l3:FarseerCanvas>
             </l2:FarseerPlayerControl.FarseerCanvas>
         </l2:FarseerPlayerControl>

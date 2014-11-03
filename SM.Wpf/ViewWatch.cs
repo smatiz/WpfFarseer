@@ -15,7 +15,7 @@ namespace SM
         private DispatcherTimer _timer;
         public Action Callback { private get; set; }
 
-        public ViewWatch(Dispatcher dispacher)
+        public ViewWatch()
         {
             _timer = new DispatcherTimer(DispatcherPriority.Render);
             _timer.Interval = TimeSpan.FromMilliseconds(Interval);

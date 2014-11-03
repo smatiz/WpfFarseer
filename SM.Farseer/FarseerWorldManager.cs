@@ -21,6 +21,10 @@ namespace SM.Farseer
         World _world = new World(new Vector2(0, 10));
         FixedMouseJoint _fixedMouseJoint = null;
 
+#if DEBUG 
+        public World World { get { return _world; } }
+#endif
+
         public void StartMouseJoint(Body body, Vector2 position)
         {
             _fixedMouseJoint = JointFactory.CreateFixedMouseJoint(_world, body, position);

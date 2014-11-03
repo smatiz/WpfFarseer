@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace SM.Wpf
 {
@@ -32,5 +33,17 @@ namespace SM.Wpf
         }
         public static readonly DependencyProperty RadiusProperty =
             DependencyProperty.Register("Radius", typeof(float), typeof(CircleShapeControl), new PropertyMetadata(0f));
+
+
+        public System.Windows.Shapes.Ellipse Ellipse
+        {
+            get
+            {
+                var ellipse = new System.Windows.Shapes.Ellipse() { Width = Radius * 2, Height = Radius * 2 };
+                Canvas.SetLeft(ellipse, X - Radius);
+                Canvas.SetTop(ellipse, Y - Radius);
+                return ellipse;
+            }
+        }
     }
 }

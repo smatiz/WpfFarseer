@@ -37,7 +37,7 @@ namespace WpfFarseer
     public partial class FarseerCanvas : Canvas
     {
         FarseerWorldManager _worldManager;
-        
+     
         public void AddBehaviour(IViewBehaviour x)
         {
             _worldManager.AddViewBehaviour(x);
@@ -70,7 +70,11 @@ namespace WpfFarseer
             FarseerObjects = new ObservableCollection<BasicControl>();
             FarseerObjects.CollectionChanged += FarseerObjects_CollectionChanged;
 
-            _worldManager = new FarseerWorldManager(Id, new ViewWatch(Dispatcher));
+            _worldManager = new FarseerWorldManager(Id, new ViewWatch());
+
+
+            
+
             bool loaded = false;
             Loaded += (s, e) =>
             {
@@ -104,8 +108,24 @@ namespace WpfFarseer
                     _worldManager.AddRopeJointControl((IRopeJointView)x);
                 }
 
+
+#if DEBUG
+
+                var debugCanvas = new Canvas();
+                var debugTextBlock = new TextBlock();
+                debugCanvas.Width = Width;
+                debugCanvas.Height = Height;
+                Children.Add(debugCanvas);
+                Children.Add(debugTextBlock);
+                var debugView = new DebugViewWPF(debugCanvas, debugTextBlock, _worldManager.World);
+                var timer = new DispatcherTimer(DispatcherPriority.Render);
+                timer.Interval = TimeSpan.FromMilliseconds(300);
+                timer.Tick += (_s, _e) => { debugView.DrawDebugData(); };
+#endif
             };
+
         }
+
 
         void FarseerCanvas_MouseMove(object sender, MouseEventArgs e)
         {

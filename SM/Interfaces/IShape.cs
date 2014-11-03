@@ -16,7 +16,16 @@ namespace SM
     }
     public interface ICircleShape : __IShape
     {
+        float X { get; }
+        float Y { get; }
         float Radius { get; }
+    }
+    public interface IEllipseShape : __IShape
+    {
+        float X { get; }
+        float Y { get; }
+        float RadiusX { get; }
+        float RadiusY { get; }
     }
     public interface IPolygonsShape : __IShape
     {

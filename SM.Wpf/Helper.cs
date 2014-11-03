@@ -35,7 +35,11 @@ namespace SM.Wpf
             }
             return r;
         }
-
+         public static Rect BBox(this Ellipse ellipse)
+        {
+            return ellipse.RenderedGeometry.Bounds;
+        }
+         
         public static Rect BBox(this Polygon ps)
         {
             return ps.Points.BBox();
