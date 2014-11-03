@@ -78,11 +78,11 @@ namespace SM.Farseer
 
         
 
-        public override __IBodyMaterial __CreateBodyMaterial()
+        public override __IBodyMaterial CreateBodyMaterial()
         {
             return new __BodyMaterial(_world);
         }
-        public override __IBreakableBodyMaterial __CreateBreakableBodyMaterial()
+        public override __IBreakableBodyMaterial CreateBreakableBodyMaterial()
         {
             return new __BreakableBodyMaterial(_world);
         }
