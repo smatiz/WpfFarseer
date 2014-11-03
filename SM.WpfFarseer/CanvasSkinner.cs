@@ -12,7 +12,7 @@ using FarseerPhysics.Common;
 
 namespace SM.WpfFarseer
 {
-    public class CanvasSkinner : ISkinnableCanvas, __ISkinnableCanvas
+    public class CanvasSkinner : __ISkinnableCanvas
     {
         public List<PointCollection> FindBorder(VisualBrush brush, double w, double h, int n)
         {

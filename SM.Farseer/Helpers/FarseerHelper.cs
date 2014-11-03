@@ -84,9 +84,6 @@ namespace SM.Farseer
             }
             return list;
         }
-        public static FShape.PolygonShape ToFarseerVertices(this IShape shape)
-        {
-            return new FShape.PolygonShape(shape.Points_X.ToFarseerVertices(), shape.Density_X);
-        }
+        
     }
 }

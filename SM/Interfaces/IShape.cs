@@ -32,9 +32,4 @@ namespace SM
         IEnumerable<IEnumerable<float2>> PolygonShapes { get; }
     }
 
-    public interface IShape
-    {
-        IEnumerable<float2> Points_X { get; }
-        float Density_X { get; }
-    }
 }

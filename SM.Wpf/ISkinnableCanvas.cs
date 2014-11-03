@@ -13,10 +13,4 @@ namespace SM.Wpf
     {
         IEnumerable<IEnumerable<float2>> __FindBorder(VisualBrush brush, double w, double h);
     }
-
-
-    public interface ISkinnableCanvas
-    {
-        List<PointCollection> FindBorder(VisualBrush brush, double w, double h, int n);
-    }
 }
