@@ -202,6 +202,7 @@ namespace SM.Wpf
                 }
                 else if (shape is CircleShapeControl)
                 {
+
                     //filler.Add(((CircleShapeControl)shape).Ci);
                 }
                 else if (shape is SkinnedShapeControl)
