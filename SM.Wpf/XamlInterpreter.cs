@@ -83,35 +83,35 @@ namespace SM.Wpf
             {
                 bool handled = false;
 
-                BreakableBodyControl breakableBodyControl = null;
-                var autoBreakableBodyControl = child as AutoBreakableBodyControl;
-                if (autoBreakableBodyControl != null)
-                {
-                    //var polyF = autoBreakableBodyControl.Shape.Points.ToFarseerVertices();
-                    //var vss = FarseerPhysics.Common.Decomposition.Triangulate.ConvexPartition(polyF, (FarseerPhysics.Common.Decomposition.TriangulationAlgorithm)autoBreakableBodyControl.TriangulationAlgorithm);
-                    //var bbc = new BreakableBodyControl();
-                    //bbc.DefaultBrush = new SolidColorBrush(Colors.AliceBlue);
-                    //foreach (var p in vss)
-                    //{
-                    //    var shape = new ShapeControl();
+                //BreakableBodyControl breakableBodyControl = null;
+                //var autoBreakableBodyControl = child as AutoBreakableBodyControl;
+                //if (autoBreakableBodyControl != null)
+                //{
+                //    //var polyF = autoBreakableBodyControl.Shape.Points.ToFarseerVertices();
+                //    //var vss = FarseerPhysics.Common.Decomposition.Triangulate.ConvexPartition(polyF, (FarseerPhysics.Common.Decomposition.TriangulationAlgorithm)autoBreakableBodyControl.TriangulationAlgorithm);
+                //    //var bbc = new BreakableBodyControl();
+                //    //bbc.DefaultBrush = new SolidColorBrush(Colors.AliceBlue);
+                //    //foreach (var p in vss)
+                //    //{
+                //    //    var shape = new ShapeControl();
 
-                    //    shape.Points = p.ToWpf();
-                    //    bbc.Shapes.Add(shape);
-                    //}
+                //    //    shape.Points = p.ToWpf();
+                //    //    bbc.Shapes.Add(shape);
+                //    //}
 
-                    //breakableBodyControl = bbc;
-                    //tobeadded.Add(breakableBodyControl);
-                }
+                //    //breakableBodyControl = bbc;
+                //    //tobeadded.Add(breakableBodyControl);
+                //}
 
-                if (breakableBodyControl == null)
-                {
-                    breakableBodyControl = child as BreakableBodyControl;
-                }
-                if (breakableBodyControl != null)
-                {
-                    _views.BreakableBodies.Add(breakableBodyControl);
-                    handled = true;
-                }
+                //if (breakableBodyControl == null)
+                //{
+                //    breakableBodyControl = child as BreakableBodyControl;
+                //}
+                //if (breakableBodyControl != null)
+                //{
+                //    _views.BreakableBodies.Add(breakableBodyControl);
+                //    handled = true;
+                //}
                 //if (!handled)
                 //{
                 //    var bodyControl = child as BodyControl;
@@ -177,109 +177,5 @@ namespace SM.Wpf
 
         }
 
-
-
-
-        public static Views BuildViews(UIElementCollection parentChildrens, IEnumerable<BasicControl> objects)
-        {
-            Views _views = new Views();
-
-            
-
-            var flags = FindAllFlag(objects);
-            var tobeadded = new List<BasicControl>();
-
-            foreach (var child in objects)
-            {
-                bool handled = false;
-
-                    BreakableBodyControl breakableBodyControl = null;
-                    var autoBreakableBodyControl = child as AutoBreakableBodyControl;
-                    if (autoBreakableBodyControl != null)
-                    {
-                        //var polyF = autoBreakableBodyControl.Shape.Points.ToFarseerVertices();
-                        //var vss = FarseerPhysics.Common.Decomposition.Triangulate.ConvexPartition(polyF, (FarseerPhysics.Common.Decomposition.TriangulationAlgorithm)autoBreakableBodyControl.TriangulationAlgorithm);
-                        //var bbc = new BreakableBodyControl();
-                        //bbc.DefaultBrush = new SolidColorBrush(Colors.AliceBlue);
-                        //foreach (var p in vss)
-                        //{
-                        //    var shape = new ShapeControl();
-
-                        //    shape.Points = p.ToWpf();
-                        //    bbc.Shapes.Add(shape);
-                        //}
-
-                        //breakableBodyControl = bbc;
-                        //tobeadded.Add(breakableBodyControl);
-                    }
-
-                    if (breakableBodyControl == null)
-                    {
-                        breakableBodyControl = child as BreakableBodyControl;
-                    }
-                    if (breakableBodyControl != null)
-                    {
-                        _views.BreakableBodies.Add(breakableBodyControl);
-                            handled = true;
-                    }
-                    if (!handled)
-                    {
-                        var bodyControl = child as BodyControl;
-                        if (bodyControl != null)
-                        {
-                            _views.Bodies.Add(bodyControl);
-                            handled = true;
-                        }
-                    }
-
-                   
-
-                    //if (!handled)
-                    //{
-                    //    var bodyControl = child as SkinnedBodyControl;
-                    //    if (bodyControl != null)
-                    //    {
-                    //        _views.Bodies.Add(bodyControl);
-                    //        handled = true;
-                    //    }
-                    //}
-                
-
-                if (!handled)
-                {
-                    var jointControl = child as RopeJointControl;
-                    if (jointControl != null)
-                    {
-                        var targetA = FindFlag(flags, jointControl.TargetFlagIdA);
-                        var targetB = FindFlag(flags, jointControl.TargetFlagIdB);
-
-                        var line = new Line();
-                        line.Stroke = new SolidColorBrush(Colors.Green);
-                        line.StrokeThickness = 1;
-                        parentChildrens.Add(line);
-
-                        line.X1 = targetA.X;
-                        line.Y1 = targetA.Y;
-                        line.X2 = targetB.X;
-                        line.Y2 = targetB.Y;
-
-                        jointControl.SetLine(line);
-                        jointControl.SetTargets(targetA.ParentId, targetB.ParentId);
-
-                        _views.Joints.Add(jointControl);
-                        
-                        handled = true;
-                    }
-                }
-            }
-
-            foreach (var x in tobeadded)
-            {
-                ((BasicControl)x).AddToUIElementCollection(parentChildrens);
-            }
-
-            return _views;
-            
-        }
     }
 }

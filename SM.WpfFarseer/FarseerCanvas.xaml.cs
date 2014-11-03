@@ -93,20 +93,7 @@ namespace WpfFarseer
                 }
 
 
-                var views = XamlInterpreter.BuildViews(Children, FarseerObjects);
-
-                foreach(var x in views.Bodies)
-                {
-                    _worldManager.AddBodyView(x);
-                }
-                foreach (var x in views.BreakableBodies)
-                {
-                    _worldManager.AddBreakableBodyView(x);
-                }
-                foreach (var x in views.Joints)
-                {
-                    _worldManager.AddRopeJointControl((IRopeJointView)x);
-                }
+                
 
 
 #if DEBUG

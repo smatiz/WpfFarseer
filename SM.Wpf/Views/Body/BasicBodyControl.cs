@@ -80,7 +80,7 @@ namespace SM.Wpf
             set { SetValue(FlagsProperty, value); }
         }
         public static readonly DependencyProperty FlagsProperty =
-            DependencyProperty.Register("Flags", typeof(ObservableCollection<FlagControl>), typeof(BodyControl), new PropertyMetadata(null));
+            DependencyProperty.Register("Flags", typeof(ObservableCollection<FlagControl>), typeof(BasicBodyControl), new PropertyMetadata(null));
 
         void Flags_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {

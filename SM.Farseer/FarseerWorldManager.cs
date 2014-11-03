@@ -21,7 +21,7 @@ namespace SM.Farseer
         World _world = new World(new Vector2(0, 10));
         FixedMouseJoint _fixedMouseJoint = null;
 
-#if DEBUG 
+#if DEBUG
         public World World { get { return _world; } }
 #endif
 
@@ -76,10 +76,7 @@ namespace SM.Farseer
         public string Id { get; private set; }
 
 
-        public override IBodyMaterial CreateBodyMaterial()
-        {
-            return new BodyMaterial(_world);
-        }
+        
 
         public override __IBodyMaterial __CreateBodyMaterial()
         {
@@ -88,10 +85,6 @@ namespace SM.Farseer
         public override __IBreakableBodyMaterial __CreateBreakableBodyMaterial()
         {
             return new __BreakableBodyMaterial(_world);
-        }
-        public override IBreakableBodyMaterial CreateBreakableBodyMaterial()
-        {
-            return new BreakableBodyMaterial(_world);
         }
 
 

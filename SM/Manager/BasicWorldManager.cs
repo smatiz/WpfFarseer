@@ -22,19 +22,8 @@ namespace SM
             AddManager(new __BreakableBodyManager(body, __CreateBreakableBodyMaterial()));
         }
 
-        public void AddBodyView(IBodyView body)
-        {
-            AddManager(new BodyManager(body, CreateBodyMaterial()));
-        }
-        public abstract IBodyMaterial CreateBodyMaterial();
         public abstract __IBodyMaterial __CreateBodyMaterial();
         public abstract __IBreakableBodyMaterial __CreateBreakableBodyMaterial();
-
-        public void AddBreakableBodyView(IBreakableBodyView body)
-        {
-            AddManager(new BreakableBodyManager(body, CreateBreakableBodyMaterial()));
-        }
-        public abstract IBreakableBodyMaterial CreateBreakableBodyMaterial();
 
         public void AddRopeJointControl(IRopeJointView body)
         {
