@@ -17,12 +17,12 @@ namespace SM.Wpf
     [ContentPropertyAttribute("Content")]
     public class SkinnedShapeControl : BasicShapeControl, IPolygonsShape
     {
-        public static __ISkinnableCanvas Skinner { private get; set; }
+        public static ISkinnableCanvas Skinner { private get; set; }
         public IEnumerable<IEnumerable<float2>> PolygonShapes
         {
             get
             {
-                return Skinner.__FindBorder(_brush, MaxWidth, MaxHeight);
+                return Skinner.FindBorder(_brush, MaxWidth, MaxHeight);
             }
         }
 

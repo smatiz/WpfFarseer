@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 namespace SM
 {
 
-    public class __Views
+    public class Views
     {
         public List<IBodyView> Bodies { get; private set; }
         public List<IJointView> Joints { get; private set; }
 
-        public __Views()
+        public Views()
         {
             Bodies = new List<IBodyView>();
             Joints = new List<IJointView>();

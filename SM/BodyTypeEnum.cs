@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SM
 {
-    public enum __BodyType
+    public enum BodyType
     {
         Static,
         Kinematic,

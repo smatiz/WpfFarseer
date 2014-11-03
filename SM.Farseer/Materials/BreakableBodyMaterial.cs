@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace SM.Farseer
 {
 
-    public class __BreakableBodyMaterial : IBreakableBodyMaterial
+    public class BreakableBodyMaterial : IBreakableBodyMaterial
     {
         World _world;
         Body _body;
@@ -22,15 +22,15 @@ namespace SM.Farseer
         public string Id { get { return (string)_body.UserData; } }
 
 
-        public __BreakableBodyMaterial(World world)
+        public BreakableBodyMaterial(World world)
         {
             _world = world;
         }
 
 
-        public void Build(string id, rotoTranslation rt, IEnumerable<__IShape> shapes)
+        public void Build(string id, rotoTranslation rt, IEnumerable<IShape> shapes)
         {
-            var allShapes = shapes.SelectMany<__IShape, Shape>(x => x.ToShapes());
+            var allShapes = shapes.SelectMany<IShape, Shape>(x => x.ToShapes());
 
 
 
@@ -85,7 +85,7 @@ namespace SM.Farseer
             _breakableBody.Update();
             foreach (var b in _breakableBody.Parts)
             {
-                yield return new __BodyMaterial(b.Body, Id + ":" + i++);
+                yield return new BodyMaterial(b.Body, Id + ":" + i++);
             }
         }
 

@@ -145,21 +145,21 @@ namespace SM.Wpf
             _rotation.Angle = Angle;
         }
 
-        public virtual __BodyType BodyType
+        public virtual BodyType BodyType
         {
-            get { return (__BodyType)GetValue(BodyTypeProperty); }
+            get { return (BodyType)GetValue(BodyTypeProperty); }
             set { SetValue(BodyTypeProperty, value); }
         }
         public static readonly DependencyProperty BodyTypeProperty =
-            DependencyProperty.Register("BodyType", typeof(__BodyType), typeof(BodyControl), new PropertyMetadata(__BodyType.Static));
+            DependencyProperty.Register("BodyType", typeof(BodyType), typeof(BodyControl), new PropertyMetadata(BodyType.Static));
 
-        public ObservableCollection<__IShape> Shapes
+        public ObservableCollection<IShape> Shapes
         {
-            get { return (ObservableCollection<__IShape>)GetValue(ShapesProperty); }
+            get { return (ObservableCollection<IShape>)GetValue(ShapesProperty); }
             set { SetValue(ShapesProperty, value); }
         }
         public static readonly DependencyProperty ShapesProperty =
-            DependencyProperty.Register("Shapes", typeof(ObservableCollection<__IShape>), typeof(BodyControl), new PropertyMetadata(null));
+            DependencyProperty.Register("Shapes", typeof(ObservableCollection<IShape>), typeof(BodyControl), new PropertyMetadata(null));
 
         void Shapes_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
@@ -173,7 +173,7 @@ namespace SM.Wpf
         }
         private void initializeShapes()
         {
-            Shapes = new ObservableCollection<__IShape>();
+            Shapes = new ObservableCollection<IShape>();
             Shapes.CollectionChanged += Shapes_CollectionChanged;
         }
 
@@ -191,7 +191,7 @@ namespace SM.Wpf
             }
         }
 
-        public IEnumerable<__IShape> Shapes_X
+        public IEnumerable<IShape> AllShapes
         {
             get { return from x in Shapes select x; }
         }
@@ -235,7 +235,7 @@ namespace SM.Wpf
             foreach (var poly in polygons)
             {
                 var bc = new BodyControl();
-                bc.BodyType = SM.__BodyType.Dynamic;
+                bc.BodyType = SM.BodyType.Dynamic;
                 bc.Shapes.Add(new PolygonShapeControl(poly.Polygon, poly.Density));
                 bc.AddToUIElementCollection(_parentChildrens);
                 bc.RotoTranslation = RotoTranslation;
@@ -250,7 +250,7 @@ namespace SM.Wpf
                 poly.Polygon.Fill = vb;
 
                 var bc = new BodyControl();
-                bc.BodyType = SM.__BodyType.Dynamic;
+                bc.BodyType = SM.BodyType.Dynamic;
                 bc.Shapes.Add(new PolygonShapeControl(poly.Polygon, poly.ShapeControl.Density));
                 bc.AddToUIElementCollection(_parentChildrens);
                 bc.RotoTranslation = RotoTranslation;
@@ -258,60 +258,10 @@ namespace SM.Wpf
             }
 
             return bodies;
-            //_canvas.Children.Clear();
-            //foreach (var shape in Shapes)
-            //{
-
-            //    if (shape is ICircleShape || shape is IPolygonShape)
-            //    {
-            //        var bc = new BodyControl();
-            //        bc.BodyType = SM.__BodyType.Dynamic;
-            //        bc.Shapes.Add(shape);
-            //        bc.AddToUIElementCollection(_parentChildrens);
-            //        bc.RotoTranslation = RotoTranslation;
-            //        yield return bc;
-            //    }
-            //    else if (shape is IPolygonsShape)
-            //    {
-            //        foreach (var subshape in ((IPolygonsShape)shape).PolygonShapes)
-            //        {
-            //            var bc = new BodyControl();
-            //            bc.BodyType = SM.__BodyType.Dynamic;
-            //            //bc.Shapes.Add(new PolygonShapeControl(subshape, ((IPolygonsShape)shape).Density));
-            //            bc.AddToUIElementCollection(_parentChildrens);
-            //            bc.RotoTranslation = RotoTranslation;
-            //            yield return bc;
-            //        }
-            //    }
-
-
-
-
-            //}
+            
         }
 
 
-        //private IEnumerable<__IBodyView> ToBodyViews(__IShape shape)
-        //{
-        //    if (shape is ICircleShape || shape is IPolygonShape)
-        //    {
-        //        var bc = new BodyControl();
-        //        bc.Shapes.Add(shape);
-        //        yield return bc;
-        //    }
-
-
-        //    var polys = shape as IPolygonsShape;
-        //    if (polys != null)
-        //    {
-        //        foreach (var x in polys.PolygonShapes)
-        //        {
-        //            var bc = new BodyControl();
-        //            bc.Shapes.Add(new PolygonShapeControl(x, polys.Density));
-        //            yield return bc;
-        //        }
-        //    }
-        //}
 
 
 

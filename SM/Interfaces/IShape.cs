@@ -6,28 +6,28 @@ using System.Threading.Tasks;
 
 namespace SM
 {
-    public interface __IShape
+    public interface IShape
     {
         float Density { get; }
     }
-    public interface IPolygonShape : __IShape
+    public interface IPolygonShape : IShape
     {
         IEnumerable<float2> Points { get; }
     }
-    public interface ICircleShape : __IShape
+    public interface ICircleShape : IShape
     {
         float X { get; }
         float Y { get; }
         float Radius { get; }
     }
-    public interface IEllipseShape : __IShape
+    public interface IEllipseShape : IShape
     {
         float X { get; }
         float Y { get; }
         float RadiusX { get; }
         float RadiusY { get; }
     }
-    public interface IPolygonsShape : __IShape
+    public interface IPolygonsShape : IShape
     {
         IEnumerable<IEnumerable<float2>> PolygonShapes { get; }
     }

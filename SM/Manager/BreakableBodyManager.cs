@@ -9,7 +9,7 @@ namespace SM
 
     public interface IBreakableBodyMaterial : IMaterial
     {
-        void Build(string id, rotoTranslation rt, IEnumerable<__IShape> shapes);
+        void Build(string id, rotoTranslation rt, IEnumerable<IShape> shapes);
         rotoTranslation RotoTranslation { get; }
         bool IsBroken { get; }
         IEnumerable<IBodyMaterial> GetPieces();
@@ -21,7 +21,6 @@ namespace SM
         rotoTranslation _rotoTranslation;
         public BodyManager[] BodyManagers { get; private set; }
         IEnumerable<IBodyMaterial> _bodyMaterials = null;
-        //public Action<__BodyManager[]> Broken;
 
         IBodyView _breakableBodyView;
         IBreakableBodyMaterial _breakableBodyMaterial;
@@ -34,7 +33,7 @@ namespace SM
 
         public void Build()
         {
-            _breakableBodyMaterial.Build(_breakableBodyView.Id, _breakableBodyView.RotoTranslation, _breakableBodyView.Shapes_X);
+            _breakableBodyMaterial.Build(_breakableBodyView.Id, _breakableBodyView.RotoTranslation, _breakableBodyView.AllShapes);
         }
 
         enum Status { Entire, MaterialBroking, ViewBroking, Broken }

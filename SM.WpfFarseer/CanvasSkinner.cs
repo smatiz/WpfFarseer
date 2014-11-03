@@ -12,17 +12,9 @@ using FarseerPhysics.Common;
 
 namespace SM.WpfFarseer
 {
-    public class CanvasSkinner : __ISkinnableCanvas
+    public class CanvasSkinner : ISkinnableCanvas
     {
-        public List<PointCollection> FindBorder(VisualBrush brush, double w, double h, int n)
-        {
-            var img = brush.ConvertToRenderTargetBitmap(w, h);
-            uint[] us = img.GetData();
-            var vs = FarseerPhysics.Common.TextureTools.TextureConverter.DetectVertices(us, (int)img.Width);
-            return new List<PointCollection>(){ vs.ToWpf()};
-        }
-
-        public IEnumerable<IEnumerable<float2>> __FindBorder(VisualBrush brush, double w, double h)
+        public IEnumerable<IEnumerable<float2>> FindBorder(VisualBrush brush, double w, double h)
         {
             var img = brush.ConvertToRenderTargetBitmap(w, h);
             uint[] us = img.GetData();

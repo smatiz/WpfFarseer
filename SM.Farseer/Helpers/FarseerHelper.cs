@@ -30,7 +30,7 @@ namespace SM.Farseer
             return new FShape.PolygonShape(poly.Points.ToFarseerVertices(), poly.Density);
         }
 
-        public static IEnumerable<FShape.Shape> ToShapes(this __IShape shape)
+        public static IEnumerable<FShape.Shape> ToShapes(this IShape shape)
         {
             var circle = shape as ICircleShape;
             if (circle != null)

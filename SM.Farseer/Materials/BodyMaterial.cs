@@ -13,7 +13,7 @@ namespace SM.Farseer
 
 
 
-    public class __BodyMaterial : IBodyMaterial
+    public class BodyMaterial : IBodyMaterial
     {
         // private Vector2 _originalPosition = Vector2.Zero;
         private World _world;
@@ -22,11 +22,11 @@ namespace SM.Farseer
         public virtual object Object { get { return _body; } }
         public string Id { get { return (string)_body.UserData; } }
 
-        public __BodyMaterial(World world)
+        public BodyMaterial(World world)
         {
             _world = world;
         }
-        public __BodyMaterial(Body body, string id)
+        public BodyMaterial(Body body, string id)
         {
             _body = body;
             _body.UserData = id;
@@ -36,7 +36,7 @@ namespace SM.Farseer
         }
 
 
-        public void Build(string id, SM.__BodyType bodyType, rotoTranslation rt, IEnumerable<__IShape> shapes)
+        public void Build(string id, SM.BodyType bodyType, rotoTranslation rt, IEnumerable<IShape> shapes)
         {
             _body = BodyFactory.CreateBody(_world);
             _body.UserData = id;
@@ -74,7 +74,7 @@ namespace SM.Farseer
             CodeGenerator.AddCode("FarseerPhysics.Factories.FixtureFactory.AttachPolygon({0}, {1}, {2});", shapeName, density, _body.n());
        
         }
-        private void AddShape(__IShape shape)
+        private void AddShape(IShape shape)
         {
             var circle = shape as ICircleShape;
             if (circle != null)

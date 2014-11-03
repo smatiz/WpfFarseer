@@ -8,8 +8,8 @@ namespace SM
 {
     public interface IBodyView : IIdentifiable
     {
-        __BodyType BodyType { get; }
-        IEnumerable<__IShape> Shapes_X { get; }
+        BodyType BodyType { get; }
+        IEnumerable<IShape> AllShapes { get; }
         rotoTranslation RotoTranslation { get; set; }
 
         IEnumerable<IBodyView> Break();
@@ -17,7 +17,7 @@ namespace SM
 
     public interface IBodyMaterial : IMaterial
     {
-        void Build(string id, SM.__BodyType bodyType, rotoTranslation rt, IEnumerable<__IShape> shapes);
+        void Build(string id, SM.BodyType bodyType, rotoTranslation rt, IEnumerable<IShape> shapes);
         rotoTranslation RotoTranslation { get; }
     }
 
@@ -36,7 +36,7 @@ namespace SM
 
         public void Build()
         {
-            _bodyMaterial.Build(_bodyView.Id, _bodyView.BodyType, _bodyView.RotoTranslation, _bodyView.Shapes_X);
+            _bodyMaterial.Build(_bodyView.Id, _bodyView.BodyType, _bodyView.RotoTranslation, _bodyView.AllShapes);
         }
 
         public void UpdateMaterial()
