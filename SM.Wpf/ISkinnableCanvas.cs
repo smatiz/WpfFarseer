@@ -9,8 +9,10 @@ using System.Windows.Media;
 
 namespace SM.Wpf
 {
-    public interface ISkinnableCanvas
+    public interface IFarseerTools
     {
         IEnumerable<IEnumerable<float2>> FindBorder(VisualBrush brush, double w, double h);
+
+        IEnumerable<IEnumerable<float2>> Triangulate(IEnumerable<float2> enumerable);
     }
 }

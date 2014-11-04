@@ -103,7 +103,8 @@
     <Compile Include="Views\Shapes\CircleShapeControl.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="ISkinnableCanvas.cs" />
-    <Compile Include="Views\Shapes\PolygonShapeControl.cs" />
+    <Compile Include="Views\Shapes\ConvexPolygonShapeControl.cs" />
+    <Compile Include="Views\Shapes\TriangulablePolygonShapeControl.cs" />
     <Compile Include="Views\Shapes\SkinnedShapeControl.cs" />
     <Compile Include="Views\BasicControl.cs" />
     <Compile Include="Views\Body\BasicBodyControl.cs">

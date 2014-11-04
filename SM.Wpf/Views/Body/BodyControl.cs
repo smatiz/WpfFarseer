@@ -59,7 +59,7 @@ namespace SM.Wpf
         {
             foreach (var shape in Shapes)
             {
-                var poly = shape as PolygonShapeControl;
+                var poly = shape as ConvexPolygonShapeControl;
                 if (poly != null)
                 {
                     _canvas.Children.Add(poly.Polygon);
@@ -200,15 +200,15 @@ namespace SM.Wpf
         {
             var filler = new VisualBrushFiller();
             var skinned = new List<SkinnedShapeItem>();
-            var polygons = new List<PolygonShapeControl>();
+            var polygons = new List<ConvexPolygonShapeControl>();
             List<Ellipse> ellipses = new List<Ellipse>();
             foreach (var shape in Shapes)
             {
-                if (shape is PolygonShapeControl)
+                if (shape is ConvexPolygonShapeControl)
                 {
-                    var p = ((PolygonShapeControl)shape).Polygon;
+                    var p = ((ConvexPolygonShapeControl)shape).Polygon;
                     filler.Add(p);
-                    polygons.Add((PolygonShapeControl)shape);
+                    polygons.Add((ConvexPolygonShapeControl)shape);
                 }
                 else if (shape is CircleShapeControl)
                 {
@@ -228,15 +228,28 @@ namespace SM.Wpf
                         skinned.Add(new SkinnedShapeItem { Polygon = p, ShapeControl = (SkinnedShapeControl)shape });
                     }
                 }
+                else if (shape is TriangulablePolygonShapeControl)
+                {
+
+                    foreach (var subshape in ((TriangulablePolygonShapeControl)shape).PolygonShapes)
+                    {
+                        var p = subshape.ToWpfPolygon();
+                        filler.Add(p);
+                        polygons.Add(new ConvexPolygonShapeControl(p, shape.Density));
+                    }
+                }
             }
 
             _canvas.Children.Clear();
             List<BodyControl> bodies = new List<BodyControl>();
             foreach (var poly in polygons)
             {
+                poly.Polygon.Fill = new SolidColorBrush(Colors.Red);
+
+
                 var bc = new BodyControl();
                 bc.BodyType = SM.BodyType.Dynamic;
-                bc.Shapes.Add(new PolygonShapeControl(poly.Polygon, poly.Density));
+                bc.Shapes.Add(new ConvexPolygonShapeControl(poly.Polygon, poly.Density));
                 bc.AddToUIElementCollection(_parentChildrens);
                 bc.RotoTranslation = RotoTranslation;
                 bodies.Add(bc);
@@ -251,7 +264,7 @@ namespace SM.Wpf
 
                 var bc = new BodyControl();
                 bc.BodyType = SM.BodyType.Dynamic;
-                bc.Shapes.Add(new PolygonShapeControl(poly.Polygon, poly.ShapeControl.Density));
+                bc.Shapes.Add(new ConvexPolygonShapeControl(poly.Polygon, poly.ShapeControl.Density));
                 bc.AddToUIElementCollection(_parentChildrens);
                 bc.RotoTranslation = RotoTranslation;
                 bodies.Add(bc);

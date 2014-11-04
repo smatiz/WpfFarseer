@@ -13,9 +13,9 @@
             <l2:FarseerPlayerControl.FarseerCanvas>
                 <l3:FarseerCanvas   >
                     <l:BodyControl Id="b" BodyType="Dynamic">
-                        <l:PolygonShapeControl Density="123"  >
+                        <l:ConvexPolygonShapeControl Density="123"  >
                             <Polygon Points="0 200,300 200,150 250" Fill="Black"></Polygon>
-                        </l:PolygonShapeControl>
+                        </l:ConvexPolygonShapeControl>
                     </l:BodyControl>
                 </l3:FarseerCanvas>
             </l2:FarseerPlayerControl.FarseerCanvas>

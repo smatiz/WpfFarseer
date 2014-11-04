@@ -94,8 +94,6 @@ namespace SM.WpfFarseer
         //}
         #endregion
 
-
-
         private static F.Vertices ToFarseerVertices(this W.UIElement uielement, WShape.Polygon poly)
         {
             return new F.Vertices(from p in poly.Points select poly.TranslatePoint(p, uielement).ToFarseer());

@@ -12,7 +12,7 @@ using FarseerPhysics.Common;
 
 namespace SM.WpfFarseer
 {
-    public class CanvasSkinner : ISkinnableCanvas
+    public class FarseerTools : IFarseerTools
     {
         public IEnumerable<IEnumerable<float2>> FindBorder(VisualBrush brush, double w, double h)
         {
@@ -23,6 +23,13 @@ namespace SM.WpfFarseer
             ///vs.Holes
             return from x in vsp select x.ToSM();
             //return new List<IEnumerable<float2>>() { vs.ToSM() };
+        }
+
+        public IEnumerable<IEnumerable<float2>> Triangulate(IEnumerable<float2> poly)
+        {
+            var vs = poly.ToFarseerVertices();
+            var vsp = FarseerPhysics.Common.Decomposition.Triangulate.ConvexPartition(vs, FarseerPhysics.Common.Decomposition.TriangulationAlgorithm.Bayazit);
+            return from x in vsp select x.ToSM();
         }
     }
 }

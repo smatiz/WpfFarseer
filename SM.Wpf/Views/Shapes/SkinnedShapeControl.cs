@@ -10,19 +10,14 @@ using System.Windows.Media;
 
 namespace SM.Wpf
 {
-
-
-
-
     [ContentPropertyAttribute("Content")]
     public class SkinnedShapeControl : BasicShapeControl, IPolygonsShape
     {
-        public static ISkinnableCanvas Skinner { private get; set; }
         public IEnumerable<IEnumerable<float2>> PolygonShapes
         {
             get
             {
-                return Skinner.FindBorder(_brush, MaxWidth, MaxHeight);
+                return Helper.FarseerTools.FindBorder(_brush, MaxWidth, MaxHeight);
             }
         }
 

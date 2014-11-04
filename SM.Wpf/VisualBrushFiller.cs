@@ -44,11 +44,12 @@ namespace SM.Wpf
             var maxbb = ComputeBBox();
             var polygonBB = _map[polygon];
             var vb = new VisualBrush(uiElement);
-            vb.AlignmentX = AlignmentX.Left;
-            vb.AlignmentY = AlignmentY.Top;
-            vb.Stretch = Stretch.None;
-            vb.Viewport = new Rect((maxbb.X - polygonBB.X) / polygonBB.Width, (maxbb.Y - polygonBB.Y) / polygonBB.Height, 1, 1); 
-            //new Rect((bb.X - bbs.X) / bbs.Width, -(bb.Y - bbs.Y) / bbs.Height, 1, 1);
+            vb.Viewbox = new Rect(-(maxbb.X - polygonBB.X) / maxbb.Width, -(maxbb.Y - polygonBB.Y) / maxbb.Height, polygonBB.Width / maxbb.Width, polygonBB.Height / maxbb.Height);
+            //vb.AlignmentX = AlignmentX.Left;
+            //vb.AlignmentY = AlignmentY.Top;
+            //vb.Stretch = Stretch.None;
+            //vb.Viewport = new Rect((maxbb.X - polygonBB.X) / polygonBB.Width, (maxbb.Y - polygonBB.Y) / polygonBB.Height, 1, 1); 
+            ////new Rect((bb.X - bbs.X) / bbs.Width, -(bb.Y - bbs.Y) / bbs.Height, 1, 1);
             return vb;
         }
     }

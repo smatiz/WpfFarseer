@@ -1,8 +1,23 @@
 ********* circle to ellipse
 ********* remove _X
 ********* remove __
-baco con il visualbrush
+********* creare un sistema di debug wpf
+********* baco con il visualbrush
 aggiornare codeGenerator
-creare un sistema di debug wpf
 creare un sistema per testare il CodeGenerator in modo semplice
 finire di sistemare i joint
+
+********* sistemare esempio 3
+
+TriangulablePolygonShapeControl e EllipseShapeControl
+
+
+
+ESEMPIO 5 sembrerebbe che le skinnedshape considerano il content come allineato left-top
+per esempio con 
+
+                            <Canvas >
+                                <Button Background="Red" Canvas.Left="20" Width="40" Height="40">ciao</Button>
+                                <Button Background="Blue" Canvas.Left="40" Canvas.Top="10" Width="10" Height="40">ciao</Button>
+                            </Canvas>
+wpf si disallinea da farseer

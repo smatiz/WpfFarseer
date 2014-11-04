@@ -103,7 +103,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CanvasSkinner.cs" />
+    <Compile Include="FarseerTools.cs" />
     <Compile Include="DebugViewWPF.cs" />
     <Compile Include="FarseerCanvas.xaml.cs">
       <DependentUpon>FarseerCanvas.xaml</DependentUpon>

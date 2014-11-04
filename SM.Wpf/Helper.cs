@@ -10,8 +10,9 @@ namespace SM.Wpf
     /// <summary>
     /// Interaction logic for AroundBorderUserControl.xaml
     /// </summary>
-    public static class Helper 
+    public static class Helper
     {
+        public static IFarseerTools FarseerTools { get; set; }
         public static Point ToWpf(this float2 p)
         {
             return new Point(p.X,p.Y);

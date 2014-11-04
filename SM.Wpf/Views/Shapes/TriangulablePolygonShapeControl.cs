@@ -11,17 +11,10 @@ using System.Windows.Shapes;
 namespace SM.Wpf
 {
     [ContentPropertyAttribute("Polygon")]
-    public class PolygonShapeControl : BasicShapeControl, IPolygonShape
+    public class TriangulablePolygonShapeControl : BasicShapeControl, IPolygonsShape
     {
-        public PolygonShapeControl()
+        public TriangulablePolygonShapeControl()
         {
-        }
-
-        public PolygonShapeControl(Polygon poly, float density)
-            : this()
-        {
-            Polygon = poly;
-            Density = density;
         }
 
         public Polygon Polygon
@@ -30,13 +23,14 @@ namespace SM.Wpf
             set { SetValue(PolygonProperty, value); }
         }
         public static readonly DependencyProperty PolygonProperty =
-            DependencyProperty.Register("Polygon", typeof(Polygon), typeof(PolygonShapeControl), new PropertyMetadata(null));
+            DependencyProperty.Register("Polygon", typeof(Polygon), typeof(TriangulablePolygonShapeControl), new PropertyMetadata(null));
 
-        public IEnumerable<float2> Points
+        public IEnumerable<IEnumerable<float2>> PolygonShapes
         {
             get
             {
-                return Polygon.Points.Select(p => new float2((float)p.X, (float)p.Y));
+
+                return Helper.FarseerTools.Triangulate(Polygon.Points.Select(p => new float2((float)p.X, (float)p.Y)));
             }
         }
     }

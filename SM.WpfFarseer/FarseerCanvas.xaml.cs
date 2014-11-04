@@ -60,7 +60,7 @@ namespace WpfFarseer
 
             Settings.MaxPolygonVertices = 100;
 
-            SkinnedShapeControl.Skinner = new CanvasSkinner();
+            Helper.FarseerTools = new FarseerTools();
 
             if(Id == null || Id == "")
             {
@@ -102,6 +102,7 @@ namespace WpfFarseer
 #if DEBUG
 
                 var debugCanvas = new Canvas();
+                debugCanvas.IsHitTestVisible = false;
                 var debugTextBlock = new TextBlock();
                 debugCanvas.Width = Width;
                 debugCanvas.Height = Height;
@@ -110,7 +111,12 @@ namespace WpfFarseer
                 var debugView = new DebugViewWPF(debugCanvas, debugTextBlock, _worldManager.World);
                 var timer = new DispatcherTimer(DispatcherPriority.Render);
                 timer.Interval = TimeSpan.FromMilliseconds(300);
-                timer.Tick += (_s, _e) => { debugView.DrawDebugData(); };
+                timer.Tick += (_s, _e) =>
+                {
+                    debugCanvas.Children.Clear();
+                    debugView.DrawDebugData(); 
+                };
+                timer.Start();
 #endif
             };
 
