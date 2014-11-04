@@ -5,9 +5,15 @@
 ********* baco con il visualbrush
 aggiornare codeGenerator
 creare un sistema per testare il CodeGenerator in modo semplice
+
+
+
 finire di sistemare i joint
 
 ********* sistemare esempio 3
+
+
+
 
 TriangulablePolygonShapeControl e EllipseShapeControl
 

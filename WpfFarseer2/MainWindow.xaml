@@ -21,6 +21,9 @@
             <TabItem Header="5">
                 <l2:Sample5></l2:Sample5>
             </TabItem>
+            <TabItem Header="6">
+                <l2:Sample6></l2:Sample6>
+            </TabItem>
             <TabItem Header="____next">
             </TabItem>
             <TabItem Header="Test">

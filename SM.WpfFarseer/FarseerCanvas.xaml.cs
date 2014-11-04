@@ -86,10 +86,7 @@ namespace WpfFarseer
 
                 foreach (var x in views.Bodies)
                 {
-                    if (x.BodyType == SM.BodyType.Breakable)
-                        _worldManager.AddBreakableBodyView(x);
-                    else
-                        _worldManager.AddBodyView(x);
+                    _worldManager.AddBodyView(x);
                 }
 
                 foreach (var x in views.Joints)

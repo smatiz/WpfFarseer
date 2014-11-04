@@ -137,6 +137,9 @@
     <Compile Include="Sample5.xaml.cs">
       <DependentUpon>Sample5.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Sample6.xaml.cs">
+      <DependentUpon>Sample6.xaml</DependentUpon>
+    </Compile>
     <Page Include="FarseerPlayerControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -180,6 +183,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Sample5.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Sample6.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

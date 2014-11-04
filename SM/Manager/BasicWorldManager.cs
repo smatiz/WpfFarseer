@@ -15,11 +15,10 @@ namespace SM
 
         public void AddBodyView(IBodyView body)
         {
-            AddManager(new BodyManager(body, CreateBodyMaterial()));
-        }
-        public void AddBreakableBodyView(IBodyView body)
-        {
-            AddManager(new BreakableBodyManager(body, CreateBreakableBodyMaterial()));
+            if (body.BodyType == SM.BodyType.Breakable)
+                AddManager(new BreakableBodyManager(body, CreateBreakableBodyMaterial()));
+            else
+                AddManager(new BodyManager(body, CreateBodyMaterial()));
         }
 
         public abstract IBodyMaterial CreateBodyMaterial();
