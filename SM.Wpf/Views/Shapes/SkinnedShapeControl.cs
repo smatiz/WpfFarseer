@@ -11,7 +11,7 @@ using System.Windows.Media;
 namespace SM.Wpf
 {
     [ContentPropertyAttribute("Content")]
-    public class SkinnedShapeControl : BasicShapeControl, IPolygonsShape
+    public class SkinnedShapeControl : BasicShapeControl, IPolygonsShape, IDrawable, IBoxed
     {
         public IEnumerable<IEnumerable<float2>> PolygonShapes
         {
@@ -54,6 +54,21 @@ namespace SM.Wpf
             Content.UpdateLayout();
             _brush = Content.GetVisualBrush();
             Content.UpdateLayout();
+        }
+
+        public UIElement UIElement
+        {
+            get
+            {
+                return Content;
+            }
+        }
+        public Rect BBox
+        {
+            get
+            {
+                return PolygonShapes.BBox();
+            }
         }
     }
 }

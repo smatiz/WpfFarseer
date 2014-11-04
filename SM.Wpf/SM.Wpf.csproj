@@ -97,10 +97,12 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IBoxed.cs" />
+    <Compile Include="IDrawable.cs" />
     <Compile Include="IFlaggable.cs" />
     <Compile Include="Views\Shapes\BasicShapeControl.cs" />
     <Compile Include="CanvasId.cs" />
-    <Compile Include="EllipseShapeControl.cs" />
+    <Compile Include="Views\Shapes\EllipseShapeControl.cs" />
     <Compile Include="Views\Shapes\CircleShapeControl.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="ISkinnableCanvas.cs" />

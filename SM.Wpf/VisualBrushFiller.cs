@@ -12,20 +12,15 @@ namespace SM.Wpf
     public class VisualBrushFiller
     {
         //VisualBrush _brush;
-        Dictionary<UIElement, Rect> _map = new Dictionary<UIElement, Rect>();
+        Dictionary<IBoxed, Rect> _map = new Dictionary<IBoxed, Rect>();
         //public VisualBrushFiller(VisualBrush brush)
         //{
         //    _brush = brush;
         //}
 
-        public void Add(Polygon polygon)
+        public void Add(IBoxed boxed)
         {
-            _map.Add(polygon, polygon.BBox());
-        }
-
-        public void Add(System.Windows.Shapes.Ellipse ellipse)
-        {
-            _map.Add(ellipse, ellipse.BBox());
+            _map.Add(boxed, boxed.BBox);
         }
 
         private Rect ComputeBBox()
@@ -39,10 +34,10 @@ namespace SM.Wpf
             return bb;
         }
 
-        public VisualBrush GetBrush(Polygon polygon, UIElement uiElement)
+        public VisualBrush GetBrush(IBoxed boxed, UIElement uiElement)
         {
             var maxbb = ComputeBBox();
-            var polygonBB = _map[polygon];
+            var polygonBB = _map[boxed];
             var vb = new VisualBrush(uiElement);
             vb.Viewbox = new Rect(-(maxbb.X - polygonBB.X) / maxbb.Width, -(maxbb.Y - polygonBB.Y) / maxbb.Height, polygonBB.Width / maxbb.Width, polygonBB.Height / maxbb.Height);
             //vb.AlignmentX = AlignmentX.Left;
@@ -51,6 +46,9 @@ namespace SM.Wpf
             //vb.Viewport = new Rect((maxbb.X - polygonBB.X) / polygonBB.Width, (maxbb.Y - polygonBB.Y) / polygonBB.Height, 1, 1); 
             ////new Rect((bb.X - bbs.X) / bbs.Width, -(bb.Y - bbs.Y) / bbs.Height, 1, 1);
             return vb;
+
+
+           // vb.Clone
         }
     }
 }

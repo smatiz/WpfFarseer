@@ -11,7 +11,7 @@ using System.Windows.Shapes;
 namespace SM.Wpf
 {
     [ContentPropertyAttribute("Polygon")]
-    public class TriangulablePolygonShapeControl : BasicShapeControl, IPolygonsShape
+    public class TriangulablePolygonShapeControl : BasicShapeControl, IPolygonsShape, IDrawable
     {
         public TriangulablePolygonShapeControl()
         {
@@ -31,6 +31,14 @@ namespace SM.Wpf
             {
 
                 return Helper.FarseerTools.Triangulate(Polygon.Points.Select(p => new float2((float)p.X, (float)p.Y)));
+            }
+        }
+
+        public UIElement UIElement
+        {
+            get 
+            {
+                return Polygon; 
             }
         }
     }

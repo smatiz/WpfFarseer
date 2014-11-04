@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Shapes;
 
 namespace SM.Wpf
 {
-    public class CircleShapeControl : BasicShapeControl, ICircleShape
+    public class CircleShapeControl : BasicShapeControl, ICircleShape, IDrawable, IBoxed
     {
         public float X
         {
@@ -34,15 +35,26 @@ namespace SM.Wpf
         public static readonly DependencyProperty RadiusProperty =
             DependencyProperty.Register("Radius", typeof(float), typeof(CircleShapeControl), new PropertyMetadata(0f));
 
+        private Ellipse getEllipse()
+        {
+            var ellipse = new System.Windows.Shapes.Ellipse() { Width = Radius * 2, Height = Radius * 2 };
+            Canvas.SetLeft(ellipse, X - Radius);
+            Canvas.SetTop(ellipse, Y - Radius);
+            return ellipse;
+        }
 
-        public System.Windows.Shapes.Ellipse Ellipse
+        public UIElement UIElement
         {
             get
             {
-                var ellipse = new System.Windows.Shapes.Ellipse() { Width = Radius * 2, Height = Radius * 2 };
-                Canvas.SetLeft(ellipse, X - Radius);
-                Canvas.SetTop(ellipse, Y - Radius);
-                return ellipse;
+                return getEllipse();
+            }
+        }
+        public Rect BBox
+        {
+            get
+            {
+                return getEllipse().BBox();
             }
         }
     }

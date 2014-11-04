@@ -11,7 +11,7 @@ using System.Windows.Shapes;
 namespace SM.Wpf
 {
     [ContentPropertyAttribute("Polygon")]
-    public class ConvexPolygonShapeControl : BasicShapeControl, IPolygonShape
+    public class ConvexPolygonShapeControl : BasicShapeControl, IPolygonShape, IDrawable, IBoxed
     {
         public ConvexPolygonShapeControl()
         {
@@ -37,6 +37,22 @@ namespace SM.Wpf
             get
             {
                 return Polygon.Points.Select(p => new float2((float)p.X, (float)p.Y));
+            }
+        }
+
+        public UIElement UIElement
+        {
+            get
+            {
+                return Polygon;
+            }
+        }
+
+        public Rect BBox
+        {
+            get
+            {
+                return Polygon.BBox();
             }
         }
     }

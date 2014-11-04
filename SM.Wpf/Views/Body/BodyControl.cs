@@ -183,39 +183,49 @@ namespace SM.Wpf
             newParent.Children.Add(child);
         }
 
-
         private void OnLoaded()
         {
             foreach (var shape in Shapes)
             {
-                var poly = shape as ConvexPolygonShapeControl;
-                if (poly != null)
+                var drawable = shape as IDrawable;
+                if (drawable != null)
                 {
-                    _canvas.Children.Add(poly.Polygon);
-                }
-
-                var tpoly = shape as TriangulablePolygonShapeControl;
-                if (tpoly != null)
-                {
-                    _canvas.Children.Add(tpoly.Polygon);
-                }
-                var ellipse = shape as EllipseShapeControl;
-                if (ellipse != null)
-                {
-                    _canvas.Children.Add(ellipse.Ellipse);
-                }
-                var circle = shape as CircleShapeControl;
-                if (circle != null)
-                {
-                    _canvas.Children.Add(circle.Ellipse);
-                }
-                var skinned = shape as SkinnedShapeControl;
-                if (skinned != null)
-                {
-                    _canvas.Children.Add(skinned.Content);
+                    _canvas.Children.Add(drawable.UIElement);
                 }
             }
         }
+        //private void _x_OnLoaded()
+        //{
+        //    foreach (var shape in Shapes)
+        //    {
+        //        var poly = shape as ConvexPolygonShapeControl;
+        //        if (poly != null)
+        //        {
+        //            _canvas.Children.Add(poly.Polygon);
+        //        }
+
+        //        var tpoly = shape as TriangulablePolygonShapeControl;
+        //        if (tpoly != null)
+        //        {
+        //            _canvas.Children.Add(tpoly.Polygon);
+        //        }
+        //        var ellipse = shape as EllipseShapeControl;
+        //        if (ellipse != null)
+        //        {
+        //            _canvas.Children.Add(ellipse.Ellipse);
+        //        }
+        //        var circle = shape as CircleShapeControl;
+        //        if (circle != null)
+        //        {
+        //            _canvas.Children.Add(circle.Ellipse);
+        //        }
+        //        var skinned = shape as SkinnedShapeControl;
+        //        if (skinned != null)
+        //        {
+        //            _canvas.Children.Add(skinned.Content);
+        //        }
+        //    }
+        //}
 
         public IEnumerable<IBodyView> Break()
         {
@@ -226,6 +236,17 @@ namespace SM.Wpf
             Canvas canvas = new Canvas();
 
             List<Ellipse> ellipses = new List<Ellipse>();
+
+            foreach (var shape in Shapes)
+            {
+                var drawable = shape as IBoxed;
+                if (drawable != null)
+                {
+                    filler.Add(drawable);
+                }
+            }
+
+
             foreach (var shape in Shapes)
             {
                 if (shape is ConvexPolygonShapeControl)
@@ -234,16 +255,16 @@ namespace SM.Wpf
                     var pclone = new Polygon();
                     pclone.Points = p.Points.Clone();
                     changeParent(canvas, pclone);
-                    filler.Add(p);
+                   // filler.Add(p);
                     polygons.Add((ConvexPolygonShapeControl)shape);
                 }
                 else if (shape is CircleShapeControl)
                 {
-                    filler.Add(((CircleShapeControl)shape).Ellipse);
+                    //filler.Add(((CircleShapeControl)shape).Ellipse);
                 }
                 else if (shape is EllipseShapeControl)
                 {
-                    filler.Add(((EllipseShapeControl)shape).Ellipse);
+                    //filler.Add(((EllipseShapeControl)shape).Ellipse);
                 }
                 else if (shape is SkinnedShapeControl)
                 {
@@ -255,7 +276,7 @@ namespace SM.Wpf
 
 
                         var p = subshape.ToWpfPolygon();
-                        filler.Add(p);
+                       // filler.Add(p);
                         skinned.Add(new SkinnedShapeItem { Polygon = p, ShapeControl = (SkinnedShapeControl)shape });
                     }
                 }
@@ -266,7 +287,7 @@ namespace SM.Wpf
                     foreach (var subshape in ((TriangulablePolygonShapeControl)shape).PolygonShapes)
                     {
                         var p = subshape.ToWpfPolygon();
-                        filler.Add(p);
+                        ///filler.Add(p);
                         polygons.Add(new ConvexPolygonShapeControl(p, shape.Density));
                     }
                 }
@@ -282,7 +303,7 @@ namespace SM.Wpf
             List<BodyControl> bodies = new List<BodyControl>();
             foreach (var poly in polygons)
             {
-                var vb = filler.GetBrush(poly.Polygon, canvas);
+                var vb = filler.GetBrush(poly, canvas);
                 poly.Polygon.Fill = vb;
 
                 poly.Polygon.Stroke = new SolidColorBrush(Colors.Red);
@@ -300,7 +321,7 @@ namespace SM.Wpf
 
             foreach (var poly in skinned)
             {
-                var vb = filler.GetBrush(poly.Polygon, canvas);
+                var vb = filler.GetBrush(poly.ShapeControl, canvas);
                 //var vb = filler.GetBrush(poly.Polygon, poly.ShapeControl.Content);
                 poly.Polygon.Fill = vb;
                 poly.Polygon.Stroke = new SolidColorBrush(Colors.Black);

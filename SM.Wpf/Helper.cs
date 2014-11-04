@@ -36,15 +36,28 @@ namespace SM.Wpf
             }
             return r;
         }
-         public static Rect BBox(this Ellipse ellipse)
+        public static Rect BBox(this Ellipse ellipse)
         {
             return ellipse.RenderedGeometry.Bounds;
         }
-         
         public static Rect BBox(this Polygon ps)
         {
             return ps.Points.BBox();
         }
+        public static Rect BBox(this IEnumerable<IEnumerable<float2>> polys)
+        {
+            Rect r = Rect.Empty;
+            foreach (var poly in polys)
+            {
+                foreach (var p in poly)
+                {
+                    r.Union(p.ToWpf());
+                }
+            }
+            return r;
+        }
+
+
         public static void FillPolygons(this VisualBrush vb, Polygon[] ps)
         {
             Rect[] bbs = new Rect[ps.Length];
