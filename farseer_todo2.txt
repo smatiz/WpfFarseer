@@ -3,6 +3,8 @@
 ********* remove __
 ********* creare un sistema di debug wpf
 ********* baco con il visualbrush
+
+
 aggiornare codeGenerator
 creare un sistema per testare il CodeGenerator in modo semplice
 

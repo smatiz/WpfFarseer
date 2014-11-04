@@ -34,5 +34,16 @@ namespace SM.Farseer
             return __joint;
         }
 
+        public float Ratio
+        {
+            get
+            {
+                return __joint.Ratio;
+            }
+            set
+            {
+                __joint.Ratio = value;
+            }
+        }
     }
 }

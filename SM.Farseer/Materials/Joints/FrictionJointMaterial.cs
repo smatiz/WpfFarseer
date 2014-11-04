@@ -33,5 +33,28 @@ namespace SM.Farseer
             return __joint;
         }
 
+        public float MaxForce
+        {
+            get
+            {
+                return __joint.MaxForce;
+            }
+            set
+            {
+                __joint.MaxForce = value;
+            }
+        }
+
+        public float MaxTorque
+        {
+            get
+            {
+                return __joint.MaxTorque;
+            }
+            set
+            {
+                __joint.MaxTorque = value;
+            }
+        }
     }
 }
