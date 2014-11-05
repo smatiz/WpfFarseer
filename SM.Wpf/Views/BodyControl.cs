@@ -224,6 +224,8 @@ namespace SM.Wpf
             foreach (var boxed in boxeds)
             {
                 _rotation.Angle = 0;
+                _traslation.X = 0;
+                _traslation.Y = 0;
                 var vbClone = _visualBrush.Clone();
 
                 foreach (var p in boxed.Polygons)

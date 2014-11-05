@@ -36,3 +36,4 @@ pensare un sistema per gestione tramite layer
 T4 e refactoring
 semplice libreria di rototranslation 2d
 LayoutTransform vs REnderTransform
+provare a rompere il maialino
