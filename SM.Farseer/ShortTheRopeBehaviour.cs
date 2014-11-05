@@ -15,7 +15,7 @@ namespace SM.Farseer
 
         public IEnumerator<BasicCoroutine> Start(BasicManager farseerWorld)
         {
-            jointC = farseerWorld.Find<RopeJoint>("jointC");
+            jointC = farseerWorld.FindObject<RopeJoint>("jointC");
             return null;
         }
 

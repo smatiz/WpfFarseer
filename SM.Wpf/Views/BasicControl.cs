@@ -19,6 +19,7 @@ namespace SM.Wpf
         {
             _parentChildrens = parentChildrens;
             _parentChildrens.Add(_canvas);
+            //_canvas.Background = new SolidColorBrush(Color.FromArgb(5,0,0,255));
         }
         static int i = 0;
         public static string AutoGenerateName()

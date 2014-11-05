@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SM.Farseer
 {
-    class AngleJointMaterial : BasicUnanchoredJointMaterial
+    class AngleJointMaterial : BasicJointMaterial
     {
         AngleJoint __joint;
 
@@ -18,10 +18,15 @@ namespace SM.Farseer
         {
         }
 
-       protected override Joint Build(Body targetA, Body targetB)
+        public void Build(string id, string targetNameA, string targetNameB)
         {
-            __joint = JointFactory.CreateAngleJoint(_world, targetA, targetB);
-            return __joint;
+            _id = id;
+            __joint = Build(_farseerWorldManager.FindObject<Body>(targetNameA), _farseerWorldManager.FindObject<Body>(targetNameB));
+        }
+
+        private AngleJoint Build(Body targetA, Body targetB)
+        {
+            return JointFactory.CreateAngleJoint(_world, targetA, targetB);
         }
 
         public float TargetAngle
@@ -35,7 +40,6 @@ namespace SM.Farseer
                 __joint.TargetAngle = value;
             }
         }
-
         public float BiasFactor
         {
             get
@@ -47,7 +51,6 @@ namespace SM.Farseer
                 __joint.BiasFactor = value;
             }
         }
-
         public float MaxImpulse
         {
             get
@@ -59,7 +62,6 @@ namespace SM.Farseer
                 __joint.MaxImpulse = value;
             }
         }
-
         public float Softness
         {
             get

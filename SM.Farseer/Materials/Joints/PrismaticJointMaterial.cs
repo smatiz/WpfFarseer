@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SM.Farseer
 {
-    class PrismaticJointMaterial : BasicAxedJointMaterial
+    class PrismaticJointMaterial : BasicJointMaterial
     {
         PrismaticJoint __joint;
 
@@ -19,10 +19,15 @@ namespace SM.Farseer
         {
         }
 
-        protected override Joint Build(Body targetA, Body targetB, Vector2 anchor, Vector2 axis)
+        public void Build(string id, string targetNameA, string targetNameB, float2 anchor, float2 axis)
         {
-            __joint = JointFactory.CreatePrismaticJoint(_world, targetA, targetB, anchor, axis);
-            return __joint;
+            _id = id;
+            __joint = Build(_farseerWorldManager.FindObject<Body>(targetNameA), _farseerWorldManager.FindObject<Body>(targetNameB), anchor.ToFarseer(), axis.ToFarseer());
+        }
+
+        protected PrismaticJoint Build(Body targetA, Body targetB, Vector2 anchor, Vector2 axis)
+        {
+            return JointFactory.CreatePrismaticJoint(_world, targetA, targetB, anchor, axis);
         }
 
 
@@ -33,7 +38,6 @@ namespace SM.Farseer
                 return __joint.JointTranslation;
             }
         }
-
         public float JointSpeed
         {
             get
@@ -41,7 +45,6 @@ namespace SM.Farseer
                 return __joint.JointSpeed;
             }
         }
-
         public bool LimitEnabled
         {
             get
@@ -53,7 +56,6 @@ namespace SM.Farseer
                 __joint.LimitEnabled = value;
             }
         }
-
         public float LowerLimit
         {
             get
@@ -65,7 +67,6 @@ namespace SM.Farseer
                 __joint.LowerLimit = value;
             }
         }
-
         public float UpperLimit
         {
             get
@@ -77,8 +78,6 @@ namespace SM.Farseer
                 __joint.UpperLimit = value;
             }
         }
-
-
         public bool MotorEnabled
         {
             get
@@ -90,7 +89,6 @@ namespace SM.Farseer
                 __joint.MotorEnabled = value;
             }
         }
-
         public float MotorSpeed
         {
             get
@@ -102,7 +100,6 @@ namespace SM.Farseer
                 __joint.MotorSpeed = value;
             }
         }
-
         public float MaxMotorForce
         {
             get
@@ -114,7 +111,6 @@ namespace SM.Farseer
                 __joint.MaxMotorForce = value;
             }
         }
-
         public float MotorImpulse
         {
             get

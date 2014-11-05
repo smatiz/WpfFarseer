@@ -11,7 +11,7 @@ using System.Windows.Shapes;
 namespace SM.Wpf
 {
     [ContentPropertyAttribute("Polygon")]
-    public class ConvexPolygonShapeControl : BasicShapeControl, IPolygonShape, IDrawable, IBoxed
+    public class ConvexPolygonShapeControl : BasicShapeControl, IPolygonShape, IDrawable, IBreakableShape
     {
         public ConvexPolygonShapeControl()
         {
@@ -53,6 +53,16 @@ namespace SM.Wpf
             get
             {
                 return Polygon.BBox();
+            }
+        }
+
+
+
+        public IEnumerable<Polygon> Polygons
+        {
+            get 
+            {
+                yield return Polygon;
             }
         }
     }

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SM.Farseer
 {
-    class WheelJointMaterial : BasicAxedJointMaterial
+    class WheelJointMaterial  : BasicJointMaterial
     {
         WheelJoint __joint;
 
@@ -19,33 +19,35 @@ namespace SM.Farseer
         {
         }
 
-        protected override Joint Build(Body targetA, Body targetB, Vector2 anchor, Vector2 axis)
+        public void Build(string id, string targetNameA, string targetNameB, float2 anchor, float2 axis)
         {
-            __joint = JointFactory.CreateWheelJoint(_world, targetA, targetB, anchor, axis);
-            return __joint;
+            _id = id;
+            __joint = Build(_farseerWorldManager.FindObject<Body>(targetNameA), _farseerWorldManager.FindObject<Body>(targetNameB), anchor.ToFarseer(), axis.ToFarseer());
+        }
+        protected WheelJoint Build(Body targetA, Body targetB, Vector2 anchor, Vector2 axis)
+        {
+            return  JointFactory.CreateWheelJoint(_world, targetA, targetB, anchor, axis);
         }
 
 
-        public Vector2 Axis
+        public float2 Axis
         {
             get
             {
-                return __joint.Axis;
+                return __joint.Axis.ToSM();
             }
             set
             {
-                __joint.Axis = value;
+                __joint.Axis = value.ToFarseer();
             }
         }
-
-        public Vector2 LocalXAxis
+        public float2 LocalXAxis
         {
             get
             {
-                return __joint.LocalXAxis;
+                return __joint.LocalXAxis.ToSM();
             }
         }
-
         public float MotorSpeed
         {
             get
@@ -57,7 +59,6 @@ namespace SM.Farseer
                 __joint.MotorSpeed = value;
             }
         }
-
         public float MaxMotorTorque
         {
             get
@@ -69,7 +70,6 @@ namespace SM.Farseer
                 __joint.MaxMotorTorque = value;
             }
         }
-
         public float Frequency
         {
             get
@@ -81,7 +81,6 @@ namespace SM.Farseer
                 __joint.Frequency = value;
             }
         }
-
         public float DampingRatio
         {
             get
@@ -93,7 +92,6 @@ namespace SM.Farseer
                 __joint.DampingRatio = value;
             }
         }
-
         public float JointTranslation
         {
             get
@@ -101,7 +99,6 @@ namespace SM.Farseer
                 return __joint.JointTranslation;
             }
         }
-
         public float JointSpeed
         {
             get
@@ -109,7 +106,6 @@ namespace SM.Farseer
                 return __joint.JointSpeed;
             }
         }
-
         public bool MotorEnabled
         {
             get

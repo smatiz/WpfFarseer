@@ -34,11 +34,16 @@ namespace SM
             // WARNING
             return null;
         }
-        public T Find<T>(string name) where T : class
+        public object FindObject(string name) 
         {
             var x = Find(name);
             if (x == null) return null;
-            var y = x.Object;
+            return x.Object;
+        }
+        public T FindObject<T>(string name) where T : class
+        {
+            var y = FindObject(name);
+            if (y == null ) return null;
             if (typeof(T) != y.GetType()) return null;
             return (T)y;
         }

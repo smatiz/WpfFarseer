@@ -151,8 +151,21 @@ namespace WpfFarseer
         {
             string id = getId(Mouse.DirectlyOver);
             if(id == null) return;
-           var body = _worldManager.Find<Body>(id);
-           if (body == null) return;
+            var o = _worldManager.FindObject(id);
+
+            Body body;
+           if (o is Body)
+           {
+               body = (Body)o;
+           }
+           else if (o is BreakableBody)
+           {
+               body = ((BreakableBody)o).MainBody;
+           }
+           else
+           {
+               return;
+           }
            _worldManager.StartMouseJoint(body, new xna.Vector2((float)Mouse.GetPosition(this).X, (float)Mouse.GetPosition(this).Y));
 
         } 

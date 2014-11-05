@@ -9,6 +9,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Microsoft.Xna.Framework;
 using FarseerPhysics.Common;
+using System.Drawing;
 
 namespace SM.WpfFarseer
 {
@@ -24,6 +25,13 @@ namespace SM.WpfFarseer
             return from x in vsp select x.ToSM();
             //return new List<IEnumerable<float2>>() { vs.ToSM() };
         }
+#if DEBUG
+        public void Save(VisualBrush brush, string path)
+        {
+
+            brush.ConvertToRenderTargetBitmap(1000, 1000).ConvertToBitmap().Save(path, System.Drawing.Imaging.ImageFormat.Png);
+        }
+#endif
 
         public IEnumerable<IEnumerable<float2>> Triangulate(IEnumerable<float2> poly)
         {

@@ -17,7 +17,7 @@ finire di sistemare i joint
 
 
 
-TriangulablePolygonShapeControl e EllipseShapeControl
+********* TriangulablePolygonShapeControl e EllipseShapeControl
 
 
 
@@ -29,3 +29,10 @@ per esempio con
                                 <Button Background="Blue" Canvas.Left="40" Canvas.Top="10" Width="10" Height="40">ciao</Button>
                             </Canvas>
 wpf si disallinea da farseer
+stesso problema con l'angolo
+
+pensare un sistema per gestione tramite layer
+
+T4 e refactoring
+semplice libreria di rototranslation 2d
+LayoutTransform vs REnderTransform

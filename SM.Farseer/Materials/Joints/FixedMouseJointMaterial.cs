@@ -12,7 +12,6 @@ namespace SM.Farseer
 {
     class FixedMouseJointMaterial : BasicJointMaterial
     {
-
         FixedMouseJoint __joint;
 
         public FixedMouseJointMaterial(World world, FarseerWorldManager farseerWorldManager)
@@ -24,7 +23,7 @@ namespace SM.Farseer
         public void Build(string id, string targetNameA, float2 worldAnchor)
         {
             _id = id;
-            _joint = Build(_farseerWorldManager.Find<Body>(targetNameA), worldAnchor.ToFarseer());
+            _joint = Build(_farseerWorldManager.FindObject<Body>(targetNameA), worldAnchor.ToFarseer());
         }
 
         Joint Build(Body targetA, Vector2 worldAnchor)
@@ -44,7 +43,6 @@ namespace SM.Farseer
                 __joint.MaxForce = value;
             }
         }
-
         public float Frequency
         {
             get
@@ -56,7 +54,6 @@ namespace SM.Farseer
                 __joint.Frequency = value;
             }
         }
-
         public float DampingRatio
         {
             get

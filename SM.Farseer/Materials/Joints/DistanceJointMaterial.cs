@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SM.Farseer
 {
-    public class DistanceJointMaterial : BasicTwoPointJointMaterial, IDistanceJointMaterial
+    public class DistanceJointMaterial : BasicJointMaterial, IDistanceJointMaterial
     {
          DistanceJoint __joint;
 
@@ -19,10 +19,16 @@ namespace SM.Farseer
         {
         }
 
-        protected override Joint Build(Body targetA, Vector2 anchorA, Body targetB, Vector2 anchorB)
+         public void Build(string id, string targetNameA, float2 anchorA, string targetNameB, float2 anchorB)
+         {
+             _id = id;
+             __joint = Build(
+                 _farseerWorldManager.FindObject<Body>(targetNameA), anchorA.ToFarseer(),
+                 _farseerWorldManager.FindObject<Body>(targetNameB), anchorB.ToFarseer());
+         }
+         DistanceJoint Build(Body targetA, Vector2 anchorA, Body targetB, Vector2 anchorB)
         {
-            __joint = JointFactory.CreateDistanceJoint(_world, targetA, targetB, anchorA, anchorB);
-            return __joint;
+            return JointFactory.CreateDistanceJoint(_world, targetA, targetB, anchorA, anchorB);
         }
 
         public float DampingRatio
@@ -36,7 +42,6 @@ namespace SM.Farseer
                 __joint.DampingRatio = value;
             }
         }
-
         public float Frequency
         {
             get
@@ -48,7 +53,6 @@ namespace SM.Farseer
                 __joint.Frequency = value;
             }
         }
-
         public float Length
         {
             get
@@ -60,7 +64,5 @@ namespace SM.Farseer
                 __joint.Length = value;
             }
         }
-
-
     }
 }

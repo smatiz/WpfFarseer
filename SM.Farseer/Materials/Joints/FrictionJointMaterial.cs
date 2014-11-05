@@ -24,7 +24,7 @@ namespace SM.Farseer
         public void Build(string id, string targetNameA, string targetNameB, float2 anchorA)
         {
             _id = id;
-            _joint = Build(_farseerWorldManager.Find<Body>(targetNameA), _farseerWorldManager.Find<Body>(targetNameB), anchorA.ToFarseer());
+            _joint = Build(_farseerWorldManager.FindObject<Body>(targetNameA), _farseerWorldManager.FindObject<Body>(targetNameB), anchorA.ToFarseer());
         }
 
         Joint Build(Body targetA, Body targetB, Vector2 anchorA)
@@ -44,7 +44,6 @@ namespace SM.Farseer
                 __joint.MaxForce = value;
             }
         }
-
         public float MaxTorque
         {
             get

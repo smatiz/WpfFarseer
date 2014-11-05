@@ -1,0 +1,68 @@
+AngleJoint
+float TargetAngle
+float BiasFactor
+float MaxImpulse
+float Softness
+
+FixedMouseJoint
+float MaxForce
+float Frequency
+float DampingRatio
+
+DistanceJoint
+float DampingRatio
+float Frequency
+float Length
+
+FrictionJoint
+float MaxForce
+float MaxTorque
+
+GearJoint
+float Ratio
+
+MotorJoint
+float MaxForce
+float MaxTorque
+float2 LinearOffset
+float AngularOffset
+
+PrismaticJoint
+float JointTranslation
+float JointSpeed
+bool LimitEnabled
+float LowerLimit
+float UpperLimit
+bool MotorEnabled
+float MotorSpeed
+float MaxMotorForce
+float MotorImpulse
+
+PulleyJoint
+float LengthA
+float LengthB
+float CurrentLengthA
+float CurrentLengthB
+float Ratio
+
+RevoluteJoint
+float JointAngle
+float JointSpeed
+bool LimitEnabled
+float LowerLimit
+float UpperLimit
+bool MotorEnabled
+float MotorSpeed
+float MaxMotorTorque
+float MotorImpulse
+
+
+
+
+
+
+
+
+
+
+

@@ -4,11 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Shapes;
 
 namespace SM.Wpf
 {
-    public interface IBoxed
+    public interface IBreakableShape
     {
         Rect BBox { get; }
+        IEnumerable<Polygon> Polygons { get; }
+        float Density { get; }
     }
 }

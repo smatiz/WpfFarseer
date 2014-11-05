@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SM.Farseer
 {
-    public class RevoluteJointMaterial : BasicTwoPointJointMaterial, IRevoluteJointMaterial
+    public class RevoluteJointMaterial : BasicJointMaterial, IRevoluteJointMaterial
     {
         RevoluteJoint __joint;
 
@@ -19,10 +19,16 @@ namespace SM.Farseer
         {
         }
 
-        protected override Joint Build(Body targetA, Vector2 anchorA, Body targetB, Vector2 anchorB)
+         public void Build(string id, string targetNameA, float2 anchorA, string targetNameB, float2 anchorB)
+         {
+             _id = id;
+             __joint = Build(
+                 _farseerWorldManager.FindObject<Body>(targetNameA), anchorA.ToFarseer(),
+                 _farseerWorldManager.FindObject<Body>(targetNameB), anchorB.ToFarseer());
+         }
+        RevoluteJoint Build(Body targetA, Vector2 anchorA, Body targetB, Vector2 anchorB)
         {
-            __joint = JointFactory.CreateRevoluteJoint(_world, targetA, targetB, anchorA, anchorB);
-            return __joint;
+            return JointFactory.CreateRevoluteJoint(_world, targetA, targetB, anchorA, anchorB);
         }
 
         public float JointAngle
@@ -39,7 +45,6 @@ namespace SM.Farseer
                 return __joint.JointSpeed;
             }
         }
-
         public bool LimitEnabled
         {
             get
@@ -51,7 +56,6 @@ namespace SM.Farseer
                 __joint.LimitEnabled = value;
             }
         }
-
         public float LowerLimit
         {
             get
@@ -63,7 +67,6 @@ namespace SM.Farseer
                 __joint.LowerLimit = value;
             }
         }
-
         public float UpperLimit
         {
             get
@@ -75,7 +78,6 @@ namespace SM.Farseer
                 __joint.UpperLimit = value;
             }
         }
-
         public bool MotorEnabled
         {
             get
@@ -87,7 +89,6 @@ namespace SM.Farseer
                 __joint.MotorEnabled = value;
             }
         }
-
         public float MotorSpeed
         {
             get
@@ -99,7 +100,6 @@ namespace SM.Farseer
                 __joint.MotorSpeed = value;
             }
         }
-
         public float MaxMotorTorque
         {
             get
@@ -111,7 +111,6 @@ namespace SM.Farseer
                 __joint.MaxMotorTorque = value;
             }
         }
-
         public float MotorImpulse
         {
             get

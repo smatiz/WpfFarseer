@@ -24,7 +24,7 @@ namespace SM.Farseer
         public void Build(string id, string targetNameA, string targetNameB, float2 anchorA, float2 anchorB, float2 worldAnchorA, float2 worldAnchorB, float ratio)
         {
             _id = id;
-            _joint = Build(_farseerWorldManager.Find<Body>(targetNameA), _farseerWorldManager.Find<Body>(targetNameB), anchorA.ToFarseer(), anchorB.ToFarseer(), worldAnchorA.ToFarseer(), worldAnchorB.ToFarseer(), ratio);
+            _joint = Build(_farseerWorldManager.FindObject<Body>(targetNameA), _farseerWorldManager.FindObject<Body>(targetNameB), anchorA.ToFarseer(), anchorB.ToFarseer(), worldAnchorA.ToFarseer(), worldAnchorB.ToFarseer(), ratio);
         }
 
         Joint Build(Body targetA, Body targetB, Vector2 anchorA, Vector2 anchorB, Vector2 worldAnchorA, Vector2 worldAnchorB, float ratio)
@@ -45,7 +45,6 @@ namespace SM.Farseer
                 __joint.LengthA = value;
             }
         }
-
         public float LengthB
         {
             get
@@ -57,7 +56,6 @@ namespace SM.Farseer
                 __joint.LengthB = value;
             }
         }
-
         public float CurrentLengthA
         {
             get
@@ -65,7 +63,6 @@ namespace SM.Farseer
                 return __joint.CurrentLengthA;
             }
         }
-
         public float CurrentLengthB
         {
             get
@@ -73,7 +70,6 @@ namespace SM.Farseer
                 return __joint.CurrentLengthB;
             }
         }
-
         public float Ratio
         {
             get

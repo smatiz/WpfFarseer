@@ -99,8 +99,6 @@
     <Compile Include="Materials\BodyMaterial.cs" />
     <Compile Include="Helpers\FarseerHelper.cs" />
     <Compile Include="FarseerWorldManager.cs" />
-    <Compile Include="Materials\Joints\BasicUnanchoredJointMaterial.cs" />
-    <Compile Include="Materials\Joints\BasicAxedJointMaterial.cs" />
     <Compile Include="Materials\Joints\WheelJointMaterial.cs" />
     <Compile Include="Materials\Joints\PulleyJointMaterial.cs" />
     <Compile Include="Materials\Joints\PrismaticJointMaterial.cs" />
@@ -113,7 +111,6 @@
     <Compile Include="Materials\Joints\WeldJointMaterial.cs" />
     <Compile Include="Materials\Joints\RevoluteJointMaterial.cs" />
     <Compile Include="Materials\Joints\DistanceJointMaterial.cs" />
-    <Compile Include="Materials\Joints\BasicTwoPointJointMaterial.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Materials\Joints\RopeJointMaterial.cs" />
     <Compile Include="ShortTheRopeBehaviour.cs" />

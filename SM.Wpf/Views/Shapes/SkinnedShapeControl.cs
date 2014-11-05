@@ -11,7 +11,7 @@ using System.Windows.Media;
 namespace SM.Wpf
 {
     [ContentPropertyAttribute("Content")]
-    public class SkinnedShapeControl : BasicShapeControl, IPolygonsShape, IDrawable, IBoxed
+    public class SkinnedShapeControl : BasicShapeControl, IPolygonsShape, IDrawable, IBreakableShape
     {
         public IEnumerable<IEnumerable<float2>> PolygonShapes
         {
@@ -68,6 +68,15 @@ namespace SM.Wpf
             get
             {
                 return PolygonShapes.BBox();
+            }
+        }
+
+
+        public IEnumerable<System.Windows.Shapes.Polygon> Polygons
+        {
+            get 
+            {
+                return PolygonShapes.Select(x => x.ToWpfPolygon());
             }
         }
     }

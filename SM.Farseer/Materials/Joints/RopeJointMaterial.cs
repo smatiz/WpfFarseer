@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SM.Farseer
 {
-    public class RopeJointMaterial : BasicTwoPointJointMaterial, IRopeJointMaterial
+    public class RopeJointMaterial : BasicJointMaterial, IRopeJointMaterial
     {
         RopeJoint __joint;
 
@@ -19,10 +19,19 @@ namespace SM.Farseer
         {
         }
 
-        protected override Joint Build(Body targetA, Vector2 anchorA, Body targetB, Vector2 anchorB)
+
+        public void Build(string id, string targetNameA, float2 anchorA, string targetNameB, float2 anchorB)
         {
-            __joint = JointFactory.CreateRopeJoint(_world, targetA, targetB, anchorA, anchorB);
-            return __joint;
+            _id = id;
+            __joint = Build(
+                _farseerWorldManager.FindObject<Body>(targetNameA), anchorA.ToFarseer(),
+                _farseerWorldManager.FindObject<Body>(targetNameB), anchorB.ToFarseer());
+            _joint = __joint;
+        }
+
+        RopeJoint Build(Body targetA, Vector2 anchorA, Body targetB, Vector2 anchorB)
+        {
+            return JointFactory.CreateRopeJoint(_world, targetA, targetB, anchorA, anchorB);
         }
 
         public float MaxLength

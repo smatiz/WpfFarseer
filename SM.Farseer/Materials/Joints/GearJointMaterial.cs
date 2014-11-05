@@ -23,8 +23,8 @@ namespace SM.Farseer
         public void Build(string id, string targetNameA, string targetNameB, string jointNameA, string jointNameB, float ratio)
         {
             _id = id;
-            _joint = Build(_farseerWorldManager.Find<Body>(targetNameA), _farseerWorldManager.Find<Body>(targetNameB),
-                _farseerWorldManager.Find<Joint>(jointNameA), _farseerWorldManager.Find<Joint>(jointNameB),
+            _joint = Build(_farseerWorldManager.FindObject<Body>(targetNameA), _farseerWorldManager.FindObject<Body>(targetNameB),
+                _farseerWorldManager.FindObject<Joint>(jointNameA), _farseerWorldManager.FindObject<Joint>(jointNameB),
                 ratio);
         }
 

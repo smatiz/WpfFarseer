@@ -27,6 +27,10 @@ namespace SM.Farseer
 
         public void StartMouseJoint(Body body, Vector2 position)
         {
+            if (_fixedMouseJoint != null)
+            {
+                _world.RemoveJoint(_fixedMouseJoint);
+            }
             _fixedMouseJoint = JointFactory.CreateFixedMouseJoint(_world, body, position);
         }
 

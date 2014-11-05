@@ -23,7 +23,6 @@ namespace SM.Farseer
             _farseerWorldManager = farseerWorldManager;
         }
 
-
         public float2 AnchorA
         {
             get
@@ -54,7 +53,6 @@ namespace SM.Farseer
                 return _id;
             }
         }
-
 
         public float Breakpoint
         {

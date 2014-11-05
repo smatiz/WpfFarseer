@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SM.Farseer
 {
-    public class WeldJointMaterial : BasicTwoPointJointMaterial, IDistanceJointMaterial
+    public class WeldJointMaterial : BasicJointMaterial, IDistanceJointMaterial
     {
         WeldJoint __joint;
 
@@ -19,10 +19,16 @@ namespace SM.Farseer
         {
         }
 
-        protected override Joint Build(Body targetA, Vector2 anchorA, Body targetB, Vector2 anchorB)
+         public void Build(string id, string targetNameA, float2 anchorA, string targetNameB, float2 anchorB)
+         {
+             _id = id;
+             __joint = Build(
+                 _farseerWorldManager.FindObject<Body>(targetNameA), anchorA.ToFarseer(),
+                 _farseerWorldManager.FindObject<Body>(targetNameB), anchorB.ToFarseer());
+         }
+         WeldJoint Build(Body targetA, Vector2 anchorA, Body targetB, Vector2 anchorB)
         {
-            __joint = JointFactory.CreateWeldJoint(_world, targetA, targetB, anchorA, anchorB);
-            return __joint;
+            return JointFactory.CreateWeldJoint(_world, targetA, targetB, anchorA, anchorB);
         }
 
         public float DampingRatio
@@ -36,7 +42,6 @@ namespace SM.Farseer
                 __joint.DampingRatio = value;
             }
         }
-
         public float ReferenceAngle
         {
             get
@@ -48,7 +53,6 @@ namespace SM.Farseer
                 __joint.ReferenceAngle = value;
             }
         }
-
         public float FrequencyHz
         {
             get

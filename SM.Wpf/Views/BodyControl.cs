@@ -19,8 +19,6 @@ using System.Windows.Shapes;
 
 namespace SM.Wpf
 {
-   
-
     [ContentPropertyAttribute("Shapes")]
     public class BodyControl : BasicControl, IFlaggable, IBodyView
     {
@@ -31,6 +29,7 @@ namespace SM.Wpf
         }
 
 
+        private VisualBrush _visualBrush;
         private RotateTransform _rotation;
         private TranslateTransform _traslation;
 
@@ -51,7 +50,6 @@ namespace SM.Wpf
                 gt.Children.Add(_rotation);
                 gt.Children.Add(_traslation);
                 _canvas.RenderTransform = gt;
-
 
                 OnLoaded();
             };
@@ -172,17 +170,6 @@ namespace SM.Wpf
             get { return from x in Shapes select x; }
         }
 
-
-        private void changeParent(Canvas newParent, FrameworkElement child)
-        {
-            var oldParent = child.Parent as Canvas;
-            if (oldParent != null)
-            {
-                oldParent.Children.Remove(child);
-            }
-            newParent.Children.Add(child);
-        }
-
         private void OnLoaded()
         {
             foreach (var shape in Shapes)
@@ -193,148 +180,70 @@ namespace SM.Wpf
                     _canvas.Children.Add(drawable.UIElement);
                 }
             }
-        }
-        //private void _x_OnLoaded()
-        //{
-        //    foreach (var shape in Shapes)
-        //    {
-        //        var poly = shape as ConvexPolygonShapeControl;
-        //        if (poly != null)
-        //        {
-        //            _canvas.Children.Add(poly.Polygon);
-        //        }
+            _canvas.Measure(new Size(1000, 1000));
+            _canvas.Arrange(new Rect(0, 0, 1000, 1000));
+            _canvas.UpdateLayout();
+            _visualBrush = new VisualBrush(_canvas);
 
-        //        var tpoly = shape as TriangulablePolygonShapeControl;
-        //        if (tpoly != null)
-        //        {
-        //            _canvas.Children.Add(tpoly.Polygon);
-        //        }
-        //        var ellipse = shape as EllipseShapeControl;
-        //        if (ellipse != null)
-        //        {
-        //            _canvas.Children.Add(ellipse.Ellipse);
-        //        }
-        //        var circle = shape as CircleShapeControl;
-        //        if (circle != null)
-        //        {
-        //            _canvas.Children.Add(circle.Ellipse);
-        //        }
-        //        var skinned = shape as SkinnedShapeControl;
-        //        if (skinned != null)
-        //        {
-        //            _canvas.Children.Add(skinned.Content);
-        //        }
-        //    }
+            //if (_canvas.Id == "cippo")
+            //{
+            //    Helper.FarseerTools.Save(_visualBrush, @"C:\Users\Developer\Desktop\temp\aaaa1.png");
+            //    var t = _rotation.Angle;
+            //    _rotation.Angle = 0;
+            //    Helper.FarseerTools.Save(_visualBrush, @"C:\Users\Developer\Desktop\temp\aaaa2.png");
+            //    _rotation.Angle = t;
+            //    Helper.FarseerTools.Save(_visualBrush, @"C:\Users\Developer\Desktop\temp\aaaa3.png");
+            //}
+        }
+
+
+        //private VisualBrush CloneVisualBrush()
+        //{
+        //    VisualBrush vb;
+        //    var t = _rotation.Angle;
+        //    _rotation.Angle = 0;
+        //    vb = _visualBrush.Clone();
+        //    _rotation.Angle = t;
+        //    return vb;
         //}
 
         public IEnumerable<IBodyView> Break()
         {
-            var filler = new VisualBrushFiller();
-            var skinned = new List<SkinnedShapeItem>();
-            var polygons = new List<ConvexPolygonShapeControl>();
+            //if (_canvas.Id == "cippo")
+            //    Helper.FarseerTools.Save(_visualBrush, @"C:\Users\Developer\Desktop\temp\bbb.png");
+            _parentChildrens.Remove(_canvas);
+            var boxeds = Shapes.Where(x => x is IBreakableShape).Select<IShape, IBreakableShape>(x => (IBreakableShape)x);
 
-            Canvas canvas = new Canvas();
-
-            List<Ellipse> ellipses = new List<Ellipse>();
-
-            foreach (var shape in Shapes)
+            Rect maxbb = Rect.Empty;
+            foreach (var boxed in boxeds)
             {
-                var drawable = shape as IBoxed;
-                if (drawable != null)
-                {
-                    filler.Add(drawable);
-                }
+                maxbb.Union(boxed.BBox);
             }
+            List<BodyControl> bodies = new List<BodyControl>();
 
-
-            foreach (var shape in Shapes)
+            foreach (var boxed in boxeds)
             {
-                if (shape is ConvexPolygonShapeControl)
+                _rotation.Angle = 0;
+                var vbClone = _visualBrush.Clone();
+
+                foreach (var p in boxed.Polygons)
                 {
-                    var p = ((ConvexPolygonShapeControl)shape).Polygon;
                     var pclone = new Polygon();
                     pclone.Points = p.Points.Clone();
-                    changeParent(canvas, pclone);
-                   // filler.Add(p);
-                    polygons.Add((ConvexPolygonShapeControl)shape);
-                }
-                else if (shape is CircleShapeControl)
-                {
-                    //filler.Add(((CircleShapeControl)shape).Ellipse);
-                }
-                else if (shape is EllipseShapeControl)
-                {
-                    //filler.Add(((EllipseShapeControl)shape).Ellipse);
-                }
-                else if (shape is SkinnedShapeControl)
-                {
-                    changeParent(canvas, ((SkinnedShapeControl)shape).Content);
-                    //((Canvas)((SkinnedShapeControl)shape).Content.Parent).Children.Remove(((SkinnedShapeControl)shape).Content);
-                    //canvas.Children.Add(((SkinnedShapeControl)shape).Content);
-                    foreach (var subshape in ((SkinnedShapeControl)shape).PolygonShapes)
-                    {
+                    //pclone.Stroke = new SolidColorBrush(Colors.Blue);
+                    var polygonBB = pclone.BBox();
+                    vbClone.Viewbox = new Rect((polygonBB.X - maxbb.X) / maxbb.Width, (polygonBB.Y - maxbb.Y) / maxbb.Height, polygonBB.Width / maxbb.Width, polygonBB.Height / maxbb.Height);
+                    pclone.Fill = vbClone;
 
-
-                        var p = subshape.ToWpfPolygon();
-                       // filler.Add(p);
-                        skinned.Add(new SkinnedShapeItem { Polygon = p, ShapeControl = (SkinnedShapeControl)shape });
-                    }
-                }
-                else if (shape is TriangulablePolygonShapeControl)
-                {
-                    changeParent(canvas, ((TriangulablePolygonShapeControl)shape).Polygon);
-
-                    foreach (var subshape in ((TriangulablePolygonShapeControl)shape).PolygonShapes)
-                    {
-                        var p = subshape.ToWpfPolygon();
-                        ///filler.Add(p);
-                        polygons.Add(new ConvexPolygonShapeControl(p, shape.Density));
-                    }
+                    var bc = new BodyControl();
+                    bc.BodyType = SM.BodyType.Dynamic;
+                    bc.Shapes.Add(new ConvexPolygonShapeControl(pclone, boxed.Density));
+                    bc.AddToUIElementCollection(_parentChildrens);
+                    bc.RotoTranslation = RotoTranslation;
+                    bodies.Add(bc);
                 }
             }
-
-
-
-            canvas.Measure(new Size(1000, 1000));
-            canvas.Arrange(new Rect(0, 0, 1000, 1000));
-            canvas.UpdateLayout();
-
-            _canvas.Children.Clear();
-            List<BodyControl> bodies = new List<BodyControl>();
-            foreach (var poly in polygons)
-            {
-                var vb = filler.GetBrush(poly, canvas);
-                poly.Polygon.Fill = vb;
-
-                poly.Polygon.Stroke = new SolidColorBrush(Colors.Red);
-               // poly.Polygon.Fill = new SolidColorBrush(Colors.Red);
-
-                var bc = new BodyControl();
-                bc.BodyType = SM.BodyType.Dynamic;
-                bc.Shapes.Add(new ConvexPolygonShapeControl(poly.Polygon, poly.Density));
-                bc.AddToUIElementCollection(_parentChildrens);
-                bc.RotoTranslation = RotoTranslation;
-                bodies.Add(bc);
-            }
-
-
-
-            foreach (var poly in skinned)
-            {
-                var vb = filler.GetBrush(poly.ShapeControl, canvas);
-                //var vb = filler.GetBrush(poly.Polygon, poly.ShapeControl.Content);
-                poly.Polygon.Fill = vb;
-                poly.Polygon.Stroke = new SolidColorBrush(Colors.Black);
-                var bc = new BodyControl();
-                bc.BodyType = SM.BodyType.Dynamic;
-                bc.Shapes.Add(new ConvexPolygonShapeControl(poly.Polygon, poly.ShapeControl.Density));
-                bc.AddToUIElementCollection(_parentChildrens);
-                bc.RotoTranslation = RotoTranslation;
-                bodies.Add(bc);
-            }
-
             return bodies;
-            
         }
 
 

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SM.Farseer
 {
-    class MotorJointMaterial : BasicUnanchoredJointMaterial
+    class MotorJointMaterial : BasicJointMaterial
     {
 
         MotorJoint __joint;
@@ -20,10 +20,17 @@ namespace SM.Farseer
         {
         }
 
-        protected override Joint Build(Body targetA, Body targetB)
+
+        public void Build(string id, string targetNameA, string targetNameB)
         {
-            __joint = JointFactory.CreateMotorJoint(_world, targetA, targetB);
-            return __joint;
+            _id = id;
+            _joint = Build(_farseerWorldManager.FindObject<Body>(targetNameA), _farseerWorldManager.FindObject<Body>(targetNameB));
+        }
+
+
+        MotorJoint Build(Body targetA, Body targetB)
+        {
+            return JointFactory.CreateMotorJoint(_world, targetA, targetB);
         }
 
         public float MaxForce
@@ -37,7 +44,6 @@ namespace SM.Farseer
                 __joint.MaxForce = value;
             }
         }
-
         public float MaxTorque
         {
             get
@@ -49,15 +55,15 @@ namespace SM.Farseer
                 __joint.MaxTorque = value;
             }
         }
-        public Vector2 LinearOffset
+        public float2 LinearOffset
         {
             get
             {
-                return __joint.LinearOffset;
+                return __joint.LinearOffset.ToSM();
             }
             set
             {
-                __joint.LinearOffset = value;
+                __joint.LinearOffset = value.ToFarseer();
             }
         }
         public float AngularOffset

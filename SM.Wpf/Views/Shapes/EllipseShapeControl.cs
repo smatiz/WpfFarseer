@@ -9,7 +9,7 @@ using System.Windows.Shapes;
 
 namespace SM.Wpf
 {
-    public class EllipseShapeControl : BasicShapeControl, IEllipseShape, IDrawable, IBoxed
+    public class EllipseShapeControl : BasicShapeControl, IEllipseShape, IDrawable, IBreakableShape
     {
         public float X
         {
@@ -66,6 +66,12 @@ namespace SM.Wpf
             {
                 return getEllipse().BBox();
             }
+        }
+
+
+        public IEnumerable<Polygon> Polygons
+        {
+            get { throw new NotImplementedException(); }
         }
     }
 }
