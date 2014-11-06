@@ -9,15 +9,20 @@
         xmlns:l2="clr-namespace:WpfFarseer"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <l2:FarseerPlayerControl x:Name="_farseerPlayer">
+        <l2:FarseerPlayerControl x:Name="_farseerPlayer" Loaded="_farseerPlayer_Loaded">
             <l2:FarseerPlayerControl.FarseerCanvas>
                 <l3:FarseerCanvas  Grid.Row="0" >
-                    <l:BodyControl BodyType="Breakable" X="110" Angle="9" Id="cippo">
+                    <l:BodyControl BodyType="Breakable" Id="cippo"  >
                         <l:SkinnedShapeControl>
-                            <Canvas >
-                                <Button Background="Red"  Width="40" Height="40">ciao</Button>
-                                <Button Background="Blue" Canvas.Left="20" Canvas.Top="10" Width="10" Height="40">ciao</Button>
+                            <Canvas Width="80" Height="80">
+                                <Viewbox Width="80" Height="80" Stretch="Fill">
+                                    <l2:Pig />
+                                </Viewbox>
                             </Canvas>
+                            <!-- <Canvas>
+                        <Button Background="Red"  Width="40" Height="40">ciao</Button>
+                                <Button Background="Blue" Canvas.Left="20" Canvas.Top="10" Width="10" Height="40">ciao</Button> </Canvas>
+                            -->
                         </l:SkinnedShapeControl>
                     </l:BodyControl>
                     <l:BodyControl Id="b2" BodyType="Dynamic">
@@ -36,6 +41,6 @@
         </l2:FarseerPlayerControl>
 
 
-        <Canvas Name="_resultCanvas"></Canvas>
+        <!--<Canvas Name="_resultCanvas" Margin="-10,10,10,-10" ></Canvas>-->
     </Grid>
 </UserControl>

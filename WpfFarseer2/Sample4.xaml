@@ -12,8 +12,8 @@
         <l2:FarseerPlayerControl x:Name="_farseerPlayer">
             <l2:FarseerPlayerControl.FarseerCanvas>
                 <l3:FarseerCanvas   >
-                    <l:BodyControl Id="b" BodyType="Dynamic">
-                        <l:ConvexPolygonShapeControl Density="123"  >
+                    <l:BodyControl   Id="b" BodyType="Dynamic">
+                        <l:ConvexPolygonShapeControl Density="123"   >
                             <Polygon Points="0 200,300 200,150 250" Fill="Black"></Polygon>
                         </l:ConvexPolygonShapeControl>
                     </l:BodyControl>

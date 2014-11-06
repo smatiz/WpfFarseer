@@ -43,5 +43,10 @@ namespace WpfFarseer
 
             //_resultCanvas.Children.Add(poly);
         }
+
+        private void _farseerPlayer_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

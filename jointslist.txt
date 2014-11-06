@@ -56,6 +56,14 @@ float MotorSpeed
 float MaxMotorTorque
 float MotorImpulse
 
+WeldJoint
+float DampingRatio
+float ReferenceAngle
+float FrequencyHz
+
+WheelJoint
+
+
 
 
 

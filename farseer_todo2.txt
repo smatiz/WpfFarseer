@@ -3,21 +3,16 @@
 ********* remove __
 ********* creare un sistema di debug wpf
 ********* baco con il visualbrush
+********* sistemare esempio 3
+********* TriangulablePolygonShapeControl e EllipseShapeControl
 
 
 aggiornare codeGenerator
 creare un sistema per testare il CodeGenerator in modo semplice
 
-
-
 finire di sistemare i joint
+T4 e refactoring
 
-********* sistemare esempio 3
-
-
-
-
-********* TriangulablePolygonShapeControl e EllipseShapeControl
 
 
 
@@ -30,10 +25,7 @@ per esempio con
                             </Canvas>
 wpf si disallinea da farseer
 stesso problema con l'angolo
-
 pensare un sistema per gestione tramite layer
 
-T4 e refactoring
 semplice libreria di rototranslation 2d
-LayoutTransform vs REnderTransform
 provare a rompere il maialino

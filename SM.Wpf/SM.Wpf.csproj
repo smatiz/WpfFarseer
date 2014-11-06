@@ -100,6 +100,7 @@
     <Compile Include="IBreakableShape.cs" />
     <Compile Include="IDrawable.cs" />
     <Compile Include="IFlaggable.cs" />
+    <Compile Include="Views\LayerControl.cs" />
     <Compile Include="Views\Shapes\BasicShapeControl.cs" />
     <Compile Include="CanvasId.cs" />
     <Compile Include="Views\Shapes\EllipseShapeControl.cs" />
