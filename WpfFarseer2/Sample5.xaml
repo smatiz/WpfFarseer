@@ -14,7 +14,9 @@
                 <l3:FarseerCanvas  Grid.Row="0" >
                     <l:BodyControl BodyType="Breakable" Id="cippo"  >
                         <l:SkinnedShapeControl>
-                            <Canvas Width="80" Height="80">
+                            <Canvas Width="80" Height="80" >
+                                <Ellipse Width="32" Height="27" Fill="Red"></Ellipse>
+                                <Ellipse Width="32" Height="27" Canvas.Left="60" Canvas.Top="60" Fill="Red"></Ellipse>
                                 <Viewbox Width="80" Height="80" Stretch="Fill">
                                     <l2:Pig />
                                 </Viewbox>
@@ -35,7 +37,7 @@
                             <Polygon Points="0 200,300 200,150 250" Fill="Green"></Polygon>
                         </l:ConvexPolygonShapeControl>
                     </l:BodyControl>
-                  
+
                 </l3:FarseerCanvas>
             </l2:FarseerPlayerControl.FarseerCanvas>
         </l2:FarseerPlayerControl>

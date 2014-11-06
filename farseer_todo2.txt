@@ -29,3 +29,5 @@ pensare un sistema per gestione tramite layer
 
 semplice libreria di rototranslation 2d
 provare a rompere il maialino
+
+riscalare tutto con un parametro nel passaggio farseer <-> wpf : usare un viewbox?

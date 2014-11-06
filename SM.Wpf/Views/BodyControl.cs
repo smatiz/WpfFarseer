@@ -180,10 +180,6 @@ namespace SM.Wpf
                     _canvas.Children.Add(drawable.UIElement);
                 }
             }
-            _canvas.Measure(new Size(1000, 1000));
-            _canvas.Arrange(new Rect(0, 0, 1000, 1000));
-            _canvas.UpdateLayout();
-            _visualBrush = new VisualBrush(_canvas);
 
             //if (_canvas.Id == "cippo")
             //{
@@ -221,11 +217,18 @@ namespace SM.Wpf
             }
             List<BodyControl> bodies = new List<BodyControl>();
 
+
+            _canvas.Measure(new Size(maxbb.Width, maxbb.Height));
+            _canvas.Arrange(new Rect(new Point(), _canvas.DesiredSize));
+            _canvas.UpdateLayout();
+            _visualBrush = new VisualBrush(_canvas);
+
+            _rotation.Angle = 0;
+            _traslation.X = 0;
+            _traslation.Y = 0;
+
             foreach (var boxed in boxeds)
             {
-                _rotation.Angle = 0;
-                _traslation.X = 0;
-                _traslation.Y = 0;
                 var vbClone = _visualBrush.Clone();
 
                 foreach (var p in boxed.Polygons)
@@ -234,6 +237,7 @@ namespace SM.Wpf
                     pclone.Points = p.Points.Clone();
                     //pclone.Stroke = new SolidColorBrush(Colors.Blue);
                     var polygonBB = pclone.BBox();
+                    //vb.Viewbox = new Rect(-(bb.X - bbs[i].X) / bb.Width, -(bb.Y - bbs[i].Y) / bb.Height, bbs[i].Width / bb.Width, bbs[i].Height / bb.Height);
                     vbClone.Viewbox = new Rect((polygonBB.X - maxbb.X) / maxbb.Width, (polygonBB.Y - maxbb.Y) / maxbb.Height, polygonBB.Width / maxbb.Width, polygonBB.Height / maxbb.Height);
                     pclone.Fill = vbClone;
 

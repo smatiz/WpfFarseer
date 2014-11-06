@@ -23,7 +23,7 @@ namespace SM
 
     public class BodyManager : IManager, IMaterial
     {
-        rotoTranslation _rotoTranslation;
+        rotoTranslation _rotoTranslationMaterial;
 
         IBodyView _bodyView;
         IBodyMaterial _bodyMaterial;
@@ -41,11 +41,11 @@ namespace SM
 
         public void UpdateMaterial()
         {
-            _rotoTranslation = _bodyMaterial.RotoTranslation;
+            _rotoTranslationMaterial = _bodyMaterial.RotoTranslation;
         }
         public void UpdateView()
         {
-            _bodyView.RotoTranslation = _rotoTranslation;
+            _bodyView.RotoTranslation = _rotoTranslationMaterial;
         }
 
         public string Id

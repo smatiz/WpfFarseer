@@ -24,5 +24,20 @@ namespace SM
         public float Angle { get { return _angle; } }
 
         public float DegreeAngle { get { return AngleSubst * Angle; } }
+
+        //public rotoTranslation Zoomed
+        //{
+        //    get
+        //    {
+        //        return new rotoTranslation(_translation.Zoomed, _angle);
+        //    }
+        //}
+        //public rotoTranslation DeZoomed
+        //{
+        //    get
+        //    {
+        //        return new rotoTranslation(_translation.DeZoomed, _angle);
+        //    }
+        //}
     }
 }

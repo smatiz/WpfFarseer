@@ -17,7 +17,10 @@ namespace SM.Wpf
         {
             get
             {
-                return Helper.FarseerTools.FindBorder(_brush, MaxWidth, MaxHeight);
+                Content.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+                Content.Arrange(new Rect(0, 0, Content.DesiredSize.Width, Content.DesiredSize.Height));
+                Content.UpdateLayout();
+                return Helper.FarseerTools.FindBorder( Content.GetVisualBrush(), MaxWidth, MaxHeight);
             }
         }
 
@@ -37,7 +40,6 @@ namespace SM.Wpf
         public static readonly DependencyProperty MaxHeightProperty =
             DependencyProperty.Register("MaxHeight", typeof(int), typeof(SkinnedShapeControl), new PropertyMetadata(1000));
 
-        VisualBrush _brush;
         public Canvas Content
         {
             get { return (Canvas)GetValue(ContentProperty); }
@@ -48,12 +50,7 @@ namespace SM.Wpf
         private static void ContentPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e) { ((SkinnedShapeControl)obj).OnContentChanged(); }
         private void OnContentChanged()
         {
-            //Content.Loaded += Content_Loaded;
-            Content.Measure(new Size(MaxWidth, MaxHeight));
-            Content.Arrange(new Rect(0, 0, MaxWidth, MaxHeight));
-            Content.UpdateLayout();
-            _brush = Content.GetVisualBrush();
-            Content.UpdateLayout();
+            //Content.UpdateLayout();
         }
 
         public UIElement UIElement

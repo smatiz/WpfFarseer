@@ -96,6 +96,7 @@
     <Compile Include="Manager\Joint\AngleJointManager.cs" />
     <Compile Include="Manager\Joint\PulleyJointManager.cs" />
     <Compile Include="Manager\Joint\WheelJointManager.cs" />
+    <Compile Include="UnitSystem.cs" />
     <Compile Include="Wpf\BasicCommand.cs" />
     <Compile Include="Manager\BasicWorldManager.cs" />
     <Compile Include="BodyTypeEnum.cs" />

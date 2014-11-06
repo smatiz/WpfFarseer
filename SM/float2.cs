@@ -17,6 +17,22 @@ namespace SM
         }
         public float X { get { return _x; } }
         public float Y { get { return _y; } }
+
+        //public float2 Zoomed
+        //{
+        //    get
+        //    {
+        //        return new float2(X / Consts.Zoom, Y / Consts.Zoom);
+        //    }
+        //}
+        //public float2 DeZoomed
+        //{
+        //    get
+        //    {
+        //        return new float2(X / Consts.Zoom, Y / Consts.Zoom);
+        //    }
+        //}
+
     }
 
 

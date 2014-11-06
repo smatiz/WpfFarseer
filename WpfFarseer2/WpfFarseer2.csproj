@@ -137,6 +137,9 @@
     <Compile Include="Sample5.xaml.cs">
       <DependentUpon>Sample5.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Sample7.xaml.cs">
+      <DependentUpon>Sample7.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Sample6.xaml.cs">
       <DependentUpon>Sample6.xaml</DependentUpon>
     </Compile>
@@ -185,6 +188,10 @@
     <Page Include="Sample5.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Sample7.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Sample6.xaml">
       <SubType>Designer</SubType>

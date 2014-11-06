@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="WpfFarseer.Sample7"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+            xmlns:l3="clr-namespace:WpfFarseer;assembly=SM.WpfFarseer"
+            xmlns:l="clr-namespace:SM.Wpf;assembly=SM.Wpf"
+        xmlns:l2="clr-namespace:WpfFarseer"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <l2:FarseerPlayerControl x:Name="_farseerPlayer">
+            <l2:FarseerPlayerControl.FarseerCanvas>
+                <l3:FarseerCanvas  Grid.Row="0" >
+                    <l:BodyControl BodyType="Breakable">
+                        <l:ConvexPolygonShapeControl Density="123"  >
+                            <Polygon Points="120,60,120,40,100,40" Fill="Black"></Polygon>
+                        </l:ConvexPolygonShapeControl>
+                        <l:ConvexPolygonShapeControl Density="123"  >
+                            <Polygon Points="120,60,120,40,100,40" Fill="Red"></Polygon>
+                        </l:ConvexPolygonShapeControl>
+                        <l:ConvexPolygonShapeControl Density="123"  >
+                            <Polygon Points="120,60,120,40,100,40" Fill="Blue"></Polygon>
+                        </l:ConvexPolygonShapeControl>
+                    </l:BodyControl>
+                  
+                    <l:BodyControl Id="b" >
+                        <l:ConvexPolygonShapeControl Density="123"  >
+                            <Polygon Points="0 200,300 200,150 250" Fill="Green"></Polygon>
+                        </l:ConvexPolygonShapeControl>
+                    </l:BodyControl>
+
+                </l3:FarseerCanvas>
+            </l2:FarseerPlayerControl.FarseerCanvas>
+        </l2:FarseerPlayerControl>
+
+
+        <Canvas Name="_resultCanvas"></Canvas>
+    </Grid>
+</UserControl>
