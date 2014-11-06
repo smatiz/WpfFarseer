@@ -7,29 +7,65 @@ using System.Threading.Tasks;
 namespace SM
 {
 
-    public interface IRopeJointView : ITwoPointJointView
+    public interface IRopeJointView : IJointView
     {
+        string TargetBodyIdA { get; }
+        string TargetBodyIdB { get; }
+        float2 AnchorA { get; set; }
+        float2 AnchorB { get; set; }
         float MaxLength { get; }
         float MaxLengthFactor { get; }
     }
-    public interface IRopeJointMaterial : ITwoPointJointMaterial
+    public interface IRopeJointMaterial : IJointMaterial
     {
-        float MaxLength { get;  set; }
+        float MaxLength { get; set; }
+        float2 AnchorA { get; set; }
+        float2 AnchorB { get; set; }
+        void Build(string id);
+
+        string TargetNameA { get; set; }
+        string TargetNameB { get; set; }
     }
 
-    public class RopeJointManager : TwoPointJointManager
+    public class RopeJointManager : IManager
     {
+        protected IRopeJointView _jointView;
+        protected IRopeJointMaterial _jointMaterial;
         public RopeJointManager(IRopeJointView view, IRopeJointMaterial material)
-            : base(view, material)
         {
+            _jointView = view;
+            _jointMaterial = material;
         }
 
-        public override void Build()
-        {
-            base.Build();
+        float2 _anchorA, _anchorB;
 
+
+
+        public void UpdateMaterial()
+        {
+            _anchorA = _jointMaterial.AnchorA;
+            _anchorB = _jointMaterial.AnchorB;
+        }
+
+        public void UpdateView()
+        {
+            _jointView.AnchorA = _anchorA;
+            _jointView.AnchorB = _anchorB;
+        }
+
+        public virtual void Build()
+        {
             var ropeJointView = (IRopeJointView)_jointView;
             var ropeJointMaterial = (IRopeJointMaterial)_jointMaterial;
+
+            ropeJointMaterial.TargetNameA = ropeJointView.TargetBodyIdA;
+            ropeJointMaterial.AnchorA = ropeJointView.AnchorA;
+            ropeJointMaterial.TargetNameB = ropeJointView.TargetBodyIdB;
+            ropeJointMaterial.AnchorB = ropeJointView.AnchorB;
+
+
+            _jointMaterial.Build(_jointView.Id);
+
 
             if (ropeJointView.MaxLength != -1)
             {
@@ -40,5 +76,23 @@ namespace SM
                 ropeJointMaterial.MaxLength *= ropeJointView.MaxLengthFactor;
             }
         }
+
+        public string Id
+        {
+            get
+            {
+                return _jointView.Id;
+            }
+        }
+
+
+        public object Object
+        {
+            get
+            { 
+                return _jointMaterial.Object;
+            }
+        }
+
     }
 }

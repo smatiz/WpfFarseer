@@ -6,22 +6,22 @@ using System.Threading.Tasks;
 
 namespace SM
 {
-    public interface IDistanceJointView : ITwoPointJointView
-    {
-    }
-    public interface IDistanceJointMaterial : ITwoPointJointMaterial
-    {
-    }
-    class DistanceJointManager : TwoPointJointManager
-    {
-        public DistanceJointManager(IDistanceJointView view, IDistanceJointMaterial material)
-            : base(view, material)
-        {
-        }
+    //public interface IDistanceJointView : ITwoPointJointView
+    //{
+    //}
+    //public interface IDistanceJointMaterial : ITwoPointJointMaterial
+    //{
+    //}
+    //class DistanceJointManager : TwoPointJointManager
+    //{
+    //    public DistanceJointManager(IDistanceJointView view, IDistanceJointMaterial material)
+    //        : base(view, material)
+    //    {
+    //    }
 
-        public override void Build()
-        {
-            base.Build();
-        }
-    }
+    //    public override void Build()
+    //    {
+    //        base.Build();
+    //    }
+    //}
 }

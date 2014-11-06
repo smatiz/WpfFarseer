@@ -97,7 +97,7 @@ namespace SM.Wpf
 
                 if (!handled)
                 {
-                    var jointControl = child as TwoPointJointControl;
+                    var jointControl = child as RopeJointControl;
                     if (jointControl != null)
                     {
                         var targetA = FindFlag(flags, jointControl.TargetFlagIdA);

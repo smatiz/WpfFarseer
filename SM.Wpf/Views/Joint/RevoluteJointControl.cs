@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace SM.Wpf
 {
-    public class RevoluteJointControl : TwoPointJointControl, IRevoluteJointView
-    {
+    //public class RevoluteJointControl : TwoPointJointControl, IRevoluteJointView
+    //{
 
-    }
+    //}
 }

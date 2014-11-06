@@ -10,39 +10,157 @@ using System.Threading.Tasks;
 
 namespace SM.Farseer
 {
-    public class RopeJointMaterial : BasicJointMaterial, IRopeJointMaterial
+    public class RopeJointMaterial :  IRopeJointMaterial
     {
-        RopeJoint __joint;
+        RopeJoint _joint;
+
+        string _targetNameA;
+        string _targetNameB;
+        protected World _world;
+        protected FarseerWorldManager _farseerWorldManager;
+        protected string _id;
+        protected float2 _anchorA;
+        protected float2 _anchorB;
 
         public RopeJointMaterial(World world, FarseerWorldManager farseerWorldManager)
-            : base(world, farseerWorldManager)
         {
+            _world = world;
+            _farseerWorldManager = farseerWorldManager;
+
         }
 
 
-        public void Build(string id, string targetNameA, float2 anchorA, string targetNameB, float2 anchorB)
+        public void Build(string id)
         {
             _id = id;
-            __joint = Build(
-                _farseerWorldManager.FindObject<Body>(targetNameA), anchorA.ToFarseer(),
-                _farseerWorldManager.FindObject<Body>(targetNameB), anchorB.ToFarseer());
-            _joint = __joint;
+
+
+
+           _joint = JointFactory.CreateRopeJoint(_world, _farseerWorldManager.FindObject<Body>(_targetNameA), _farseerWorldManager.FindObject<Body>(_targetNameB), _anchorA.ToFarseer(), _anchorB.ToFarseer());
         }
 
-        RopeJoint Build(Body targetA, Vector2 anchorA, Body targetB, Vector2 anchorB)
+        public string TargetNameA
         {
-            return JointFactory.CreateRopeJoint(_world, targetA, targetB, anchorA, anchorB);
+            get
+            {
+                return _joint.BodyA.UserData.ToString();
+            }
+            set
+            {
+                //if (_joint != null)
+                //{
+                //    _joint.BodyA = _farseerWorldManager.FindObject<Body>(value);
+                //}
+                //else
+                {
+                    _targetNameA = value;
+                }
+            }
+        }
+        public string TargetNameB
+        {
+            get
+            {
+                return _joint.BodyB.UserData.ToString();
+            }
+            set
+            {
+                //if (_joint != null)
+                //{
+                //    _joint.BodyB = _farseerWorldManager.FindObject<Body>(value);
+                //}
+                //else
+                {
+                    _targetNameB = value;
+                }
+            }
         }
 
         public float MaxLength
         {
             get
             {
-                return __joint.MaxLength;
+                return _joint.MaxLength;
             }
             set
             {
-                __joint.MaxLength = value;
+                _joint.MaxLength = value;
+            }
+        }
+        public float2 AnchorA
+        {
+            get
+            {
+                return _joint.WorldAnchorA.ToSM();
+            }
+            set
+            {
+                if (_joint != null)
+                {
+                    _joint.WorldAnchorA = value.ToFarseer();
+                }
+                else
+                {
+                    _anchorA = value;
+                }
+            }
+        }
+        public float2 AnchorB
+        {
+            get
+            {
+                return _joint.WorldAnchorB.ToSM();
+            }
+            set
+            {
+                if (_joint != null)
+                {
+                    _joint.WorldAnchorB = value.ToFarseer();
+                }
+                else
+                {
+                    _anchorB = value;
+                }
+            }
+        }
+
+        public object Object
+        {
+            get
+            {
+                return _joint;
+            }
+        }
+
+        public string Id
+        {
+            get
+            {
+                return _id;
+            }
+        }
+
+        public float Breakpoint
+        {
+            get
+            {
+                return _joint.Breakpoint;
+            }
+            set
+            {
+                _joint.Breakpoint = value;
+            }
+        }
+
+        public bool CollideConnected
+        {
+            get
+            {
+                return _joint.CollideConnected;
+            }
+            set
+            {
+                _joint.CollideConnected = value;
             }
         }
 
