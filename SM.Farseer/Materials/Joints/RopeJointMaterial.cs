@@ -26,15 +26,12 @@ namespace SM.Farseer
         {
             _world = world;
             _farseerWorldManager = farseerWorldManager;
-
         }
 
 
         public void Build(string id)
         {
             _id = id;
-
-
 
            _joint = JointFactory.CreateRopeJoint(_world, _farseerWorldManager.FindObject<Body>(_targetNameA), _farseerWorldManager.FindObject<Body>(_targetNameB), _anchorA.ToFarseer(), _anchorB.ToFarseer());
         }

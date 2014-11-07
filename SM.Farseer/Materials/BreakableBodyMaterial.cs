@@ -37,12 +37,12 @@ namespace SM.Farseer
 
             //CodeGenerator.AddCode("var allShapes_{0} = new List<Shape>();", id);
            // int i = 0;
-            foreach(var shape in allShapes)
-            {
+            //foreach(var shape in allShapes)
+            //{
 
-                //CodeGenerator.AddCode("var allShapes_{0}_item{1} = ;", id, i, shape);
+            //    //CodeGenerator.AddCode("var allShapes_{0}_item{1} = ;", id, i, shape);
 
-            }
+            //}
 
 
 
