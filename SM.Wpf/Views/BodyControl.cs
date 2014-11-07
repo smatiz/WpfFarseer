@@ -207,7 +207,6 @@ namespace SM.Wpf
         {
             //if (_canvas.Id == "cippo")
             //    Helper.FarseerTools.Save(_visualBrush, @"C:\Users\Developer\Desktop\temp\bbb.png");
-            _parentChildrens.Remove(_canvas);
             var boxeds = Shapes.Where(x => x is IBreakableShape).Select<IShape, IBreakableShape>(x => (IBreakableShape)x);
 
             Rect maxbb = Rect.Empty;
@@ -222,11 +221,13 @@ namespace SM.Wpf
             _canvas.Arrange(new Rect(new Point(), _canvas.DesiredSize));
             _canvas.UpdateLayout();
             _visualBrush = new VisualBrush(_canvas);
-
+            
+            //_visualBrush.Freeze();
             _rotation.Angle = 0;
             _traslation.X = 0;
             _traslation.Y = 0;
 
+            int i = 0;
             foreach (var boxed in boxeds)
             {
                 var vbClone = _visualBrush.Clone();
@@ -238,17 +239,39 @@ namespace SM.Wpf
                     //pclone.Stroke = new SolidColorBrush(Colors.Blue);
                     var polygonBB = pclone.BBox();
                     //vb.Viewbox = new Rect(-(bb.X - bbs[i].X) / bb.Width, -(bb.Y - bbs[i].Y) / bb.Height, bbs[i].Width / bb.Width, bbs[i].Height / bb.Height);
+
+                    Helper.FarseerTools.Save(vbClone, @"C:\Users\Developer\Desktop\temp\aaa" + (i).ToString() + ".png");
                     vbClone.Viewbox = new Rect((polygonBB.X - maxbb.X) / maxbb.Width, (polygonBB.Y - maxbb.Y) / maxbb.Height, polygonBB.Width / maxbb.Width, polygonBB.Height / maxbb.Height);
-                    pclone.Fill = vbClone;
+                    Helper.FarseerTools.Save(vbClone, @"C:\Users\Developer\Desktop\temp\bbb" + (i).ToString() + ".png");
+
+                    if (vbClone.Viewbox.X == 0)
+                    {
+                        pclone.Fill = vbClone;
+                        Helper.FarseerTools.Save(vbClone, @"C:\Users\Developer\Desktop\temp\xxx" + (i).ToString() + ".png");
+
+                    }
+                    i++;
+                    //vbClone.Viewbox = new Rect((polygonBB.X), (polygonBB.Y), polygonBB.Width, polygonBB.Height);
+
+                    //vbClone.Viewport = new Rect((maxbb.X), (maxbb.Y), maxbb.Width, maxbb.Height);
+
+
+                    //vbClone.AlignmentX = AlignmentX.Left;
+                    //vbClone.AlignmentY = AlignmentY.Top;
+                    //vbClone.Stretch = Stretch.None;
+                    //vbClone.TileMode = TileMode.None;
 
                     var bc = new BodyControl();
                     bc.BodyType = SM.BodyType.Dynamic;
                     bc.Shapes.Add(new ConvexPolygonShapeControl(pclone, boxed.Density));
-                    bc.AddToUIElementCollection(_parentChildrens);
+                    AddChild(bc);
+                    //bc.AddToUIElementCollection(_parentChildrens);
                     bc.RotoTranslation = RotoTranslation;
                     bodies.Add(bc);
                 }
             }
+
+            Clear();
             return bodies;
         }
 

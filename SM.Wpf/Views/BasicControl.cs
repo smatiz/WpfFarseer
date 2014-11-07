@@ -14,7 +14,7 @@ namespace SM.Wpf
     {
         string _id;
         protected CanvasId _canvas = new CanvasId();
-        protected UIElementCollection _parentChildrens;
+        private UIElementCollection _parentChildrens;
         public void AddToUIElementCollection(UIElementCollection parentChildrens)
         {
             _parentChildrens = parentChildrens;
@@ -23,6 +23,17 @@ namespace SM.Wpf
 
 
             //_canvas.PreviewMouseDown += _canvas_PreviewMouseDown;
+        }
+
+        protected void Clear()
+        {
+            _parentChildrens.Remove(_canvas);
+            _canvas = new CanvasId();
+            _parentChildrens.Add(_canvas);
+        }
+        protected void AddChild(BasicControl control)
+        {
+            _canvas.Children.Add(control._canvas);
         }
 
         static int i = 0;

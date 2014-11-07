@@ -13,14 +13,20 @@ namespace SM.Wpf
     [ContentPropertyAttribute("Content")]
     public class SkinnedShapeControl : BasicShapeControl, IPolygonsShape, IDrawable, IBreakableShape
     {
+
+        IEnumerable<IEnumerable<float2>> _polygonShapes;
         public IEnumerable<IEnumerable<float2>> PolygonShapes
         {
             get
             {
-                Content.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
-                Content.Arrange(new Rect(0, 0, Content.DesiredSize.Width, Content.DesiredSize.Height));
-                Content.UpdateLayout();
-                return Helper.FarseerTools.FindBorder( Content.GetVisualBrush(), MaxWidth, MaxHeight);
+                if (_polygonShapes == null)
+                {
+                    Content.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+                    Content.Arrange(new Rect(0, 0, Content.DesiredSize.Width, Content.DesiredSize.Height));
+                    Content.UpdateLayout();
+                    _polygonShapes = Helper.FarseerTools.FindBorder(Content.GetVisualBrush(), MaxWidth, MaxHeight);
+                }
+                return _polygonShapes;
             }
         }
 
