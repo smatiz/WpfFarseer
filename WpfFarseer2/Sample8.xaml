@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="WpfFarseer.Sample7"
+﻿<UserControl x:Class="WpfFarseer.Sample8"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -13,7 +13,7 @@
             <l2:FarseerPlayerControl.FarseerCanvas>
                 <l3:FarseerCanvas  Grid.Row="0" >
                     <l:BodyControl BodyType="Breakable">
-                        <l:ConvexPolygonShapeControl Density="123"  >
+                        <!--<l:ConvexPolygonShapeControl Density="123"  >
                             <Polygon Points="50,0,50,50,100,40" Fill="GreenYellow"  Stroke="Black" StrokeThickness="2"></Polygon>
                         </l:ConvexPolygonShapeControl>
                         <l:ConvexPolygonShapeControl Density="123"  >
@@ -29,7 +29,16 @@
                                     </VisualBrush>
                                 </Polygon.Fill>
                             </Polygon>
-                        </l:ConvexPolygonShapeControl>
+                        </l:ConvexPolygonShapeControl>-->
+                        <l:SkinnedShapeControl>
+                            <Canvas>
+                                <Polygon Points="50,0,50,50,100,40" Fill="GreenYellow"  Stroke="Black" StrokeThickness="2"></Polygon>
+                                <Polygon Points="0,0,50,0,50,50" Fill="Red" Stroke="Black" StrokeThickness="2"></Polygon>
+                                <Polygon Points="50,0,120,25,150,0" Fill="Blue" Stroke="Black" StrokeThickness="2">
+                                    
+                                </Polygon>
+                            </Canvas>
+                        </l:SkinnedShapeControl>
                     </l:BodyControl>
                   
                     <l:BodyControl Id="b" >

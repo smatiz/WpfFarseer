@@ -9,7 +9,7 @@ namespace SM
     public interface IBodyView : IIdentifiable
     {
         BodyType BodyType { get; }
-        IEnumerable<IShape> AllShapes { get; }
+        List<IShape> Shapes { get; }
         rotoTranslation RotoTranslation { get; set; }
 
         IEnumerable<IBodyView> Break();
@@ -36,7 +36,7 @@ namespace SM
 
         public void Build()
         {
-            _bodyMaterial.Build(_bodyView.Id, _bodyView.BodyType, _bodyView.RotoTranslation, _bodyView.AllShapes);
+            _bodyMaterial.Build(_bodyView.Id, _bodyView.BodyType, _bodyView.RotoTranslation, _bodyView.Shapes);
         }
 
         public void UpdateMaterial()

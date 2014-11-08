@@ -1,8 +1,9 @@
-﻿<Canvas x:Class="WpfFarseer.FarseerCanvas"
+﻿<smwpf:CanvasId x:Class="WpfFarseer.FarseerCanvas"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+          xmlns:smwpf="clr-namespace:SM.Wpf;assembly=SM.Wpf"
         xmlns:l="clr-namespace:WpfFarseer">
-    <Canvas.Resources>
+    <smwpf:CanvasId.Resources>
         <ResourceDictionary Source="pack://application:,,,/SM.Wpf;component/Styles.xaml"></ResourceDictionary>
-    </Canvas.Resources>
-</Canvas>
+    </smwpf:CanvasId.Resources>
+</smwpf:CanvasId>

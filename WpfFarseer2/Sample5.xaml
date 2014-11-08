@@ -12,13 +12,13 @@
         <l2:FarseerPlayerControl x:Name="_farseerPlayer" Loaded="_farseerPlayer_Loaded">
             <l2:FarseerPlayerControl.FarseerCanvas>
                 <l3:FarseerCanvas  Grid.Row="0" >
-                    <l:BodyControl BodyType="Breakable" Id="cippo"  >
-                        <l:SkinnedShapeControl>
-                            <Canvas Width="80" Height="80" >
-                                <Ellipse Width="32" Height="27" Fill="Red"></Ellipse>
-                                <Ellipse Width="32" Height="27" Canvas.Left="60" Canvas.Top="60" Fill="Red"></Ellipse>
+                    <l:BodyControl BodyType="Breakable" Id="Pig"  >
+                        <l:SkinnedShapeControl >
+                            <Canvas Width="80" Height="80" Canvas.Left="100" >
+                                <!--<Ellipse Width="32" Height="27" Fill="Red"></Ellipse>
+                                <Ellipse Width="32" Height="27" Canvas.Left="60" Canvas.Top="60" Fill="Red"></Ellipse>-->
                                 <Viewbox Width="80" Height="80" Stretch="Fill">
-                                    <l2:Pig />
+                                    <l2:Pig  />
                                 </Viewbox>
                             </Canvas>
                             <!-- <Canvas>

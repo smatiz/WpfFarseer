@@ -33,7 +33,7 @@ namespace SM
 
         public void Build()
         {
-            _breakableBodyMaterial.Build(_breakableBodyView.Id, _breakableBodyView.RotoTranslation, _breakableBodyView.AllShapes);
+            _breakableBodyMaterial.Build(_breakableBodyView.Id, _breakableBodyView.RotoTranslation, _breakableBodyView.Shapes);
         }
 
         enum Status { Entire, MaterialBroking, ViewBroking, Broken }

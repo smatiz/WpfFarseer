@@ -34,9 +34,10 @@ namespace WpfFarseer
     using FarseerPhysics.Factories;
 
     [ContentPropertyAttribute("FarseerObjects")]
-    public partial class FarseerCanvas : Canvas
+    public partial class FarseerCanvas : CanvasId
     {
         FarseerWorldManager _worldManager;
+        RootControl _root;
      
         public void AddBehaviour(IViewBehaviour x)
         {
@@ -62,18 +63,16 @@ namespace WpfFarseer
 
             Helper.FarseerTools = new FarseerTools();
 
-            if(Id == null || Id == "")
-            {
-                Id = BasicControl.AutoGenerateName();
-            }
+            
+            
 
             FarseerObjects = new ObservableCollection<BasicControl>();
             FarseerObjects.CollectionChanged += FarseerObjects_CollectionChanged;
 
             _worldManager = new FarseerWorldManager(Id, new ViewWatch());
 
-
-            
+            _root = new RootControl(this);
+            //Id = "Root_" + BasicControl.GetAutoGenerateName();
 
             bool loaded = false;
             Loaded += (s, e) =>
@@ -176,7 +175,8 @@ namespace WpfFarseer
             {
                 foreach (var x in e.NewItems)
                 {
-                    ((BasicControl)x).AddToUIElementCollection(this.Children);
+                    _root.AddChild((BasicControl)x);
+                    //((BasicControl)x).RegisterCanvas(this.Children);
                 }
             }
         }
@@ -210,8 +210,7 @@ namespace WpfFarseer
         public static readonly DependencyProperty FarseerObjectsProperty =
             DependencyProperty.Register("FarseerObjects", typeof(ObservableCollection<BasicControl>), typeof(FarseerCanvas), new PropertyMetadata(null));
 
-
-        public string Id { get; set; }
+        
     }
 }
 

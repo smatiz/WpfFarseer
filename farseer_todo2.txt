@@ -5,6 +5,7 @@
 ********* baco con il visualbrush
 ********* sistemare esempio 3
 ********* TriangulablePolygonShapeControl e EllipseShapeControl
+********* provare a rompere il maialino
 
 
 aggiornare codeGenerator
@@ -26,8 +27,6 @@ per esempio con
 wpf si disallinea da farseer
 stesso problema con l'angolo
 pensare un sistema per gestione tramite layer
-
-semplice libreria di rototranslation 2d
-provare a rompere il maialino
-
 riscalare tutto con un parametro nel passaggio farseer <-> wpf : usare un viewbox?
+semplice libreria di rototranslation 2d
+
