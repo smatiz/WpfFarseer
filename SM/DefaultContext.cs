@@ -17,4 +17,10 @@ namespace SM
             }
         }
     }
+
+    public class DebugContext : IContext
+    {
+
+        public float Zoom { get; set; }
+    }
 }

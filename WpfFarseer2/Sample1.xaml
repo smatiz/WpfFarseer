@@ -23,7 +23,7 @@
                     </l:BodyControl>
 
                     <l:BodyControl Id="fallingBody"  BodyType="Dynamic"  >
-                        <l:ConvexPolygonShapeControl Density="123" PointCollection="0 0,10 0,10 10" Fill="Red">
+                        <l:ConvexPolygonShapeControl Density="123" PointCollection="0 0,10 0,10 10" Fill="#AFFF0000">
                         </l:ConvexPolygonShapeControl>
                         <l:BodyControl.Flags>
                             <l:FlagControl Id="x" X="10" Y="6">

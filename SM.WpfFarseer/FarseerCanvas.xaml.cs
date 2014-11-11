@@ -215,7 +215,6 @@ namespace WpfFarseer
         private static void ZoomPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e) { ((FarseerCanvas)obj).OnZoomChanged(); }
         private void OnZoomChanged()
         {
-
         }
         
 

@@ -14,8 +14,6 @@ using System.Windows.Controls;
 
 namespace SM.Wpf
 {
-   
-
     public class XamlInterpreter
     {
         class Flag
@@ -81,8 +79,6 @@ namespace SM.Wpf
             {
                 bool handled = false;
 
-                
-
                 if (!handled)
                 {
                     var bodyControl = child as BodyControl;
@@ -93,8 +89,6 @@ namespace SM.Wpf
                     }
                 }
 
-               
-
                 if (!handled)
                 {
                     var jointControl = child as RopeJointControl;
@@ -103,15 +97,6 @@ namespace SM.Wpf
                         var targetA = FindFlag(flags, jointControl.TargetFlagIdA);
                         var targetB = FindFlag(flags, jointControl.TargetFlagIdB);
 
-                        //parentChildrens.Add(jointControl.UIElement);
-
-
-                        //line.X1 = targetA.X;
-                        //line.Y1 = targetA.Y;
-                        //line.X2 = targetB.X;
-                        //line.Y2 = targetB.Y;
-
-                        //jointControl.SetLine(line);
                         jointControl.AnchorA = new float2(targetA.X, targetA.Y);
                         jointControl.AnchorB = new float2(targetB.X, targetB.Y);
                         jointControl.SetTargets(targetA.ParentId, targetB.ParentId);
@@ -123,11 +108,7 @@ namespace SM.Wpf
                 }
             }
 
-            
-
             return _views;
-
         }
-
     }
 }

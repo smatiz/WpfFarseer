@@ -6,6 +6,9 @@
 ********* sistemare esempio 3
 ********* TriangulablePolygonShapeControl e EllipseShapeControl
 ********* provare a rompere il maialino
+********* ViewBBox e ViewPointCollection vengono sistematicamente dezoomati che sia il caso di cambiarli
+********* riscalare tutto con un parametro nel passaggio farseer <-> wpf : usare un viewbox?
+********* stesso problema con l'angolo
 
 
 aggiornare codeGenerator
@@ -14,9 +17,11 @@ creare un sistema per testare il CodeGenerator in modo semplice
 finire di sistemare i joint
 T4 e refactoring
 
-********* stesso problema con l'angolo
 pensare un sistema per gestione tramite layer\userControl "userGroup"
-********* riscalare tutto con un parametro nel passaggio farseer <-> wpf : usare un viewbox?
 semplice libreria di rototranslation 2d
 
-********* ViewBBox e ViewPointCollection vengono sistematicamente dezoomati che sia il caso di cambiarli
+la rotoTranslationScale e' una proprieta ancestrale di BasicControl???
+esempio 1 - FlagControl non sembra attaccato all'oggetto giusto
+var views = XamlInterpreter.BuildViews(FarseerObjects); migliorabile!!
+
+dividere play da build nel farseerplayercontrol

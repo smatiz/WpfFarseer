@@ -11,7 +11,7 @@
     <Grid>
         <l2:FarseerPlayerControl x:Name="_farseerPlayer">
             <l2:FarseerPlayerControl.FarseerCanvas>
-                <l3:FarseerCanvas  Grid.Row="0" Debug="True">
+                <l3:FarseerCanvas  Grid.Row="0" >
                     <l:BodyControl Id="b" BodyType="Breakable">
                         <l:TriangulablePolygonShapeControl Density="123" PointCollection="0,0 100,0 100,100 75,25" >
                             <l:TriangulablePolygonShapeControl.Fill>

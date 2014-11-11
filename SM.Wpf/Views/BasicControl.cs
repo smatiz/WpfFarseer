@@ -16,9 +16,6 @@ namespace SM.Wpf
         private CanvasId _canvasId;
         private List<BasicControl> _children = new List<BasicControl>();
 
-
-
-        //protected UIElementCollection CanvasParent { get { return _canvas.Children; } }
         protected void AddChild(BasicControl basic)
         {
             _canvasId.Children.Add(basic._canvasId);
@@ -43,7 +40,6 @@ namespace SM.Wpf
                 loaded = true;
                 OnFirstLoad();
             };
-
         }
         public BasicControl()
         {
@@ -51,7 +47,6 @@ namespace SM.Wpf
             _id = _canvasId.Id;
             initialize();
         }
-
         public BasicControl(CanvasId canvasId)
         {
             _canvasId = canvasId;
@@ -82,6 +77,5 @@ namespace SM.Wpf
                 _context = value;
             }
         }
-
     }
 }

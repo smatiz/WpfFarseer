@@ -12,7 +12,7 @@ namespace SM.Wpf
 {
     
     [ContentPropertyAttribute("Children")]
-    public class GroupControl : BasicControl
+    public class GroupControl //: BasicControl
     {
         public GroupControl()
         {

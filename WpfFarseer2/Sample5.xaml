@@ -18,7 +18,7 @@
                                 
                                 <!--<Ellipse Width="32" Height="27" Fill="Red"></Ellipse>
                                 <Ellipse Width="32" Height="27" Canvas.Left="60" Canvas.Top="60" Fill="Red"></Ellipse>-->
-                                <Viewbox Width="8" Height="8" Stretch="Fill" Canvas.Left="6" Canvas.Top="2">
+                                <Viewbox Width="8" Height="8" Stretch="Fill" >
                                     <l2:Pig  />
                                 </Viewbox>
                             </Canvas>
