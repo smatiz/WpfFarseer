@@ -33,6 +33,7 @@ namespace SM.Wpf
         private RotateTransform _rotation;
         private TranslateTransform _traslation;
 
+
         public BodyControl()
         {
             Shapes = new List<IShape>();
@@ -41,8 +42,34 @@ namespace SM.Wpf
             _rotation = new RotateTransform();
             _traslation = new TranslateTransform();
 
-            
+            Context = new DefaultContext();
         }
+
+        public override IContext Context
+        {
+            set
+            {
+                base.Context = value;
+                if (Shapes != null)
+                {
+                    foreach (var s in Shapes)
+                    {
+                        s.Context = value;
+                        _traslation.X = X * _context.Zoom;
+                        _traslation.Y = Y * _context.Zoom;
+                    }
+                }
+            }
+        }
+        
+        //transform2d _transform2d;
+        //public transform2d Transform2d
+        //{
+        //    set
+        //    {
+        //        _transform2d = value;
+        //    }
+        //}
 
        protected override void OnFirstLoad()
         {
@@ -55,6 +82,7 @@ namespace SM.Wpf
 
             foreach (var shape in Shapes)
             {
+                shape.Context = _context;
                 var drawable = shape as IDrawable;
                 if (drawable != null)
                 {
@@ -96,7 +124,7 @@ namespace SM.Wpf
         private static void XPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e) { ((BodyControl)obj).OnXChanged(); }
         private void OnXChanged()
         {
-            _traslation.X = X;
+            _traslation.X = X * _context.Zoom;
         }
 
         public float Y
@@ -109,7 +137,7 @@ namespace SM.Wpf
         private static void YPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e) { ((BodyControl)obj).OnYChanged(); }
         private void OnYChanged()
         {
-            _traslation.Y = Y;
+            _traslation.Y = Y * _context.Zoom;
         }
 
         public float Angle
@@ -156,40 +184,40 @@ namespace SM.Wpf
             }
         }
 
-        /*public IEnumerable<IShape> AllShapes
-        {
-            get { return from x in Shapes select x; }
-        }*/
-
         public IEnumerable<IBodyView> Break()
         {
-            var boxeds = Shapes.Where(x => x is IBreakableShape).Select<IShape, IBreakableShape>(x => (IBreakableShape)x);
+            var breakableShapes = Shapes.Where(x => x is IBreakableShape).Select<IShape, IBreakableShape>(x => (IBreakableShape)x);
             Rect maxbb = Rect.Empty;
-            foreach (var boxed in boxeds)
+            foreach (var breakableShape in breakableShapes)
             {
-                maxbb.Union(boxed.BBox);
+                maxbb.Union(breakableShape.BBox);
             }
             List<BodyControl> bodies = new List<BodyControl>();
-            _canvas.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
-            _canvas.Arrange(new Rect(new Point(), _canvas.DesiredSize));
-            _canvas.UpdateLayout();
+            _canvas.Update();
+            //_canvas.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+            //_canvas.Arrange(new Rect(new Point(), _canvas.DesiredSize));
+            //_canvas.UpdateLayout();
             _rotation.Angle = 0;
             _traslation.X = 0;
             _traslation.Y = 0;
             _visualBrush = new VisualBrush(_canvas);
-            foreach (var boxed in boxeds)
+            foreach (var breakableShape in breakableShapes)
             {
-                foreach (var p in boxed.Polygons)
+                foreach (var p in breakableShape.PointCollections)
                 {
+                    var polyShape = new ConvexPolygonShapeControl();
+                    polyShape.Density = breakableShape.Density;
                     var vbClone = _visualBrush.Clone();
-                    var pclone = new Polygon();
-                    pclone.Points = p.Points.Clone();
-                    var polygonBB = pclone.BBox();
+                    polyShape.PointCollection = p.Clone();
+                    var polygonBB = polyShape.BBox;
                     vbClone.Viewbox = new Rect((polygonBB.X - maxbb.X) / maxbb.Width, (polygonBB.Y - maxbb.Y) / maxbb.Height, polygonBB.Width / maxbb.Width, polygonBB.Height / maxbb.Height);
-                    pclone.Fill = vbClone;
+
+                    polyShape.Fill = vbClone;
+
                     var bc = new BodyControl();
+                    bc.Context = _context;
                     bc.BodyType = SM.BodyType.Dynamic;
-                    bc.Shapes.Add(new ConvexPolygonShapeControl(pclone, boxed.Density));
+                    bc.Shapes.Add(polyShape);
                     AddChild(bc);
                     bc.RotoTranslation = RotoTranslation;
                     bodies.Add(bc);

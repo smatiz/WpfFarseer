@@ -72,6 +72,7 @@ namespace SM.Farseer
             Id = id;
 
             
+            
 
             var worldBody = BodyFactory.CreateBody(_world);
             _fixedMouseJoint = new FixedMouseJoint(worldBody, worldBody.Position);

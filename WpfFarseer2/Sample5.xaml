@@ -11,13 +11,14 @@
     <Grid>
         <l2:FarseerPlayerControl x:Name="_farseerPlayer" Loaded="_farseerPlayer_Loaded">
             <l2:FarseerPlayerControl.FarseerCanvas>
-                <l3:FarseerCanvas  Grid.Row="0" >
-                    <l:BodyControl BodyType="Breakable" Id="Pig"  >
+                <l3:FarseerCanvas  Grid.Row="0" Zoom="10" Debug="True">
+                    <l:BodyControl BodyType="Breakable" Id="Pig" X="1"  Y="-1" >
                         <l:SkinnedShapeControl >
-                            <Canvas Width="80" Height="80" Canvas.Left="100" >
+                            <Canvas Width="8" Height="8" >
+                                
                                 <!--<Ellipse Width="32" Height="27" Fill="Red"></Ellipse>
                                 <Ellipse Width="32" Height="27" Canvas.Left="60" Canvas.Top="60" Fill="Red"></Ellipse>-->
-                                <Viewbox Width="80" Height="80" Stretch="Fill">
+                                <Viewbox Width="8" Height="8" Stretch="Fill" Canvas.Left="6" Canvas.Top="2">
                                     <l2:Pig  />
                                 </Viewbox>
                             </Canvas>
@@ -28,13 +29,11 @@
                         </l:SkinnedShapeControl>
                     </l:BodyControl>
                     <l:BodyControl Id="b2" BodyType="Dynamic">
-                        <l:ConvexPolygonShapeControl Density="123"  >
-                            <Polygon Points="200,100,300,0,300,200" Fill="Black"></Polygon>
+                        <l:ConvexPolygonShapeControl Density="123" PointCollection="20,10,30,0,30,20" Fill="Black">
                         </l:ConvexPolygonShapeControl>
                     </l:BodyControl>
                     <l:BodyControl Id="b" >
-                        <l:ConvexPolygonShapeControl Density="123"  >
-                            <Polygon Points="0 200,300 200,150 250" Fill="Green"></Polygon>
+                        <l:ConvexPolygonShapeControl Density="123"  PointCollection="0 20,30 20,15 25" Fill="Green">
                         </l:ConvexPolygonShapeControl>
                     </l:BodyControl>
 

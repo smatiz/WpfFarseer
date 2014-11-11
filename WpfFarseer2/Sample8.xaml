@@ -42,8 +42,7 @@
                     </l:BodyControl>
                   
                     <l:BodyControl Id="b" >
-                        <l:ConvexPolygonShapeControl Density="123"  >
-                            <Polygon Points="0 200,300 200,150 250" Fill="Green"></Polygon>
+                        <l:ConvexPolygonShapeControl Density="123" PointCollection="0 200,300 200,150 250" Fill="Green">
                         </l:ConvexPolygonShapeControl>
                     </l:BodyControl>
 

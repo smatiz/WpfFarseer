@@ -10,7 +10,7 @@ using System.Windows.Media;
 namespace SM.Wpf
 {
     // controlli in grado di agganciare il proprio canvas o il canvas di un altro BasicControl al canvas padre
-    public abstract class BasicControl : Visual
+    public abstract class BasicControl : Visual , IContextual
     {
         private string _id;
         private CanvasId _canvasId;
@@ -73,5 +73,15 @@ namespace SM.Wpf
                 _canvasId.Id = _id;
             }
         }
+
+        protected IContext _context;
+        public virtual IContext Context
+        {
+            set
+            {
+                _context = value;
+            }
+        }
+
     }
 }

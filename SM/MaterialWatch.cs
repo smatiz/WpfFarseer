@@ -11,7 +11,7 @@ namespace SM
 public class MaterialWatch 
     {
         private enum Status { Stopped, Play, Pause }
-        public const float DT = 1 / 30f;
+        public const float DT = 1 / 50f;
         private const long Interval = (long)(DT * 0.5);
         private Timer _timer;
         private Status _status = Status.Stopped;

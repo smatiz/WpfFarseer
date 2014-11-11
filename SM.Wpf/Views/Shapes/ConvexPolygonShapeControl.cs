@@ -10,33 +10,93 @@ using System.Windows.Shapes;
 
 namespace SM.Wpf
 {
-    [ContentPropertyAttribute("Polygon")]
+    [ContentPropertyAttribute("PointCollection")]
     public class ConvexPolygonShapeControl : BasicShapeControl, IPolygonShape, IDrawable, IBreakableShape
     {
+
+        Polygon _polygon;
         public ConvexPolygonShapeControl()
         {
+            _polygon = new Polygon();
+            //_polygon.Stroke = new SolidColorBrush(Colors.Black);
+            //_polygon.StrokeThickness = 1;
         }
 
-        public ConvexPolygonShapeControl(Polygon poly, float density)
-            : this()
+        //public __ConvexPolygonShapeControl__(Polygon poly, float density)
+        //    : this()
+        //{
+        //    _polygon = poly;
+        //    Density = density;
+        //}
+
+
+
+
+
+        public PointCollection PointCollection
         {
-            Polygon = poly;
-            Density = density;
+            get { return (PointCollection)GetValue(PointCollectionProperty); }
+            set { SetValue(PointCollectionProperty, value); }
+        }
+        public static readonly DependencyProperty PointCollectionProperty =
+            DependencyProperty.Register("PointCollection", typeof(PointCollection), typeof(ConvexPolygonShapeControl), new PropertyMetadata(null, new PropertyChangedCallback(PointCollectionPropertyChanged)));
+        private static void PointCollectionPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e) { ((ConvexPolygonShapeControl)obj).OnPointCollectionChanged(); }
+        private void OnPointCollectionChanged()
+        {
+            refresh();
         }
 
-        public Polygon Polygon
+
+
+        public Brush Fill
         {
-            get { return (Polygon)GetValue(PolygonProperty); }
-            set { SetValue(PolygonProperty, value); }
+            get { return (Brush)GetValue(FillProperty); }
+            set { SetValue(FillProperty, value); }
         }
-        public static readonly DependencyProperty PolygonProperty =
-            DependencyProperty.Register("Polygon", typeof(Polygon), typeof(ConvexPolygonShapeControl), new PropertyMetadata(null));
+        public static readonly DependencyProperty FillProperty =
+            DependencyProperty.Register("Fill", typeof(Brush), typeof(ConvexPolygonShapeControl), new PropertyMetadata(null, new PropertyChangedCallback(FillPropertyChanged)));
+        private static void FillPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e) { ((ConvexPolygonShapeControl)obj).OnFillChanged(); }
+        private void OnFillChanged()
+        {
+            _polygon.Fill = Fill;
+
+        }
+
+
+
+        public Brush Stroke
+        {
+            get { return (Brush)GetValue(StrokeProperty); }
+            set { SetValue(StrokeProperty, value); }
+        }
+        public static readonly DependencyProperty StrokeProperty =
+            DependencyProperty.Register("Stroke", typeof(Brush), typeof(ConvexPolygonShapeControl), new PropertyMetadata(null, new PropertyChangedCallback(StrokePropertyChanged)));
+        private static void StrokePropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e) { ((ConvexPolygonShapeControl)obj).OnStrokeChanged(); }
+        private void OnStrokeChanged()
+        {
+            _polygon.Stroke = Stroke;
+        }
+
+
+
+        public double StrokeThickness
+        {
+            get { return (double)GetValue(StrokeThicknessProperty); }
+            set { SetValue(StrokeThicknessProperty, value); }
+        }
+        public static readonly DependencyProperty StrokeThicknessProperty =
+            DependencyProperty.Register("StrokeThickness", typeof(double), typeof(ConvexPolygonShapeControl), new PropertyMetadata(0.0, new PropertyChangedCallback(StrokeThicknessPropertyChanged)));
+        private static void StrokeThicknessPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e) { ((ConvexPolygonShapeControl)obj).OnStrokeThicknessChanged(); }
+        private void OnStrokeThicknessChanged()
+        {
+            _polygon.StrokeThickness = StrokeThickness;
+        }
 
         public IEnumerable<float2> Points
         {
             get
             {
-                return Polygon.Points.Select(p => new float2((float)p.X, (float)p.Y));
+                return PointCollection.Select(p => new float2((float)p.X, (float)p.Y));
             }
         }
 
@@ -44,7 +104,7 @@ namespace SM.Wpf
         {
             get
             {
-                return Polygon;
+                return _polygon;
             }
         }
 
@@ -52,17 +112,36 @@ namespace SM.Wpf
         {
             get
             {
-                return Polygon.BBox();
+                return PointCollection.BBox(); 
             }
         }
 
-
-
-        public IEnumerable<Polygon> Polygons
+        void refresh()
         {
-            get 
+            if (PointCollection != null)
             {
-                yield return Polygon;
+                _polygon.Points.Clear();
+                foreach (var p in PointCollection)
+                {
+                    _polygon.Points.Add(p.Zoomed(_context.Zoom));
+                }
+            }
+        }
+
+        public IEnumerable<PointCollection> PointCollections
+        {
+            get
+            {
+                yield return PointCollection;
+            }
+        }
+
+        public override IContext Context
+        {
+            set
+            {
+                base.Context = value;
+                refresh();
             }
         }
     }

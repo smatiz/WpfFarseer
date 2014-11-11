@@ -11,15 +11,20 @@
     <Grid>
         <l2:FarseerPlayerControl x:Name="_farseerPlayer">
             <l2:FarseerPlayerControl.FarseerCanvas>
-                <l3:FarseerCanvas  Grid.Row="0" >
+                <l3:FarseerCanvas  Grid.Row="0" Debug="True">
                     <l:BodyControl Id="b" BodyType="Breakable">
-                        <l:TriangulablePolygonShapeControl Density="123"  >
-                            <Polygon Points="0,0 100,0 100,100 75,25" Fill="Black"></Polygon>
+                        <l:TriangulablePolygonShapeControl Density="123" PointCollection="0,0 100,0 100,100 75,25" >
+                            <l:TriangulablePolygonShapeControl.Fill>
+                                <VisualBrush>
+                                    <VisualBrush.Visual>
+                                        <Button Background="Blue" Width="10" Height="10">ciao</Button>
+                                    </VisualBrush.Visual>
+                                </VisualBrush>
+                            </l:TriangulablePolygonShapeControl.Fill>
                         </l:TriangulablePolygonShapeControl>
                     </l:BodyControl>
                     <l:BodyControl Id="b2" >
-                        <l:ConvexPolygonShapeControl Density="123"  >
-                            <Polygon Points="0 200,300 200,150 250" Fill="Black"></Polygon>
+                        <l:ConvexPolygonShapeControl Density="123"  PointCollection="0 200,300 200,150 250" Fill="Black">
                         </l:ConvexPolygonShapeControl>
                     </l:BodyControl>
                 </l3:FarseerCanvas>

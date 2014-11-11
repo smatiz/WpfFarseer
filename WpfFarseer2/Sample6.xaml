@@ -19,14 +19,12 @@
                                 <Button Background="Blue" Canvas.Left="20" Canvas.Top="10" Width="10" Height="40">ciao</Button>
                             </Canvas>
                         </l:SkinnedShapeControl>
-                        <l:ConvexPolygonShapeControl Density="123"  >
-                            <Polygon Points="60,30,60,20,50,20,50,30" Fill="Black"></Polygon>
+                        <l:ConvexPolygonShapeControl Density="123" PointCollection="60,30,60,20,50,20,50,30" Fill="Black">
                         </l:ConvexPolygonShapeControl>
                     </l:BodyControl>
                   
                     <l:BodyControl Id="b" >
-                        <l:ConvexPolygonShapeControl Density="123"  >
-                            <Polygon Points="0 200,300 200,150 250" Fill="Green"></Polygon>
+                        <l:ConvexPolygonShapeControl Density="123" PointCollection="0 200,300 200,150 250" Fill="Green">
                         </l:ConvexPolygonShapeControl>
                     </l:BodyControl>
 

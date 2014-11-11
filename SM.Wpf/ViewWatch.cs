@@ -11,14 +11,14 @@ namespace SM
     {
         private enum Status { Stopped, Play, Pause }
         private Status _status = Status.Stopped;
-        private const long Interval = 40;
+        private const long Interval = 50;
         private DispatcherTimer _timer;
         public Action Callback { private get; set; }
 
-        public ViewWatch()
+        public ViewWatch(long interval = Interval)
         {
             _timer = new DispatcherTimer(DispatcherPriority.Render);
-            _timer.Interval = TimeSpan.FromMilliseconds(Interval);
+            _timer.Interval = TimeSpan.FromMilliseconds(interval);
             _timer.Tick += _timer_Tick;
         }
 

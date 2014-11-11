@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Shapes;
 
 namespace SM.Wpf
@@ -47,9 +48,9 @@ namespace SM.Wpf
 
         private Ellipse getEllipse()
         {
-            var ellipse = new System.Windows.Shapes.Ellipse() { Width = RadiusX * 2, Height = RadiusY * 2 };
-            Canvas.SetLeft(ellipse, X - RadiusX);
-            Canvas.SetTop(ellipse, Y - RadiusY);
+            var ellipse = new System.Windows.Shapes.Ellipse() { Width = RadiusX * Context.Zoom * 2, Height = RadiusY * Context.Zoom * 2 };
+            Canvas.SetLeft(ellipse, (X - RadiusX) * Context.Zoom);
+            Canvas.SetTop(ellipse, (Y - RadiusY) * Context.Zoom);
             return ellipse;
         }
 
@@ -64,14 +65,20 @@ namespace SM.Wpf
         {
             get
             {
-                return getEllipse().BBox();
+                return new Rect(X - RadiusX, Y - RadiusY, RadiusX, RadiusY);
             }
         }
 
 
-        public IEnumerable<Polygon> Polygons
+        public IEnumerable<PointCollection> PointCollections
         {
             get { throw new NotImplementedException(); }
+        }
+
+        public IContext Context
+        {
+            private get;
+            set;
         }
     }
 }

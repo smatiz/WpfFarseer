@@ -97,6 +97,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GroupControl.cs" />
     <Compile Include="IBreakableShape.cs" />
     <Compile Include="IDrawable.cs" />
     <Compile Include="IFlaggable.cs" />

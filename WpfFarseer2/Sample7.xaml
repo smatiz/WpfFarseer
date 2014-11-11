@@ -13,28 +13,23 @@
             <l2:FarseerPlayerControl.FarseerCanvas>
                 <l3:FarseerCanvas  Grid.Row="0" >
                     <l:BodyControl BodyType="Breakable">
-                        <l:ConvexPolygonShapeControl Density="123"  >
-                            <Polygon Points="50,0,50,50,100,40" Fill="GreenYellow"  Stroke="Black" StrokeThickness="2"></Polygon>
+                        <l:ConvexPolygonShapeControl Density="123"  PointCollection="50,0,50,50,100,40" Fill="GreenYellow"  Stroke="Black" StrokeThickness="2">
                         </l:ConvexPolygonShapeControl>
-                        <l:ConvexPolygonShapeControl Density="123"  >
-                            <Polygon Points="0,0,50,0,50,50" Fill="Red" Stroke="Black" StrokeThickness="2"></Polygon>
+                        <l:ConvexPolygonShapeControl Density="123"  PointCollection="0,0,50,0,50,50" Fill="Red" Stroke="Black" StrokeThickness="2">
                         </l:ConvexPolygonShapeControl>
-                        <l:ConvexPolygonShapeControl Density="123"  >
-                            <Polygon Points="50,0,120,25,150,0" Stroke="Black" StrokeThickness="2">
-                                <Polygon.Fill>
-                                    <VisualBrush>
-                                        <VisualBrush.Visual>
+                        <l:ConvexPolygonShapeControl Density="123" PointCollection="50,0,120,25,150,0" Stroke="Black" StrokeThickness="2">
+                            <l:ConvexPolygonShapeControl.Fill>
+                                <VisualBrush>
+                                    <VisualBrush.Visual>
                                         <Button>ciao</Button>
-                                        </VisualBrush.Visual>
-                                    </VisualBrush>
-                                </Polygon.Fill>
-                            </Polygon>
+                                    </VisualBrush.Visual>
+                                </VisualBrush>
+                            </l:ConvexPolygonShapeControl.Fill>
                         </l:ConvexPolygonShapeControl>
                     </l:BodyControl>
                   
                     <l:BodyControl Id="b" >
-                        <l:ConvexPolygonShapeControl Density="123"  >
-                            <Polygon Points="0 200,300 200,150 250" Fill="Green"></Polygon>
+                        <l:ConvexPolygonShapeControl Density="123"  PointCollection="0 200,300 200,150 250" Fill="Green">
                         </l:ConvexPolygonShapeControl>
                     </l:BodyControl>
 

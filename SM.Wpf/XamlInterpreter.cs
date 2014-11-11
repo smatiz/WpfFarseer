@@ -71,7 +71,7 @@ namespace SM.Wpf
             return null;
         }
 
-        public static Views BuildViews(UIElementCollection parentChildrens, IEnumerable<BasicControl> objects)
+        public static Views BuildViews(IEnumerable<BasicControl> objects)
         {
             var _views = new Views();
 
@@ -103,17 +103,17 @@ namespace SM.Wpf
                         var targetA = FindFlag(flags, jointControl.TargetFlagIdA);
                         var targetB = FindFlag(flags, jointControl.TargetFlagIdB);
 
-                        var line = new Line();
-                        line.Stroke = new SolidColorBrush(Colors.Green);
-                        line.StrokeThickness = 1;
-                        parentChildrens.Add(line);
+                        //parentChildrens.Add(jointControl.UIElement);
 
-                        line.X1 = targetA.X;
-                        line.Y1 = targetA.Y;
-                        line.X2 = targetB.X;
-                        line.Y2 = targetB.Y;
 
-                        jointControl.SetLine(line);
+                        //line.X1 = targetA.X;
+                        //line.Y1 = targetA.Y;
+                        //line.X2 = targetB.X;
+                        //line.Y2 = targetB.Y;
+
+                        //jointControl.SetLine(line);
+                        jointControl.AnchorA = new float2(targetA.X, targetA.Y);
+                        jointControl.AnchorB = new float2(targetB.X, targetB.Y);
                         jointControl.SetTargets(targetA.ParentId, targetB.ParentId);
 
                         _views.Joints.Add(jointControl);

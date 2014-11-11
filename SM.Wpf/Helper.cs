@@ -1,6 +1,7 @@
 ﻿
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -12,6 +13,24 @@ namespace SM.Wpf
     /// </summary>
     public static class Helper
     {
+
+        static float _zoom;
+        static float _dezoom;
+        static Helper()
+        {
+            _zoom = 10;
+            _dezoom = 1 / _zoom;
+        }
+
+        public static float Zoom
+        {
+            set
+            {
+                _zoom = value;
+                _dezoom = 1/ _zoom;
+            }
+        }
+
         public static IFarseerTools FarseerTools { get; set; }
         public static Point ToWpf(this float2 p)
         {
@@ -20,9 +39,15 @@ namespace SM.Wpf
         public static Polygon ToWpfPolygon(this IEnumerable<float2> ps)
         {
             var poly = new Polygon();
+            poly.Points = ps.ToWpf();
+            return poly;
+        }
+        public static PointCollection ToWpf(this IEnumerable<float2> ps)
+        {
+            var poly = new PointCollection();
             foreach (var p in ps)
             {
-                poly.Points.Add(p.ToWpf());
+                poly.Add(p.ToWpf());
             }
             return poly;
         }
@@ -57,34 +82,21 @@ namespace SM.Wpf
             return r;
         }
 
-
-        public static void FillPolygons(this VisualBrush vb, Polygon[] ps)
+        internal static Point Zoomed(this Point p, float z)
         {
-            Rect[] bbs = new Rect[ps.Length];
-            for (int i = 0; i < ps.Length; i++)
-            {
-                bbs[i] = ps[i].BBox();
-            }
-
-            var bb = bbs[0];
-            for (int i = 1; i < ps.Length; i++)
-            {
-                bb.Union(bbs[i]);
-            }
-
-
-            for (int i = 0; i < ps.Length; i++)
-            {
-                //var vb = new VisualBrush(uiElement);
-                vb.AlignmentX = AlignmentX.Left;
-                vb.AlignmentY = AlignmentY.Top;
-                vb.Stretch = Stretch.None;
-                vb.Viewport = new Rect((bb.X - bbs[i].X) / bbs[i].Width, (bb.Y - bbs[i].Y) / bbs[i].Height, 1, 1);
-                ps[i].Fill = vb;
-            }
+            return new Point(p.X * z, p.Y * z);
         }
 
-        public static VisualBrush GetVisualBrush(this UIElement element)
+        internal static Rect Zoomed(this Rect r, float z)
+        {
+            return new Rect(r.X * z, r.Y * z, r.Width * z, r.Height * z);
+        }
+        internal static PointCollection Zoomed(this PointCollection ps, float z)
+        {
+            return new PointCollection(ps.Select(p => p.Zoomed(z)));
+        }
+      
+        public static VisualBrush ToVisualBrush(this UIElement element)
         {
             var brush = new VisualBrush(element);
             brush.Stretch = Stretch.None;
@@ -95,7 +107,7 @@ namespace SM.Wpf
         }
 
 
-        public static RenderTargetBitmap ConvertToRenderTargetBitmap(this VisualBrush brush, double width, double height)
+        public static RenderTargetBitmap ToRenderTargetBitmap(this VisualBrush brush, double width, double height)
         {
             var target = new RenderTargetBitmap((int)width, (int)height, 96, 96, PixelFormats.Pbgra32);
             var visual = new DrawingVisual();
@@ -108,9 +120,9 @@ namespace SM.Wpf
             return target;
         }
 
-        public static RenderTargetBitmap ConvertToRenderTargetBitmap(this UIElement element)
+        public static RenderTargetBitmap ToRenderTargetBitmap(this UIElement element)
         {
-            return element.GetVisualBrush().ConvertToRenderTargetBitmap(element.RenderSize.Width, element.RenderSize.Height);
+            return element.ToVisualBrush().ToRenderTargetBitmap(element.RenderSize.Width, element.RenderSize.Height);
 
 
             //return null;
@@ -136,5 +148,15 @@ namespace SM.Wpf
 
             //return target;
         }
+
+
+        public static void Update(this UIElement elem)
+        {
+            elem.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+            elem.Arrange(new Rect(new Point(), elem.DesiredSize));
+            elem.UpdateLayout();
+        }
+    
+    
     }
 }

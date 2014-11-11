@@ -7,8 +7,14 @@ using System.Windows;
 
 namespace SM.Wpf
 {
-    public class BasicShapeControl : DependencyObject
+    public class BasicShapeControl : DependencyObject, IContextual
     {
+        public BasicShapeControl()
+        {
+            Context = new DefaultContext();
+        }
+
+
         public float Density
         {
             get { return (float)GetValue(DensityProperty); }
@@ -16,6 +22,15 @@ namespace SM.Wpf
         }
         public static readonly DependencyProperty DensityProperty =
             DependencyProperty.Register("Density", typeof(float), typeof(BasicShapeControl), new PropertyMetadata(1f));
+
+        protected IContext _context;
+        public virtual IContext Context
+        {
+            set
+            {
+                _context = value;
+            }
+        }
 
     }
 }

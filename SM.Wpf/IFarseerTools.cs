@@ -14,7 +14,8 @@ namespace SM.Wpf
         IEnumerable<IEnumerable<float2>> FindBorder(VisualBrush brush, double w, double h);
 
         IEnumerable<IEnumerable<float2>> Triangulate(IEnumerable<float2> enumerable);
-
+#if DEBUG
         void Save(VisualBrush visualBrush, string path);
+#endif
     }
 }

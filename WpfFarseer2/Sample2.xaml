@@ -19,16 +19,13 @@
                             </l:ShapeControl>
                     </l:BreakableBodyControl>-->
                     <l:BodyControl BodyType="Breakable">
-                        <l:ConvexPolygonShapeControl Density="123"  >
-                            <Polygon Points="0 0,100 0,100 100" Fill="Blue"></Polygon>
+                        <l:ConvexPolygonShapeControl Density="123" PointCollection="0 0,100 0,100 100" Fill="Blue">
                         </l:ConvexPolygonShapeControl>
-                        <l:ConvexPolygonShapeControl Density="123"  >
-                        <Polygon Points="100,50,150,0,150,100" Fill="Green"></Polygon>
+                        <l:ConvexPolygonShapeControl Density="123" PointCollection="100,50,150,0,150,100" Fill="Green">
                         </l:ConvexPolygonShapeControl>
                     </l:BodyControl>
                     <l:BodyControl Id="b">
-                        <l:ConvexPolygonShapeControl Density="123"  >
-                            <Polygon Points="0 200,300 200,150 250" Fill="Black"></Polygon>
+                        <l:ConvexPolygonShapeControl Density="123"  PointCollection="0 200,300 200,150 250" Fill="Black">
                         </l:ConvexPolygonShapeControl>
                     </l:BodyControl>
                 </l3:FarseerCanvas>

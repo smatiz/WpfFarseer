@@ -7,31 +7,29 @@
             xmlns:l="clr-namespace:SM.Wpf;assembly=SM.Wpf"
         xmlns:l2="clr-namespace:WpfFarseer"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="600" d:DesignWidth="600">
     <Grid>
         <l2:FarseerPlayerControl x:Name="_farseerPlayer">
             <l2:FarseerPlayerControl.FarseerCanvas>
-                <l3:FarseerCanvas  Grid.Row="0" >
-                    <l:BodyControl Id="fallingBody"  BodyType="Dynamic"  >
-                        <l:ConvexPolygonShapeControl Density="123"  >
-                            <Polygon Points="0 0,100 0,100 100" Fill="Red"></Polygon>
-                        </l:ConvexPolygonShapeControl>
-                        <l:BodyControl.Flags>
-                            <l:FlagControl Id="x" X="50" Y="30">
-                            </l:FlagControl>
-                        </l:BodyControl.Flags>
-                    </l:BodyControl>
+                <l3:FarseerCanvas  Zoom="20" Debug="false">
                     <l:BodyControl Id="b2"   BodyType="Static"   >
-                        <l:ConvexPolygonShapeControl Density="123"  >
-                            <Polygon Points="100,100,200,0,200,200" Fill="Gray"></Polygon>
+                        <l:ConvexPolygonShapeControl Density="123"  PointCollection="10,10,20,0,20,20" Fill="Gray">
                         </l:ConvexPolygonShapeControl>
                         <l:BodyControl.Flags>
-                            <l:FlagControl Id="y" X="150" Y="150">
+                            <l:FlagControl Id="y" X="15" Y="15">
 
                         </l:FlagControl>
                         </l:BodyControl.Flags>
                     </l:BodyControl>
 
+                    <l:BodyControl Id="fallingBody"  BodyType="Dynamic"  >
+                        <l:ConvexPolygonShapeControl Density="123" PointCollection="0 0,10 0,10 10" Fill="Red">
+                        </l:ConvexPolygonShapeControl>
+                        <l:BodyControl.Flags>
+                            <l:FlagControl Id="x" X="10" Y="6">
+                            </l:FlagControl>
+                        </l:BodyControl.Flags>
+                    </l:BodyControl>
                     <l:RopeJointControl Id="jointC" TargetFlagIdA="x" TargetFlagIdB="y" >
                     </l:RopeJointControl>
                 </l3:FarseerCanvas>

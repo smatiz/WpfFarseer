@@ -72,7 +72,6 @@ namespace SM.Farseer
             string shapeName = CodeGenerator.N("vs_");
             vs.AddCode(shapeName);
             CodeGenerator.AddCode("FarseerPhysics.Factories.FixtureFactory.AttachPolygon({0}, {1}, {2});", shapeName, density, _body.n());
-       
         }
         private void AddShape(IShape shape)
         {
@@ -84,7 +83,6 @@ namespace SM.Farseer
                 CodeGenerator.AddCode("FarseerPhysics.Factories.FixtureFactory.AttachCircle({0}, {1}, {2});", circle.Radius, shape.Density, _body.n());
                 return;
             }
-
             var ellipse = shape as IEllipseShape;
             if (ellipse != null)
             {
@@ -93,14 +91,12 @@ namespace SM.Farseer
                 CodeGenerator.AddCode("FarseerPhysics.Factories.FixtureFactory.AttachCircle({0}, {1}, {2});", circle.Radius, shape.Density, _body.n());
                 return;
             }
-
             var poly = shape as IPolygonShape;
             if (poly != null)
             {
                 addPolygon(shape.Density, poly.Points);
                 return;
             }
-
             var polys = shape as IPolygonsShape;
             if (polys != null)
             {
@@ -110,7 +106,6 @@ namespace SM.Farseer
                 }
                 return;
             }
-
         }
      }
 }

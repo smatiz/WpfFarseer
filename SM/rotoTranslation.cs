@@ -6,38 +6,17 @@ using System.Threading.Tasks;
 
 namespace SM
 {
-    public struct rotoTranslation
+    public struct transform2d
     {
-        const float AngleSubst = 180f / (float)Math.PI;
-        readonly float2 _translation;
-        readonly float _angle;
-        public rotoTranslation(float2 translation, float angle)
+        readonly rotoTranslation _rotoTranslation;
+        readonly float _zoom;
+        public transform2d(rotoTranslation rotoTranslation, float zoom)
         {
-            _translation = translation;
-            _angle = angle;
+            _rotoTranslation = rotoTranslation;
+            _zoom = zoom;
         }
-        public static rotoTranslation FromDegree(float2 translation, float angle)
-        {
-            return new rotoTranslation(translation, angle / AngleSubst);
-        }
-        public float2 Translation { get { return _translation; } }
-        public float Angle { get { return _angle; } }
 
-        public float DegreeAngle { get { return AngleSubst * Angle; } }
-
-        //public rotoTranslation Zoomed
-        //{
-        //    get
-        //    {
-        //        return new rotoTranslation(_translation.Zoomed, _angle);
-        //    }
-        //}
-        //public rotoTranslation DeZoomed
-        //{
-        //    get
-        //    {
-        //        return new rotoTranslation(_translation.DeZoomed, _angle);
-        //    }
-        //}
+        public rotoTranslation RotoTranslation { get { return _rotoTranslation; } }
+        public float Zoom { get { return _zoom; } }
     }
 }

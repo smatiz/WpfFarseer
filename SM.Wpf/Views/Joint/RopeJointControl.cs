@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Shapes;
 using SM;
+using System.Windows.Media;
 
 namespace SM.Wpf
 {
@@ -45,36 +46,45 @@ namespace SM.Wpf
         public static readonly DependencyProperty TargetFlagIdBProperty =
             DependencyProperty.Register("TargetFlagIdB", typeof(string), typeof(RopeJointControl), new PropertyMetadata(null));
 
+
+        Line _line;
+        public RopeJointControl()
+        {
+            _line = new Line();
+            _line.Stroke = new SolidColorBrush(Colors.Green);
+            _line.StrokeThickness = 1;
+        }
+
+        float2 _anchorA;
+        float2 _anchorB;
+
         public float2 AnchorA
         {
             get
             {
-                return new float2((float)_line.X1, (float)_line.Y1);
+                return _anchorA;
             }
             set
             {
-                _line.X1 = value.X;
-                _line.Y1 = value.Y;
+                _anchorA = value;
+                _line.X1 = value.X * _context.Zoom;
+                _line.Y1 = value.Y * _context.Zoom;
             }
         }
         public float2 AnchorB
         {
             get
             {
-                return new float2((float)_line.X2, (float)_line.Y2);
+                return _anchorB;
             }
             set
             {
-                _line.X2 = value.X;
-                _line.Y2 = value.Y;
+                _anchorB = value;
+                _line.X2 = value.X * _context.Zoom;
+                _line.Y2 = value.Y * _context.Zoom;
             }
         }
 
-        Line _line;
-        public void SetLine(Line line)
-        {
-            _line = line;
-        }
         public void SetTargets(string targetBodyIdA, string targetBodyIdB)
         {
             TargetBodyIdA = targetBodyIdA;
@@ -85,5 +95,13 @@ namespace SM.Wpf
 
         public string TargetBodyIdA { get; private set; }
         public string TargetBodyIdB { get; private set; }
+
+        public UIElement UIElement
+        {
+            get
+            {
+                return _line;
+            }
+        }
     }
 }

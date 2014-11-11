@@ -17,7 +17,8 @@ namespace SM.WpfFarseer
     {
         public IEnumerable<IEnumerable<float2>> FindBorder(VisualBrush brush, double w, double h)
         {
-            var img = brush.ConvertToRenderTargetBitmap(w, h);
+            var img = brush.ToRenderTargetBitmap(w, h);
+            //img.ConvertToBitmap().Save(@"C:\Users\Developer\Desktop\temp\aaaa.png");
             uint[] us = img.GetData();
             var vs = FarseerPhysics.Common.TextureTools.TextureConverter.DetectVertices(us, (int)img.Width);
             var vsp = FarseerPhysics.Common.Decomposition.Triangulate.ConvexPartition(vs, FarseerPhysics.Common.Decomposition.TriangulationAlgorithm.Bayazit);
@@ -25,19 +26,19 @@ namespace SM.WpfFarseer
             return from x in vsp select x.ToSM();
             //return new List<IEnumerable<float2>>() { vs.ToSM() };
         }
-#if DEBUG
-        public void Save(VisualBrush brush, string path)
-        {
-
-            brush.ConvertToRenderTargetBitmap(1000, 1000).ConvertToBitmap().Save(path, System.Drawing.Imaging.ImageFormat.Png);
-        }
-#endif
-
         public IEnumerable<IEnumerable<float2>> Triangulate(IEnumerable<float2> poly)
         {
             var vs = poly.ToFarseerVertices();
             var vsp = FarseerPhysics.Common.Decomposition.Triangulate.ConvexPartition(vs, FarseerPhysics.Common.Decomposition.TriangulationAlgorithm.Bayazit);
             return from x in vsp select x.ToSM();
         }
+#if DEBUG
+        public void Save(VisualBrush brush, string path)
+        {
+
+            brush.ToRenderTargetBitmap(1000, 1000).ToBitmap().Save(path, System.Drawing.Imaging.ImageFormat.Png);
+        }
+#endif
+
     }
 }

@@ -6,10 +6,17 @@ using System.Threading.Tasks;
 
 namespace SM
 {
-    public interface IShape
+    public interface IContextual
+    {
+        IContext Context { set; }
+    }
+
+
+    public interface IShape : IContextual
     {
         float Density { get; }
     }
+
     public interface IPolygonShape : IShape
     {
         IEnumerable<float2> Points { get; }

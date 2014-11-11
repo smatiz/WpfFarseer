@@ -32,7 +32,7 @@ namespace SM.WpfFarseer
             return array;
         }
 
-         public static uint[] GetData(this BitmapSource img)
+        public static uint[] GetData(this BitmapSource img)
         {
             int stride = 4 * img.PixelWidth;
             int size = stride * img.PixelWidth;
@@ -44,10 +44,10 @@ namespace SM.WpfFarseer
 
         public static System.Drawing.Bitmap ToBitmap(this UIElement element)
         {
-            return element.ConvertToRenderTargetBitmap().ConvertToBitmap();
+            return element.ToRenderTargetBitmap().ToBitmap();
         }
 
-        public static System.Drawing.Bitmap ConvertToBitmap(this RenderTargetBitmap target)
+        public static System.Drawing.Bitmap ToBitmap(this RenderTargetBitmap target)
         {
             MemoryStream stream = new MemoryStream();
             var encoder = new PngBitmapEncoder();

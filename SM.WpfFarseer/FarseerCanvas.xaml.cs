@@ -34,7 +34,7 @@ namespace WpfFarseer
     using FarseerPhysics.Factories;
 
     [ContentPropertyAttribute("FarseerObjects")]
-    public partial class FarseerCanvas : CanvasId
+    public partial class FarseerCanvas : CanvasId, IContext
     {
         FarseerWorldManager _worldManager;
         RootControl _root;
@@ -72,7 +72,6 @@ namespace WpfFarseer
             _worldManager = new FarseerWorldManager(Id, new ViewWatch());
 
             _root = new RootControl(this);
-            //Id = "Root_" + BasicControl.GetAutoGenerateName();
 
             bool loaded = false;
             Loaded += (s, e) =>
@@ -81,7 +80,12 @@ namespace WpfFarseer
                 loaded = true;
 
 
-                var views = XamlInterpreter.BuildViews(Children, FarseerObjects);
+                var views = XamlInterpreter.BuildViews(FarseerObjects);
+
+                foreach (var x in views.Joints)
+                {
+                    Children.Add(((RopeJointControl)x).UIElement);
+                }
 
                 foreach (var x in views.Bodies)
                 {
@@ -105,23 +109,48 @@ namespace WpfFarseer
                 Children.Add(debugCanvas);
                 Children.Add(debugTextBlock);
                 var debugView = new DebugViewWPF(debugCanvas, debugTextBlock, _worldManager.World);
+                debugView.ScaleTransform = new ScaleTransform(Zoom, Zoom);
                 var timer = new DispatcherTimer(DispatcherPriority.Render);
                 timer.Interval = TimeSpan.FromMilliseconds(300);
                 timer.Tick += (_s, _e) =>
                 {
                     debugCanvas.Children.Clear();
-                    debugView.DrawDebugData(); 
+                    if (Debug)
+                    {
+                        debugView.DrawDebugData();
+                    }
                 };
                 timer.Start();
 #endif
             };
-
         }
 
 
+        void FarseerCanvas_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            string id = getId(Mouse.DirectlyOver);
+            if (id == null) return;
+            var o = _worldManager.FindObject(id);
+
+            Body body;
+            if (o is Body)
+            {
+                body = (Body)o;
+            }
+            else if (o is BreakableBody)
+            {
+                body = ((BreakableBody)o).MainBody;
+            }
+            else
+            {
+                return;
+            }
+            _worldManager.StartMouseJoint(body, new xna.Vector2((float)Mouse.GetPosition(this).X / Zoom, (float)Mouse.GetPosition(this).Y / Zoom));
+
+        } 
         void FarseerCanvas_MouseMove(object sender, MouseEventArgs e)
         {
-            _worldManager.UpdateMouseJoint( new xna.Vector2((float)Mouse.GetPosition(this).X, (float)Mouse.GetPosition(this).Y));
+            _worldManager.UpdateMouseJoint(new xna.Vector2((float)Mouse.GetPosition(this).X / Zoom, (float)Mouse.GetPosition(this).Y / Zoom));
         }
 
         void FarseerCanvas_MouseUp(object sender, MouseButtonEventArgs e)
@@ -146,28 +175,6 @@ namespace WpfFarseer
             return null;
         }
 
-        void FarseerCanvas_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            string id = getId(Mouse.DirectlyOver);
-            if(id == null) return;
-            var o = _worldManager.FindObject(id);
-
-            Body body;
-           if (o is Body)
-           {
-               body = (Body)o;
-           }
-           else if (o is BreakableBody)
-           {
-               body = ((BreakableBody)o).MainBody;
-           }
-           else
-           {
-               return;
-           }
-           _worldManager.StartMouseJoint(body, new xna.Vector2((float)Mouse.GetPosition(this).X, (float)Mouse.GetPosition(this).Y));
-
-        } 
 
         void FarseerObjects_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
@@ -175,7 +182,9 @@ namespace WpfFarseer
             {
                 foreach (var x in e.NewItems)
                 {
-                    _root.AddChild((BasicControl)x);
+                    var bc = (BasicControl)x;
+                    _root.AddChild(bc);
+                    bc.Context = this;
                     //((BasicControl)x).RegisterCanvas(this.Children);
                 }
             }
@@ -189,6 +198,26 @@ namespace WpfFarseer
         }
 
 
+        public bool Debug
+        {
+            get;
+            set;
+        }
+
+
+        public float Zoom
+        {
+            get { return (float)GetValue(ZoomProperty); }
+            set { SetValue(ZoomProperty, value); }
+        }
+        public static readonly DependencyProperty ZoomProperty =
+            DependencyProperty.Register("Zoom", typeof(float), typeof(FarseerCanvas), new PropertyMetadata(1f, new PropertyChangedCallback(ZoomPropertyChanged)));
+        private static void ZoomPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e) { ((FarseerCanvas)obj).OnZoomChanged(); }
+        private void OnZoomChanged()
+        {
+
+        }
+        
 
         public static string GetAngleJoint(DependencyObject obj)
         {

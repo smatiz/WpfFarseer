@@ -13,18 +13,48 @@ namespace SM.Wpf
     [ContentPropertyAttribute("Content")]
     public class SkinnedShapeControl : BasicShapeControl, IPolygonsShape, IDrawable, IBreakableShape
     {
-
+        Canvas _canvas = new Canvas() { Background = new SolidColorBrush(Colors.Transparent) };//, Width = 1000, Height = 1000 };
+     
         IEnumerable<IEnumerable<float2>> _polygonShapes;
+        public SkinnedShapeControl()
+        {
+            refresh();
+        }
+
+        void refresh()
+        {
+
+            _canvas.RenderTransform = new ScaleTransform(_context.Zoom, _context.Zoom);
+           
+            //_canvas.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+            //_canvas.Arrange(new Rect(0, 0, _canvas.DesiredSize.Width, _canvas.DesiredSize.Height));
+            //_canvas.UpdateLayout();
+
+            try
+            {
+                if (Content != null)
+                {
+                    _canvas.Width = MaxWidth;
+                    _canvas.Height = MaxHeight;
+                    _canvas.Update();
+                    _polygonShapes = Helper.FarseerTools.FindBorder(_canvas.ToVisualBrush(), MaxWidth, MaxHeight).Select(x => x.Select(p => new float2(p.X / _context.Zoom, p.Y / _context.Zoom)));
+
+                    _canvas.Width = double.NaN;
+                    _canvas.Height = double.NaN;
+                    _canvas.Update();
+                }
+            }
+            catch { }
+        }
+
+
         public IEnumerable<IEnumerable<float2>> PolygonShapes
         {
             get
             {
-                if (_polygonShapes == null)
+                if(_polygonShapes == null)
                 {
-                    Content.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
-                    Content.Arrange(new Rect(0, 0, Content.DesiredSize.Width, Content.DesiredSize.Height));
-                    Content.UpdateLayout();
-                    _polygonShapes = Helper.FarseerTools.FindBorder(Content.GetVisualBrush(), MaxWidth, MaxHeight);
+                    refresh();
                 }
                 return _polygonShapes;
             }
@@ -56,30 +86,44 @@ namespace SM.Wpf
         private static void ContentPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e) { ((SkinnedShapeControl)obj).OnContentChanged(); }
         private void OnContentChanged()
         {
-            //Content.UpdateLayout();
+            _canvas.Children.Clear();
+            _canvas.Children.Add(Content);
+
+            refresh();
         }
 
         public UIElement UIElement
         {
             get
             {
-                return Content;
+                return _canvas;
             }
         }
+
+
         public Rect BBox
         {
             get
             {
-                return PolygonShapes.BBox();
+                return PolygonShapes.BBox(); 
             }
         }
 
 
-        public IEnumerable<System.Windows.Shapes.Polygon> Polygons
+        public IEnumerable<PointCollection> PointCollections
         {
             get 
             {
-                return PolygonShapes.Select(x => x.ToWpfPolygon());
+                return PolygonShapes.Select(x => new PointCollection(x.ToWpf().Select(p => new Point(p.X, p.Y))));
+            }
+        }
+
+        public override IContext Context
+        {
+            set
+            {
+                base.Context = value;
+                refresh();
             }
         }
     }

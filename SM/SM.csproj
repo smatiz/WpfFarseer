@@ -93,9 +93,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DefaultContext.cs" />
+    <Compile Include="Helper.cs" />
+    <Compile Include="IContext.cs" />
     <Compile Include="Manager\Joint\AngleJointManager.cs" />
     <Compile Include="Manager\Joint\PulleyJointManager.cs" />
     <Compile Include="Manager\Joint\WheelJointManager.cs" />
+    <Compile Include="transform2d.cs" />
     <Compile Include="UnitSystem.cs" />
     <Compile Include="Wpf\BasicCommand.cs" />
     <Compile Include="Manager\BasicWorldManager.cs" />
