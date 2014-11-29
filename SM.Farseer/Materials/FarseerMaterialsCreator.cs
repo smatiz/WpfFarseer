@@ -28,9 +28,14 @@ namespace SM.Farseer
             }
         }
 
-        public IJointMaterial Create(IJoint body)
+        public IJointMaterial Create(JointInfo joint)
         {
-            throw new NotImplementedException();
+            if(joint.Joint is IRopeJoint)
+            {
+                return new RopeJointMaterial(_world, joint, joint.Id);
+            }
+
+            return null;
         }
 
 

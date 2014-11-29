@@ -8,6 +8,10 @@ namespace SM
 {
     public class JointInfo : BasicInfo
     {
-        public IJoint Joint { get; set; }
+        public IJoint Joint { get; private set; }
+        public JointInfo(IJoint joint)
+        {
+            Joint = joint;
+        }
     }
 }

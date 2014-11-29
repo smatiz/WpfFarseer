@@ -29,9 +29,9 @@ namespace SM.WpfView
         }
 
 
-        public IJointView CreateJoint(IJoint joint)
+        public IJointView CreateJoint(JointInfo joint)
         {
-            return new RopeJointView(_rootView, (IRopeJoint)joint);
+            return new RopeJointView(_rootView, (IRopeJoint)joint.Joint);
         }
     }
 }

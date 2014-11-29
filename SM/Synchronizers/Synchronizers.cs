@@ -41,7 +41,6 @@ namespace SM
         {
             if (_synchronizersMap.ContainsKey(name))
                 return _synchronizersMap[name];
-            System.Diagnostics.Debug.Assert(false);
             return null;
         }
         public void UpdateMaterial()

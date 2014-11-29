@@ -46,5 +46,6 @@ namespace SM.Xaml
         public static readonly DependencyProperty TargetFlagIdBProperty =
             DependencyProperty.Register("TargetFlagIdB", typeof(string), typeof(RopeJointControl), new PropertyMetadata(null));
 
+
     }
 }

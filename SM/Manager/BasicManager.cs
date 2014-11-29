@@ -11,7 +11,6 @@ namespace SM
         private WatchMaterial _materialWatch;
         private IWatchView _viewWatch;
 
-        bool _built = true;
         bool _started = false;
 
         private Synchronizers _synchronizers;
@@ -50,25 +49,21 @@ namespace SM
 
         public void AddMaterialBehaviour(IBehaviourMaterial x)
         {
-            if (_built) return;
             _materialLoopCoroutine.Add(new FuncCoroutine(x.Step));
         }
         public void AddViewBehaviour(IBehaviourView x)
         {
-            if (_built) return;
             _startCoroutine.Add(new StartCoroutine(this, x.Start));
             _updateCoroutine.Add(new UpdateCoroutine(x.Update));
         }
         
         public void Play()
         {
-            if (!_built) return;
             _viewWatch.Play();
             _materialWatch.Play();
         }
         public void Pause()
         {
-            if (!_built) return;
             _materialWatch.Pause();
             _viewWatch.Pause();
         }
@@ -81,8 +76,6 @@ namespace SM
 
         private void updateMaterial()
         {
-            if (!_built) return;
-
             Step(WatchMaterial.DT);
 
             foreach (var c in _materialLoopCoroutine)
@@ -96,7 +89,6 @@ namespace SM
 
         private void updateView()
         {
-            if (!_built) return;
             if(!_started)
             {
                 foreach (var x in _startCoroutine)

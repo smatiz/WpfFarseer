@@ -18,14 +18,14 @@ namespace SM
     {
         public IEnumerable<FlagInfo> Flags { get; private set; }
         public IEnumerable<BodyInfo> Bodies { get; private set; }
-        public IEnumerable<IJoint> Joints { get; private set; }
+        public IEnumerable<JointInfo> Joints { get; private set; }
 
         public Info(IEnumerable<IDescriptor> objects)
         {
             var bodies = new List<BodyInfo>();
-            var joints = new List<IJoint>();
+            var joints = new List<JointInfo>();
 
-            findAllFlag(objects);
+            //findAllFlag(objects);
 
             foreach (var child in objects)
             {
@@ -41,15 +41,15 @@ namespace SM
                     }
                 }
 
-                if (false && !handled)
+                if (!handled)
                 {
                     var joint = child as IRopeJoint;
                     if (joint != null)
                     {
-                        var targetA = findFlag(joint.TargetFlagIdA);
-                        var targetB = findFlag(joint.TargetFlagIdB);
+                        //var targetA = findFlag(joint.TargetFlagIdA);
+                        //var targetB = findFlag(joint.TargetFlagIdB);
 
-                        joints.Add(joint);
+                        joints.Add(new JointInfo(joint));
 
                         handled = true;
                     }
@@ -62,7 +62,7 @@ namespace SM
 
         }
 
-        private void findAllFlag(IEnumerable<IDescriptor> objects)
+        private void fillFlagInfoList(IEnumerable<IDescriptor> objects)
         {
             var flags = new List<FlagInfo>();
             foreach (var child in objects)
@@ -94,17 +94,17 @@ namespace SM
 
             Flags = flags;
         }
-        private FlagInfo findFlag(string name)
-        {
-            foreach (var f in Flags)
-            {
-                if (f.Id == name)
-                {
-                    return f;
-                }
-            }
-            return null;
-        }
+        //private FlagInfo findFlag(string name)
+        //{
+        //    foreach (var f in Flags)
+        //    {
+        //        if (f.Id == name)
+        //        {
+        //            return f;
+        //        }
+        //    }
+        //    return null;
+        //}
     }
 
 

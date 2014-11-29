@@ -13,27 +13,36 @@ namespace SM.Farseer
     public class RopeJointMaterial :  IRopeJointMaterial
     {
         RopeJoint _joint;
-
+        //JointInfo _jointInfo;
         string _targetNameA;
         string _targetNameB;
         protected World _world;
-        protected FarseerWorldManager _farseerWorldManager;
         protected string _id;
-        protected float2 _anchorA;
-        protected float2 _anchorB;
+        protected string _anchorA;
+        protected string _anchorB;
 
-        public RopeJointMaterial(World world, FarseerWorldManager farseerWorldManager)
+        public RopeJointMaterial(World world, JointInfo jointInfo, string id)
         {
             _world = world;
-            _farseerWorldManager = farseerWorldManager;
+            var ropeJoint = jointInfo.Joint as IRopeJoint;
+            _targetNameA = ropeJoint.TargetFlagIdA;
+            _targetNameB = ropeJoint.TargetFlagIdB;
+            _id = id;
         }
 
-
-        public void Build(string id)
+        private Vector2 get(BasicManager basicManager, string name)
         {
-            _id = id;
+            var flag = basicManager.FindObject<IFlag>(name);
+            return new Vector2(flag.X, flag.Y);
+        }
 
-           _joint = JointFactory.CreateRopeJoint(_world, _farseerWorldManager.FindObject<Body>(_targetNameA), _farseerWorldManager.FindObject<Body>(_targetNameB), _anchorA.ToFarseer(), _anchorB.ToFarseer());
+        public void Finalize(BasicManager basicManager)
+        {
+            var fA = basicManager.FindObject<FlagInfo>(_targetNameA);
+            var fB = basicManager.FindObject<FlagInfo>(_targetNameB);
+
+
+            _joint = JointFactory.CreateRopeJoint(_world, basicManager.FindObject<Body>(fA.ParentId), basicManager.FindObject<Body>(fB.ParentId), fA.P.ToFarseer(), fB.P.ToFarseer());
         }
 
         public string TargetNameA
@@ -98,7 +107,7 @@ namespace SM.Farseer
                 }
                 else
                 {
-                    _anchorA = value;
+                    //_anchorA = value;
                 }
             }
         }
@@ -116,7 +125,7 @@ namespace SM.Farseer
                 }
                 else
                 {
-                    _anchorB = value;
+                    //_anchorB = value;
                 }
             }
         }

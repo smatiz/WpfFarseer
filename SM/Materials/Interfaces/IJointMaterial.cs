@@ -10,5 +10,6 @@ namespace SM
     {
         float Breakpoint { get; set; }
         bool CollideConnected { get; set; }
+        void Finalize(BasicManager basicManager);
     }
 }

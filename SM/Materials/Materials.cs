@@ -39,5 +39,13 @@ namespace SM
             BreakableBodies = breakablBodies;
             Joints = joints;
         }
+
+        public void Finalize(BasicManager basicManager)
+        {
+            foreach (var j in Joints)
+            {
+                j.Finalize(basicManager);
+            }
+        }
     }
 }

@@ -11,6 +11,6 @@ namespace SM
         void CreateFlag(FlagInfo flag);
         IBodyView CreateBody(BodyInfo body, IShapeViewCreator shapeCreator);
         IBreakableBodyView CreateBreakableBody(BodyInfo body, IShapeViewCreator shapeCreator);
-        IJointView CreateJoint(IJoint joint);
+        IJointView CreateJoint(JointInfo joint);
     }
 }

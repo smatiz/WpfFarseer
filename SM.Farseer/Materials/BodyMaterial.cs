@@ -56,6 +56,5 @@ namespace SM.Farseer
         }
 
         public virtual object Object { get { return _body; } }
-        public string Id { get { return (string)_body.UserData; } }
      }
 }
