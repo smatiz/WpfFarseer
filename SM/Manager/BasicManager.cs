@@ -8,35 +8,35 @@ namespace SM
 {
     public abstract class BasicManager
     {
-        private MaterialWatch _materialWatch;
-        private IViewWatch _viewWatch;
+        private WatchMaterial _materialWatch;
+        private IWatchView _viewWatch;
 
-        bool _built = false;
+        bool _built = true;
+        bool _started = false;
 
-        private Dictionary<string, IManager> _managers = new Dictionary<string, IManager>();
+        private Synchronizers _synchronizers;
 
         private List<BasicCoroutine> _materialLoopCoroutine = new List<BasicCoroutine>();
 
         private List<BasicCoroutine> _startCoroutine = new List<BasicCoroutine>();
         private List<BasicCoroutine> _updateCoroutine = new List<BasicCoroutine>();
 
-        public BasicManager(IViewWatch viewWatch)
+        public BasicManager(Views views, Materials materials, IWatchView viewWatch)
+            : this(new Synchronizers(views, materials), viewWatch)
         {
-            _materialWatch = new MaterialWatch(() => updateMaterial());
-            _viewWatch = viewWatch;// new ViewWatch(() => updateView());
+        }
+
+        public BasicManager(Synchronizers synchronizers, IWatchView viewWatch)
+        {
+            _synchronizers = synchronizers;
+            _materialWatch = new WatchMaterial(() => updateMaterial());
+            _viewWatch = viewWatch;
             _viewWatch.Callback = () => updateView();
         }
 
-        private IManager Find(string name)
-        {
-            if (_managers.ContainsKey(name))
-                return _managers[name];
-            // WARNING
-            return null;
-        }
         public object FindObject(string name) 
         {
-            var x = Find(name);
+            var x = _synchronizers.Find(name);
             if (x == null) return null;
             return x.Object;
         }
@@ -48,35 +48,18 @@ namespace SM
             return (T)y;
         }
 
-        public void AddMaterialBehaviour(IMaterialBehaviour x)
+        public void AddMaterialBehaviour(IBehaviourMaterial x)
         {
             if (_built) return;
             _materialLoopCoroutine.Add(new FuncCoroutine(x.Step));
         }
-
-        public void AddViewBehaviour(IViewBehaviour x)
+        public void AddViewBehaviour(IBehaviourView x)
         {
             if (_built) return;
             _startCoroutine.Add(new StartCoroutine(this, x.Start));
             _updateCoroutine.Add(new UpdateCoroutine(x.Update));
-            //_farseerBehaviours.Add(x);
         }
-        protected void AddManager(IManager manager)
-        {
-            //if (_built) return;
-            _managers.Add(manager.Id, manager);
-        }
-
-        public virtual void Build()
-        {
-            if (_built) return;
-            foreach(var manager in _managers.Values)
-            {
-                manager.Build();
-            }
-            _built = true;
-        }
-       
+        
         public void Play()
         {
             if (!_built) return;
@@ -96,51 +79,21 @@ namespace SM
         protected abstract void Step(float dt);
         protected abstract void Loop();
 
-        
         private void updateMaterial()
         {
             if (!_built) return;
 
-            Step(MaterialWatch.DT);
+            Step(WatchMaterial.DT);
 
             foreach (var c in _materialLoopCoroutine)
             {
                 c.Do();
             }
 
-            List<BodyManager> managerstobeadded = new List<BodyManager>();
-            List<string> managersIdtoberemoved = new List<string>();
-            foreach (var y in _managers.Values)
-            {
-                var x = y as IManager;
-                if (x != null)
-                {
-                    var z = y as BreakableBodyManager;
-                    if (z != null)
-                     {
-                         if(z.IsBroken)
-                         {
-                             managersIdtoberemoved.Add(z.Id);
-                             foreach (var m in z.BodyManagers)
-                             {
-                                 managerstobeadded.Add(m);
-                             }
-                         }
-                     }
-                    x.UpdateMaterial();
-                }
-            }
-            foreach (var s in managersIdtoberemoved)
-            {
-                _managers.Remove(s);
-            }
-            foreach (var m in managerstobeadded)
-            {
-                AddManager(m);
-            }
+            _synchronizers.UpdateMaterial();
+
         }
 
-        bool _started = false;
         private void updateView()
         {
             if (!_built) return;
@@ -159,17 +112,8 @@ namespace SM
                 c.Do();
             }
 
-            foreach (var y in _managers.Values)
-            {
-                var x = y as IManager;
-                if (x != null)
-                {
-                    x.UpdateView();
-                }
-            }
+            _synchronizers.UpdateView();
             Loop();
         }
-
-
     }
 }

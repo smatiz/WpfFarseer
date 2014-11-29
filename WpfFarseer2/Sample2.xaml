@@ -4,32 +4,33 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
             xmlns:l3="clr-namespace:WpfFarseer;assembly=SM.WpfFarseer"
-            xmlns:l="clr-namespace:SM.Wpf;assembly=SM.Wpf"
+            xmlns:l="clr-namespace:SM.Xaml;assembly=SM.Xaml"
+            xmlns:l4="clr-namespace:SM.WpfView;assembly=SM.WpfView"
         xmlns:l2="clr-namespace:WpfFarseer"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <l2:FarseerPlayerControl x:Name="_farseerPlayer">
-            <l2:FarseerPlayerControl.FarseerCanvas>
-                <l3:FarseerCanvas  Grid.Row="0" >
+        <l2:FarseerPlayerControl x:Name="_farseerPlayer" Debug="True">
+            <l2:FarseerPlayerControl.Farseer>
+                <l4:Farseer >
                     <!--<l:BreakableBodyControl >
                             <l:ShapeControl Density="123" Points="0 0,100 0,100 100" >
                             </l:ShapeControl>
                             <l:ShapeControl Density="123" Points="100,50,150,0,150,100" >
                             </l:ShapeControl>
                     </l:BreakableBodyControl>-->
-                    <l:BodyControl BodyType="Breakable">
-                        <l:ConvexPolygonShapeControl Density="123" PointCollection="0 0,100 0,100 100" Fill="Blue">
-                        </l:ConvexPolygonShapeControl>
-                        <l:ConvexPolygonShapeControl Density="123" PointCollection="100,50,150,0,150,100" Fill="Green">
-                        </l:ConvexPolygonShapeControl>
-                    </l:BodyControl>
-                    <l:BodyControl Id="b">
-                        <l:ConvexPolygonShapeControl Density="123"  PointCollection="0 200,300 200,150 250" Fill="Black">
-                        </l:ConvexPolygonShapeControl>
-                    </l:BodyControl>
-                </l3:FarseerCanvas>
-            </l2:FarseerPlayerControl.FarseerCanvas>
+                    <l:Body BodyType="Breakable">
+                        <l:Polygon Density="123" Points="0 0,100 0,100 100" Fill="Blue">
+                        </l:Polygon>
+                        <l:Polygon Density="123" Points="100,50,150,0,150,100" Fill="Green">
+                        </l:Polygon>
+                    </l:Body>
+                    <l:Body Id="b">
+                        <l:Polygon Density="123"  Points="0 200,300 200,150 250" Fill="Black">
+                        </l:Polygon>
+                    </l:Body>
+                </l4:Farseer>
+            </l2:FarseerPlayerControl.Farseer>
         </l2:FarseerPlayerControl>
     </Grid>
 </UserControl>

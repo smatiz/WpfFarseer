@@ -6,7 +6,7 @@ using Xna = Microsoft.Xna.Framework;
 using WShape = System.Windows.Shapes;
 using FShape = FarseerPhysics.Collision.Shapes;
 using SM;
-using SM.Wpf;
+using SM.WpfView;
 using System.Windows;
 using System.Windows.Media.Imaging;
 using System.IO;

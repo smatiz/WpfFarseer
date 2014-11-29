@@ -1,0 +1,29 @@
+uint[] xxx(System.Drawing.Bitmap img)
+        {
+            int n = img.Width * img.Height;
+            var array = new uint[n];
+            for (int i = 0; i < img.Width; i++)
+            {
+                for (int j = 0; j < img.Height; j++)
+                {
+                    System.Drawing.Color pixel = img.GetPixel(i, j);
+                    array[i * (img.Height - 1) + j] = pixel.R;
+                }
+            }
+
+            return array;
+        }
+
+        public MainWindow()
+        {
+            InitializeComponent();
+
+            var img = new System.Drawing.Bitmap(@"C:\Users\Developer\Desktop\TEMP\imm\aaa.bmp");
+            uint[] us = xxx(img);
+            //for (int i = 0; i < n; i++)
+            //{
+            //    us[i] = (uint)bs[i * 4];
+            //}
+            var vs = FarseerPhysics.Common.TextureTools.TextureConverter.DetectVertices(us, (int)img.Width);
+            _resultCanvas.Children.Add(Poly(vs, Colors.CadetBlue));
+        }

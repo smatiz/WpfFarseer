@@ -3,23 +3,24 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+            xmlns:l4="clr-namespace:SM.WpfView;assembly=SM.WpfView"
              mc:Ignorable="d" 
             xmlns:l3="clr-namespace:WpfFarseer;assembly=SM.WpfFarseer"
-            xmlns:l="clr-namespace:SM.Wpf;assembly=SM.Wpf"
+            xmlns:l="clr-namespace:SM.Xaml;assembly=SM.Xaml"
         xmlns:l2="clr-namespace:WpfFarseer"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <l2:FarseerPlayerControl x:Name="_farseerPlayer">
-            <l2:FarseerPlayerControl.FarseerCanvas>
-                <l3:FarseerCanvas  Grid.Row="0" >
-                    <l:BodyControl BodyType="Breakable">
-                        <!--<l:ConvexPolygonShapeControl Density="123"  >
+            <l2:FarseerPlayerControl.Farseer>
+                <l4:Farseer  Grid.Row="0" >
+                    <l:Body BodyType="Breakable">
+                        <!--<l:PolygonControl Density="123"  >
                             <Polygon Points="50,0,50,50,100,40" Fill="GreenYellow"  Stroke="Black" StrokeThickness="2"></Polygon>
-                        </l:ConvexPolygonShapeControl>
-                        <l:ConvexPolygonShapeControl Density="123"  >
+                        </l:PolygonControl>
+                        <l:PolygonControl Density="123"  >
                             <Polygon Points="0,0,50,0,50,50" Fill="Red" Stroke="Black" StrokeThickness="2"></Polygon>
-                        </l:ConvexPolygonShapeControl>
-                        <l:ConvexPolygonShapeControl Density="123"  >
+                        </l:PolygonControl>
+                        <l:PolygonControl Density="123"  >
                             <Polygon Points="50,0,120,25,150,0" Stroke="Black" StrokeThickness="2">
                                 <Polygon.Fill>
                                     <VisualBrush>
@@ -29,8 +30,8 @@
                                     </VisualBrush>
                                 </Polygon.Fill>
                             </Polygon>
-                        </l:ConvexPolygonShapeControl>-->
-                        <l:SkinnedShapeControl>
+                        </l:PolygonControl>-->
+                        <l:SkinnedShape>
                             <Canvas>
                                 <Polygon Points="50,0,50,50,100,40" Fill="GreenYellow"  Stroke="Black" StrokeThickness="2"></Polygon>
                                 <Polygon Points="0,0,50,0,50,50" Fill="Red" Stroke="Black" StrokeThickness="2"></Polygon>
@@ -38,16 +39,16 @@
                                     
                                 </Polygon>
                             </Canvas>
-                        </l:SkinnedShapeControl>
-                    </l:BodyControl>
+                        </l:SkinnedShape>
+                    </l:Body>
                   
-                    <l:BodyControl Id="b" >
-                        <l:ConvexPolygonShapeControl Density="123" PointCollection="0 200,300 200,150 250" Fill="Green">
-                        </l:ConvexPolygonShapeControl>
-                    </l:BodyControl>
+                    <l:Body Id="b" >
+                        <l:Polygon Density="123" Points="0 200,300 200,150 250" Fill="Green">
+                        </l:Polygon>
+                    </l:Body>
 
-                </l3:FarseerCanvas>
-            </l2:FarseerPlayerControl.FarseerCanvas>
+                </l4:Farseer>
+            </l2:FarseerPlayerControl.Farseer>
         </l2:FarseerPlayerControl>
 
 

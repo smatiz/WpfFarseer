@@ -3,25 +3,26 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+            xmlns:l4="clr-namespace:SM.WpfView;assembly=SM.WpfView"
              mc:Ignorable="d" 
             xmlns:l3="clr-namespace:WpfFarseer;assembly=SM.WpfFarseer"
-            xmlns:l="clr-namespace:SM.Wpf;assembly=SM.Wpf"
+            xmlns:l="clr-namespace:SM.Xaml;assembly=SM.Xaml"
         xmlns:l2="clr-namespace:WpfFarseer"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <l2:FarseerPlayerControl x:Name="_farseerPlayer" >
-            <l2:FarseerPlayerControl.FarseerCanvas>
-                <l3:FarseerCanvas  Id="s9" Zoom="20">
-                    <l:BodyControl BodyType="Dynamic">
-                        <l:ConvexPolygonShapeControl  PointCollection="5,0,5,5,10,4" Fill="GreenYellow"  Stroke="Black" StrokeThickness="1">
-                        </l:ConvexPolygonShapeControl>
-                    </l:BodyControl>
-                    <l:BodyControl BodyType="Static">
-                        <l:ConvexPolygonShapeControl  PointCollection="5,15,5,20,10,24" Fill="Red"  Stroke="Black" StrokeThickness="1">
-                        </l:ConvexPolygonShapeControl>
-                    </l:BodyControl>
-                </l3:FarseerCanvas>
-            </l2:FarseerPlayerControl.FarseerCanvas>
+        <l2:FarseerPlayerControl x:Name="_farseerPlayer"  Zoom="20">
+            <l2:FarseerPlayerControl.Farseer>
+                <l4:Farseer  Id="s9">
+                    <l:Body BodyType="Dynamic">
+                        <l:Polygon  Points="5,0,5,5,10,4" Fill="GreenYellow"  Stroke="Black" StrokeThickness="1">
+                        </l:Polygon>
+                    </l:Body>
+                    <l:Body BodyType="Static">
+                        <l:Polygon  Points="5,15,5,20,10,24" Fill="Red"  Stroke="Black" StrokeThickness="1">
+                        </l:Polygon>
+                    </l:Body>
+                </l4:Farseer>
+            </l2:FarseerPlayerControl.Farseer>
         </l2:FarseerPlayerControl>
 
 

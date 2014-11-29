@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SM.Farseer
 {
-    public class ShortTheRopeBehaviour : IViewBehaviour
+    public class ShortTheRopeBehaviour : IBehaviourView
     {
         RopeJoint jointC;
 

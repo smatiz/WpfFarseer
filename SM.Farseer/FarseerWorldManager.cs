@@ -18,7 +18,7 @@ namespace SM.Farseer
 {
     public class FarseerWorldManager : BasicWorldManager
     {
-        World _world = new World(new Vector2(0, 10));
+        World _world;// = new World(new Vector2(0, 10));
         FixedMouseJoint _fixedMouseJoint = null;
 
 #if DEBUG
@@ -41,11 +41,6 @@ namespace SM.Farseer
                 _fixedMouseJoint.WorldAnchorB = position;
             }
         }
-        public override void Build()
-        {
-            CodeGenerator.Header = Id;
-            base.Build();
-        }
 
         public void StopMouseJoint()
         {
@@ -66,37 +61,15 @@ namespace SM.Farseer
 
         }
 
-        public FarseerWorldManager(string id, IViewWatch viewWatch)
-            : base(viewWatch)
+        public FarseerWorldManager(string id, Synchronizers synchronizers, IWatchView viewWatch, World world)
+            : base(synchronizers, viewWatch)
         {
             Id = id;
-
-            
-            
-
+            _world = world;
             var worldBody = BodyFactory.CreateBody(_world);
             _fixedMouseJoint = new FixedMouseJoint(worldBody, worldBody.Position);
         }
 
         public string Id { get; private set; }
-
-
-        
-
-        public override IBodyMaterial CreateBodyMaterial()
-        {
-            return new BodyMaterial(_world);
-        }
-        public override IBreakableBodyMaterial CreateBreakableBodyMaterial()
-        {
-            return new BreakableBodyMaterial(_world);
-        }
-
-
-
-        public override IRopeJointMaterial CreateRopeJointMaterial()
-        {
-            return new RopeJointMaterial(_world, this);
-        }
     }
 }

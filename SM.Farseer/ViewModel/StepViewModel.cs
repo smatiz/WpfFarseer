@@ -30,16 +30,12 @@ namespace  SM.Farseer
 
         void play()
         {
-            //_worldManager_old.Play();
-            _worldManager.Build();
-       
             _worldManager.Play();
             notifyCommands();
         }
 
         void pause()
         {
-            //_worldManager_old.Pause();
             _worldManager.Pause();
             notifyCommands();
         }
@@ -62,7 +58,7 @@ namespace  SM.Farseer
         }
         void startXna()
         {
-            _worldManager.Build();
+           // _worldManager.Build();
             string path = @"S:\ROOT\DROPBOX\Dropbox\DATI\PROGRAMMAZIONE\CSHARP\FARSEER_ALL\Farseer Physics Engine 3.5 Samples\Farseer Physics Samples 3.5\bin\x86\Debug\Samples XNA.exe";
             string pathT = @"S:\ROOT\DROPBOX\Dropbox\DATI\PROGRAMMAZIONE\CSHARP\FARSEER_ALL\Farseer Physics Engine 3.5 Samples\Farseer Physics Samples 3.5\bin\x86\Debug\script.txt";
             CodeGenerator.Header = _worldManager.Id;

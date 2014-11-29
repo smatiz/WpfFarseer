@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1EBE41B7-CA6A-4540-B893-9E6A0366C534}</ProjectGuid>
+    <ProjectGuid>{E3C428D2-A846-484D-A1D0-8D573BD5130A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SM.Wpf</RootNamespace>
@@ -29,15 +29,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'no_exe|AnyCPU'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\no_exe\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x86\Debug\</OutputPath>
@@ -56,38 +47,18 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'no_exe|x86'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x86\no_exe\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Wpf|AnyCPU'">
-    <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\Wpf\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Wpf|x86'">
-    <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x86\Wpf\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -97,41 +68,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GroupControl.cs" />
-    <Compile Include="IBreakableShape.cs" />
-    <Compile Include="IDrawable.cs" />
-    <Compile Include="IFlaggable.cs" />
-    <Compile Include="Views\LayerControl.cs" />
-    <Compile Include="Views\RootControl.cs" />
-    <Compile Include="Views\Shapes\BasicShapeControl.cs" />
-    <Compile Include="CanvasId.cs" />
-    <Compile Include="Views\Shapes\EllipseShapeControl.cs" />
-    <Compile Include="Views\Shapes\CircleShapeControl.cs" />
-    <Compile Include="Helper.cs" />
-    <Compile Include="IFarseerTools.cs" />
-    <Compile Include="Views\Shapes\ConvexPolygonShapeControl.cs" />
-    <Compile Include="Views\Shapes\TriangulablePolygonShapeControl.cs" />
-    <Compile Include="Views\Shapes\SkinnedShapeControl.cs" />
-    <Compile Include="Views\BasicControl.cs" />
-    <Compile Include="Views\BodyControl.cs">
-      <Generator>MSBuild:Compile</Generator>
-    </Compile>
-    <Compile Include="CrossControl.xaml.cs">
-      <DependentUpon>CrossControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\FlagControl.cs" />
-    <Compile Include="Views\Joint\BasicJointControl.cs" />
-    <Compile Include="Views\Joint\DistanceJointControl.cs" />
-    <Compile Include="Views\Joint\RevoluteJointControl.cs" />
-    <Compile Include="Views\Joint\RopeJointControl.cs" />
-    <Compile Include="Views\Joint\TwoPointJointControl.cs" />
-    <Compile Include="Views\Joint\WeldJointControl.cs" />
+    <Compile Include="BasicControl.cs" />
+    <Compile Include="Interfaces.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StepControl.xaml.cs">
-      <DependentUpon>StepControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewWatch.cs" />
-    <Compile Include="XamlInterpreter.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SM\SM.csproj">
@@ -139,24 +78,6 @@
       <Name>SM</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Page Include="CrossControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="StepControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Styles.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="wall.png" />
-  </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

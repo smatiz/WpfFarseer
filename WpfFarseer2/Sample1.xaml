@@ -4,36 +4,37 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
             xmlns:l3="clr-namespace:WpfFarseer;assembly=SM.WpfFarseer"
-            xmlns:l="clr-namespace:SM.Wpf;assembly=SM.Wpf"
+            xmlns:l="clr-namespace:SM.Xaml;assembly=SM.Xaml"
+            xmlns:l4="clr-namespace:SM.WpfView;assembly=SM.WpfView"
         xmlns:l2="clr-namespace:WpfFarseer"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="600">
     <Grid>
-        <l2:FarseerPlayerControl x:Name="_farseerPlayer">
-            <l2:FarseerPlayerControl.FarseerCanvas>
-                <l3:FarseerCanvas  Zoom="20" Debug="false">
-                    <l:BodyControl Id="b2"   BodyType="Static"   >
-                        <l:ConvexPolygonShapeControl Density="123"  PointCollection="10,10,20,0,20,20" Fill="Gray">
-                        </l:ConvexPolygonShapeControl>
-                        <l:BodyControl.Flags>
-                            <l:FlagControl Id="y" X="15" Y="15">
+        <l2:FarseerPlayerControl x:Name="_farseerPlayer" Zoom="20" >
+            <l2:FarseerPlayerControl.Farseer>
+                <l4:Farseer Debug="false">
+                    <l:Body Id="b2"   BodyType="Static"   >
+                        <l:Polygon Density="123"  Points="10,10,20,0,20,20" Fill="Gray">
+                        </l:Polygon>
+                        <l:Body.Flags>
+                            <l:Flag Id="y" X="15" Y="15"/>
 
-                        </l:FlagControl>
-                        </l:BodyControl.Flags>
-                    </l:BodyControl>
 
-                    <l:BodyControl Id="fallingBody"  BodyType="Dynamic"  >
-                        <l:ConvexPolygonShapeControl Density="123" PointCollection="0 0,10 0,10 10" Fill="#AFFF0000">
-                        </l:ConvexPolygonShapeControl>
-                        <l:BodyControl.Flags>
-                            <l:FlagControl Id="x" X="10" Y="6">
-                            </l:FlagControl>
-                        </l:BodyControl.Flags>
-                    </l:BodyControl>
-                    <l:RopeJointControl Id="jointC" TargetFlagIdA="x" TargetFlagIdB="y" >
-                    </l:RopeJointControl>
-                </l3:FarseerCanvas>
-            </l2:FarseerPlayerControl.FarseerCanvas>
+                        </l:Body.Flags>
+                    </l:Body>
+
+                    <l:Body Id="fallingBody"  BodyType="Dynamic"  >
+                        <l:Polygon Density="123" Points="0 0,10 0,10 10" Fill="#AFFF0000">
+                        </l:Polygon>
+                        <l:Body.Flags>
+                            <l:Flag Id="x" X="10" Y="6"/>
+
+                        </l:Body.Flags>
+                    </l:Body>
+                    <l:RopeJointControl Id="jointC" TargetFlagIdA="x" TargetFlagIdB="y" />
+
+                </l4:Farseer>
+            </l2:FarseerPlayerControl.Farseer>
         </l2:FarseerPlayerControl>
         
     </Grid>

@@ -1,0 +1,4 @@
+non mi sembra che le geometry necessitino di tutta quel infrastruttura e probabilemnte non stanno neppure in SM
+
+
+sm.wpf dipende da sm.xaml o rinomino sm.wpf in sm.wpfview e creo un progetto sm.wpf comune per sm.xaml e il nuovo sm.wpfview

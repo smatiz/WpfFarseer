@@ -8,26 +8,26 @@ namespace SM
 {
     public abstract class BasicWorldManager : BasicManager
     {
-        public BasicWorldManager(IViewWatch viewWatch)
-            : base(viewWatch)
+        public BasicWorldManager(Synchronizers synchronizers, IWatchView viewWatch)
+            : base(synchronizers,viewWatch)
         {
         }
 
-        public void AddBodyView(IBodyView body)
-        {
-            if (body.BodyType == SM.BodyType.Breakable)
-                AddManager(new BreakableBodyManager(body, CreateBreakableBodyMaterial()));
-            else
-                AddManager(new BodyManager(body, CreateBodyMaterial()));
-        }
+        //public void AddBodyView(IBodyView body)
+        //{
+        //    if (body.BodyType == SM.BodyType.Breakable)
+        //        AddManager(new BreakableBodySynchronizer(body, CreateBreakableBodyMaterial()));
+        //    else
+        //        AddManager(new BodySynchronizer(body, CreateBodyMaterial()));
+        //}
 
-        public abstract IBodyMaterial CreateBodyMaterial();
-        public abstract IBreakableBodyMaterial CreateBreakableBodyMaterial();
+        //public abstract IBodyMaterial CreateBodyMaterial();
+        //public abstract IBreakableBodyMaterial CreateBreakableBodyMaterial();
 
-        public void AddRopeJointControl(IRopeJointView body)
-        {
-            AddManager(new RopeJointManager(body, CreateRopeJointMaterial()));
-        }
-        public abstract IRopeJointMaterial CreateRopeJointMaterial();
+        //public void AddRopeJointControl(IRopeJointView body)
+        //{
+        //    AddManager(new RopeJointSynchronizer(body, CreateRopeJointMaterial()));
+        //}
+        //public abstract IRopeJointMaterial CreateRopeJointMaterial();
     }
 }

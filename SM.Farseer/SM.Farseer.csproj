@@ -94,7 +94,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Materials\BasicBodyMaterial.cs" />
     <Compile Include="CodeGenerator.cs" />
+    <Compile Include="FarseerMaterialsCreator.cs" />
     <Compile Include="Materials\BreakableBodyMaterial.cs" />
     <Compile Include="Materials\BodyMaterial.cs" />
     <Compile Include="Helpers\FarseerHelper.cs" />

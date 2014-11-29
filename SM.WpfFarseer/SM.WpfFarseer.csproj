@@ -105,10 +105,6 @@
   <ItemGroup>
     <Compile Include="FarseerTools.cs" />
     <Compile Include="DebugViewWPF.cs" />
-    <Compile Include="FarseerCanvas.xaml.cs">
-      <DependentUpon>FarseerCanvas.xaml</DependentUpon>
-      <Generator>MSBuild:Compile</Generator>
-    </Compile>
     <Compile Include="Helpers\WpfFarseerHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -123,6 +119,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="XamlShapeMaterialCreator.cs" />
     <Compile Include="WpfDebugView.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -135,12 +132,6 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="FarseerCanvas.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Farseer Physics Engine 3.5 Samples\Farseer Physics Engine 3.5\Farseer Physics XNA.csproj">
       <Project>{0a850700-1abb-4288-a391-6726b90ebeb9}</Project>
       <Name>Farseer Physics XNA</Name>
@@ -149,9 +140,17 @@
       <Project>{f7b0cc38-539d-4c46-acc7-a51c41e23135}</Project>
       <Name>SM.Farseer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SM.Wpf\SM.Wpf.csproj">
+    <ProjectReference Include="..\SM.WpfView\SM.WpfView.csproj">
       <Project>{1ebe41b7-ca6a-4540-b893-9e6a0366c534}</Project>
+      <Name>SM.WpfView</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SM.Wpf\SM.Wpf.csproj">
+      <Project>{e3c428d2-a846-484d-a1d0-8d573bd5130a}</Project>
       <Name>SM.Wpf</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SM.Xaml\SM.Xaml.csproj">
+      <Project>{4e416f0f-518c-43a6-b93b-57d105d184e1}</Project>
+      <Name>SM.Xaml</Name>
     </ProjectReference>
     <ProjectReference Include="..\SM\SM.csproj">
       <Project>{397c97f4-df83-49ea-91d9-93c5c45b0025}</Project>

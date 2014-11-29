@@ -256,9 +256,17 @@
       <Project>{5f029001-1bde-48f7-b714-42c9735b9993}</Project>
       <Name>SM.WpfFarseer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SM.Wpf\SM.Wpf.csproj">
+    <ProjectReference Include="..\SM.WpfView\SM.WpfView.csproj">
       <Project>{1ebe41b7-ca6a-4540-b893-9e6a0366c534}</Project>
+      <Name>SM.WpfView</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SM.Wpf\SM.Wpf.csproj">
+      <Project>{e3c428d2-a846-484d-a1d0-8d573bd5130a}</Project>
       <Name>SM.Wpf</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SM.Xaml\SM.Xaml.csproj">
+      <Project>{4e416f0f-518c-43a6-b93b-57d105d184e1}</Project>
+      <Name>SM.Xaml</Name>
     </ProjectReference>
     <ProjectReference Include="..\SM\SM.csproj">
       <Project>{397c97f4-df83-49ea-91d9-93c5c45b0025}</Project>

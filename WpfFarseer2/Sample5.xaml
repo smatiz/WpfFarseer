@@ -5,15 +5,16 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
             xmlns:l3="clr-namespace:WpfFarseer;assembly=SM.WpfFarseer"
-            xmlns:l="clr-namespace:SM.Wpf;assembly=SM.Wpf"
+            xmlns:l="clr-namespace:SM.Xaml;assembly=SM.Xaml"
+            xmlns:l4="clr-namespace:SM.WpfView;assembly=SM.WpfView"
         xmlns:l2="clr-namespace:WpfFarseer"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <l2:FarseerPlayerControl x:Name="_farseerPlayer" Loaded="_farseerPlayer_Loaded">
-            <l2:FarseerPlayerControl.FarseerCanvas>
-                <l3:FarseerCanvas  Grid.Row="0" Zoom="10" Debug="True">
-                    <l:BodyControl BodyType="Breakable" Id="Pig" X="1"  Y="-1" >
-                        <l:SkinnedShapeControl >
+        <l2:FarseerPlayerControl x:Name="_farseerPlayer" Loaded="_farseerPlayer_Loaded"  Zoom="10">
+            <l2:FarseerPlayerControl.Farseer>
+                <l4:Farseer  Debug="True">
+                    <l:Body BodyType="Breakable" Id="Pig" X="1"  Y="-1" >
+                        <l:SkinnedShape>
                             <Canvas Width="8" Height="8" >
                                 
                                 <!--<Ellipse Width="32" Height="27" Fill="Red"></Ellipse>
@@ -26,19 +27,19 @@
                         <Button Background="Red"  Width="40" Height="40">ciao</Button>
                                 <Button Background="Blue" Canvas.Left="20" Canvas.Top="10" Width="10" Height="40">ciao</Button> </Canvas>
                             -->
-                        </l:SkinnedShapeControl>
-                    </l:BodyControl>
-                    <l:BodyControl Id="b2" BodyType="Dynamic">
-                        <l:ConvexPolygonShapeControl Density="123" PointCollection="20,10,30,0,30,20" Fill="Black">
-                        </l:ConvexPolygonShapeControl>
-                    </l:BodyControl>
-                    <l:BodyControl Id="b" >
-                        <l:ConvexPolygonShapeControl Density="123"  PointCollection="0 20,30 20,15 25" Fill="Green">
-                        </l:ConvexPolygonShapeControl>
-                    </l:BodyControl>
+                        </l:SkinnedShape>
+                    </l:Body>
+                    <l:Body Id="b2" BodyType="Dynamic">
+                        <l:Polygon Density="123" Points="20,10,30,0,30,20" Fill="Black">
+                        </l:Polygon>
+                    </l:Body>
+                    <l:Body Id="b" >
+                        <l:Polygon Density="123"  Points="0 20,30 20,15 25" Fill="Green">
+                        </l:Polygon>
+                    </l:Body>
 
-                </l3:FarseerCanvas>
-            </l2:FarseerPlayerControl.FarseerCanvas>
+                </l4:Farseer>
+            </l2:FarseerPlayerControl.Farseer>
         </l2:FarseerPlayerControl>
 
 

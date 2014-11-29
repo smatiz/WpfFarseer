@@ -11,7 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using SM.Wpf;
+using SM.WpfView;
 using SM.Farseer;
 using SM.WpfFarseer;
 
