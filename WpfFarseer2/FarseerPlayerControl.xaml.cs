@@ -51,18 +51,13 @@ namespace WpfFarseer
 
             Settings.MaxPolygonVertices = 100;
 
-#if DEBUG
             if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
             {
                 Loaded += (sender, e) =>
                 {
-                    _context = new Context(Zoom);
-                    _root = new RootView(_context, this);
-                    Farseer.Load(_root);
-                    farseerContainer.Children.Clear();
+                    loadView();
                 };
             }
-#endif
         }
 
         public Farseer Farseer
@@ -77,21 +72,19 @@ namespace WpfFarseer
             ((FarseerPlayerControl)dependencyObject).onFarseerChanged();
         }
 
-        private void onFarseerChanged()
+        private void loadView()
         {
-
-
             _context = new Context(Zoom);
             _root = new RootView(_context, this);
             Farseer.Load(_root);
+            farseerContainer.Children.Clear();
+        }
 
-
-
-
+        private void onFarseerChanged()
+        {
+            loadView();
 
             World world = new World(new Vector2(0, 10));
-
-
 
             // creo un farseer materials creator che Materials pilotera' e usera' per popolare le sue strutture a partire da info
             var farseerMaterialsCreator = new FarseerMaterialsCreator(world);
@@ -106,13 +99,6 @@ namespace WpfFarseer
             stepControl.DataContext = new StepViewModel(_worldManager);
 
 
-            farseerContainer.Children.Clear();
-
-
-            //if (loaded) return;
-            //loaded = true;
-
-
 #if DEBUG
             if (Debug)
             {
@@ -124,8 +110,7 @@ namespace WpfFarseer
                 farseerContainer.Children.Add(debugCanvas);
                 farseerContainer.Children.Add(debugTextBlock);
                 var debugView = new DebugViewWPF(debugCanvas, debugTextBlock, _worldManager.World);
-                Zoom = 1;
-                debugView.ScaleTransform = new ScaleTransform(Zoom, Zoom);
+                debugView.ScaleTransform = new ScaleTransform(1, 1);
                 var timer = new DispatcherTimer(DispatcherPriority.Render);
                 timer.Interval = TimeSpan.FromMilliseconds(300);
                 timer.Tick += (_s, _e) =>
@@ -211,9 +196,6 @@ namespace WpfFarseer
                 foreach (var x in e.NewItems)
                 {
                     var bc = (BasicControl)x;
-                    //_root.AddChild(bc);
-                    // bc.Context = this;
-
                 }
             }
         }

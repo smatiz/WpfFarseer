@@ -18,7 +18,7 @@ namespace SM.Farseer
 {
     public class FarseerWorldManager : BasicWorldManager
     {
-        World _world;// = new World(new Vector2(0, 10));
+        World _world;
         FixedMouseJoint _fixedMouseJoint = null;
 
 #if DEBUG
@@ -33,7 +33,6 @@ namespace SM.Farseer
             }
             _fixedMouseJoint = JointFactory.CreateFixedMouseJoint(_world, body, position);
         }
-
         public void UpdateMouseJoint(Vector2 position)
         {
             if (_fixedMouseJoint != null)
@@ -41,7 +40,6 @@ namespace SM.Farseer
                 _fixedMouseJoint.WorldAnchorB = position;
             }
         }
-
         public void StopMouseJoint()
         {
             if (_fixedMouseJoint != null)
