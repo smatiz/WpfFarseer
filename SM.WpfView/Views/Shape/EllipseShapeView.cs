@@ -23,7 +23,5 @@ namespace SM.WpfView
         }
 
         public UIElement UIElement { get; private set; }
-
-       
     }
 }

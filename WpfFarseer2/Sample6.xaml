@@ -12,7 +12,7 @@
     <Grid>
         <l2:FarseerPlayerControl x:Name="_farseerPlayer">
             <l2:FarseerPlayerControl.Farseer>
-                <l4:Farseer  Grid.Row="0" >
+                <l4:Farseer   >
                     <l:Body BodyType="Breakable" X="110" Angle="9">
                         <l:SkinnedShape>
                             <Canvas >

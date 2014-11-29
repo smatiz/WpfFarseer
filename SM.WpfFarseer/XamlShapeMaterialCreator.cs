@@ -14,7 +14,6 @@ namespace SM.WpfFarseer
 {
     public class XamlShapeMaterialCreator : IShapeMaterialCreator
     {
-        const int EllipseNumberOfEdges = 10;
         IContext _context;
 
         public XamlShapeMaterialCreator(IContext context)
@@ -44,7 +43,7 @@ namespace SM.WpfFarseer
             if (ellipse != null)
             {
                 var density = ellipse.Density;
-                var points = PolygonTools.CreateEllipse((float)ellipse.RadiusX, (float)ellipse.RadiusY, EllipseNumberOfEdges).Select(p => new float2(p.X + ellipse.X, p.Y + ellipse.Y));
+                var points = PolygonTools.CreateEllipse((float)ellipse.RadiusX, (float)ellipse.RadiusY, _context.EllipseNumberOfEdges).Select(p => new float2(p.X + ellipse.X, p.Y + ellipse.Y));
                 polygons.Add(new PolygonMaterial() { Density = ellipse.Density, Points = points.ToList() });
                 return;
             }

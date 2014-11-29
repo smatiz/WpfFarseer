@@ -6,21 +6,21 @@ using System.Threading.Tasks;
 
 namespace SM
 {
-    public class DefaultContext : IContext
-    {
+    //public class DefaultContext : IContext
+    //{
 
-        public float Zoom
-        {
-            get
-            {
-                return 1f;
-            }
-        }
-    }
+    //    public float Zoom
+    //    {
+    //        get
+    //        {
+    //            return 1f;
+    //        }
+    //    }
+    //}
 
-    public class DebugContext : IContext
-    {
+    //public class DebugContext : IContext
+    //{
 
-        public float Zoom { get; set; }
-    }
+    //    public float Zoom { get; set; }
+    //}
 }

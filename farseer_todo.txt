@@ -24,6 +24,7 @@ TRANSFORM 2D
 REFACTORING AND CO
 BUG: RIPRISTINARE JOINT
 BUG: TRASLAZIONI STRANE ( vedi maialino)
+BUG: ZOOM
 
 
 rimettere assieme sm.Wpf sm.Xaml e SM.WpfView ?

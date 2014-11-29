@@ -48,8 +48,6 @@ namespace SM.WpfView
             BodyType = body.BodyType;
             Shapes = shapeCreator.Create(body.Shapes, Context);
 
-
-
             _traslation.X = body.X * Context.Zoom;
             _traslation.Y = body.Y * Context.Zoom;
             _rotation.Angle = body.Angle;
@@ -77,21 +75,7 @@ namespace SM.WpfView
 
         public BodyType BodyType { get; set; }
         public IEnumerable<BasicShapeView> Shapes { get; set; }
-
         public rotoTranslation RotoTranslation { get; set; }
-        //{
-        //    get
-        //    {
-        //        return rotoTranslation.FromDegree(new float2((float)_traslation.X, (float)_traslation.Y), (float)_rotation.Angle);
-        //    }
-        //    set
-        //    {
-        //        _traslation.X = value.Translation.X;
-        //        _traslation.Y = value.Translation.Y;
-        //        _rotation.Angle = value.DegreeAngle;
-        //    }
-        //}
-
         public override void Update()
         {
             _traslation.X = RotoTranslation.Translation.X;

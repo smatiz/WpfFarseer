@@ -14,15 +14,16 @@ namespace SM.WpfView
     public class PolygonShapeView : BasicShapeView, IDrawable
     {
         Polygon _polygon;
+        IPolygon _shape;
         public PolygonShapeView(IContext context, IPolygon shape)
             : base(context)
         {
+            _shape = shape;
             _polygon = new Polygon();
-            _polygon.Points = shape.Points;
-            _polygon.Fill = shape.Fill;
-            _polygon.Stroke = shape.Stroke;
-            _polygon.StrokeThickness = shape.StrokeThickness;
-           
+            _polygon.Fill = _shape.Fill;
+            _polygon.Stroke = _shape.Stroke;
+            _polygon.StrokeThickness = _shape.StrokeThickness;
+            refresh();
             UIElement = _polygon;
         }
 
@@ -38,14 +39,16 @@ namespace SM.WpfView
 
         void refresh()
         {
-            if (_polygon.Points != null)
+            if (_polygon.Points == null)
             {
-                _polygon.Points.Clear();
-                foreach (var p in _polygon.Points)
-                {
-                    _polygon.Points.Add(p.Zoomed(Context.Zoom));
-                }
+                _polygon.Points = new PointCollection();
             }
+            _polygon.Points.Clear();
+            foreach (var p in _shape.Points)
+            {
+                _polygon.Points.Add(p.Zoomed(Context.Zoom));
+            }
+
         }
     }
 }

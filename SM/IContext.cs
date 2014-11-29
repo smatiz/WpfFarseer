@@ -9,5 +9,17 @@ namespace SM
     public interface IContext
     {
         float Zoom { get; }
+        int EllipseNumberOfEdges { get; }
+    }
+
+    public class Context : IContext
+    {
+        public float Zoom { get; private set; }
+        public int EllipseNumberOfEdges { get; private set; }
+        public Context(float zoom)
+        {
+            Zoom = zoom;
+            EllipseNumberOfEdges = 10;
+        }
     }
 }
