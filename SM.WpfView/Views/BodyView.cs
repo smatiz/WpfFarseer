@@ -78,8 +78,8 @@ namespace SM.WpfView
         public rotoTranslation RotoTranslation { get; set; }
         public override void Update()
         {
-            _traslation.X = RotoTranslation.Translation.X;
-            _traslation.Y = RotoTranslation.Translation.Y;
+            _traslation.X = RotoTranslation.Translation.X * Context.Zoom;
+            _traslation.Y = RotoTranslation.Translation.Y * Context.Zoom;
             _rotation.Angle = RotoTranslation.DegreeAngle;
         }
     }
