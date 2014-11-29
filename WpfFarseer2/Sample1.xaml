@@ -10,7 +10,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="600">
     <Grid>
-        <l2:FarseerPlayerControl x:Name="_farseerPlayer" Zoom="20" >
+        <l2:FarseerPlayerControl x:Name="_farseerPlayer" Zoom="20" Debug="True">
             <l2:FarseerPlayerControl.Farseer>
                 <l4:Farseer Debug="false">
                     <l:Body Id="b2"   BodyType="Static"   >
