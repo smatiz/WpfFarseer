@@ -41,6 +41,7 @@ namespace SM.WpfView
             _traslation.X = 0;
             _traslation.Y = 0;
             var _visualBrush = new VisualBrush(_canvas);
+            int index = 1;
             foreach (var piece in pieces)
             {
                 var polygon = new System.Windows.Shapes.Polygon();
@@ -52,8 +53,9 @@ namespace SM.WpfView
                 polygon.Fill = vbClone;
                 var polyShape = new PolygonShapeView(Context, polygon);
 
-                var bc = BodyView.Create(this, polyShape);
+                var bc = BodyView.Create(this, String.Format("{0}_p{1}",Id , index), polyShape);
                 bodies.Add(bc);
+                index++;
             }
             RemoveChild(_canvas);
             return bodies;

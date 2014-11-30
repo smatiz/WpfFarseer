@@ -17,7 +17,8 @@ namespace SM
             var bodies = new List<IBodyView>();
             foreach (var b in info.Bodies.Where(b => b.BodyType != BodyType.Breakable))
             {
-                bodies.Add(viewCreator.CreateBody(b, shapeCreator));
+                var bv = viewCreator.CreateBody(b, shapeCreator);
+                bodies.Add(bv);
             }
             Bodies = bodies;
 
@@ -35,5 +36,7 @@ namespace SM
             }
             Joints = joints;
         }
+
+
     }
 }

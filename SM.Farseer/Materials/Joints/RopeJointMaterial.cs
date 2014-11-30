@@ -13,21 +13,23 @@ namespace SM.Farseer
     public class RopeJointMaterial :  IRopeJointMaterial
     {
         RopeJoint _joint;
-        //JointInfo _jointInfo;
         string _targetNameA;
         string _targetNameB;
         protected World _world;
         protected string _id;
-        protected string _anchorA;
-        protected string _anchorB;
 
-        public RopeJointMaterial(World world, JointInfo jointInfo, string id)
+        protected FlagInfo _flagA;
+        protected FlagInfo _flagB;
+
+        public RopeJointMaterial(World world, JointInfo jointInfo, Info info)
         {
             _world = world;
             var ropeJoint = jointInfo.Joint as IRopeJoint;
             _targetNameA = ropeJoint.TargetFlagIdA;
             _targetNameB = ropeJoint.TargetFlagIdB;
-            _id = id;
+            _flagA = info.FindFlag(_targetNameA);
+            _flagB = info.FindFlag(_targetNameB);
+            _id = jointInfo.Id;
         }
 
         private Vector2 get(BasicManager basicManager, string name)
@@ -38,11 +40,7 @@ namespace SM.Farseer
 
         public void Finalize(BasicManager basicManager)
         {
-            var fA = basicManager.FindObject<FlagInfo>(_targetNameA);
-            var fB = basicManager.FindObject<FlagInfo>(_targetNameB);
-
-
-            _joint = JointFactory.CreateRopeJoint(_world, basicManager.FindObject<Body>(fA.ParentId), basicManager.FindObject<Body>(fB.ParentId), fA.P.ToFarseer(), fB.P.ToFarseer());
+            _joint = JointFactory.CreateRopeJoint(_world, basicManager.FindObject<Body>(_flagA.ParentId), basicManager.FindObject<Body>(_flagB.ParentId), _flagA.P.ToFarseer(), _flagB.P.ToFarseer());
         }
 
         public string TargetNameA

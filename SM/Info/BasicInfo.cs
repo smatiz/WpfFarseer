@@ -8,6 +8,15 @@ namespace SM
 {
     public class BasicInfo
     {
-        public string Id { get; set; }
+        public string Id { get; private set; }
+        public BasicInfo(IDescriptor desc)
+            : this(desc.Id)
+        {
+        }
+
+        public BasicInfo(string id)
+        {
+            Id = id;
+        }
     }
 }

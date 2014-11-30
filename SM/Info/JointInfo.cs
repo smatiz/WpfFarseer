@@ -10,6 +10,7 @@ namespace SM
     {
         public IJoint Joint { get; private set; }
         public JointInfo(IJoint joint)
+            : base(joint)
         {
             Joint = joint;
         }

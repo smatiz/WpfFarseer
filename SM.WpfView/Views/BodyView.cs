@@ -27,22 +27,22 @@ namespace SM.WpfView
         protected TranslateTransform _traslation = new TranslateTransform();
 
         // break constructor
-        private BodyView(BodyView bodyView, PolygonShapeView shape)
-            : base(bodyView)
+        private BodyView(BodyView bodyView, string id, PolygonShapeView shape)
+            : base(bodyView, id)
         {
             BodyType = SM.BodyType.Dynamic;
             RotoTranslation = bodyView.RotoTranslation;
             Shapes = new List<BasicShapeView>() { shape };
         }
-        protected static BodyView Create(BodyView bodyView, PolygonShapeView shape) { return new BodyView(bodyView, shape); }
+        protected static BodyView Create(BodyView bodyView, string id, PolygonShapeView shape) { return new BodyView(bodyView, id, shape); }
 
         internal BodyView(BasicView parent, BodyInfo body, IShapeViewCreator shapeCreator)
-            : base(parent)
+            : base(parent, body.Id)
         {
 
             foreach (var x in body.Flags)
             {
-                new FlagView(parent);
+                new FlagView(parent, x.Id);
             }
 
             BodyType = body.BodyType;

@@ -34,7 +34,7 @@ namespace SM.WpfView
         public void Load(RootView root)
         {
             // prendo lo xaml e lo passo a Info che e' completamente agnostico
-            Info = new Info(Children);
+            Info = new Info(Id, Children);
             // creo un wpf views creator che Views pilotera' e usera' per popolare le sue strutture a partire da info
             var wpfViewsCreator = new WpfViewsCreator(root);
             var wpfViewsShapeCreator = new WpfShapeCreator();
@@ -71,6 +71,19 @@ namespace SM.WpfView
         public static readonly DependencyProperty FarseerObjectsProperty =
             DependencyProperty.Register("Children", typeof(List<BasicControl>), typeof(Farseer), new PropertyMetadata(null));
 
+
+
+        public string Id
+        {
+            get { return (string)GetValue(IdProperty); }
+            set { SetValue(IdProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Id.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IdProperty =
+            DependencyProperty.Register("Id", typeof(string), typeof(Farseer), new PropertyMetadata("Farseer"));
+
+        
 
     }
 }

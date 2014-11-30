@@ -12,20 +12,19 @@ using System.Windows.Controls;
 
 namespace SM
 {
-
-
     public class Info : BasicInfo
     {
         public IEnumerable<FlagInfo> Flags { get; private set; }
         public IEnumerable<BodyInfo> Bodies { get; private set; }
         public IEnumerable<JointInfo> Joints { get; private set; }
 
-        public Info(IEnumerable<IDescriptor> objects)
+        public Info(string id, IEnumerable<IDescriptor> objects)
+            : base(id)
         {
             var bodies = new List<BodyInfo>();
             var joints = new List<JointInfo>();
 
-            //findAllFlag(objects);
+            fillFlagInfoList(objects);
 
             foreach (var child in objects)
             {
@@ -70,41 +69,35 @@ namespace SM
                 var fc = child as IFlag;
                 if (fc != null)
                 {
-                    flags.Add(new FlagInfo()
-                    {
-                        ParentId = null,
-                        Id = fc.Id,
-                        P = new float2(fc.X, fc.Y),
-                    });
+                    flags.Add(new FlagInfo(fc, null));
                 }
                 var fcp = child as IFlaggable;
                 if (fcp != null)
                 {
                     foreach (var f in fcp.Flags)
                     {
-                        flags.Add(new FlagInfo()
-                        {
-                            ParentId = fcp.Id,
-                            Id = f.Id,
-                            P = new float2(f.X, f.Y),
-                        });
+                        flags.Add(new FlagInfo(f, fcp.Id));
                     }
                 }
             }
 
             Flags = flags;
         }
-        //private FlagInfo findFlag(string name)
-        //{
-        //    foreach (var f in Flags)
-        //    {
-        //        if (f.Id == name)
-        //        {
-        //            return f;
-        //        }
-        //    }
-        //    return null;
-        //}
+
+
+
+
+        public FlagInfo FindFlag(string name)
+        {
+            foreach (var f in Flags)
+            {
+                if (f.Id == name)
+                {
+                    return f;
+                }
+            }
+            return null;
+        }
     }
 
 

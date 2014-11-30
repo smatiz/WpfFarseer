@@ -20,16 +20,13 @@ namespace SM.WpfView
     public partial class FlagView : BasicView
     {
         public float2 P { get; set; }
-
-        //public string ParentId { get; private set; }
         
         CrossControl _crossControl;
-        public FlagView(BasicView parent)
-            : base(parent)
+        public FlagView(BasicView parent, string id)
+            : base(parent, id)
         {
             _crossControl = new SM.WpfView.CrossControl();
             AddChild(_crossControl);
-            //ParentId = parent.Id;
         }
 
         public override void Update()

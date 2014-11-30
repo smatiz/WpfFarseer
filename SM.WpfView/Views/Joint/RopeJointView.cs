@@ -16,42 +16,15 @@ namespace SM.WpfView
         Line _line;
 
         public RopeJointView(BasicView parent, IRopeJoint joint)
-            : base(parent)
+            : base(parent, joint.Id)
         {
             _line = new Line();
             _line.Stroke = new SolidColorBrush(Colors.Green);
             _line.StrokeThickness = 1;
         }
 
-        //float2 _anchorA;
-        //float2 _anchorB;
-
         public float2 AnchorA { get; set; }
-        //{
-        //    get
-        //    {
-        //        return _anchorA;
-        //    }
-        //    set
-        //    {
-        //        _anchorA = value;
-        //        _line.X1 = value.X * Context.Zoom;
-        //        _line.Y1 = value.Y * Context.Zoom;
-        //    }
-        //}
         public float2 AnchorB { get; set; }
-        //{
-        //    get
-        //    {
-        //        return _anchorB;
-        //    }
-        //    set
-        //    {
-        //        _anchorB = value;
-        //        _line.X2 = value.X * Context.Zoom;
-        //        _line.Y2 = value.Y * Context.Zoom;
-        //    }
-        //}
 
         public override void Update()
         {
@@ -61,7 +34,6 @@ namespace SM.WpfView
             _line.X2 = AnchorB.X * Context.Zoom;
             _line.Y2 = AnchorB.Y * Context.Zoom;
         }
-
 
         public UIElement UIElement
         {

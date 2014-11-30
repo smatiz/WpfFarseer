@@ -9,6 +9,6 @@ namespace SM
     public interface IMaterialCreator
     {
         IMaterial Create(BodyInfo body, IShapeMaterialCreator shapeCreator);
-        IJointMaterial Create(JointInfo body);
+        IJointMaterial Create(JointInfo joint, Info info);
     }
 }

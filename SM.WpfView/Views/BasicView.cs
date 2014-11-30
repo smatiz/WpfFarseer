@@ -31,14 +31,15 @@ namespace SM.WpfView
             _parentView = null;
             parentCanvas.Children.Add(_canvasId);
         }
-        protected BasicView(BasicView parent)
+        protected BasicView(BasicView parent, string id)
         {
+            _id = id;
             _canvasId = new CanvasId();
             _parentView = parent;
             if (_parentView != null)
             {
                 _parentView._canvasId.Children.Add(_canvasId);
-                _id = _canvasId.Id;
+                _canvasId.Id = _id;
                 bool loaded = false;
                 _canvasId.Loaded += (s, e) =>
                 {

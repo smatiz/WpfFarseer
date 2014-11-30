@@ -8,15 +8,16 @@ namespace SM
 {
     public class BodyInfo : BasicInfo
     {
-        public IEnumerable<IShape> Shapes { get; set; }
-        public IEnumerable<IFlag> Flags { get; set; }
+        public IEnumerable<IShape> Shapes { get; private set; }
+        public IEnumerable<IFlag> Flags { get; private set; }
 
-        public float X { get; set; }
-        public float Y { get; set; }
-        public float Angle { get; set; }
-        public BodyType BodyType { get; set; }
+        public float X { get; private set; }
+        public float Y { get; private set; }
+        public float Angle { get; private set; }
+        public BodyType BodyType { get; private set; }
 
         public BodyInfo(IBody body)
+            : base(body)
         {
             Flags = body.Flags;
             X = body.X;

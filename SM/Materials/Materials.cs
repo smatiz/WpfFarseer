@@ -32,7 +32,7 @@ namespace SM
             var joints = new List<IJointMaterial>();
             foreach (var j in info.Joints)
             {
-                joints.Add(materiaCreator.Create(j));
+                joints.Add(materiaCreator.Create(j, info));
             }
 
             Bodies = bodies;

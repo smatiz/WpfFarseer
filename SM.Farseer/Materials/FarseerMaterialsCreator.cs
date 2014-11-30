@@ -15,7 +15,6 @@ namespace SM.Farseer
             _world = world;
         }
 
-
         public IMaterial Create(BodyInfo body, IShapeMaterialCreator shapeCreator)
         {
             if (body.BodyType == BodyType.Breakable)
@@ -28,16 +27,14 @@ namespace SM.Farseer
             }
         }
 
-        public IJointMaterial Create(JointInfo joint)
+        public IJointMaterial Create(JointInfo joint, Info info)
         {
             if(joint.Joint is IRopeJoint)
             {
-                return new RopeJointMaterial(_world, joint, joint.Id);
+                return new RopeJointMaterial(_world, joint, info);
             }
 
             return null;
         }
-
-
     }
 }

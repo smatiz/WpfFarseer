@@ -8,7 +8,13 @@ namespace SM
 {
     public class FlagInfo : BasicInfo
     {
-        public string ParentId { get; set; }
-        public float2 P { get; set; }
+        public string ParentId { get; private set; }
+        public float2 P { get; private set; }
+        public FlagInfo(IFlag flag, string parentId)
+            : base(flag)
+        {
+            P = new float2(flag.X, flag.Y);
+            ParentId = parentId;
+        }
     }
 }
