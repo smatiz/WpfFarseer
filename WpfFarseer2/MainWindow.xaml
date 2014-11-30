@@ -9,7 +9,7 @@
             <TabItem Header="1">
                 <l2:Sample1></l2:Sample1>
             </TabItem>
-            <!--<TabItem Header="2">
+            <TabItem Header="2">
                 <l2:Sample2></l2:Sample2>
             </TabItem>
             <TabItem Header="3">
@@ -32,7 +32,7 @@
             </TabItem>
             <TabItem Header="9">
                 <l2:Sample9></l2:Sample9>
-            </TabItem>-->
+            </TabItem>
             <TabItem Header="____next">
             </TabItem>
             <TabItem Header="Test">

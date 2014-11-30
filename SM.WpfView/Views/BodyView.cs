@@ -51,7 +51,6 @@ namespace SM.WpfView
             _traslation.X = body.X * Context.Zoom;
             _traslation.Y = body.Y * Context.Zoom;
             _rotation.Angle = body.Angle;
-
         }
 
         protected override void OnFirstLoad()

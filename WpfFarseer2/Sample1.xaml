@@ -13,22 +13,17 @@
         <l2:FarseerPlayerControl x:Name="_farseerPlayer" Zoom="20" Debug="True">
             <l2:FarseerPlayerControl.Farseer>
                 <l4:Farseer Debug="false">
-                    <l:Body Id="b2"   BodyType="Static"   >
-                        <l:Polygon Density="123"  Points="10,10,20,0,20,20" Fill="Gray">
-                        </l:Polygon>
+                    <l:Body Id="b2" BodyType="Static">
+                        <l:Polygon Density="123"  Points="3,22,20,0,20,20" Fill="Gray"/>
                         <l:Body.Flags>
                             <l:Flag Id="y" X="15" Y="15"/>
-
-
                         </l:Body.Flags>
                     </l:Body>
 
                     <l:Body Id="fallingBody"  BodyType="Dynamic"  >
-                        <l:Polygon Density="123" Points="0 0,10 0,10 10" Fill="#AFFF0000">
-                        </l:Polygon>
+                        <l:Polygon Density="123" Points="0 0,10 0,10 10" Fill="#AFFF0000"/>
                         <l:Body.Flags>
                             <l:Flag Id="x" X="10" Y="6"/>
-
                         </l:Body.Flags>
                     </l:Body>
                     <l:RopeJointControl Id="jointC" TargetFlagIdA="x" TargetFlagIdB="y" />

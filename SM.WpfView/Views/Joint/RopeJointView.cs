@@ -19,8 +19,11 @@ namespace SM.WpfView
             : base(parent, joint.Id)
         {
             _line = new Line();
-            _line.Stroke = new SolidColorBrush(Colors.Green);
+            _line.Stroke = new SolidColorBrush(Colors.Blue);
             _line.StrokeThickness = 1;
+            var canvas = new Canvas();
+            canvas.Children.Add(_line);
+            AddChild(canvas);
         }
 
         public float2 AnchorA { get; set; }
@@ -33,14 +36,6 @@ namespace SM.WpfView
 
             _line.X2 = AnchorB.X * Context.Zoom;
             _line.Y2 = AnchorB.Y * Context.Zoom;
-        }
-
-        public UIElement UIElement
-        {
-            get
-            {
-                return _line;
-            }
         }
     }
 }

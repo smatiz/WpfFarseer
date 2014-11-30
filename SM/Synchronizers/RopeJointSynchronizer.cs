@@ -30,31 +30,7 @@ namespace SM
         {
             _jointView.AnchorA = _anchorA;
             _jointView.AnchorB = _anchorB;
-        }
-
-
-        public virtual void Build()
-        {
-            //var ropeJointView = (IRopeJointView)_jointView;
-            //var ropeJointMaterial = (IRopeJointMaterial)_jointMaterial;
-
-            //ropeJointMaterial.TargetNameA = ropeJointView.TargetBodyIdA;
-            //ropeJointMaterial.AnchorA = ropeJointView.AnchorA;
-            //ropeJointMaterial.TargetNameB = ropeJointView.TargetBodyIdB;
-            //ropeJointMaterial.AnchorB = ropeJointView.AnchorB;
-
-
-            //_jointMaterial.Build(_jointView.Id);
-
-
-            //if (ropeJointView.MaxLength != -1)
-            //{
-            //    ropeJointMaterial.MaxLength = ropeJointView.MaxLength;
-            //}
-            //else if (ropeJointView.MaxLengthFactor != -1)
-            //{
-            //    ropeJointMaterial.MaxLength *= ropeJointView.MaxLengthFactor;
-            //}
+            _jointView.Update();
         }
 
         public string Id

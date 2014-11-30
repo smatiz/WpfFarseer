@@ -12,5 +12,6 @@ namespace SM
         float MaxLengthFactor { get; }
         string TargetFlagIdA { get; }
         string TargetFlagIdB { get; }
+        bool CollideConnected { get; }
     }
 }

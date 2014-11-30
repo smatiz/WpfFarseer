@@ -13,8 +13,7 @@ namespace SM.Farseer
     public class RopeJointMaterial :  IRopeJointMaterial
     {
         RopeJoint _joint;
-        string _targetNameA;
-        string _targetNameB;
+        IRopeJoint _ropeJoint;
         protected World _world;
         protected string _id;
 
@@ -24,11 +23,11 @@ namespace SM.Farseer
         public RopeJointMaterial(World world, JointInfo jointInfo, Info info)
         {
             _world = world;
-            var ropeJoint = jointInfo.Joint as IRopeJoint;
-            _targetNameA = ropeJoint.TargetFlagIdA;
-            _targetNameB = ropeJoint.TargetFlagIdB;
-            _flagA = info.FindFlag(_targetNameA);
-            _flagB = info.FindFlag(_targetNameB);
+            _ropeJoint = jointInfo.Joint as IRopeJoint;
+            var targetNameA = _ropeJoint.TargetFlagIdA;
+            var targetNameB = _ropeJoint.TargetFlagIdB;
+            _flagA = info.FindFlag(targetNameA);
+            _flagB = info.FindFlag(targetNameB);
             _id = jointInfo.Id;
         }
 
@@ -41,44 +40,11 @@ namespace SM.Farseer
         public void Finalize(BasicManager basicManager)
         {
             _joint = JointFactory.CreateRopeJoint(_world, basicManager.FindObject<Body>(_flagA.ParentId), basicManager.FindObject<Body>(_flagB.ParentId), _flagA.P.ToFarseer(), _flagB.P.ToFarseer());
+
+            _joint.CollideConnected = _ropeJoint.CollideConnected;
+        
         }
 
-        public string TargetNameA
-        {
-            get
-            {
-                return _joint.BodyA.UserData.ToString();
-            }
-            set
-            {
-                //if (_joint != null)
-                //{
-                //    _joint.BodyA = _farseerWorldManager.FindObject<Body>(value);
-                //}
-                //else
-                {
-                    _targetNameA = value;
-                }
-            }
-        }
-        public string TargetNameB
-        {
-            get
-            {
-                return _joint.BodyB.UserData.ToString();
-            }
-            set
-            {
-                //if (_joint != null)
-                //{
-                //    _joint.BodyB = _farseerWorldManager.FindObject<Body>(value);
-                //}
-                //else
-                {
-                    _targetNameB = value;
-                }
-            }
-        }
 
         public float MaxLength
         {
@@ -97,34 +63,12 @@ namespace SM.Farseer
             {
                 return _joint.WorldAnchorA.ToSM();
             }
-            set
-            {
-                if (_joint != null)
-                {
-                    _joint.WorldAnchorA = value.ToFarseer();
-                }
-                else
-                {
-                    //_anchorA = value;
-                }
-            }
         }
         public float2 AnchorB
         {
             get
             {
                 return _joint.WorldAnchorB.ToSM();
-            }
-            set
-            {
-                if (_joint != null)
-                {
-                    _joint.WorldAnchorB = value.ToFarseer();
-                }
-                else
-                {
-                    //_anchorB = value;
-                }
             }
         }
 

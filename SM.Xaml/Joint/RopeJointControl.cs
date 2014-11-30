@@ -29,7 +29,6 @@ namespace SM.Xaml
         public static readonly DependencyProperty MaxLengthFactorProperty =
             DependencyProperty.Register("MaxLengthFactor", typeof(float), typeof(RopeJointControl), new PropertyMetadata(-1f));
 
-
         public string TargetFlagIdA
         {
             get { return (string)GetValue(TargetFlagIdAProperty); }
@@ -46,6 +45,14 @@ namespace SM.Xaml
         public static readonly DependencyProperty TargetFlagIdBProperty =
             DependencyProperty.Register("TargetFlagIdB", typeof(string), typeof(RopeJointControl), new PropertyMetadata(null));
 
+        public bool CollideConnected
+        {
+            get { return (bool)GetValue(CollideConnectedProperty); }
+            set { SetValue(CollideConnectedProperty, value); }
+        }
+        public static readonly DependencyProperty CollideConnectedProperty =
+            DependencyProperty.Register("CollideConnected", typeof(bool), typeof(RopeJointControl), new PropertyMetadata(true));
 
+        
     }
 }

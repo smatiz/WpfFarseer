@@ -8,11 +8,8 @@ namespace SM
 {
     public interface IRopeJointMaterial : IJointMaterial
     {
-        float MaxLength { get; set; }
-        float2 AnchorA { get; set; }
-        float2 AnchorB { get; set; }
-
-        string TargetNameA { get; set; }
-        string TargetNameB { get; set; }
+        float MaxLength { get; }
+        float2 AnchorA { get; }
+        float2 AnchorB { get; }
     }
 }
