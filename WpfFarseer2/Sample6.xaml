@@ -10,7 +10,7 @@
         xmlns:l2="clr-namespace:WpfFarseer"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <l2:FarseerPlayerControl x:Name="_farseerPlayer">
+        <l2:FarseerPlayerControl x:Name="_farseerPlayer"  Debug="True">
             <l2:FarseerPlayerControl.Farseer>
                 <l4:Farseer   >
                     <l:Body BodyType="Breakable" X="110" Angle="9">
@@ -20,8 +20,8 @@
                                 <Button Background="Blue" Canvas.Left="20" Canvas.Top="10" Width="10" Height="40">ciao</Button>
                             </Canvas>
                         </l:SkinnedShape>
-                        <l:Polygon Density="123" Points="60,30,60,20,50,20,50,30" Fill="Black">
-                        </l:Polygon>
+                        <l:Polygon Density="123" Points="60,30,60,20,50,20,50,30" Fill="Black"/>
+
                     </l:Body>
                   
                     <l:Body Id="b" >

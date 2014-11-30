@@ -49,7 +49,6 @@ namespace SM.WpfView
         public Views Views { get; private set; }
 
 
-        public bool Debug { get; set; }
     
         public static string GetAngleJoint(DependencyObject obj)
         {

@@ -45,7 +45,7 @@ namespace SM.WpfView
             foreach (var piece in pieces)
             {
                 var polygon = new System.Windows.Shapes.Polygon();
-                polygon.Points = piece.Polygon.ToWpf();
+                polygon.Points = piece.Polygon.ToWpf().Zoomed(Context.Zoom);
                 var vbClone = _visualBrush.Clone();
                 var polygonBB = piece.Polygon.BBox();
                 vbClone.Viewbox = new Rect((polygonBB.X - maxbb.X) / maxbb.Width, (polygonBB.Y - maxbb.Y) / maxbb.Height, polygonBB.Width / maxbb.Width, polygonBB.Height / maxbb.Height);

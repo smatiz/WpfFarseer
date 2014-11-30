@@ -14,8 +14,8 @@
             <l2:FarseerPlayerControl.Farseer>
                 <l4:Farseer   >
                     <l:Body   Id="b" BodyType="Dynamic">
-                        <l:Polygon Density="123"  Points="0 200,300 200,150 250" Fill="Black">
-                        </l:Polygon>
+                        <l:Polygon Density="123"  Points="0 200,300 200,150 250" Fill="Black"/>
+
                     </l:Body>
                 </l4:Farseer>
             </l2:FarseerPlayerControl.Farseer>

@@ -70,6 +70,18 @@ namespace SM.WpfFarseer
             var skinned = shape as SkinnedShape;
             if (skinned != null)
             {
+
+
+                skinned.Content.Update();
+                var size = skinned.Content.RenderSize;
+                //var size = skinned.Content.RenderSize;
+                //skinned.Content.Width = skinned.MaxWidth;
+                //skinned.Content.Height = skinned.MaxHeight;
+
+
+
+
+
                 var density = skinned.Density;
 
                 var oldCanvas = (Canvas)skinned.Content.Parent;
@@ -85,7 +97,7 @@ namespace SM.WpfFarseer
                 canvas.Width = skinned.MaxWidth;
                 canvas.Height = skinned.MaxHeight;
                 canvas.Update();
-                polygonShapes = FindBorder(canvas.ToVisualBrush(), skinned.MaxWidth, skinned.MaxHeight).Select(x => x.Select(p => new float2(p.X / _context.Zoom, p.Y / _context.Zoom)));
+                polygonShapes = FindBorder(canvas.ToVisualBrush(), skinned.MaxWidth, skinned.MaxHeight).Select(x => x.Select(p => new float2(p.X, p.Y)));
 
                 canvas.Width = double.NaN;
                 canvas.Height = double.NaN;

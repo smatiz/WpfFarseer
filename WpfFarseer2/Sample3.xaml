@@ -10,7 +10,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <l2:FarseerPlayerControl x:Name="_farseerPlayer">
+        <l2:FarseerPlayerControl x:Name="_farseerPlayer"  Debug="True">
             <l2:FarseerPlayerControl.Farseer>
                 <l4:Farseer  >
                     <l:Body Id="b" BodyType="Breakable">

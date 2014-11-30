@@ -10,7 +10,7 @@
         xmlns:l2="clr-namespace:WpfFarseer"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <l2:FarseerPlayerControl x:Name="_farseerPlayer"  Zoom="20">
+        <l2:FarseerPlayerControl x:Name="_farseerPlayer"  Zoom="20"  Debug="True">
             <l2:FarseerPlayerControl.Farseer>
                 <l4:Farseer  Id="s9">
                     <l:Body BodyType="Dynamic">
