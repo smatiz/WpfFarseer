@@ -3,15 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
-    <Canvas Name="svg2" Width="245" Height="241">
+             mc:Ignorable="d" >
+    <Canvas Name="svg2" Width="345" Height="241">
         <Canvas.Resources/>
         <!--Unknown tag: sodipodi:namedview-->
         <!--Unknown tag: metadata-->
         <Canvas Name="layer1">
             <Canvas.RenderTransform>
-                <TranslateTransform X="-218.62349" Y="-218.19277"/>
+                <TranslateTransform X="-117.62349" Y="-218.19277"/>
             </Canvas.RenderTransform>
             <Canvas Name="g3081">
                 <Canvas.RenderTransform>

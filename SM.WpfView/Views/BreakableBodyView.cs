@@ -36,7 +36,7 @@ namespace SM.WpfView
                 maxbb.Union(piece.Polygon.BBox());
             }
             var bodies = new List<BodyView>();
-            _canvas.Update();
+            _canvas.UpdateLayout();
             _rotation.Angle = 0;
             _traslation.X = 0;
             _traslation.Y = 0;

@@ -128,7 +128,7 @@ namespace SM.WpfView
 
             //return target;
         }
-        public static void Update(this UIElement elem)
+        public static void ForceUpdateLayout(this UIElement elem)
         {
             elem.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
             elem.Arrange(new Rect(new Point(), elem.DesiredSize));

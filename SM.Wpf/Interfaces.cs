@@ -16,8 +16,8 @@ namespace SM.Wpf
     }
     public interface ISkinnedShape
     {
-         int MaxWidth { get; }
-         int MaxHeight { get; }
+         //int MaxWidth { get; }
+         //int MaxHeight { get; }
          Canvas Content { get; }
     }
 

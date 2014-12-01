@@ -13,8 +13,8 @@
         <l2:FarseerPlayerControl x:Name="_farseerPlayer" Loaded="_farseerPlayer_Loaded"  Zoom="10" Debug="True">
             <l2:FarseerPlayerControl.Farseer>
                 <l4:Farseer >
-                    <l:Body BodyType="Breakable" Id="Pig" X="1"  Y="-1" >
-                        <l:SkinnedShape>
+                    <l:Body BodyType="Breakable" Id="Pig" >
+                        <l:SkinnedShape PrecisionZoom="10">
                             <Canvas Width="8" Height="8" >
                                 <Viewbox Width="8" Height="8" Stretch="Fill" >
                                     <l2:Pig  />

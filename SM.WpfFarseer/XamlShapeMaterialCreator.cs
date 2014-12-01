@@ -9,11 +9,16 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media;
 using SM.WpfView;
+using System.Windows;
 
 namespace SM.WpfFarseer
 {
     public class XamlShapeMaterialCreator : IShapeMaterialCreator
     {
+
+        const double DefaultWidth = 3000;
+        const double DefaultHeight = DefaultWidth;
+
         IContext _context;
 
         public XamlShapeMaterialCreator(IContext context)
@@ -21,13 +26,64 @@ namespace SM.WpfFarseer
             _context = context;
         }
 
-        private IEnumerable<IEnumerable<float2>> FindBorder(object brush, double w, double h)
+        private IEnumerable<IEnumerable<float2>> FindBorder(Canvas canvas, double precisionZoom) //object brush, double w, double h)
         {
-            var img = ((VisualBrush)brush).ToRenderTargetBitmap(w, h);
-            uint[] us = img.GetData();
-            var vs = FarseerPhysics.Common.TextureTools.TextureConverter.DetectVertices(us, (int)img.Width);
-            var vsp = FarseerPhysics.Common.Decomposition.Triangulate.ConvexPartition(vs, FarseerPhysics.Common.Decomposition.TriangulationAlgorithm.Bayazit);
-            return from x in vsp select x.ToSM();
+            IEnumerable<IEnumerable<float2>> result;
+
+            var oldCanvas = (Canvas)canvas.Parent;
+            var containerCanvas = new Canvas() { Background = new SolidColorBrush(Colors.Transparent) };//.FromArgb(1,0,0,0)) };
+            if (oldCanvas != null)
+            {
+                oldCanvas.Children.Remove(canvas);
+            }
+            containerCanvas.Children.Add(canvas);
+
+            containerCanvas.Width = DefaultWidth;
+            containerCanvas.Height = DefaultHeight;
+            containerCanvas.ForceUpdateLayout();
+
+            Rect box = Rect.Empty;
+
+            {
+                var img = containerCanvas.ToVisualBrush().ToRenderTargetBitmap(DefaultWidth, DefaultHeight);
+                img.ToBitmap().Save(@"C:\Users\Developer\Desktop\aaaa.png");
+                uint[] us = img.GetData();
+                foreach(var p in FarseerPhysics.Common.TextureTools.TextureConverter.DetectVertices(us, (int)img.Width))
+                {
+                    box.Union(p.ToWpf());
+                }
+            }
+
+            containerCanvas.Width = box.Width;
+            containerCanvas.Height = box.Height;
+            containerCanvas.RenderTransform = new ScaleTransform(precisionZoom, precisionZoom);
+            containerCanvas.ForceUpdateLayout();
+
+            {
+                var rW = precisionZoom * (box.Width + (1 + box.X));
+                var rH = precisionZoom * (box.Height + (1 + box.Y));
+
+                var img = containerCanvas.ToVisualBrush().ToRenderTargetBitmap(rW, rH);
+                img.ToBitmap().Save(@"C:\Users\Developer\Desktop\bbb.png");
+                uint[] us = img.GetData();
+                var vs = FarseerPhysics.Common.TextureTools.TextureConverter.DetectVertices(us, (int)img.Width);
+                var vsp = FarseerPhysics.Common.Decomposition.Triangulate.ConvexPartition(vs, FarseerPhysics.Common.Decomposition.TriangulationAlgorithm.Bayazit);
+                result = vsp.Select(ps => ps.Select(p => new float2((float)(p.X / precisionZoom), (float)(p.Y / precisionZoom))));
+                    //from x in vsp select x.ToSM();
+            }
+
+            containerCanvas.RenderTransform = null;
+            containerCanvas.Width = double.NaN;
+            containerCanvas.Height = double.NaN;
+            containerCanvas.ForceUpdateLayout();
+
+            containerCanvas.Children.Remove(canvas);
+            if (oldCanvas != null)
+            {
+                oldCanvas.Children.Add(canvas);
+            }
+
+            return result;
         }
         private void addTo(object shape, List<CircleMaterial> circles, List<PolygonMaterial> polygons)
         {
@@ -70,47 +126,8 @@ namespace SM.WpfFarseer
             var skinned = shape as SkinnedShape;
             if (skinned != null)
             {
-
-
-                skinned.Content.Update();
-                var size = skinned.Content.RenderSize;
-                //var size = skinned.Content.RenderSize;
-                //skinned.Content.Width = skinned.MaxWidth;
-                //skinned.Content.Height = skinned.MaxHeight;
-
-
-
-
-
-                var density = skinned.Density;
-
-                var oldCanvas = (Canvas)skinned.Content.Parent;
-                var canvas = new Canvas(){Background = new SolidColorBrush(Colors.Transparent)};
-                if(oldCanvas != null)
-                {
-                    oldCanvas.Children.Remove(skinned.Content);
-                }
-                canvas.Children.Add(skinned.Content);
-
-                IEnumerable<IEnumerable<float2>> polygonShapes;
-
-                canvas.Width = skinned.MaxWidth;
-                canvas.Height = skinned.MaxHeight;
-                canvas.Update();
-                polygonShapes = FindBorder(canvas.ToVisualBrush(), skinned.MaxWidth, skinned.MaxHeight).Select(x => x.Select(p => new float2(p.X, p.Y)));
-
-                canvas.Width = double.NaN;
-                canvas.Height = double.NaN;
-                canvas.Update();
-
+                var polygonShapes = FindBorder(skinned.Content, skinned.PrecisionZoom).Select(x => x.Select(p => new float2(p.X, p.Y)));
                 polygons.AddRange(polygonShapes.Select(ps => new PolygonMaterial() { Density = skinned.Density, Points = ps.ToList() }));
-
-
-                canvas.Children.Remove(skinned.Content);
-                if (oldCanvas != null)
-                {
-                    oldCanvas.Children.Add(skinned.Content);
-                }
                 return;
             }
         }
