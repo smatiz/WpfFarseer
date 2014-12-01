@@ -14,7 +14,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid Name="farseerContainer" Grid.Row="1">
-            
+            <Canvas Name="farseerCanvas"></Canvas>
         </Grid>
         <l3:StepControl x:Name="stepControl"  Grid.Row="0"></l3:StepControl>
     </Grid>

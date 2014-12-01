@@ -108,9 +108,9 @@ namespace WpfFarseer
         private void loadView()
         {
             _context = new Context(Zoom);
-            _root = new RootView(_context, this);
+            _root = new RootView(_context, farseerCanvas);
             Farseer.Load(_root);
-            farseerContainer.Children.Clear();
+            //farseerContainer.Children.Clear();
         }
 
         public void AddBehaviour(IBehaviourView x)

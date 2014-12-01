@@ -46,7 +46,7 @@ namespace SM.WpfFarseer
 
             {
                 var img = containerCanvas.ToVisualBrush().ToRenderTargetBitmap(DefaultWidth, DefaultHeight);
-                img.ToBitmap().Save(@"C:\Users\Developer\Desktop\aaaa.png");
+                //img.ToBitmap().Save(@"C:\Users\Developer\Desktop\aaaa.png");
                 uint[] us = img.GetData();
                 foreach(var p in FarseerPhysics.Common.TextureTools.TextureConverter.DetectVertices(us, (int)img.Width))
                 {
@@ -64,7 +64,7 @@ namespace SM.WpfFarseer
                 var rH = precisionZoom * (box.Height + (1 + box.Y));
 
                 var img = containerCanvas.ToVisualBrush().ToRenderTargetBitmap(rW, rH);
-                img.ToBitmap().Save(@"C:\Users\Developer\Desktop\bbb.png");
+                //img.ToBitmap().Save(@"C:\Users\Developer\Desktop\bbb.png");
                 uint[] us = img.GetData();
                 var vs = FarseerPhysics.Common.TextureTools.TextureConverter.DetectVertices(us, (int)img.Width);
                 var vsp = FarseerPhysics.Common.Decomposition.Triangulate.ConvexPartition(vs, FarseerPhysics.Common.Decomposition.TriangulationAlgorithm.Bayazit);

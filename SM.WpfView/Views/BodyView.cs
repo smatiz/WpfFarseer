@@ -48,9 +48,7 @@ namespace SM.WpfView
             BodyType = body.BodyType;
             Shapes = shapeCreator.Create(body.Shapes, Context);
 
-            _traslation.X = body.X * Context.Zoom;
-            _traslation.Y = body.Y * Context.Zoom;
-            _rotation.Angle = body.Angle;
+            RotoTranslation =new rotoTranslation(new float2( body.X * Context.Zoom,body.Y * Context.Zoom),body.Angle);
         }
 
         protected override void OnFirstLoad()
