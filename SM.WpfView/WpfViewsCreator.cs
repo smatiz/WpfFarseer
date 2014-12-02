@@ -14,9 +14,10 @@ namespace SM.WpfView
             _rootView = rootView;
         }
 
-        public void CreateFlag(FlagInfo body)
-        {
-        }
+        //public IFlagView CreateFlag(FlagInfo body)
+        //{
+        //    return new FlagView( body);
+        //}
 
         public IBodyView CreateBody(BodyInfo body, IShapeViewCreator shapeCreator)
         {

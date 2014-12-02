@@ -26,6 +26,9 @@ namespace SM.WpfView
         protected RotateTransform _rotation = new RotateTransform();
         protected TranslateTransform _traslation = new TranslateTransform();
 
+        private BodyInfo _bodyInfo;
+        //private List<FlagView> _flags = new List<FlagView>();
+
         // break constructor
         private BodyView(BodyView bodyView, string id, PolygonShapeView shape)
             : base(bodyView, id)
@@ -36,19 +39,15 @@ namespace SM.WpfView
         }
         protected static BodyView Create(BodyView bodyView, string id, PolygonShapeView shape) { return new BodyView(bodyView, id, shape); }
 
-        internal BodyView(BasicView parent, BodyInfo body, IShapeViewCreator shapeCreator)
-            : base(parent, body.Id)
+        internal BodyView(BasicView parent, BodyInfo bodyInfo, IShapeViewCreator shapeCreator)
+            : base(parent, bodyInfo.Id)
         {
+            _bodyInfo = bodyInfo;
 
-            foreach (var x in body.Flags)
-            {
-                new FlagView(parent, x.Id);
-            }
+            BodyType = bodyInfo.BodyType;
+            Shapes = shapeCreator.Create(bodyInfo.Shapes, Context);
 
-            BodyType = body.BodyType;
-            Shapes = shapeCreator.Create(body.Shapes, Context);
-
-            RotoTranslation =new rotoTranslation(new float2( body.X * Context.Zoom,body.Y * Context.Zoom),body.Angle);
+            RotoTranslation = new rotoTranslation(new float2(bodyInfo.X * Context.Zoom, bodyInfo.Y * Context.Zoom), bodyInfo.Angle);
         }
 
         protected override void OnFirstLoad()
@@ -68,6 +67,19 @@ namespace SM.WpfView
                     _canvas.Children.Add(drawable.UIElement);
                 }
             }
+
+            foreach (var flag in _bodyInfo.Flags)
+            {
+                var crossControl = new SM.WpfView.CrossControl();
+                //P = info.P;
+                _canvas.Children.Add(crossControl);
+                Canvas.SetLeft(crossControl, flag.X * Context.Zoom);
+                Canvas.SetTop(crossControl, flag.Y * Context.Zoom);
+
+
+
+                //new FlagView(this, new FlagInfo(x, Id));//.Update();
+            }
         }
 
         public BodyType BodyType { get; set; }
@@ -78,6 +90,10 @@ namespace SM.WpfView
             _traslation.X = RotoTranslation.Translation.X * Context.Zoom;
             _traslation.Y = RotoTranslation.Translation.Y * Context.Zoom;
             _rotation.Angle = RotoTranslation.DegreeAngle;
+            //foreach(var x in _flags)
+            //{
+            //    x.Update();
+            //}
         }
     }
 }

@@ -17,5 +17,12 @@ namespace SM
         }
         public float X { get { return _x; } }
         public float Y { get { return _y; } }
+
+        public override string ToString()
+        {
+            return String.Format("{0},{1}", _x, _y);
+        }
+
+        public static float2 Null { get { return new float2(0f, 0f); } }
     }
 }

@@ -33,19 +33,20 @@ namespace SM
             _viewWatch.Callback = () => updateView();
         }
 
+        //public object FindObject(string name)
+        //{
+        //    return _synchronizers.FindObject(name);
+        //}
+
         public object FindObject(string name) 
         {
-            var x = _synchronizers.Find(name);
-            if (x == null) return null;
-            return x.Object;
+            return ((IMaterial)_synchronizers.Find(name)).Object;
         }
         public T FindObject<T>(string name) where T : class
         {
-            var y = FindObject(name);
-            if (y == null ) return null;
-            if (typeof(T) != y.GetType()) return null;
-            return (T)y;
+            return (T)FindObject(name);
         }
+        
 
         public void AddMaterialBehaviour(IBehaviourMaterial x)
         {

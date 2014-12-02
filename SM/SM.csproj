@@ -107,9 +107,12 @@
     <Compile Include="Materials\Interfaces\IMaterialCreator.cs" />
     <Compile Include="Materials\Interfaces\IShapeMaterialCreator.cs" />
     <Compile Include="Materials\Interfaces\IRopeJointMaterial.cs" />
+    <Compile Include="Materials\Interfaces\IToBeFinalized.cs" />
     <Compile Include="Materials\Shape\PolygonMaterial.cs" />
     <Compile Include="Materials\Shape\CircleMaterial.cs" />
     <Compile Include="Materials\Shape\ShapesMaterial.cs" />
+    <Compile Include="Views\Interfaces\IFlagView.cs" />
+    <Compile Include="Wpf\Transform2dConverter.cs" />
     <Compile Include="Views\BasicShapeView.cs" />
     <Compile Include="Views\Interfaces\IBreakableBodyView.cs" />
     <Compile Include="Views\Interfaces\IRopeJointView.cs" />

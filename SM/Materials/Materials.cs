@@ -35,17 +35,56 @@ namespace SM
                 joints.Add(materiaCreator.Create(j, info));
             }
 
+
+
             Bodies = bodies;
             BreakableBodies = breakablBodies;
             Joints = joints;
-        }
 
-        public void Finalize(BasicManager basicManager)
-        {
+
+
             foreach (var j in Joints)
             {
-                j.Finalize(basicManager);
+                if (j is IToBeFinalized)
+                {
+                    ((IToBeFinalized)j).Finalize(this);
+                }
+
             }
+        }
+
+        public object Find(string id) 
+        {
+            foreach (var x in Bodies)
+            {
+                if (x.Id == id)
+                {
+                    return x;
+                }
+            }
+            foreach (var x in BreakableBodies)
+            {
+                if (x.Id == id)
+                {
+                    return x;
+                }
+            }
+            foreach (var x in Joints)
+            {
+                if (x.Id == id)
+                {
+                    return x;
+                }
+            }
+            return null;
+        }
+
+        public T Find<T>(string name) where T : class
+        {
+            var y = Find(name);
+            if (y == null) return null;
+            if (typeof(T) != y.GetType()) return null;
+            return (T)y;
         }
     }
 }

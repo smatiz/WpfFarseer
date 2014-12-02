@@ -45,11 +45,7 @@ namespace SM
                     var joint = child as IRopeJoint;
                     if (joint != null)
                     {
-                        //var targetA = findFlag(joint.TargetFlagIdA);
-                        //var targetB = findFlag(joint.TargetFlagIdB);
-
                         joints.Add(new JointInfo(joint));
-
                         handled = true;
                     }
                 }

@@ -60,6 +60,9 @@ namespace SM.Xaml
         public static readonly DependencyProperty AngleProperty =
             DependencyProperty.Register("Angle", typeof(float), typeof(Body), new PropertyMetadata(0f));
       
+
+
+
         public virtual BodyType BodyType
         {
             get { return (BodyType)GetValue(BodyTypeProperty); }

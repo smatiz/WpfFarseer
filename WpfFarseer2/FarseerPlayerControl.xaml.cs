@@ -78,7 +78,7 @@ namespace WpfFarseer
             _worldManager = new FarseerWorldManager(Id, synchronizers, new WatchView(), world);
 
             // devo farlo alla fine per risolvere le connessioni tra joint e body
-            materials.Finalize(_worldManager);
+            //materials.Finalize(_worldManager);
 
             stepControl.DataContext = new StepViewModel(_worldManager);
 

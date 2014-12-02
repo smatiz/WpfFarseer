@@ -17,22 +17,33 @@ using System.Windows.Shapes;
 
 namespace SM.WpfView
 {
-    public partial class FlagView : BasicView
-    {
-        public float2 P { get; set; }
+    //public partial class FlagView : IFlagView
+    //{
+    //    public float2 P { get; set; }
         
-        CrossControl _crossControl;
-        public FlagView(BasicView parent, string id)
-            : base(parent, id)
-        {
-            _crossControl = new SM.WpfView.CrossControl();
-            AddChild(_crossControl);
-        }
+    //    CrossControl _crossControl;
+    //    //public FlagView(BasicView parent, FlagInfo info)
+    //    //    : base(parent, info.Id)
+    //    //{
+    //    //    _crossControl = new SM.WpfView.CrossControl();
+    //    //    P = info.P;
+    //    //    AddChild(_crossControl);
+    //    //    Canvas.SetLeft(_crossControl, P.X * Context.Zoom);
+    //    //    Canvas.SetTop(_crossControl, P.Y * Context.Zoom);
+    //    //}
 
-        public override void Update()
-        {
-            Canvas.SetLeft(_crossControl, P.X * Context.Zoom);
-            Canvas.SetTop(_crossControl, P.Y * Context.Zoom);
-        }
-    }
+    //    public FlagView(BodyView parent, FlagInfo info)
+    //        : base(parent, info.Id)
+    //    {
+    //        _crossControl = new SM.WpfView.CrossControl();
+    //        P = info.P;
+    //        AddChild(_crossControl);
+    //        Canvas.SetLeft(_crossControl, P.X * Context.Zoom);
+    //        Canvas.SetTop(_crossControl, P.Y * Context.Zoom);
+    //    }
+
+    //    public override void Update()
+    //    {
+    //    }
+    //}
 }

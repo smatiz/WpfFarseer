@@ -8,7 +8,7 @@ namespace SM
 {
     public interface IViewCreator
     {
-        void CreateFlag(FlagInfo flag);
+        //IFlagView CreateFlag(FlagInfo flag);
         IBodyView CreateBody(BodyInfo body, IShapeViewCreator shapeCreator);
         IBreakableBodyView CreateBreakableBody(BodyInfo body, IShapeViewCreator shapeCreator);
         IJointView CreateJoint(JointInfo joint);

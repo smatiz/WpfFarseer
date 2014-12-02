@@ -8,83 +8,81 @@ namespace SM
 {
     public class Synchronizers
     {
-        private Dictionary<string, ISynchronizer> _synchronizersMap = new Dictionary<string, ISynchronizer>();
-        
+        private List<ISynchronizer> _synchronizers = new List<ISynchronizer>();
+        Materials _materials;
         public Synchronizers(Views views, Materials materials)
         {
-            {
-                var r = views.Bodies.Zip(materials.Bodies, (v, m) => new BodySynchronizer(v, m));
-                foreach (var s in r)
-                {
-                    _synchronizersMap.Add(s.Id, s);
-                }
-            }
 
+            _materials = materials;
             {
-                var r = views.BreakableBodies.Zip(materials.BreakableBodies, (v, m) => new BreakableBodySynchronizer(v, m));
-                foreach (var s in r)
-                {
-                    _synchronizersMap.Add(s.Id, s);
-                }
-            }
-
-            {
-                var r = views.Joints.Zip(materials.Joints, (v, m) => new RopeJointSynchronizer((IRopeJointView)v, (IRopeJointMaterial)m));
-                foreach (var s in r)
-                {
-                    _synchronizersMap.Add(s.Id, s);
-                }
+                _synchronizers.AddRange(views.Bodies.Zip(materials.Bodies, (v, m) => new BodySynchronizer(v, m)));
+                _synchronizers.AddRange(views.BreakableBodies.Zip(materials.BreakableBodies, (v, m) => new BreakableBodySynchronizer(v, m)));
+                _synchronizers.AddRange(views.Joints.Zip(materials.Joints, (v, m) => new RopeJointSynchronizer((IRopeJointView)v, (IRopeJointMaterial)m)));
             }
         }
 
-        public ISynchronizer Find(string name)
+        //public ISynchronizer Find(string name)
+        //{
+            
+        //    if (_synchronizersMap.ContainsKey(name))
+        //        return _synchronizersMap[name];
+        //    return null;
+        //}
+        public T Find<T>(string name) where T : class
         {
-            if (_synchronizersMap.ContainsKey(name))
-                return _synchronizersMap[name];
-            return null;
+            return _materials.Find<T>(name);
+        }
+        public object Find(string name) 
+        {
+            return _materials.Find(name);
         }
         public void UpdateMaterial()
         {
-            List<BodySynchronizer> managerstobeadded = new List<BodySynchronizer>();
-            List<string> managersIdtoberemoved = new List<string>();
-            foreach (var y in _synchronizersMap.Values)
+            lock (_synchronizers)
             {
-                var x = y as ISynchronizer;
-                if (x != null)
+                List<BodySynchronizer> managerstobeadded = new List<BodySynchronizer>();
+                List<BreakableBodySynchronizer> managersIdtoberemoved = new List<BreakableBodySynchronizer>();
+                foreach (var y in _synchronizers)
                 {
-                    var z = y as BreakableBodySynchronizer;
-                    if (z != null)
+                    var x = y as ISynchronizer;
+                    if (x != null)
                     {
-                        IEnumerable<BodySynchronizer> bodyPiecesSynchronizers;
-                        if (z.IsBroken(out bodyPiecesSynchronizers))
+                        var z = y as BreakableBodySynchronizer;
+                        if (z != null)
                         {
-                            managersIdtoberemoved.Add(z.Id);
-                            foreach (var m in bodyPiecesSynchronizers)
+                            IEnumerable<BodySynchronizer> bodyPiecesSynchronizers;
+                            if (z.IsBroken(out bodyPiecesSynchronizers))
                             {
-                                managerstobeadded.Add(m);
+                                managersIdtoberemoved.Add(z);
+                                foreach (var m in bodyPiecesSynchronizers)
+                                {
+                                    managerstobeadded.Add(m);
+                                }
                             }
                         }
+                        x.UpdateMaterial();
                     }
-                    x.UpdateMaterial();
                 }
-            }
-            foreach (var s in managersIdtoberemoved)
-            {
-                _synchronizersMap.Remove(s);
-            }
-            foreach (var m in managerstobeadded)
-            {
-                _synchronizersMap.Add(m.Id, m);
+                foreach (var s in managersIdtoberemoved)
+                {
+                    _synchronizers.Remove(s);
+                }
+
+                //_materials.BreakableBodies.AddRange(managerstobeadded.Select());
+                _synchronizers.AddRange(managerstobeadded);
             }
         }
         public void UpdateView()
         {
-            foreach (var y in _synchronizersMap.Values)
+            lock (_synchronizers)
             {
-                var x = y as ISynchronizer;
-                if (x != null)
+                foreach (var y in _synchronizers)
                 {
-                    x.UpdateView();
+                    var x = y as ISynchronizer;
+                    if (x != null)
+                    {
+                        x.UpdateView();
+                    }
                 }
             }
 
