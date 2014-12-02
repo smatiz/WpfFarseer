@@ -15,6 +15,8 @@ namespace SM.WpfView
         private CanvasId _canvasId;
         private BasicView _parentView;
 
+        public List<IFlagView> Flags { get; private set; }
+
         protected void AddChild(Canvas canvas)
         {
             _canvasId.Children.Add(canvas);
@@ -33,6 +35,7 @@ namespace SM.WpfView
         }
         protected BasicView(BasicView parent, string id)
         {
+            Flags = new List<IFlagView>();
             _id = id;
             _canvasId = new CanvasId();
             _parentView = parent;
@@ -66,6 +69,7 @@ namespace SM.WpfView
                 _canvasId.Id = _id;
             }
         }
+
     }
       
 }

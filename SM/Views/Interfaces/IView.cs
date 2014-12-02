@@ -10,5 +10,6 @@ namespace SM
     {
         string Id { get; }
         void Update();
+        List<IFlagView> Flags { get; }
     }
 }

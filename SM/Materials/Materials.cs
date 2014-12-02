@@ -8,38 +8,37 @@ namespace SM
 {
     public class Materials
     {
-        public IEnumerable<IBodyMaterial> Bodies { get; private set; }
-        public IEnumerable<IBreakableBodyMaterial> BreakableBodies { get; private set; }
-        public IEnumerable<IJointMaterial> Joints { get; private set; }
+        List<IBodyMaterial> _bodies;
+        List<IBreakableBodyMaterial> _breakableBodies;
+        List<IJointMaterial> _joints;
+
+        public IEnumerable<IBodyMaterial> Bodies { get { return _bodies; } }
+        public IEnumerable<IBreakableBodyMaterial> BreakableBodies { get { return _breakableBodies; } }
+        public IEnumerable<IJointMaterial> Joints { get { return _joints; } }
 
         public Materials(IMaterialCreator materiaCreator, IShapeMaterialCreator shapeCreator, Info info)
         {
-            var bodies = new List<IBodyMaterial>();
-            var breakablBodies = new List<IBreakableBodyMaterial>();
+            _bodies = new List<IBodyMaterial>();
+            _breakableBodies = new List<IBreakableBodyMaterial>();
             foreach (var b in info.Bodies)
             {
                 var br = materiaCreator.Create(b, shapeCreator);
                 if (br is IBreakableBodyMaterial)
                 {
-                    breakablBodies.Add((IBreakableBodyMaterial)br);
+                    _breakableBodies.Add((IBreakableBodyMaterial)br);
                 }
                 else
                 {
-                    bodies.Add((IBodyMaterial)br);
+                    _bodies.Add((IBodyMaterial)br);
                 }
             }
 
-            var joints = new List<IJointMaterial>();
+            _joints = new List<IJointMaterial>();
             foreach (var j in info.Joints)
             {
-                joints.Add(materiaCreator.Create(j, info));
+                _joints.Add(materiaCreator.Create(j, info));
             }
 
-
-
-            Bodies = bodies;
-            BreakableBodies = breakablBodies;
-            Joints = joints;
 
 
 
@@ -53,8 +52,25 @@ namespace SM
             }
         }
 
+        private void checkForBrokenBodies()
+        {
+            var toberemoved = new List<IBreakableBodyMaterial>();
+            foreach (var x in BreakableBodies)
+            {
+                if (x.IsBroken)
+                {
+                    _bodies.AddRange(x.GetPieces().Select(p => p.BodyMaterial));
+                }
+            }
+            foreach (var x in toberemoved)
+            {
+                _breakableBodies.Remove(x);
+            }
+        }
+
         public object Find(string id) 
         {
+            checkForBrokenBodies();
             foreach (var x in Bodies)
             {
                 if (x.Id == id)

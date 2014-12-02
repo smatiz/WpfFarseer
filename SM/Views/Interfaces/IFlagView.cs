@@ -8,5 +8,7 @@ namespace SM
 {
     public interface IFlagView
     {
+        float2 P { get; }
+        string Id { get; }
     }
 }

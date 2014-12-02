@@ -14,6 +14,7 @@ namespace SM.Farseer
     public class BreakableBodyMaterial : BasicBodyMaterial, IBreakableBodyMaterial
     {
         private BreakableBody _breakableBody;
+        IEnumerable<BodyPieceMaterial> _pieces;
 
         protected override Body Body
         {
@@ -47,18 +48,31 @@ namespace SM.Farseer
                 return _breakableBody.Broken;
             }
         }
-        public IEnumerable<BodyPieceMaterial> GetPieces()
+
+        private List<BodyPieceMaterial> getPieces()
         {
-            int i = 0;
+            var result = new List<BodyPieceMaterial>();
+            int index = 0;
             _breakableBody.Update();
             foreach (var b in _breakableBody.Parts)
             {
-                yield return new BodyPieceMaterial() 
-                { 
-                    BodyMaterial = new BodyMaterial(b.Body, Id + ":" + i++), 
+                result.Add(new BodyPieceMaterial()
+                {
+                    BodyMaterial = new BodyMaterial(b.Body, String.Format("{0}_p{1}",Id, index++)),
                     Polygon = ((PolygonShape)b.Body.FixtureList.First().Shape).Vertices.ToSM()
-                };
+                });
             }
+            return result;
+        }
+
+
+        public IEnumerable<BodyPieceMaterial> GetPieces()
+        {
+            if(_pieces == null)
+            {
+                _pieces = getPieces();
+            }
+            return _pieces;
         }
     }
 }

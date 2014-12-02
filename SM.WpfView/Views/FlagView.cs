@@ -17,33 +17,39 @@ using System.Windows.Shapes;
 
 namespace SM.WpfView
 {
-    //public partial class FlagView : IFlagView
-    //{
-    //    public float2 P { get; set; }
+    public partial class FlagView : IFlagView
+    {
+        public string Id 
+        { 
+            get
+            {
+                return _flag.Id;
+            }
+        }
+        public float2 P 
+        { 
+            get
+            {
+
+                return new float2(_flag.X, _flag.Y);
+            }
+        }
+
+        CrossControl _crossControl;
+        IContext _context;
+        IFlag _flag;
+
+        public FlagView(IContext context,Canvas parent, IFlag flag)
+        {
+            _flag = flag;
+            _context = context;
+            _crossControl = new SM.WpfView.CrossControl();
+            //P = info.P;
+            parent.Children.Add(_crossControl);
+            Canvas.SetLeft(_crossControl, _flag.X * _context.Zoom);
+            Canvas.SetTop(_crossControl, _flag.Y * _context.Zoom);
+        }
+
         
-    //    CrossControl _crossControl;
-    //    //public FlagView(BasicView parent, FlagInfo info)
-    //    //    : base(parent, info.Id)
-    //    //{
-    //    //    _crossControl = new SM.WpfView.CrossControl();
-    //    //    P = info.P;
-    //    //    AddChild(_crossControl);
-    //    //    Canvas.SetLeft(_crossControl, P.X * Context.Zoom);
-    //    //    Canvas.SetTop(_crossControl, P.Y * Context.Zoom);
-    //    //}
-
-    //    public FlagView(BodyView parent, FlagInfo info)
-    //        : base(parent, info.Id)
-    //    {
-    //        _crossControl = new SM.WpfView.CrossControl();
-    //        P = info.P;
-    //        AddChild(_crossControl);
-    //        Canvas.SetLeft(_crossControl, P.X * Context.Zoom);
-    //        Canvas.SetTop(_crossControl, P.Y * Context.Zoom);
-    //    }
-
-    //    public override void Update()
-    //    {
-    //    }
-    //}
+    }
 }

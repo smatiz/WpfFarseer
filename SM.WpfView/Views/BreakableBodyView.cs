@@ -53,7 +53,7 @@ namespace SM.WpfView
                 polygon.Fill = vbClone;
                 var polyShape = new PolygonShapeView(Context, polygon);
 
-                var bc = BodyView.Create(this, String.Format("{0}_p{1}",Id , index), polyShape);
+                var bc = BodyView.Create(this, piece.BodyMaterial.Id, polyShape);
                 bodies.Add(bc);
                 index++;
             }

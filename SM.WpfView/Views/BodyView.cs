@@ -36,6 +36,7 @@ namespace SM.WpfView
             BodyType = SM.BodyType.Dynamic;
             RotoTranslation = bodyView.RotoTranslation;
             Shapes = new List<BasicShapeView>() { shape };
+            _canvas = new Canvas();
         }
         protected static BodyView Create(BodyView bodyView, string id, PolygonShapeView shape) { return new BodyView(bodyView, id, shape); }
 
@@ -48,38 +49,33 @@ namespace SM.WpfView
             Shapes = shapeCreator.Create(bodyInfo.Shapes, Context);
 
             RotoTranslation = new rotoTranslation(new float2(bodyInfo.X * Context.Zoom, bodyInfo.Y * Context.Zoom), bodyInfo.Angle);
+            _canvas = new Canvas();
+            foreach (var flag in _bodyInfo.Flags)
+            {
+                Flags.Add(new FlagView(Context, _canvas, flag));
+            }
         }
 
         protected override void OnFirstLoad()
         {
-            _canvas = new Canvas();
-            AddChild(_canvas);
             var gt = new TransformGroup();
             gt.Children.Add(_rotation);
             gt.Children.Add(_traslation);
             _canvas.RenderTransform = gt;
 
+            int i = 0;
             foreach (var shape in Shapes)
             {
                 var drawable = shape as IDrawable;
                 if (drawable != null)
                 {
-                    _canvas.Children.Add(drawable.UIElement);
+                    _canvas.Children.Insert(i++, drawable.UIElement);
                 }
             }
 
-            foreach (var flag in _bodyInfo.Flags)
-            {
-                var crossControl = new SM.WpfView.CrossControl();
-                //P = info.P;
-                _canvas.Children.Add(crossControl);
-                Canvas.SetLeft(crossControl, flag.X * Context.Zoom);
-                Canvas.SetTop(crossControl, flag.Y * Context.Zoom);
+            AddChild(_canvas);
 
-
-
-                //new FlagView(this, new FlagInfo(x, Id));//.Update();
-            }
+            Update();
         }
 
         public BodyType BodyType { get; set; }

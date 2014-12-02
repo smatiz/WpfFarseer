@@ -29,14 +29,52 @@ namespace SM
             }
             BreakableBodies = breakableBodies;
 
+
             var joints = new List<IJointView>();
             foreach (var j in info.Joints)
             {
-                joints.Add(viewCreator.CreateJoint(j));
+                joints.Add(viewCreator.CreateJoint(j, this));
             }
             Joints = joints;
         }
 
+        public IFlagView FindFlag(string id)
+        {
+            foreach (var x in Bodies)
+            {
+                foreach (var y in x.Flags)
+                {
+                    if (y.Id == id)
+                    {
+                        return y;
+                    }
+                }
+            }
+            foreach (var x in BreakableBodies)
+            {
+                foreach (var y in x.Flags)
+                {
+                    if (y.Id == id)
+                    {
+                        return y;
+                    }
+                }
+            }
+            if (Joints != null)
+            {
+                foreach (var x in Joints)
+                {
+                    foreach (var y in x.Flags)
+                    {
+                        if (y.Id == id)
+                        {
+                            return y;
+                        }
+                    }
+                }
+            }
+            return null;
+        }
 
     }
 }

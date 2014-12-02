@@ -15,7 +15,7 @@ namespace SM.WpfView
     {
         Line _line;
 
-        public RopeJointView(BasicView parent, IRopeJoint joint)
+        public RopeJointView(BasicView parent, IRopeJoint joint, Views views)
             : base(parent, joint.Id)
         {
             _line = new Line();
@@ -24,6 +24,9 @@ namespace SM.WpfView
             var canvas = new Canvas();
             canvas.Children.Add(_line);
             AddChild(canvas);
+            AnchorA = views.FindFlag(joint.TargetFlagIdA).P;
+            AnchorB = views.FindFlag(joint.TargetFlagIdB).P;
+            Update();
         }
 
         public float2 AnchorA { get; set; }
@@ -36,6 +39,7 @@ namespace SM.WpfView
 
             _line.X2 = AnchorB.X * Context.Zoom;
             _line.Y2 = AnchorB.Y * Context.Zoom;
+
         }
     }
 }
