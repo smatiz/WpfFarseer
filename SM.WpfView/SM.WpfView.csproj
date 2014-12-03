@@ -97,7 +97,8 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Farseer.cs" />
+    <Compile Include="Helper.cs" />
+    <Compile Include="User.cs" />
     <Compile Include="Views\BreakableBodyView.cs">
       <Generator>MSBuild:Compile</Generator>
     </Compile>

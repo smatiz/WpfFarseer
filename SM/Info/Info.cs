@@ -14,25 +14,18 @@ namespace SM
 {
     public class Info : BasicInfo
     {
-        public IEnumerable<FlagInfo> Flags { get; private set; }
-        public IEnumerable<BodyInfo> Bodies { get; private set; }
-        public IEnumerable<JointInfo> Joints { get; private set; }
+        public IEnumerable<FlagInfo> Flags { get { return _flags; } }
+        public IEnumerable<BodyInfo> Bodies { get { return _bodies; } }
+        public IEnumerable<JointInfo> Joints { get { return _joints; } }
+        
+        List<FlagInfo> _flags = new List<FlagInfo>();
+        List<BodyInfo> _bodies = new List<BodyInfo>();
+        List<JointInfo> _joints = new List<JointInfo>();
 
         transform2d _currentTransform2d = transform2d.Null;
 
-
-        //private void 
-
-
-
-        public Info(string id, IEnumerable<IDescriptor> objects)
-            : base(id)
+        private void scan(IEnumerable<IDescriptor> objects)
         {
-            var bodies = new List<BodyInfo>();
-            var joints = new List<JointInfo>();
-
-            fillFlagInfoList(objects);
-
             foreach (var child in objects)
             {
                 bool handled = false;
@@ -42,7 +35,7 @@ namespace SM
                     var body = child as IBody;
                     if (body != null)
                     {
-                        bodies.Add(new BodyInfo(body));
+                        _bodies.Add(new BodyInfo(body, _currentTransform2d));
                         handled = true;
                     }
                 }
@@ -52,39 +45,93 @@ namespace SM
                     var joint = child as IRopeJoint;
                     if (joint != null)
                     {
-                        joints.Add(new JointInfo(joint));
+                        _joints.Add(new JointInfo(joint));
                         handled = true;
                     }
                 }
+
+                if (!handled)
+                {
+                    var container = child as IContainer;
+
+
+                    if (container != null)
+                    {
+                        var layer = container as ILayer;
+
+                        var currentTransform2dSaved = _currentTransform2d;
+                        if (layer != null)
+                        {
+                           // _currentTransform2d = layer.Transform * _currentTransform2d;
+                        }
+
+                        scan(container.Descriptors);
+                        _currentTransform2d = currentTransform2dSaved;
+                        handled = true;
+                    }
+
+                }
             }
+        }
 
 
-            Bodies = bodies;
-            Joints = joints;
+
+        public Info(string id, IEnumerable<IDescriptor> objects)
+            : base(id)
+        {
+            fillFlagInfoList(objects);
+            scan(objects);
+            //foreach (var child in objects)
+            //{
+            //    bool handled = false;
+
+            //    if (!handled)
+            //    {
+            //        var body = child as IBody;
+            //        if (body != null)
+            //        {
+            //            _bodies.Add(new BodyInfo(body));
+            //            handled = true;
+            //        }
+            //    }
+
+            //    if (!handled)
+            //    {
+            //        var joint = child as IRopeJoint;
+            //        if (joint != null)
+            //        {
+            //            _joints.Add(new JointInfo(joint));
+            //            handled = true;
+            //        }
+            //    }
+            //}
 
         }
 
         private void fillFlagInfoList(IEnumerable<IDescriptor> objects)
         {
-            var flags = new List<FlagInfo>();
             foreach (var child in objects)
             {
                 var fc = child as IFlag;
                 if (fc != null)
                 {
-                    flags.Add(new FlagInfo(fc, null));
+                    _flags.Add(new FlagInfo(fc, null));
                 }
                 var fcp = child as IFlaggable;
                 if (fcp != null)
                 {
                     foreach (var f in fcp.Flags)
                     {
-                        flags.Add(new FlagInfo(f, fcp.Id));
+                        _flags.Add(new FlagInfo(f, fcp.Id));
                     }
+                }
+                var c = child as IContainer;
+                if (c != null)
+                {
+                    fillFlagInfoList(c.Descriptors);
                 }
             }
 
-            Flags = flags;
         }
 
 

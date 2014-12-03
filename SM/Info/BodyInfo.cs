@@ -14,11 +14,11 @@ namespace SM
         public transform2d Transform { get; private set; }
         public BodyType BodyType { get; private set; }
 
-        public BodyInfo(IBody body)
+        public BodyInfo(IBody body, transform2d transform2d)
             : base(body)
         {
             Flags = body.Flags;
-            Transform = body.Transform;
+            Transform = body.Transform; 
             BodyType = body.BodyType;
 
             Shapes = body.Shapes;

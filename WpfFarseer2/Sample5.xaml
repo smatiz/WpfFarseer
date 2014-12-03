@@ -12,7 +12,7 @@
     <Grid>
         <l2:FarseerPlayerControl x:Name="_farseerPlayer" Loaded="_farseerPlayer_Loaded"  Zoom="10" Debug="True">
             <l2:FarseerPlayerControl.Farseer>
-                <l4:Farseer >
+                <l:Farseer >
                     <l:Body BodyType="Breakable" Id="Pig" >
                         <l:SkinnedShape PrecisionZoom="10">
                             <Canvas Width="8" Height="8" >
@@ -31,7 +31,7 @@
                         </l:Polygon>
                     </l:Body>
 
-                </l4:Farseer>
+                </l:Farseer>
             </l2:FarseerPlayerControl.Farseer>
         </l2:FarseerPlayerControl>
 

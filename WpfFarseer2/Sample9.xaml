@@ -12,7 +12,7 @@
     <Grid>
         <l2:FarseerPlayerControl x:Name="_farseerPlayer"  Zoom="20"  Debug="True">
             <l2:FarseerPlayerControl.Farseer>
-                <l4:Farseer  Id="s9">
+                <l:Farseer  Id="s9">
                     <l:Body BodyType="Dynamic">
                         <l:Polygon  Points="5,0,5,5,10,4" Fill="GreenYellow"  Stroke="Black" StrokeThickness="1">
                         </l:Polygon>
@@ -21,7 +21,7 @@
                         <l:Polygon  Points="5,15,5,20,10,24" Fill="Red"  Stroke="Black" StrokeThickness="1">
                         </l:Polygon>
                     </l:Body>
-                </l4:Farseer>
+                </l:Farseer>
             </l2:FarseerPlayerControl.Farseer>
         </l2:FarseerPlayerControl>
 

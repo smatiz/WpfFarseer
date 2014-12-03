@@ -12,7 +12,7 @@
     <Grid>
         <l2:FarseerPlayerControl x:Name="_farseerPlayer"  Debug="True">
             <l2:FarseerPlayerControl.Farseer>
-                <l4:Farseer  >
+                <l:Farseer  >
                     <l:Body Id="b" BodyType="Breakable">
                         <l:Polygon Convex="False" Density="123" Points="0,0 100,0 100,100 75,25" >
                             <l:Polygon.Fill>
@@ -28,7 +28,7 @@
                         <l:Polygon Density="123"  Points="0 200,300 200,150 250" Fill="Black">
                         </l:Polygon>
                     </l:Body>
-                </l4:Farseer>
+                </l:Farseer>
             </l2:FarseerPlayerControl.Farseer>
         </l2:FarseerPlayerControl>
     </Grid>

@@ -18,59 +18,27 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using System.Collections.ObjectModel;
 using System.Windows.Markup;
-using SM.WpfView;
 using SM.Wpf;
 
-namespace SM.WpfView
+namespace SM.Xaml
 {
-    //[ContentPropertyAttribute("Children")]
-    //public partial class Farseer : BasicControl
-    //{
-    //    public Farseer()
-    //    {
-    //        Children = new List<BasicControl>();
-    //    }
-      
+    [ContentPropertyAttribute("Children")]
+    public class Farseer : BasicContainer
+    {
+        
+        //public static string GetAngleJoint(DependencyObject obj)
+        //{
+        //    return (string)obj.GetValue(AngleJointProperty);
+        //}
 
+        //public static void SetAngleJoint(DependencyObject obj, string value)
+        //{
+        //    obj.SetValue(AngleJointProperty, value);
+        //}
+        //public static readonly DependencyProperty AngleJointProperty =
+        //    DependencyProperty.RegisterAttached("AngleJoint", typeof(string), typeof(Farseer), new PropertyMetadata(null));
 
-    //    public Info Info { get; private set; }
-    //    public Views Views { get; private set; }
-
-
-    
-    //    public static string GetAngleJoint(DependencyObject obj)
-    //    {
-    //        return (string)obj.GetValue(AngleJointProperty);
-    //    }
-
-    //    public static void SetAngleJoint(DependencyObject obj, string value)
-    //    {
-    //        obj.SetValue(AngleJointProperty, value);
-    //    }
-    //    public static readonly DependencyProperty AngleJointProperty =
-    //        DependencyProperty.RegisterAttached("AngleJoint", typeof(string), typeof(Farseer), new PropertyMetadata(null));
-
-    //    public List<BasicControl> Children
-    //    {
-    //        get { return (List<BasicControl>)GetValue(FarseerObjectsProperty); }
-    //        set { SetValue(FarseerObjectsProperty, value); }
-    //    }
-    //    public static readonly DependencyProperty FarseerObjectsProperty =
-    //        DependencyProperty.Register("Children", typeof(List<BasicControl>), typeof(Farseer), new PropertyMetadata(null));
-
-
-
-    //    public string Id
-    //    {
-    //        get { return (string)GetValue(IdProperty); }
-    //        set { SetValue(IdProperty, value); }
-    //    }
-
-    //    // Using a DependencyProperty as the backing store for Id.  This enables animation, styling, binding, etc...
-    //    public static readonly DependencyProperty IdProperty =
-    //        DependencyProperty.Register("Id", typeof(string), typeof(Farseer), new PropertyMetadata("Farseer"));
 
         
-
-    //}
+    }
 }

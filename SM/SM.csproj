@@ -97,6 +97,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Descriptor\Interfaces\ILayer.cs" />
+    <Compile Include="Descriptor\Interfaces\IContainer.cs" />
     <Compile Include="Info\BasicInfo.cs" />
     <Compile Include="Info\BodyInfo.cs" />
     <Compile Include="Info\FlagInfo.cs" />

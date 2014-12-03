@@ -39,5 +39,7 @@ flagInfo e FlagView e FindFlag ecc
 rimettere assieme sm.Wpf sm.Xaml e SM.WpfView ?
 
 
+non va piu in design time
+
 fare piu unit test
 

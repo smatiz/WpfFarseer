@@ -7,7 +7,7 @@ using System.Windows;
 
 namespace SM.Xaml
 {
-    public class Layer : DependencyObject
+    public class Layer : BasicContainer, ILayer
     {
         public transform2d Transform
         {

@@ -109,26 +109,12 @@ namespace WpfFarseer
         {
             _context = new Context(Zoom);
             _root = new RootView(_context, farseerCanvas);
-            loadFarseer();
-            //farseerContainer.Children.Clear();
+            SM.WpfView.Helper.LoadFarseer(Id, Farseer.Children, _root, out _farseerInfo, out _farseerViews);
         }
 
         Info _farseerInfo;
         Views _farseerViews;
 
-        private void loadFarseer()
-        {
-
-            // prendo lo xaml e lo passo a Info che e' completamente agnostico
-            _farseerInfo = new Info(Id, Farseer.Children);
-            // creo un wpf views creator che Views pilotera' e usera' per popolare le sue strutture a partire da info
-            var wpfViewsCreator = new WpfViewsCreator(_root);
-            var wpfViewsShapeCreator = new WpfShapeCreator();
-
-            //var ftools = new WpfFarseerTools();
-            // Views e' completamente agnostico 
-            _farseerViews = new Views(wpfViewsCreator, wpfViewsShapeCreator, _farseerInfo);
-        }
         
 
 
@@ -150,8 +136,7 @@ namespace WpfFarseer
                 _context = new Context(Zoom);
                 _root = new RootView(_context, this);
                 if (Farseer == null) throw new Exception("Farseer == null");
-                loadFarseer();
-                //farseerContainer.Children.Clear();
+                SM.WpfView.Helper.LoadFarseer(Id, Farseer.Children, _root, out _farseerInfo, out _farseerViews);
 
             }
             else if (MouseEnabled)

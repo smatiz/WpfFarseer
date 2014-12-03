@@ -12,7 +12,7 @@
     <Grid>
         <l2:FarseerPlayerControl x:Name="_farseerPlayer" Zoom="20" Debug="True">
             <l2:FarseerPlayerControl.Farseer>
-                <l4:Farseer >
+                <l:Farseer >
                     <l:Body Id="b2" BodyType="Static">
                         <l:Polygon Density="123"  Points="3,22,20,0,20,20" Fill="Gray"/>
                         <l:Body.Flags>
@@ -28,7 +28,7 @@
                     </l:Body>
                     <l:RopeJointControl Id="jointC" TargetFlagIdA="x" TargetFlagIdB="y" />
 
-                </l4:Farseer>
+                </l:Farseer>
             </l2:FarseerPlayerControl.Farseer>
         </l2:FarseerPlayerControl>
         
