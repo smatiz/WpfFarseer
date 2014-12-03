@@ -27,17 +27,17 @@ namespace SM.Farseer
 
         public BreakableBodyMaterial(World world, BodyInfo bodyInfo, IShapeMaterialCreator shapeCreator)
         {
-            var materialShape = shapeCreator.Create(bodyInfo.Shapes);
+            var materialShape = shapeCreator.Create(bodyInfo.Shapes, bodyInfo.Transform.Scale);
             IEnumerable<Shape> allShapes = materialShape.Circles.Select(c => getCircle(c)).Concat<Shape>(materialShape.Polygons.Select(p => getPolygon(p)));
 
             _breakableBody = BodyFactory.CreateBreakableBody(world, allShapes);
             Body.UserData = bodyInfo.Id;
             CodeGenerator.AddCode("var {0} = BodyFactory.CreateBreakableBody(W, allShapes);", Body.n());
             CodeGenerator.AddCode(@"{0}.UserData = ""{1}"";", Body.n(), Body.UserData);
-            Body.Position = new Vector2(bodyInfo.X, bodyInfo.Y);
-            CodeGenerator.AddCode(@"{0}.Position = new Vector2({1},{2});", Body.n(), bodyInfo.X, bodyInfo.Y);
-            Body.Rotation = bodyInfo.Angle;
-            CodeGenerator.AddCode("{0}.Angle = {1};", Body.n(), bodyInfo.Angle);
+            Body.Position = new Vector2(bodyInfo.Transform.RotoTranslation.Translation.X, bodyInfo.Transform.RotoTranslation.Translation.Y);
+            CodeGenerator.AddCode(@"{0}.Position = new Vector2({1},{2});", Body.n(), bodyInfo.Transform.RotoTranslation.Translation.X, bodyInfo.Transform.RotoTranslation.Translation.Y);
+            Body.Rotation = bodyInfo.Transform.RotoTranslation.Angle;
+            CodeGenerator.AddCode("{0}.Angle = {1};", Body.n(), bodyInfo.Transform.RotoTranslation.Angle);
         }
 
         public virtual object Object { get { return _breakableBody; } }

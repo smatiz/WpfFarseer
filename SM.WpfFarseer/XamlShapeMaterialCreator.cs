@@ -85,7 +85,7 @@ namespace SM.WpfFarseer
 
             return result;
         }
-        private void addTo(object shape, List<CircleMaterial> circles, List<PolygonMaterial> polygons)
+        private void addTo(object shape, List<CircleMaterial> circles, List<PolygonMaterial> polygons, float scale)
         {
 
             var circle = shape as Circle;
@@ -132,13 +132,13 @@ namespace SM.WpfFarseer
             }
         }
 
-        public ShapesMaterial Create(IEnumerable<IShape> shapes)
+        public ShapesMaterial Create(IEnumerable<IShape> shapes, float scale)
         {
             List<CircleMaterial> circles = new List<CircleMaterial>();
             List<PolygonMaterial> polygons = new List<PolygonMaterial>();
             foreach (var shape in shapes)
             {
-                addTo(shape, circles, polygons);
+                addTo(shape, circles, polygons, scale);
             }
             return new ShapesMaterial(circles, polygons);
         }

@@ -13,7 +13,7 @@
         <l2:FarseerPlayerControl x:Name="_farseerPlayer"  Debug="True">
             <l2:FarseerPlayerControl.Farseer>
                 <l4:Farseer   >
-                    <l:Body BodyType="Breakable" X="110" Angle="9">
+                    <l:Body BodyType="Breakable" >
                         <l:SkinnedShape>
                             <Canvas >
                                 <Button Background="Red"  Width="40" Height="40">ciao</Button>

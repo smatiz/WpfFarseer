@@ -15,9 +15,11 @@ namespace SM.WpfView
     {
         Polygon _polygon;
         IPolygon _shape;
-        public PolygonShapeView(IContext context, IPolygon shape)
+        float _scale = 1f;
+        public PolygonShapeView(IContext context, IPolygon shape, float scale)
             : base(context)
         {
+            _scale = scale;
             _shape = shape;
             _polygon = new Polygon();
             _polygon.Fill = _shape.Fill;
@@ -46,7 +48,7 @@ namespace SM.WpfView
             _polygon.Points.Clear();
             foreach (var p in _shape.Points)
             {
-                _polygon.Points.Add(p.Zoomed(Context.Zoom));
+                _polygon.Points.Add(p.Zoomed(Context.Zoom * _scale));
             }
 
         }

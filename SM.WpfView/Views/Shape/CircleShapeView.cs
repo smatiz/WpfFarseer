@@ -13,12 +13,12 @@ namespace SM.WpfView
 {
     public class CircleShapeView : BasicShapeView, IDrawable
     {
-        public CircleShapeView(IContext context, ICircle shape)
+        public CircleShapeView(IContext context, ICircle shape, float scale)
             : base(context)
         {
-            var ellipse = new System.Windows.Shapes.Ellipse() { Width = shape.Radius * context.Zoom * 2, Height = shape.Radius * context.Zoom * 2 };
-            Canvas.SetLeft(ellipse, (shape.X - shape.Radius) * context.Zoom);
-            Canvas.SetTop(ellipse, (shape.Y - shape.Radius) * context.Zoom);
+            var ellipse = new System.Windows.Shapes.Ellipse() { Width = shape.Radius * context.Zoom * 2 * scale, Height = shape.Radius * context.Zoom * 2 * scale };
+            Canvas.SetLeft(ellipse, (shape.X - shape.Radius) * context.Zoom * scale);
+            Canvas.SetTop(ellipse, (shape.Y - shape.Radius) * context.Zoom * scale);
             UIElement = ellipse;
         }
 

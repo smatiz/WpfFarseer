@@ -8,6 +8,6 @@ namespace SM
 {
     public interface IShapeMaterialCreator
     {
-        ShapesMaterial Create(IEnumerable<IShape> shape);
+        ShapesMaterial Create(IEnumerable<IShape> shape, float scale);
     }
 }

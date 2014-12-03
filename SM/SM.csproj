@@ -97,7 +97,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DefaultContext.cs" />
     <Compile Include="Info\BasicInfo.cs" />
     <Compile Include="Info\BodyInfo.cs" />
     <Compile Include="Info\FlagInfo.cs" />

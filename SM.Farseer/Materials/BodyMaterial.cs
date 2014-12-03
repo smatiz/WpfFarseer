@@ -30,12 +30,12 @@ namespace SM.Farseer
             _body.BodyType = (FarseerPhysics.Dynamics.BodyType)bodyInfo.BodyType;
             CodeGenerator.AddCode(@"{0}.UserData = ""{1}"";", _body.n(), _body.UserData);
             CodeGenerator.AddCode("{0}.BodyType = BodyType.{1};", _body.n(), _body.BodyType.ToString());
-            _body.Position = new Vector2(bodyInfo.X, bodyInfo.Y);
-            CodeGenerator.AddCode(@"{0}.Position = new Vector2({1}f,{2}f);", _body.n(), bodyInfo.X, bodyInfo.Y);
-            _body.Rotation = bodyInfo.Angle;
-            CodeGenerator.AddCode("{0}.Rotation = {1}f;", _body.n(), bodyInfo.Angle);
+            _body.Position = new Vector2(bodyInfo.Transform.RotoTranslation.Translation.X, bodyInfo.Transform.RotoTranslation.Translation.Y);
+            CodeGenerator.AddCode(@"{0}.Position = new Vector2({1}f,{2}f);", _body.n(), bodyInfo.Transform.RotoTranslation.Translation.X, bodyInfo.Transform.RotoTranslation.Translation.Y);
+            _body.Rotation = bodyInfo.Transform.RotoTranslation.Angle;
+            CodeGenerator.AddCode("{0}.Rotation = {1}f;", _body.n(), bodyInfo.Transform.RotoTranslation.Angle);
 
-            var materialShape = shapeCreator.Create(bodyInfo.Shapes);
+            var materialShape = shapeCreator.Create(bodyInfo.Shapes, bodyInfo.Transform.Scale);
 
             foreach (var shape in materialShape.Polygons)
             {

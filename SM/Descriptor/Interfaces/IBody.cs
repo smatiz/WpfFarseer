@@ -10,9 +10,7 @@ namespace SM
     {
         List<IFlag> Flags { get; }
 
-        float X { get; }
-        float Y { get; }
-        float Angle { get; }
+        transform2d Transform { get; }
         BodyType BodyType { get; }
         List<IShape> Shapes { get; }
     }

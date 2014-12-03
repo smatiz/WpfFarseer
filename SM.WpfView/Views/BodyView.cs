@@ -46,9 +46,9 @@ namespace SM.WpfView
             _bodyInfo = bodyInfo;
 
             BodyType = bodyInfo.BodyType;
-            Shapes = shapeCreator.Create(bodyInfo.Shapes, Context);
+            Shapes = shapeCreator.Create(bodyInfo.Shapes, Context, bodyInfo.Transform.Scale);
 
-            RotoTranslation = new rotoTranslation(new float2(bodyInfo.X * Context.Zoom, bodyInfo.Y * Context.Zoom), bodyInfo.Angle);
+            RotoTranslation = bodyInfo.Transform.RotoTranslation;// new rotoTranslation(new float2(bodyInfo.X * Context.Zoom, bodyInfo.Y * Context.Zoom), bodyInfo.Angle);
             _canvas = new Canvas();
             foreach (var flag in _bodyInfo.Flags)
             {

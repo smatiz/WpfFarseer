@@ -8,6 +8,6 @@ namespace SM
 {
     public interface IShapeViewCreator
     {
-        IEnumerable<BasicShapeView> Create(IEnumerable<IShape> shape, IContext context);
+        IEnumerable<BasicShapeView> Create(IEnumerable<IShape> shape, IContext context, float scale);
     }
 }

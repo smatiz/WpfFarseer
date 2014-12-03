@@ -36,30 +36,42 @@ namespace SM.Xaml
         public static readonly DependencyProperty FlagsProperty =
             DependencyProperty.Register("Flags", typeof(List<IFlag>), typeof(Body), new PropertyMetadata(null));
 
-        public float X
-        {
-            get { return (float)GetValue(XProperty); }
-            set { SetValue(XProperty, value); }
-        }
-        public static readonly DependencyProperty XProperty =
-            DependencyProperty.Register("X", typeof(float), typeof(Body), new PropertyMetadata(0f));
+        //public float X
+        //{
+        //    get { return (float)GetValue(XProperty); }
+        //    set { SetValue(XProperty, value); }
+        //}
+        //public static readonly DependencyProperty XProperty =
+        //    DependencyProperty.Register("X", typeof(float), typeof(Body), new PropertyMetadata(0f));
 
-        public float Y
-        {
-            get { return (float)GetValue(YProperty); }
-            set { SetValue(YProperty, value); }
-        }
-        public static readonly DependencyProperty YProperty =
-            DependencyProperty.Register("Y", typeof(float), typeof(Body), new PropertyMetadata(0f));
+        //public float Y
+        //{
+        //    get { return (float)GetValue(YProperty); }
+        //    set { SetValue(YProperty, value); }
+        //}
+        //public static readonly DependencyProperty YProperty =
+        //    DependencyProperty.Register("Y", typeof(float), typeof(Body), new PropertyMetadata(0f));
 
-        public float Angle
+        //public float Angle
+        //{
+        //    get { return (float)GetValue(AngleProperty); }
+        //    set { SetValue(AngleProperty, value); }
+        //}
+        //public static readonly DependencyProperty AngleProperty =
+        //    DependencyProperty.Register("Angle", typeof(float), typeof(Body), new PropertyMetadata(0f));
+
+
+
+
+        public transform2d Transform
         {
-            get { return (float)GetValue(AngleProperty); }
-            set { SetValue(AngleProperty, value); }
+            get { return (transform2d)GetValue(TransformProperty); }
+            set { SetValue(TransformProperty, value); }
         }
-        public static readonly DependencyProperty AngleProperty =
-            DependencyProperty.Register("Angle", typeof(float), typeof(Body), new PropertyMetadata(0f));
-      
+        public static readonly DependencyProperty TransformProperty =
+            DependencyProperty.Register("Transform", typeof(transform2d), typeof(Body), new PropertyMetadata(transform2d.Null));
+
+        
 
 
 
