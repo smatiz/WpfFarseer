@@ -18,7 +18,7 @@ namespace SM
             : base(body)
         {
             Flags = body.Flags;
-            Transform = body.Transform; 
+            Transform = transform2d * body.Transform; 
             BodyType = body.BodyType;
 
             Shapes = body.Shapes;

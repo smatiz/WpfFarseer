@@ -14,11 +14,6 @@ namespace SM.WpfView
             _rootView = rootView;
         }
 
-        //public IFlagView CreateFlag(FlagInfo body)
-        //{
-        //    return new FlagView( body);
-        //}
-
         public IBodyView CreateBody(BodyInfo body, IShapeViewCreator shapeCreator)
         {
             return new BodyView(_rootView, body, shapeCreator);
@@ -32,7 +27,12 @@ namespace SM.WpfView
 
         public IJointView CreateJoint(JointInfo joint, Views views)
         {
-            return new RopeJointView(_rootView, (IRopeJoint)joint.Joint, views);
+            if (joint.Joint is IRopeJoint)
+            {
+                return new RopeJointView(_rootView, (IRopeJoint)joint.Joint, views);
+            }
+
+            return null;
         }
     }
 }

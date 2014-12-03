@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace SM
 {
-    public interface IRopeJoint : IJoint
+    public partial interface IRopeJoint : IJoint
     {
         float MaxLength { get; }
         float MaxLengthFactor { get; }
         string TargetFlagIdA { get; }
         string TargetFlagIdB { get; }
-        bool CollideConnected { get; }
     }
 }

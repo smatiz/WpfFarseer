@@ -21,13 +21,6 @@ namespace SM
             }
         }
 
-        //public ISynchronizer Find(string name)
-        //{
-            
-        //    if (_synchronizersMap.ContainsKey(name))
-        //        return _synchronizersMap[name];
-        //    return null;
-        //}
         public T Find<T>(string name) where T : class
         {
             return _materials.Find<T>(name);
@@ -68,7 +61,6 @@ namespace SM
                     _synchronizers.Remove(s);
                 }
 
-                //_materials.BreakableBodies.AddRange(managerstobeadded.Select());
                 _synchronizers.AddRange(managerstobeadded);
             }
         }

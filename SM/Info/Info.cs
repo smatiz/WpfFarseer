@@ -62,7 +62,7 @@ namespace SM
                         var currentTransform2dSaved = _currentTransform2d;
                         if (layer != null)
                         {
-                           // _currentTransform2d = layer.Transform * _currentTransform2d;
+                            _currentTransform2d = layer.Transform * _currentTransform2d;
                         }
 
                         scan(container.Descriptors);

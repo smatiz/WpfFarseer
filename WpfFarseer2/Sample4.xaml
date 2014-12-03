@@ -13,10 +13,7 @@
         <l2:FarseerPlayerControl x:Name="_farseerPlayer">
             <l2:FarseerPlayerControl.Farseer>
                 <l:Farseer   >
-                    <l:Body   Id="b" BodyType="Dynamic">
-                        <l:Polygon Density="123"  Points="0 200,300 200,150 250" Fill="Black"/>
-
-                    </l:Body>
+                    <l2:MyFirstFarseerUserControl Transform="0,0"></l2:MyFirstFarseerUserControl>
                 </l:Farseer>
             </l2:FarseerPlayerControl.Farseer>
         </l2:FarseerPlayerControl>

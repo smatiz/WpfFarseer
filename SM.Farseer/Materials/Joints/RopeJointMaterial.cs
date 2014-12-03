@@ -37,21 +37,12 @@ namespace SM.Farseer
             return new Vector2(flag.X, flag.Y);
         }
 
-        //public void Finalize(BasicManager basicManager)
-        //{
-        //    _joint = JointFactory.CreateRopeJoint(_world, basicManager.FindObject<Body>(_flagA.ParentId), basicManager.FindObject<Body>(_flagB.ParentId), _flagA.P.ToFarseer(), _flagB.P.ToFarseer());
-
-        //    _joint.CollideConnected = _ropeJoint.CollideConnected;
-        
-        //}
-
         public void Finalize(Materials material)
         {
             _joint = JointFactory.CreateRopeJoint(_world, (Body)material.Find<BodyMaterial>(_flagA.ParentId).Object, (Body)material.Find<BodyMaterial>(_flagB.ParentId).Object, _flagA.P.ToFarseer(), _flagB.P.ToFarseer());
 
             _joint.CollideConnected = _ropeJoint.CollideConnected;
         }
-
 
         public float MaxLength
         {
@@ -118,6 +109,5 @@ namespace SM.Farseer
                 _joint.CollideConnected = value;
             }
         }
-
     }
 }

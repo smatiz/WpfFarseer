@@ -8,6 +8,6 @@ namespace SM
 {
     public interface IJoint : IDescriptor
     {
-
+        bool CollideConnected { get; }
     }
 }

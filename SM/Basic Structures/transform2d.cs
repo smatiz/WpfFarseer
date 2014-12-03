@@ -30,7 +30,35 @@ namespace SM
             return String.Format("{0},{1}", _rotoTranslation, _scale);
         }
 
+        public static bool operator ==(transform2d t1, transform2d t2)
+        {
+            return t1.Equals(t2);
+        }
+        public static bool operator !=(transform2d t1, transform2d t2)
+        {
+            return !t1.Equals(t2);
+        }
+        public override bool Equals(object obj)
+        {
+            if (!(obj is transform2d)) return false;
+            var t = (transform2d)obj;
+            return t._scale == _scale && t._rotoTranslation == _rotoTranslation;
+        }
+        public override int GetHashCode()
+        {
+            unchecked // Overflow is fine, just wrap
+            {
+                return _scale.GetHashCode() + _rotoTranslation.GetHashCode();
+            }
+        }
+
+
+
+        public static transform2d operator *(transform2d t1, transform2d t2)
+        {
+            return (t1.ToMatrix() * t2.ToMatrix()).ToTransform2d();
+        }
+
         public static transform2d Null { get { return new transform2d(rotoTranslation.Null, 1f); } }
     }
-
 }

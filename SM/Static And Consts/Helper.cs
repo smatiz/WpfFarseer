@@ -6,8 +6,35 @@ using System.Threading.Tasks;
 
 namespace SM
 {
-    //public static class Helper
-    //{
+    public static class Helper
+    {
+
+        public static Matrix ToMatrix(this transform2d t)
+        {
+            var c = (float)Math.Cos(t.RotoTranslation.Angle);
+            var s = (float)Math.Sin(t.RotoTranslation.Angle);
+            return Matrix.Build(3,
+                c, -s, t.RotoTranslation.Translation.X,
+                s, c, t.RotoTranslation.Translation.Y,
+                0, 0, 1.0f / t.Scale
+                );
+        }
+        private static float GetAngle(float c, float s)
+        {
+            if (Math.Abs(c) < Consts.Epsilon)
+            {
+                return (float)Math.PI * 0.5f * (s > 0 ? 1f : -1f);
+            }
+            else
+            {
+                return (float)Math.Atan(s / c) + (float)Math.PI * (c > 0 ? 0f : 1f);
+            }
+        }
+        public static transform2d ToTransform2d(this Matrix m)
+        {
+            return new transform2d(m.mat[0, 2], m.mat[1, 2], GetAngle(m.mat[0, 0], m.mat[1, 0]), 1.0f / m.mat[2, 2]);
+        }
+    }
 
     //    static float _zoom;
     //    static float _dezoom;

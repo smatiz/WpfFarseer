@@ -10,7 +10,7 @@ using SM.Wpf;
 
 namespace SM.Xaml
 {
-    public class BasicJointControl : BasicControl
+    public class BasicJointControl : BasicControl, IJoint
     {
         public bool CollideConnected
         {

@@ -97,12 +97,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Basic Structures\Matrix.cs" />
     <Compile Include="Descriptor\Interfaces\ILayer.cs" />
     <Compile Include="Descriptor\Interfaces\IContainer.cs" />
     <Compile Include="Info\BasicInfo.cs" />
     <Compile Include="Info\BodyInfo.cs" />
     <Compile Include="Info\FlagInfo.cs" />
-    <Compile Include="Info\___RopeJointInfo.cs" />
     <Compile Include="Info\JointInfo.cs" />
     <Compile Include="Materials\BodyPieceMaterial.cs" />
     <Compile Include="Materials\Interfaces\IMaterialCreator.cs" />

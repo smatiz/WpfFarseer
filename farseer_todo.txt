@@ -14,17 +14,7 @@
 * test sample 1 per i flag
 * test sample 7 per il baco sull'angolo
 * sostituire body.x,.y,.A con il nuovo sistema TRANSFORM 2D
-
-
-
-aggiornare codeGenerator
-creare un sistema per testare il CodeGenerator in modo semplice
-
-finire di sistemare i joint con T4 e refactoring
-
-UML/MIND MAP
-USERCONTROL
-LAYER (con il nuovo sistema TRANSFORM 2D)
+* LAYER (con il nuovo sistema TRANSFORM 2D)
 * CONTEXT
 * TRANSFORM 2D (con stringa tipo "10,10,90,0")
 * JOINT E FLAG A DESIGN TIME
@@ -34,12 +24,15 @@ LAYER (con il nuovo sistema TRANSFORM 2D)
 * BUG : NON TROVA PIU I PEZZI DI UN BREAKABLEBODY (colpa dei cambiamenti sul metodo Find<T> )
 
 
-RIORDINI:
-flagInfo e FlagView e FindFlag ecc
-rimettere assieme sm.Wpf sm.Xaml e SM.WpfView ?
-
-
-non va piu in design time
 
 fare piu unit test
+code generator va isolato ?
+
+finire di sistemare i joint con T4 e refactoring
+
+UML/MIND MAP
+USERCONTROL
+RIORDINare flagInfo e FlagView, Joint e FindFlag ecc
+
+
 

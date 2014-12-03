@@ -24,12 +24,44 @@ using SM.WpfView;
 namespace SM.Xaml
 {
     [ContentPropertyAttribute("Children")]
-    public class User : UserControl, IContainer
+    public class User : UserControl, ILayer
     {
         public User()
         {
             Children = new List<BasicControl>();
+
+            Loaded += User_Loaded;
         }
+
+
+
+        Info _farseerInfo;
+        Views _farseerViews;
+        Context _context;
+        RootView _root;
+        void User_Loaded(object sender, RoutedEventArgs e)
+        {
+            _context = new Context(1f);
+            var c = new Canvas();
+            Content = c;
+            _root = new RootView(_context, c);
+            SM.WpfView.Helper.LoadFarseer(Id, Children, _root, out _farseerInfo, out _farseerViews);
+        }
+
+
+
+
+        public string Id
+        {
+            get { return (string)GetValue(IdProperty); }
+            set { SetValue(IdProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Id.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IdProperty =
+            DependencyProperty.Register("Id", typeof(string), typeof(User), new PropertyMetadata(null));
+
+        
 
 
         public List<BasicControl> Children
@@ -39,6 +71,16 @@ namespace SM.Xaml
         }
         public static readonly DependencyProperty FarseerObjectsProperty =
             DependencyProperty.Register("Children", typeof(List<BasicControl>), typeof(User), new PropertyMetadata(null));
+
+
+        public transform2d Transform
+        {
+            get { return (transform2d)GetValue(TransformProperty); }
+            set { SetValue(TransformProperty, value); }
+        }
+        public static readonly DependencyProperty TransformProperty =
+            DependencyProperty.Register("Transform", typeof(transform2d), typeof(User), new PropertyMetadata(transform2d.Null));
+
 
         public IEnumerable<IDescriptor> Descriptors { get { return Children.Select(c => (IDescriptor)c); } }
 
