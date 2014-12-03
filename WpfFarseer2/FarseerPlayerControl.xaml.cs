@@ -71,9 +71,9 @@ namespace WpfFarseer
 
             var farseerMaterialsShapeCreator = new XamlShapeMaterialCreator(_context);
             // Materials e' completamente agnostico 
-            var materials = new Materials(farseerMaterialsCreator, farseerMaterialsShapeCreator, Farseer.Info);
+            var materials = new Materials(farseerMaterialsCreator, farseerMaterialsShapeCreator, _farseerInfo);
             // Synchronizers e' la struttura agnostica per tenere sincronizzato views e materials
-            var synchronizers = new Synchronizers(Farseer.Views, materials);
+            var synchronizers = new Synchronizers(_farseerViews, materials);
 
             _worldManager = new FarseerWorldManager(Id, synchronizers, new WatchView(), world);
 
@@ -109,9 +109,28 @@ namespace WpfFarseer
         {
             _context = new Context(Zoom);
             _root = new RootView(_context, farseerCanvas);
-            Farseer.Load(_root);
+            loadFarseer();
             //farseerContainer.Children.Clear();
         }
+
+        Info _farseerInfo;
+        Views _farseerViews;
+
+        private void loadFarseer()
+        {
+
+            // prendo lo xaml e lo passo a Info che e' completamente agnostico
+            _farseerInfo = new Info(Id, Farseer.Children);
+            // creo un wpf views creator che Views pilotera' e usera' per popolare le sue strutture a partire da info
+            var wpfViewsCreator = new WpfViewsCreator(_root);
+            var wpfViewsShapeCreator = new WpfShapeCreator();
+
+            //var ftools = new WpfFarseerTools();
+            // Views e' completamente agnostico 
+            _farseerViews = new Views(wpfViewsCreator, wpfViewsShapeCreator, _farseerInfo);
+        }
+        
+
 
         public void AddBehaviour(IBehaviourView x)
         {
@@ -131,7 +150,7 @@ namespace WpfFarseer
                 _context = new Context(Zoom);
                 _root = new RootView(_context, this);
                 if (Farseer == null) throw new Exception("Farseer == null");
-                Farseer.Load(_root);
+                loadFarseer();
                 //farseerContainer.Children.Clear();
 
             }

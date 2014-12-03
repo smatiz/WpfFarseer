@@ -174,15 +174,13 @@ namespace SM
 
     public class Transform2dConverter : TypeConverter
     {
-        //should return true if sourcetype is string
         public override bool CanConvertFrom(System.ComponentModel.ITypeDescriptorContext context, Type sourceType)
         {
-            return base.CanConvertFrom(context, sourceType);
+            return sourceType == typeof(string);
         }
-        //should return true when destinationtype if GeopointItem
         public override bool CanConvertTo(System.ComponentModel.ITypeDescriptorContext context, Type destinationType)
         {
-            return base.CanConvertTo(context, destinationType);
+            return destinationType == typeof(transform2d);
         }
         //Actual convertion from string to GeoPointItem
         public override object ConvertFrom(System.ComponentModel.ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value)

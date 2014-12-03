@@ -12,6 +12,7 @@ namespace SM
         public IEnumerable<IBreakableBodyView> BreakableBodies { get; private set; }
         public IEnumerable<IJointView> Joints { get; private set; }
 
+
         public Views(IViewCreator viewCreator, IShapeViewCreator shapeCreator, Info info)
         {
             var bodies = new List<IBodyView>();

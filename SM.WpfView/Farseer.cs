@@ -31,22 +31,22 @@ namespace SM.WpfView
             Children = new List<BasicControl>();
         }
       
-        public void Load(RootView root)
-        {
-            // prendo lo xaml e lo passo a Info che e' completamente agnostico
-            Info = new Info(Id, Children);
-            // creo un wpf views creator che Views pilotera' e usera' per popolare le sue strutture a partire da info
-            var wpfViewsCreator = new WpfViewsCreator(root);
-            var wpfViewsShapeCreator = new WpfShapeCreator();
+        //public void Load(RootView root)
+        //{
+        //    // prendo lo xaml e lo passo a Info che e' completamente agnostico
+        //    Info = new Info(Id, Children);
+        //    // creo un wpf views creator che Views pilotera' e usera' per popolare le sue strutture a partire da info
+        //    var wpfViewsCreator = new WpfViewsCreator(root);
+        //    var wpfViewsShapeCreator = new WpfShapeCreator();
 
-            //var ftools = new WpfFarseerTools();
-            // Views e' completamente agnostico 
-            Views = new Views(wpfViewsCreator, wpfViewsShapeCreator, Info);
-        }
+        //    //var ftools = new WpfFarseerTools();
+        //    // Views e' completamente agnostico 
+        //    Views = new Views(wpfViewsCreator, wpfViewsShapeCreator, Info);
+        //}
 
 
-        public Info Info { get; private set; }
-        public Views Views { get; private set; }
+        //public Info Info { get; private set; }
+        //public Views Views { get; private set; }
 
 
     

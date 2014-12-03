@@ -12,8 +12,8 @@
     <Grid>
         <l2:FarseerPlayerControl x:Name="_farseerPlayer"  Debug="True">
             <l2:FarseerPlayerControl.Farseer>
-                <l4:Farseer   >
-                    <l:Body BodyType="Breakable" >
+                <l4:Farseer>
+                    <l:Body BodyType="Breakable"  Transform="110,0,9">
                         <l:SkinnedShape>
                             <Canvas >
                                 <Button Background="Red"  Width="40" Height="40">ciao</Button>

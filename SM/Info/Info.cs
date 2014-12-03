@@ -18,6 +18,13 @@ namespace SM
         public IEnumerable<BodyInfo> Bodies { get; private set; }
         public IEnumerable<JointInfo> Joints { get; private set; }
 
+        transform2d _currentTransform2d = transform2d.Null;
+
+
+        //private void 
+
+
+
         public Info(string id, IEnumerable<IDescriptor> objects)
             : base(id)
         {
