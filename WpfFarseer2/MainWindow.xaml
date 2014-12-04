@@ -6,32 +6,51 @@
         Title="MainWindow" Height="550" Width="525">
     <TabControl SelectedIndex="0">
         <TabControl.Items>
-            <TabItem Header="1">
-                <l:Sample1></l:Sample1>
+            
+            <TabItem Header="Joint">
+                <TabControl SelectedIndex="0">
+                    <TabControl.Items>
+                        <TabItem Header="RopeJoint">
+                            <l:SampleRopeJoint></l:SampleRopeJoint>
+                        </TabItem>
+                    </TabControl.Items>
+                </TabControl>
             </TabItem>
-            <TabItem Header="2">
-                <l:Sample2></l:Sample2>
+            
+            <TabItem Header="Broken">
+                <TabControl SelectedIndex="0">
+                    <TabControl.Items>
+                        <TabItem Header="2">
+                            <l:Sample2></l:Sample2>
+                        </TabItem>
+                        <TabItem Header="3">
+                            <l:Sample3></l:Sample3>
+                        </TabItem>
+                        <TabItem Header="5">
+                            <l:Sample5></l:Sample5>
+                        </TabItem>
+                        <TabItem Header="6">
+                            <l:SampleButtonBroke></l:SampleButtonBroke>
+                        </TabItem>
+                        <TabItem Header="7">
+                            <l:Sample7></l:Sample7>
+                        </TabItem>
+                        <TabItem Header="8">
+                            <l:Sample8></l:Sample8>
+                        </TabItem>
+                    </TabControl.Items>
+                </TabControl>
             </TabItem>
-            <TabItem Header="3">
-                <l:Sample3></l:Sample3>
+
+            <TabItem Header="UserControl">
+                <l:SampleButtonBrokeUserControl></l:SampleButtonBrokeUserControl>
             </TabItem>
-            <TabItem Header="4">
-                <l:Sample4></l:Sample4>
-            </TabItem>
-            <TabItem Header="5">
-                <l:Sample5></l:Sample5>
-            </TabItem>
-            <TabItem Header="6">
-                <l:Sample6></l:Sample6>
-            </TabItem>
-            <TabItem Header="7">
-                <l:Sample7></l:Sample7>
-            </TabItem>
-            <TabItem Header="8">
-                <l:Sample8></l:Sample8>
-            </TabItem>
-            <TabItem Header="9">
-                <l:Sample9></l:Sample9>
+
+
+
+
+            <TabItem Header="Simple">
+                <l:SampleSimple></l:SampleSimple>
             </TabItem>
             <TabItem Header="____next">
             </TabItem>

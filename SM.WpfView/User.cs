@@ -42,13 +42,17 @@ namespace SM.Xaml
         Views _farseerViews;
         Context _context;
         RootView _root;
-        void User_Loaded(object sender, RoutedEventArgs e)
+        void User_Refresh_DesignTime()
         {
-            _context = new Context(1f);
+            _context = new Context(DesignZoom);
             var c = new Canvas();
             Content = c;
             _root = new RootView(_context, c);
             SM.WpfView.Helper.LoadFarseer(Id, Children, _root, out _farseerInfo, out _farseerViews);
+        }
+        void User_Loaded(object sender, RoutedEventArgs e)
+        {
+            User_Refresh_DesignTime();
         }
 
 
@@ -88,13 +92,33 @@ namespace SM.Xaml
             DependencyProperty.Register("Children", typeof(List<IDescriptor>), typeof(User), new PropertyMetadata(null));
 
 
+
+
         public transform2d Transform
         {
             get { return (transform2d)GetValue(TransformProperty); }
             set { SetValue(TransformProperty, value); }
         }
         public static readonly DependencyProperty TransformProperty =
-            DependencyProperty.Register("Transform", typeof(transform2d), typeof(User), new PropertyMetadata(transform2d.Null));
+            DependencyProperty.Register("Transform", typeof(transform2d), typeof(User),
+            new FrameworkPropertyMetadata(transform2d.Null, FrameworkPropertyMetadataOptions.AffectsRender, new PropertyChangedCallback(TransformPropertyChanged)));
+        private static void TransformPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e) { ((User)obj).OnTransformChanged(); }
+        private void OnTransformChanged()
+        {
+            if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
+            {
+                User_Refresh_DesignTime();
+            }
+        }
+        
+
+        //public transform2d Transform
+        //{
+        //    get { return (transform2d)GetValue(TransformProperty); }
+        //    set { SetValue(TransformProperty, value); }
+        //}
+        //public static readonly DependencyProperty TransformProperty =
+        //    DependencyProperty.Register("Transform", typeof(transform2d), typeof(User), new PropertyMetadata(transform2d.Null));
 
 
         //public IEnumerable<IDescriptor> Descriptors { get { return Children.Select(c => (IDescriptor)c); } }

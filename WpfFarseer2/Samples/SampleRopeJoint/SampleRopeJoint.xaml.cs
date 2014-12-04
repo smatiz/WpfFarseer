@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SM;
+using SM.Farseer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,11 +17,13 @@ using System.Windows.Shapes;
 
 namespace WpfFarseer
 {
-    public partial class Sample9 : UserControl
+    public partial class SampleRopeJoint : UserControl
     {
-        public Sample9()
+        public SampleRopeJoint()
         {
             InitializeComponent();
+
+            _farseerPlayer.AddBehaviour(new ShortTheRopeBehaviour());
         }
     }
 }

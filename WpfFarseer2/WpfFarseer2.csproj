@@ -127,35 +127,35 @@
     <Compile Include="MyFirstFarseerUserControl.xaml.cs">
       <DependentUpon>MyFirstFarseerUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Sample2.xaml.cs">
+    <Compile Include="Samples\BrokeSamples\Sample2.xaml.cs">
       <DependentUpon>Sample2.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Sample4.xaml.cs">
-      <DependentUpon>Sample4.xaml</DependentUpon>
+    <Compile Include="Samples\UserControlSamples\SampleButtonBrokeUserControl.xaml.cs">
+      <DependentUpon>SampleButtonBrokeUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Sample3.xaml.cs">
+    <Compile Include="Samples\BrokeSamples\Sample3.xaml.cs">
       <DependentUpon>Sample3.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Sample5.xaml.cs">
+    <Compile Include="Samples\BrokeSamples\Sample5.xaml.cs">
       <DependentUpon>Sample5.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Sample7.xaml.cs">
+    <Compile Include="Samples\BrokeSamples\Sample7.xaml.cs">
       <DependentUpon>Sample7.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Sample9.xaml.cs">
-      <DependentUpon>Sample9.xaml</DependentUpon>
+    <Compile Include="Samples\SampleSimple.xaml.cs">
+      <DependentUpon>SampleSimple.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Sample8.xaml.cs">
+    <Compile Include="Samples\BrokeSamples\Sample8.xaml.cs">
       <DependentUpon>Sample8.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Sample6.xaml.cs">
-      <DependentUpon>Sample6.xaml</DependentUpon>
+    <Compile Include="Samples\BrokeSamples\SampleButtonBroke.xaml.cs">
+      <DependentUpon>SampleButtonBroke.xaml</DependentUpon>
     </Compile>
     <Page Include="MyFirstFarseerUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Sample1.xaml">
+    <Page Include="Samples\SampleRopeJoint\SampleRopeJoint.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -167,8 +167,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Sample1.xaml.cs">
-      <DependentUpon>Sample1.xaml</DependentUpon>
+    <Compile Include="Samples\SampleRopeJoint\SampleRopeJoint.xaml.cs">
+      <DependentUpon>SampleRopeJoint.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -178,35 +178,35 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Sample2.xaml">
+    <Page Include="Samples\BrokeSamples\Sample2.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Sample4.xaml">
+    <Page Include="Samples\UserControlSamples\SampleButtonBrokeUserControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Sample3.xaml">
+    <Page Include="Samples\BrokeSamples\Sample3.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Sample5.xaml">
+    <Page Include="Samples\BrokeSamples\Sample5.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Sample7.xaml">
+    <Page Include="Samples\BrokeSamples\Sample7.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Sample9.xaml">
+    <Page Include="Samples\SampleSimple.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Sample8.xaml">
+    <Page Include="Samples\BrokeSamples\Sample8.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Sample6.xaml">
+    <Page Include="Samples\BrokeSamples\SampleButtonBroke.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

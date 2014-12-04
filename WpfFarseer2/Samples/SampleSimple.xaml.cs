@@ -15,12 +15,9 @@ using System.Windows.Shapes;
 
 namespace WpfFarseer
 {
-    /// <summary>
-    /// Interaction logic for Sample3.xaml
-    /// </summary>
-    public partial class Sample4 : UserControl
+    public partial class SampleSimple : UserControl
     {
-        public Sample4()
+        public SampleSimple()
         {
             InitializeComponent();
         }

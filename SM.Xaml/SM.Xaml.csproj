@@ -72,6 +72,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Compile>
     <Compile Include="BasicContainer.cs" />
+    <Compile Include="LayerTemplate.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Farseer.cs" />
     <Compile Include="Flag.cs" />

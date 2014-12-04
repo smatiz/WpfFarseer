@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace WpfFarseer
 {
     /// <summary>
-    /// Interaction logic for Sample6.xaml
+    /// Interaction logic for Sample3.xaml
     /// </summary>
-    public partial class Sample7 : UserControl
+    public partial class SampleButtonBrokeUserControl : UserControl
     {
-        public Sample7()
+        public SampleButtonBrokeUserControl()
         {
             InitializeComponent();
         }
