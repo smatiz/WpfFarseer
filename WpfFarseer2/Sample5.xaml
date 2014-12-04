@@ -4,36 +4,34 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-            xmlns:l3="clr-namespace:WpfFarseer;assembly=SM.WpfFarseer"
-            xmlns:l="clr-namespace:SM.Xaml;assembly=SM.Xaml"
-            xmlns:l4="clr-namespace:SM.WpfView;assembly=SM.WpfView"
-        xmlns:l2="clr-namespace:WpfFarseer"
+             xmlns:sm="sm:farseer"
+            xmlns:l="clr-namespace:WpfFarseer"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <l2:FarseerPlayerControl x:Name="_farseerPlayer" Loaded="_farseerPlayer_Loaded"  Zoom="10" Debug="True">
-            <l2:FarseerPlayerControl.Farseer>
-                <l:Farseer >
-                    <l:Body BodyType="Breakable" Id="Pig" >
-                        <l:SkinnedShape PrecisionZoom="10">
+        <sm:FarseerPlayerControl x:Name="_farseerPlayer" Loaded="_farseerPlayer_Loaded"  Zoom="10" Debug="True">
+            <sm:FarseerPlayerControl.Farseer>
+                <sm:Farseer >
+                    <sm:Body BodyType="Breakable" Id="Pig" >
+                        <sm:SkinnedShape PrecisionZoom="10">
                             <Canvas Width="8" Height="8" >
                                 <Viewbox Width="8" Height="8" Stretch="Fill" >
-                                    <l2:Pig  />
+                                    <l:Pig  />
                                 </Viewbox>
                             </Canvas>
-                        </l:SkinnedShape>
-                    </l:Body>
-                    <l:Body Id="b2" BodyType="Dynamic">
-                        <l:Polygon Density="123" Points="20,10,30,0,30,20" Fill="Black">
-                        </l:Polygon>
-                    </l:Body>
-                    <l:Body Id="b" >
-                        <l:Polygon Density="123"  Points="0 20,30 20,15 25" Fill="Green">
-                        </l:Polygon>
-                    </l:Body>
+                        </sm:SkinnedShape>
+                    </sm:Body>
+                    <sm:Body Id="b2" BodyType="Dynamic">
+                        <sm:Polygon Density="123" Points="20,10,30,0,30,20" Fill="Black">
+                        </sm:Polygon>
+                    </sm:Body>
+                    <sm:Body Id="b" >
+                        <sm:Polygon Density="123"  Points="0 20,30 20,15 25" Fill="Green">
+                        </sm:Polygon>
+                    </sm:Body>
 
-                </l:Farseer>
-            </l2:FarseerPlayerControl.Farseer>
-        </l2:FarseerPlayerControl>
+                </sm:Farseer>
+            </sm:FarseerPlayerControl.Farseer>
+        </sm:FarseerPlayerControl>
 
 
         <!--<Canvas Name="_resultCanvas" Margin="-10,10,10,-10" ></Canvas>-->

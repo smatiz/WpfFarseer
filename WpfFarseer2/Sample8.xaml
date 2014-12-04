@@ -5,22 +5,20 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
             xmlns:l4="clr-namespace:SM.WpfView;assembly=SM.WpfView"
              mc:Ignorable="d" 
-            xmlns:l3="clr-namespace:WpfFarseer;assembly=SM.WpfFarseer"
-            xmlns:l="clr-namespace:SM.Xaml;assembly=SM.Xaml"
-        xmlns:l2="clr-namespace:WpfFarseer"
+             xmlns:sm="sm:farseer"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <l2:FarseerPlayerControl x:Name="_farseerPlayer"  Debug="True">
-            <l2:FarseerPlayerControl.Farseer>
-                <l:Farseer  >
-                    <l:Body BodyType="Breakable">
-                        <!--<l:PolygonControl Density="123"  >
+        <sm:FarseerPlayerControl x:Name="_farseerPlayer"  Debug="True">
+            <sm:FarseerPlayerControl.Farseer>
+                <sm:Farseer  >
+                    <sm:Body BodyType="Breakable">
+                        <!--<sm:PolygonControl Density="123"  >
                             <Polygon Points="50,0,50,50,100,40" Fill="GreenYellow"  Stroke="Black" StrokeThickness="2"></Polygon>
-                        </l:PolygonControl>
-                        <l:PolygonControl Density="123"  >
+                        </sm:PolygonControl>
+                        <sm:PolygonControl Density="123"  >
                             <Polygon Points="0,0,50,0,50,50" Fill="Red" Stroke="Black" StrokeThickness="2"></Polygon>
-                        </l:PolygonControl>
-                        <l:PolygonControl Density="123"  >
+                        </sm:PolygonControl>
+                        <sm:PolygonControl Density="123"  >
                             <Polygon Points="50,0,120,25,150,0" Stroke="Black" StrokeThickness="2">
                                 <Polygon.Fill>
                                     <VisualBrush>
@@ -30,8 +28,8 @@
                                     </VisualBrush>
                                 </Polygon.Fill>
                             </Polygon>
-                        </l:PolygonControl>-->
-                        <l:SkinnedShape>
+                        </sm:PolygonControl>-->
+                        <sm:SkinnedShape>
                             <Canvas>
                                 <Polygon Points="50,0,50,50,100,40" Fill="GreenYellow"  Stroke="Black" StrokeThickness="2"></Polygon>
                                 <Polygon Points="0,0,50,0,50,50" Fill="Red" Stroke="Black" StrokeThickness="2"></Polygon>
@@ -39,17 +37,17 @@
                                     
                                 </Polygon>
                             </Canvas>
-                        </l:SkinnedShape>
-                    </l:Body>
+                        </sm:SkinnedShape>
+                    </sm:Body>
                   
-                    <l:Body Id="b" >
-                        <l:Polygon Density="123" Points="0 200,300 200,150 250" Fill="Green">
-                        </l:Polygon>
-                    </l:Body>
+                    <sm:Body Id="b" >
+                        <sm:Polygon Density="123" Points="0 200,300 200,150 250" Fill="Green">
+                        </sm:Polygon>
+                    </sm:Body>
 
-                </l:Farseer>
-            </l2:FarseerPlayerControl.Farseer>
-        </l2:FarseerPlayerControl>
+                </sm:Farseer>
+            </sm:FarseerPlayerControl.Farseer>
+        </sm:FarseerPlayerControl>
 
 
         <Canvas Name="_resultCanvas"></Canvas>

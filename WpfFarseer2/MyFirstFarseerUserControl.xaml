@@ -1,24 +1,24 @@
-﻿<l:User x:Class="WpfFarseer.MyFirstFarseerUserControl"
+﻿<sm:User x:Class="WpfFarseer.MyFirstFarseerUserControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:l="sm:farseer"
+             xmlns:sm="sm:farseer"
              mc:Ignorable="d" >
-    <l:Body BodyType="Breakable"  Transform="110,0,9">
-        <l:SkinnedShape>
+    <sm:Body BodyType="Breakable"  Transform="110,0,9">
+        <sm:SkinnedShape>
             <Canvas >
                 <Button Background="Red"  Width="40" Height="40">ciao</Button>
                 <Button Background="Blue" Canvas.Left="20" Canvas.Top="10" Width="10" Height="40">ciao</Button>
             </Canvas>
-        </l:SkinnedShape>
-        <l:Polygon Density="123" Points="60,30,60,20,50,20,50,30" Fill="Black"/>
+        </sm:SkinnedShape>
+        <sm:Polygon Density="123" Points="60,30,60,20,50,20,50,30" Fill="Black"/>
 
-    </l:Body>
+    </sm:Body>
 
-    <l:Body Id="b" >
-        <l:Polygon Density="123" Points="0 200,300 200,150 250" Fill="Green">
-        </l:Polygon>
-    </l:Body>
+    <sm:Body Id="b" >
+        <sm:Polygon Density="123" Points="0 200,300 200,150 250" Fill="Green">
+        </sm:Polygon>
+    </sm:Body>
 
-</l:User>
+</sm:User>

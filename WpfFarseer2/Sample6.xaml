@@ -4,34 +4,31 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-            xmlns:l3="clr-namespace:WpfFarseer;assembly=SM.WpfFarseer"
-            xmlns:l="clr-namespace:SM.Xaml;assembly=SM.Xaml"
-            xmlns:l4="clr-namespace:SM.WpfView;assembly=SM.WpfView"
-        xmlns:l2="clr-namespace:WpfFarseer"
+             xmlns:sm="sm:farseer"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <l2:FarseerPlayerControl x:Name="_farseerPlayer"  Debug="True">
-            <l2:FarseerPlayerControl.Farseer>
-                <l:Farseer>
-                    <l:Body BodyType="Breakable"  Transform="110,0,9">
-                        <l:SkinnedShape>
+        <sm:FarseerPlayerControl x:Name="_farseerPlayer"  Debug="True">
+            <sm:FarseerPlayerControl.Farseer>
+                <sm:Farseer>
+                    <sm:Body BodyType="Breakable"  Transform="110,0,9">
+                        <sm:SkinnedShape>
                             <Canvas >
                                 <Button Background="Red"  Width="40" Height="40">ciao</Button>
                                 <Button Background="Blue" Canvas.Left="20" Canvas.Top="10" Width="10" Height="40">ciao</Button>
                             </Canvas>
-                        </l:SkinnedShape>
-                        <l:Polygon Density="123" Points="60,30,60,20,50,20,50,30" Fill="Black"/>
+                        </sm:SkinnedShape>
+                        <sm:Polygon Density="123" Points="60,30,60,20,50,20,50,30" Fill="Black"/>
 
-                    </l:Body>
+                    </sm:Body>
                   
-                    <l:Body Id="b" >
-                        <l:Polygon Density="123" Points="0 200,300 200,150 250" Fill="Green">
-                        </l:Polygon>
-                    </l:Body>
+                    <sm:Body Id="b" >
+                        <sm:Polygon Density="123" Points="0 200,300 200,150 250" Fill="Green">
+                        </sm:Polygon>
+                    </sm:Body>
 
-                </l:Farseer>
-            </l2:FarseerPlayerControl.Farseer>
-        </l2:FarseerPlayerControl>
+                </sm:Farseer>
+            </sm:FarseerPlayerControl.Farseer>
+        </sm:FarseerPlayerControl>
 
 
         <Canvas Name="_resultCanvas"></Canvas>

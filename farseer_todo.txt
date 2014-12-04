@@ -23,7 +23,8 @@
 * IDEARE UN OGGETTO (CONTEXT??) DEDICATO PER LA RICERCA DI ELEMENTI Find e Find<T> vedi RopeJointMaterial dove c'e' sia INFO che BASICMANAGER
 * BUG : NON TROVA PIU I PEZZI DI UN BREAKABLEBODY (colpa dei cambiamenti sul metodo Find<T> )
 
-
+come gestire gli id degli usercontrol
+vedere di fare in modo che l'aggiornamento dei xaml stringa sia immediato
 
 fare piu unit test
 code generator va isolato ?

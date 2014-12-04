@@ -15,7 +15,7 @@ using FarseerPhysics.Dynamics.Joints;
 using Microsoft.Xna.Framework;
 using Transform = FarseerPhysics.Common.Transform;
 
-namespace WpfFarseer
+namespace SM.WpfFarseer
 {
     using Color = System.Windows.Media.Color;
     using Point = System.Windows.Point;
@@ -118,9 +118,9 @@ namespace WpfFarseer
                     {
                         if (b.Enabled == false)
                             DrawShape(f, xf, InactiveShapeColor);
-                        else if (b.BodyType == BodyType.Static)
+                        else if (b.BodyType == global::FarseerPhysics.Dynamics.BodyType.Static)
                             DrawShape(f, xf, StaticShapeColor);
-                        else if (b.BodyType == BodyType.Kinematic)
+                        else if (b.BodyType == global::FarseerPhysics.Dynamics.BodyType.Kinematic)
                             DrawShape(f, xf, KinematicShapeColor);
                         else if (b.Awake == false)
                             DrawShape(f, xf, SleepingShapeColor);

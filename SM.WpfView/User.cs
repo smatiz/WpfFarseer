@@ -24,13 +24,16 @@ using SM.WpfView;
 namespace SM.Xaml
 {
     [ContentPropertyAttribute("Children")]
-    public class User : UserControl, ILayer
+    public class User : UserControl, ILayer, IDescriptor
     {
         public User()
         {
-            Children = new List<BasicControl>();
+            Children = new List<IDescriptor>();
 
-            Loaded += User_Loaded;
+            if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
+            {
+                Loaded += User_Loaded;
+            }
         }
 
 
@@ -61,16 +64,28 @@ namespace SM.Xaml
         public static readonly DependencyProperty IdProperty =
             DependencyProperty.Register("Id", typeof(string), typeof(User), new PropertyMetadata(null));
 
-        
 
 
-        public List<BasicControl> Children
+        public float DesignZoom
         {
-            get { return (List<BasicControl>)GetValue(FarseerObjectsProperty); }
+            get { return (float)GetValue(DesignZoomProperty); }
+            set { SetValue(DesignZoomProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for DesignZoom.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty DesignZoomProperty =
+            DependencyProperty.Register("DesignZoom", typeof(float), typeof(User), new PropertyMetadata(1f));
+
+
+
+
+        public List<IDescriptor> Children
+        {
+            get { return (List<IDescriptor>)GetValue(FarseerObjectsProperty); }
             set { SetValue(FarseerObjectsProperty, value); }
         }
         public static readonly DependencyProperty FarseerObjectsProperty =
-            DependencyProperty.Register("Children", typeof(List<BasicControl>), typeof(User), new PropertyMetadata(null));
+            DependencyProperty.Register("Children", typeof(List<IDescriptor>), typeof(User), new PropertyMetadata(null));
 
 
         public transform2d Transform
@@ -82,9 +97,9 @@ namespace SM.Xaml
             DependencyProperty.Register("Transform", typeof(transform2d), typeof(User), new PropertyMetadata(transform2d.Null));
 
 
-        public IEnumerable<IDescriptor> Descriptors { get { return Children.Select(c => (IDescriptor)c); } }
+        //public IEnumerable<IDescriptor> Descriptors { get { return Children.Select(c => (IDescriptor)c); } }
 
-       
-      
+
+
     }
 }

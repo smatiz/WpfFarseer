@@ -4,39 +4,36 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-            xmlns:l3="clr-namespace:WpfFarseer;assembly=SM.WpfFarseer"
-            xmlns:l="clr-namespace:SM.Xaml;assembly=SM.Xaml"
-            xmlns:l4="clr-namespace:SM.WpfView;assembly=SM.WpfView"
-        xmlns:l2="clr-namespace:WpfFarseer"
+             xmlns:sm="sm:farseer"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <l2:FarseerPlayerControl x:Name="_farseerPlayer"  Debug="True">
-            <l2:FarseerPlayerControl.Farseer>
-                <l:Farseer  >
-                    <l:Body BodyType="Breakable">
-                        <l:Polygon Density="123"  Points="50,0,50,50,100,40" Fill="GreenYellow"  Stroke="Black" StrokeThickness="2">
-                        </l:Polygon>
-                        <l:Polygon Density="123"  Points="0,0,50,0,50,50" Fill="Red" Stroke="Black" StrokeThickness="2">
-                        </l:Polygon>
-                        <l:Polygon Density="123" Points="50,0,120,25,150,0" Stroke="Black" StrokeThickness="2">
-                            <l:Polygon.Fill>
+        <sm:FarseerPlayerControl x:Name="_farseerPlayer"  Debug="True">
+            <sm:FarseerPlayerControl.Farseer>
+                <sm:Farseer  >
+                    <sm:Body BodyType="Breakable">
+                        <sm:Polygon Density="123"  Points="50,0,50,50,100,40" Fill="GreenYellow"  Stroke="Black" StrokeThickness="2">
+                        </sm:Polygon>
+                        <sm:Polygon Density="123"  Points="0,0,50,0,50,50" Fill="Red" Stroke="Black" StrokeThickness="2">
+                        </sm:Polygon>
+                        <sm:Polygon Density="123" Points="50,0,120,25,150,0" Stroke="Black" StrokeThickness="2">
+                            <sm:Polygon.Fill>
                                 <VisualBrush>
                                     <VisualBrush.Visual>
                                         <Button>ciao</Button>
                                     </VisualBrush.Visual>
                                 </VisualBrush>
-                            </l:Polygon.Fill>
-                        </l:Polygon>
-                    </l:Body>
+                            </sm:Polygon.Fill>
+                        </sm:Polygon>
+                    </sm:Body>
                   
-                    <l:Body Id="b" >
-                        <l:Polygon Density="123"  Points="0 200,300 200,150 250" Fill="Green">
-                        </l:Polygon>
-                    </l:Body>
+                    <sm:Body Id="b" >
+                        <sm:Polygon Density="123"  Points="0 200,300 200,150 250" Fill="Green">
+                        </sm:Polygon>
+                    </sm:Body>
 
-                </l:Farseer>
-            </l2:FarseerPlayerControl.Farseer>
-        </l2:FarseerPlayerControl>
+                </sm:Farseer>
+            </sm:FarseerPlayerControl.Farseer>
+        </sm:FarseerPlayerControl>
 
 
         <Canvas Name="_resultCanvas"></Canvas>

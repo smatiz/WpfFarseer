@@ -65,7 +65,7 @@ namespace SM
                             _currentTransform2d = layer.Transform * _currentTransform2d;
                         }
 
-                        scan(container.Descriptors);
+                        scan(container.Children);
                         _currentTransform2d = currentTransform2dSaved;
                         handled = true;
                     }
@@ -128,7 +128,7 @@ namespace SM
                 var c = child as IContainer;
                 if (c != null)
                 {
-                    fillFlagInfoList(c.Descriptors);
+                    fillFlagInfoList(c.Children);
                 }
             }
 

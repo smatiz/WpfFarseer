@@ -3,19 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-            xmlns:l3="clr-namespace:WpfFarseer;assembly=SM.WpfFarseer"
-            xmlns:l="clr-namespace:SM.Xaml;assembly=SM.Xaml"
-            xmlns:l4="clr-namespace:SM.WpfView;assembly=SM.WpfView"
-        xmlns:l2="clr-namespace:WpfFarseer"
+             xmlns:sm="sm:farseer"
+             xmlns:l="clr-namespace:WpfFarseer" 
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <l2:FarseerPlayerControl x:Name="_farseerPlayer">
-            <l2:FarseerPlayerControl.Farseer>
-                <l:Farseer   >
-                    <l2:MyFirstFarseerUserControl Transform="0,0"></l2:MyFirstFarseerUserControl>
-                </l:Farseer>
-            </l2:FarseerPlayerControl.Farseer>
-        </l2:FarseerPlayerControl>
+        <sm:FarseerPlayerControl x:Name="_farseerPlayer">
+            <sm:FarseerPlayerControl.Farseer>
+                <sm:Farseer   >
+                    <l:MyFirstFarseerUserControl Transform="0,0"></l:MyFirstFarseerUserControl>
+                    <l:MyFirstFarseerUserControl Transform="200,0,30"></l:MyFirstFarseerUserControl>
+                </sm:Farseer>
+            </sm:FarseerPlayerControl.Farseer>
+        </sm:FarseerPlayerControl>
     </Grid>
 </UserControl>

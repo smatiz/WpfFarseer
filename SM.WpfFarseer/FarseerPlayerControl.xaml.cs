@@ -26,7 +26,7 @@ using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
 using SM.Wpf;
 
-namespace WpfFarseer
+namespace SM.WpfFarseer
 {
     public partial class FarseerPlayerControl : CanvasId
     {
@@ -42,18 +42,15 @@ namespace WpfFarseer
             Loaded += FarseerPlayerControl_Loaded;
            
             Settings.MaxPolygonVertices = 100;
-
-            
         }
 
-
-        public Farseer Farseer
+        public BasicContainer Farseer
         {
-            get { return (Farseer)GetValue(FarseerProperty); }
+            get { return (BasicContainer)GetValue(FarseerProperty); }
             set { SetValue(FarseerProperty, value); }
         }
         public static readonly DependencyProperty FarseerProperty =
-            DependencyProperty.Register("Farseer", typeof(Farseer), typeof(FarseerPlayerControl), new PropertyMetadata(null, onFarseerChanged));
+            DependencyProperty.Register("Farseer", typeof(BasicContainer), typeof(FarseerPlayerControl), new PropertyMetadata(null, onFarseerChanged));
         private static void onFarseerChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
         {
             ((FarseerPlayerControl)dependencyObject).onFarseerChanged();
@@ -76,9 +73,6 @@ namespace WpfFarseer
             var synchronizers = new Synchronizers(_farseerViews, materials);
 
             _worldManager = new FarseerWorldManager(Id, synchronizers, new WatchView(), world);
-
-            // devo farlo alla fine per risolvere le connessioni tra joint e body
-            //materials.Finalize(_worldManager);
 
             stepControl.DataContext = new StepViewModel(_worldManager);
 

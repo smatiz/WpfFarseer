@@ -5,25 +5,23 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
             xmlns:l4="clr-namespace:SM.WpfView;assembly=SM.WpfView"
              mc:Ignorable="d" 
-            xmlns:l3="clr-namespace:WpfFarseer;assembly=SM.WpfFarseer"
-            xmlns:l="clr-namespace:SM.Xaml;assembly=SM.Xaml"
-        xmlns:l2="clr-namespace:WpfFarseer"
+             xmlns:sm="sm:farseer"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <l2:FarseerPlayerControl x:Name="_farseerPlayer"  Zoom="20"  Debug="True">
-            <l2:FarseerPlayerControl.Farseer>
-                <l:Farseer  Id="s9">
-                    <l:Body BodyType="Dynamic">
-                        <l:Polygon  Points="5,0,5,5,10,4" Fill="GreenYellow"  Stroke="Black" StrokeThickness="1">
-                        </l:Polygon>
-                    </l:Body>
-                    <l:Body BodyType="Static">
-                        <l:Polygon  Points="5,15,5,20,10,24" Fill="Red"  Stroke="Black" StrokeThickness="1">
-                        </l:Polygon>
-                    </l:Body>
-                </l:Farseer>
-            </l2:FarseerPlayerControl.Farseer>
-        </l2:FarseerPlayerControl>
+        <sm:FarseerPlayerControl x:Name="_farseerPlayer"  Zoom="20"  Debug="True">
+            <sm:FarseerPlayerControl.Farseer>
+                <sm:Farseer  Id="s9">
+                    <sm:Body BodyType="Dynamic">
+                        <sm:Polygon  Points="5,0,5,5,10,4" Fill="GreenYellow"  Stroke="Black" StrokeThickness="1">
+                        </sm:Polygon>
+                    </sm:Body>
+                    <sm:Body BodyType="Static">
+                        <sm:Polygon  Points="5,15,5,20,10,24" Fill="Red"  Stroke="Black" StrokeThickness="1">
+                        </sm:Polygon>
+                    </sm:Body>
+                </sm:Farseer>
+            </sm:FarseerPlayerControl.Farseer>
+        </sm:FarseerPlayerControl>
 
 
         <Canvas Name="_resultCanvas"></Canvas>

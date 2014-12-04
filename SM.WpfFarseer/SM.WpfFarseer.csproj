@@ -103,6 +103,9 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FarseerPlayerControl.xaml.cs">
+      <DependentUpon>FarseerPlayerControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="FarseerTools.cs" />
     <Compile Include="DebugViewWPF.cs" />
     <Compile Include="Helpers\WpfFarseerHelper.cs" />
@@ -156,6 +159,12 @@
       <Project>{397c97f4-df83-49ea-91d9-93c5c45b0025}</Project>
       <Name>SM</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="FarseerPlayerControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

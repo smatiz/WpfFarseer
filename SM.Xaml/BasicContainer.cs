@@ -27,18 +27,18 @@ namespace SM.Xaml
     {
         public BasicContainer()
         {
-            Children = new List<BasicControl>();
+            Children = new List<IDescriptor>();
         }
       
-        public List<BasicControl> Children
+        public List<IDescriptor> Children
         {
-            get { return (List<BasicControl>)GetValue(FarseerObjectsProperty); }
+            get { return (List<IDescriptor>)GetValue(FarseerObjectsProperty); }
             set { SetValue(FarseerObjectsProperty, value); }
         }
         public static readonly DependencyProperty FarseerObjectsProperty =
-            DependencyProperty.Register("Children", typeof(List<BasicControl>), typeof(Farseer), new PropertyMetadata(null));
+            DependencyProperty.Register("Children", typeof(List<IDescriptor>), typeof(Farseer), new PropertyMetadata(null));
 
-        public IEnumerable<IDescriptor> Descriptors { get { return Children.Select(c => (IDescriptor)c); } }
+        //public IEnumerable<IDescriptor> Descriptors { get { return Children.Select(c => (IDescriptor)c); } }
 
 
         //public string Id
