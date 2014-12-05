@@ -18,6 +18,7 @@ namespace SM.Xaml
 
         void refresh()
         {
+            if (ItemsSource == null) return;
             if (Children == null) return;
             if (DataTemplate == null) return;
             Children.Clear();
@@ -37,13 +38,13 @@ namespace SM.Xaml
         public static readonly DependencyProperty TransformProperty =
             DependencyProperty.Register("Transform", typeof(transform2d), typeof(LayerTemplate), new PropertyMetadata(transform2d.Null));
 
-        public IEnumerable<FrameworkElement> ItemsSource
+        public System.Collections.IEnumerable ItemsSource
         {
-            get { return (IEnumerable<FrameworkElement>)GetValue(ItemsSourceProperty); }
+            get { return (System.Collections.IEnumerable)GetValue(ItemsSourceProperty); }
             set { SetValue(ItemsSourceProperty, value); }
         }
         public static readonly DependencyProperty ItemsSourceProperty =
-            DependencyProperty.Register("ItemsSource", typeof(IEnumerable<FrameworkElement>), typeof(LayerTemplate), new PropertyMetadata(null, new PropertyChangedCallback(ItemsSourcePropertyChanged)));
+            DependencyProperty.Register("ItemsSource", typeof(System.Collections.IEnumerable), typeof(LayerTemplate), new PropertyMetadata(null, new PropertyChangedCallback(ItemsSourcePropertyChanged)));
         private static void ItemsSourcePropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e) { ((LayerTemplate)obj).refresh(); }
 
         public DataTemplate DataTemplate
