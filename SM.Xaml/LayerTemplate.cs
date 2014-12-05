@@ -10,14 +10,7 @@ namespace SM.Xaml
 {
     public class LayerTemplate : BasicContainer, ILayer
     {
-        public transform2d Transform
-        {
-            get { return (transform2d)GetValue(TransformProperty); }
-            set { SetValue(TransformProperty, value); }
-        }
-        public static readonly DependencyProperty TransformProperty =
-            DependencyProperty.Register("Transform", typeof(transform2d), typeof(Layer), new PropertyMetadata(transform2d.Null));
-
+        
         public LayerTemplate()
         {
             ItemsSource = new List<FrameworkElement>();
@@ -25,6 +18,7 @@ namespace SM.Xaml
 
         void refresh()
         {
+            if (Children == null) return;
             if (DataTemplate == null) return;
             Children.Clear();
             foreach (var item in ItemsSource)
@@ -34,6 +28,14 @@ namespace SM.Xaml
                 Children.Add((IDescriptor)dp);
             }
         }
+
+        public transform2d Transform
+        {
+            get { return (transform2d)GetValue(TransformProperty); }
+            set { SetValue(TransformProperty, value); }
+        }
+        public static readonly DependencyProperty TransformProperty =
+            DependencyProperty.Register("Transform", typeof(transform2d), typeof(LayerTemplate), new PropertyMetadata(transform2d.Null));
 
         public IEnumerable<FrameworkElement> ItemsSource
         {

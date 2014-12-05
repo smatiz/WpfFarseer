@@ -127,6 +127,9 @@
     <Compile Include="MyFirstFarseerUserControl.xaml.cs">
       <DependentUpon>MyFirstFarseerUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\SampleLayerTemplate.xaml.cs">
+      <DependentUpon>SampleLayerTemplate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\BrokeSamples\Sample2.xaml.cs">
       <DependentUpon>Sample2.xaml</DependentUpon>
     </Compile>
@@ -152,6 +155,10 @@
       <DependentUpon>SampleButtonBroke.xaml</DependentUpon>
     </Compile>
     <Page Include="MyFirstFarseerUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\SampleLayerTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

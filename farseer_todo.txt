@@ -25,6 +25,8 @@
 
 come gestire gli id degli usercontrol
 vedere di fare in modo che l'aggiornamento dei xaml stringa sia immediato
+finire layerTemplate
+
 
 fare piu unit test
 code generator va isolato ?

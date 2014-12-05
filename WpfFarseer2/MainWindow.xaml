@@ -6,7 +6,9 @@
         Title="MainWindow" Height="550" Width="525">
     <TabControl SelectedIndex="0">
         <TabControl.Items>
-            
+            <TabItem Header="LayerTemplate">
+                <l:SampleLayerTemplate></l:SampleLayerTemplate>
+            </TabItem>
             <TabItem Header="Joint">
                 <TabControl SelectedIndex="0">
                     <TabControl.Items>

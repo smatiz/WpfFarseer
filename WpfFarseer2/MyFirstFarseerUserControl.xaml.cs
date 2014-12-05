@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SM;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,14 +16,19 @@ using System.Windows.Shapes;
 
 namespace WpfFarseer
 {
-    /// <summary>
-    /// Interaction logic for MyFirstFarseerUserControl.xaml
-    /// </summary>
     public partial class MyFirstFarseerUserControl : SM.Xaml.User
     {
         public MyFirstFarseerUserControl()
         {
             InitializeComponent();
         }
+
+        public transform2d UserTransform
+        {
+            get { return (transform2d)GetValue(UserTransformProperty); }
+            set { SetValue(UserTransformProperty, value); }
+        }
+        public static readonly DependencyProperty UserTransformProperty =
+            DependencyProperty.Register("UserTransform", typeof(transform2d), typeof(MyFirstFarseerUserControl), new PropertyMetadata(transform2d.Null));
     }
 }

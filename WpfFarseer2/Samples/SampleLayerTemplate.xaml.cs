@@ -1,8 +1,6 @@
 ﻿using SM;
-using SM.Xaml;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,17 +16,24 @@ using System.Windows.Shapes;
 
 namespace WpfFarseer
 {
-    public partial class MainWindow : Window
+    public partial class SampleLayerTemplate : UserControl
     {
-        public MainWindow()
+        public SampleLayerTemplate()
         {
             InitializeComponent();
-
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        public IEnumerable<transform2d> Positions
         {
-
+            get
+            {
+                return new transform2d[]
+                {
+                    new transform2d(0,0,0,1),
+                    new transform2d(100,0,0,1),
+                    new transform2d(0,100,0,1),
+                };
+            }
         }
     }
 }

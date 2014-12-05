@@ -36,8 +36,6 @@ namespace SM.Xaml
             }
         }
 
-
-
         Info _farseerInfo;
         Views _farseerViews;
         Context _context;
@@ -55,33 +53,21 @@ namespace SM.Xaml
             User_Refresh_DesignTime();
         }
 
-
-
-
         public string Id
         {
             get { return (string)GetValue(IdProperty); }
             set { SetValue(IdProperty, value); }
         }
-
-        // Using a DependencyProperty as the backing store for Id.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty IdProperty =
             DependencyProperty.Register("Id", typeof(string), typeof(User), new PropertyMetadata(null));
-
-
 
         public float DesignZoom
         {
             get { return (float)GetValue(DesignZoomProperty); }
             set { SetValue(DesignZoomProperty, value); }
         }
-
-        // Using a DependencyProperty as the backing store for DesignZoom.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty DesignZoomProperty =
             DependencyProperty.Register("DesignZoom", typeof(float), typeof(User), new PropertyMetadata(1f));
-
-
-
 
         public List<IDescriptor> Children
         {
@@ -90,9 +76,6 @@ namespace SM.Xaml
         }
         public static readonly DependencyProperty FarseerObjectsProperty =
             DependencyProperty.Register("Children", typeof(List<IDescriptor>), typeof(User), new PropertyMetadata(null));
-
-
-
 
         public transform2d Transform
         {
@@ -110,20 +93,5 @@ namespace SM.Xaml
                 User_Refresh_DesignTime();
             }
         }
-        
-
-        //public transform2d Transform
-        //{
-        //    get { return (transform2d)GetValue(TransformProperty); }
-        //    set { SetValue(TransformProperty, value); }
-        //}
-        //public static readonly DependencyProperty TransformProperty =
-        //    DependencyProperty.Register("Transform", typeof(transform2d), typeof(User), new PropertyMetadata(transform2d.Null));
-
-
-        //public IEnumerable<IDescriptor> Descriptors { get { return Children.Select(c => (IDescriptor)c); } }
-
-
-
     }
 }
