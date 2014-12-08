@@ -9,7 +9,7 @@ using System.Windows.Media;
 
 namespace SM.Wpf
 {
-    public abstract class BasicControl : DependencyObject, IDescriptor
+    public abstract class BasicControl : UserControl, IDescriptor
     {
         public string Id { get; set; }
         static int i = 0;

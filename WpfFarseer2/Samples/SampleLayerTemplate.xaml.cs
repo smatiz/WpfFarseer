@@ -32,6 +32,8 @@ namespace WpfFarseer
                     new transform2d(0,0,0,1),
                     new transform2d(100,0,0,1),
                     new transform2d(0,100,0,1),
+                    new transform2d(300,0,0,1),
+                    new transform2d(0,300,0,1),
                 };
             }
         }

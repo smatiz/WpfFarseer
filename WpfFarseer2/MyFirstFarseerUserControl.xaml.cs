@@ -21,7 +21,25 @@ namespace WpfFarseer
         public MyFirstFarseerUserControl()
         {
             InitializeComponent();
+
+            Loaded += MyFirstFarseerUserControl_Loaded;
         }
+
+        void MyFirstFarseerUserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+           // throw new NotImplementedException();
+        }
+        transform2d _userTransform;
+        public transform2d UserTransform2
+        {
+            get
+            {
+                
+                return _userTransform;
+            }
+        }
+
+
 
         public transform2d UserTransform
         {
@@ -29,6 +47,15 @@ namespace WpfFarseer
             set { SetValue(UserTransformProperty, value); }
         }
         public static readonly DependencyProperty UserTransformProperty =
-            DependencyProperty.Register("UserTransform", typeof(transform2d), typeof(MyFirstFarseerUserControl), new PropertyMetadata(transform2d.Null));
+            DependencyProperty.Register("UserTransform", typeof(transform2d), typeof(MyFirstFarseerUserControl), new PropertyMetadata(transform2d.Null, new PropertyChangedCallback(UserTransformPropertyChanged)));
+        private static void UserTransformPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e) { ((MyFirstFarseerUserControl)obj).OnUserTransformChanged(); }
+        private void OnUserTransformChanged()
+        {
+            _userTransform = UserTransform;
+        }
+        
+
+
+
     }
 }
