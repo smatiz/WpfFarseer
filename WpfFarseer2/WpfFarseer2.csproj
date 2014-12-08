@@ -162,7 +162,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Samples\SampleRopeJoint\SampleRopeJoint.xaml">
+    <Page Include="Samples\RopeJointSample\SampleRopeJoint.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -174,7 +174,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Samples\SampleRopeJoint\SampleRopeJoint.xaml.cs">
+    <Compile Include="Samples\RopeJointSample\SampleRopeJoint.xaml.cs">
       <DependentUpon>SampleRopeJoint.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
