@@ -23,14 +23,14 @@ using SM.WpfView;
 
 namespace SM.Xaml
 {
-    [ContentPropertyAttribute("Children")]
-    public class User : UserControl, ILayer, IDescriptor
+    //[ContentPropertyAttribute("Descriptors")]
+    public class User : BasicContainer, ILayer, IDescriptor
     {
         public User()
         {
-            Children = new List<IDescriptor>();
+            //Children = new List<IDescriptor>();
 
-            if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
+            //if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
             {
                 Loaded += User_Loaded;
             }
@@ -44,13 +44,21 @@ namespace SM.Xaml
         {
             _context = new Context(DesignZoom);
             var c = new Canvas();
-            Content = c;
+            //Content = c;
             _root = new RootView(_context, c);
-            SM.WpfView.Helper.LoadFarseer(Id, Children, _root, out _farseerInfo, out _farseerViews);
+            SM.WpfView.Helper.LoadFarseer(Id, Descriptors, _root, out _farseerInfo, out _farseerViews);
         }
         void User_Loaded(object sender, RoutedEventArgs e)
         {
-            User_Refresh_DesignTime();
+            //var canvas = new Canvas();
+           // Content = canvas;
+            //if (Children != null)
+            //{
+            //    foreach (var child in Children)
+            //    {
+            //        canvas.Children.Add((UserControl)child);
+            //    }
+            //}
         }
 
         public string Id
@@ -69,13 +77,39 @@ namespace SM.Xaml
         public static readonly DependencyProperty DesignZoomProperty =
             DependencyProperty.Register("DesignZoom", typeof(float), typeof(User), new PropertyMetadata(1f));
 
-        public List<IDescriptor> Children
-        {
-            get { return (List<IDescriptor>)GetValue(FarseerObjectsProperty); }
-            set { SetValue(FarseerObjectsProperty, value); }
-        }
-        public static readonly DependencyProperty FarseerObjectsProperty =
-            DependencyProperty.Register("Children", typeof(List<IDescriptor>), typeof(User), new PropertyMetadata(null));
+        //public List<IDescriptor> Children
+        //{
+        //    get { return (List<IDescriptor>)GetValue(FarseerObjectsProperty); }
+        //    set { SetValue(FarseerObjectsProperty, value); }
+        //}
+        //public static readonly DependencyProperty FarseerObjectsProperty =
+        //    DependencyProperty.Register("Children", typeof(List<IDescriptor>), typeof(User), new PropertyMetadata(null));
+
+
+
+
+        //public List<IDescriptor> Children
+        //{
+        //    get { return (List<IDescriptor>)GetValue(ChildrenProperty); }
+        //    set { SetValue(ChildrenProperty, value); }
+        //}
+        //public static readonly DependencyProperty ChildrenProperty =
+        //    DependencyProperty.Register("Children", typeof(List<IDescriptor>), typeof(User), new PropertyMetadata(null, new PropertyChangedCallback(ChildrenPropertyChanged)));
+        //private static void ChildrenPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e) { ((User)obj).OnChildrenChanged(); }
+        //private void OnChildrenChanged()
+        //{
+        //    var canvas = new Canvas();
+        //    Content = canvas;
+        //    if(Children != null)
+        //    {
+        //        foreach (var child in Children)
+        //        {
+        //            canvas.Children.Add((UserControl)child);
+        //        }
+        //    }
+        //}
+        
+
 
         public transform2d Transform
         {

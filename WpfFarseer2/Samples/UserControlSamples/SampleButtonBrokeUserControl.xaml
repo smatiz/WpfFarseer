@@ -9,12 +9,10 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <sm:FarseerPlayerControl x:Name="_farseerPlayer">
-            <sm:FarseerPlayerControl.Farseer>
                 <sm:Farseer   >
                     <l:MyFirstFarseerUserControl Transform="0,0"></l:MyFirstFarseerUserControl>
                     <l:MyFirstFarseerUserControl Transform="0,0,30"></l:MyFirstFarseerUserControl>
                 </sm:Farseer>
-            </sm:FarseerPlayerControl.Farseer>
         </sm:FarseerPlayerControl>
     </Grid>
 </UserControl>

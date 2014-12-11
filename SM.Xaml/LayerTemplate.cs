@@ -14,6 +14,12 @@ namespace SM.Xaml
         public LayerTemplate()
         {
             ItemsSource = new List<FrameworkElement>();
+            Loaded += LayerTemplate_Loaded;
+        }
+
+        void LayerTemplate_Loaded(object sender, RoutedEventArgs e)
+        {
+            refresh();
         }
 
         void refresh()
@@ -21,16 +27,15 @@ namespace SM.Xaml
             if (ItemsSource == null) return;
             if (Children == null) return;
             if (DataTemplate == null) return;
-            Children.Clear();
-                Canvas c = new Canvas();
-                Content = c;
+            //Children.Clear();
+            //Canvas c = new Canvas();
+            //    Content = c;
             foreach (var item in ItemsSource)
             {
-                var dp = DataTemplate.LoadContent() as UserControl;
-                dp.DataContext = item;
-                Children.Add((IDescriptor)dp);
+                var dp = DataTemplate.LoadContent() as FrameworkElement;
 
-                c.Children.Add((UIElement)dp);
+                dp.DataContext = item;
+                Children.Add(dp);
             }
         }
 

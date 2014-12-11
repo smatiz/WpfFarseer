@@ -25,14 +25,19 @@ using SM.Xaml;
 using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
 using SM.Wpf;
+using System.Windows.Markup;
 
 namespace SM.WpfFarseer
 {
-    public partial class FarseerPlayerControl : CanvasId
+    [ContentPropertyAttribute("Farseer")]
+    public partial class FarseerPlayerControl : UserControl
     {
         FarseerWorldManager _worldManager;
         Context _context;
         RootView _root;
+
+        string Id { get;set; }
+
 
         public FarseerPlayerControl()
         {
@@ -44,17 +49,32 @@ namespace SM.WpfFarseer
             Settings.MaxPolygonVertices = 100;
         }
 
+        BasicContainer _farseer;
         public BasicContainer Farseer
         {
-            get { return (BasicContainer)GetValue(FarseerProperty); }
-            set { SetValue(FarseerProperty, value); }
+            get
+            {
+                return _farseer;
+            }
+            set
+            {
+                if (_farseer != value)
+                {
+                    farseerCanvas.Children.Remove(_farseer); 
+                    _farseer = value;
+                    farseerCanvas.Children.Add(_farseer); 
+
+                }
+            }
+
         }
-        public static readonly DependencyProperty FarseerProperty =
-            DependencyProperty.Register("Farseer", typeof(BasicContainer), typeof(FarseerPlayerControl), new PropertyMetadata(null, onFarseerChanged));
-        private static void onFarseerChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
-        {
-            ((FarseerPlayerControl)dependencyObject).onFarseerChanged();
-        }
+        //{
+        //    get
+        //    {
+        //        return (BasicContainer)Content;
+        //    }
+        //}
+
         private void onFarseerChanged()
         {
             if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this)) return;
@@ -103,7 +123,9 @@ namespace SM.WpfFarseer
         {
             _context = new Context(Zoom);
             _root = new RootView(_context, farseerCanvas);
-            SM.WpfView.Helper.LoadFarseer(Id, Farseer.Children, _root, out _farseerInfo, out _farseerViews);
+            farseerContainer.Children.Add(_root);
+            //Content = _root;
+            SM.WpfView.Helper.LoadFarseer(Id, Farseer.Descriptors, _root, out _farseerInfo, out _farseerViews);
         }
 
         Info _farseerInfo;
@@ -125,12 +147,13 @@ namespace SM.WpfFarseer
 
         private void FarseerPlayerControl_Loaded(object sender, RoutedEventArgs e)
         {
+            onFarseerChanged();
             if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
             {
                 _context = new Context(Zoom);
-                _root = new RootView(_context, this);
+                //_root = new RootView(_context, this);
                 if (Farseer == null) throw new Exception("Farseer == null");
-                SM.WpfView.Helper.LoadFarseer(Id, Farseer.Children, _root, out _farseerInfo, out _farseerViews);
+                SM.WpfView.Helper.LoadFarseer(Id, Farseer.Descriptors, _root, out _farseerInfo, out _farseerViews);
 
             }
             else if (MouseEnabled)

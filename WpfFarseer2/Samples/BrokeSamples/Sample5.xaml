@@ -9,7 +9,6 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <sm:FarseerPlayerControl x:Name="_farseerPlayer" Loaded="_farseerPlayer_Loaded"  Zoom="10" Debug="True">
-            <sm:FarseerPlayerControl.Farseer>
                 <sm:Farseer >
                     <sm:Body BodyType="Breakable" Id="Pig" >
                         <sm:SkinnedShape PrecisionZoom="10">
@@ -30,7 +29,6 @@
                     </sm:Body>
 
                 </sm:Farseer>
-            </sm:FarseerPlayerControl.Farseer>
         </sm:FarseerPlayerControl>
 
 

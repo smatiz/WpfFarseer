@@ -9,7 +9,7 @@ using System.Windows.Media;
 
 namespace SM.WpfView
 {
-    public abstract class BasicView : Visual, IView
+    public abstract class BasicView : UserControl, IView
     {
         private string _id;
         private CanvasId _canvasId;

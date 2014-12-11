@@ -11,16 +11,16 @@ using System.Windows.Media;
 
 namespace SM.Xaml
 {
-    [ContentPropertyAttribute("Content")]
+    [ContentPropertyAttribute("_Content_")]
     public class SkinnedShape : BasicShape, ISkinnedShape
     {
-        public Canvas Content
+        public Canvas _Content_
         {
             get { return (Canvas)GetValue(ContentProperty); }
             set { SetValue(ContentProperty, value); }
         }
         public static readonly DependencyProperty ContentProperty =
-            DependencyProperty.Register("Content", typeof(Canvas), typeof(SkinnedShape), new PropertyMetadata(null));
+            DependencyProperty.Register("_Content_", typeof(Canvas), typeof(SkinnedShape), new PropertyMetadata(null));
 
         public double PrecisionZoom
         {

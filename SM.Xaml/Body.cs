@@ -26,6 +26,11 @@ namespace SM.Xaml
         {
             Shapes = new List<IShape>();
             Flags = new List<IFlag>();
+            Loaded += Body_Loaded;
+        }
+
+        void Body_Loaded(object sender, RoutedEventArgs e)
+        {
         }
 
         public List<IFlag> Flags
@@ -36,16 +41,30 @@ namespace SM.Xaml
         public static readonly DependencyProperty FlagsProperty =
             DependencyProperty.Register("Flags", typeof(List<IFlag>), typeof(Body), new PropertyMetadata(null));
 
+        //public transform2d Transform
+        //{
+        //    get { return (transform2d)GetValue(TransformProperty); }
+        //    set { SetValue(TransformProperty, value); }
+        //}
+        //public static readonly DependencyProperty TransformProperty =
+        //    DependencyProperty.Register("Transform", typeof(transform2d), typeof(Body), new PropertyMetadata(transform2d.Null));
+
+
+
+
         public transform2d Transform
         {
             get { return (transform2d)GetValue(TransformProperty); }
             set { SetValue(TransformProperty, value); }
         }
         public static readonly DependencyProperty TransformProperty =
-            DependencyProperty.Register("Transform", typeof(transform2d), typeof(Body), new PropertyMetadata(transform2d.Null));
+            DependencyProperty.Register("Transform", typeof(transform2d), typeof(Body), new PropertyMetadata(transform2d.Null, new PropertyChangedCallback(TransformPropertyChanged)));
+        private static void TransformPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e) { ((Body)obj).OnTransformChanged(); }
+        private void OnTransformChanged()
+        {
 
+        }
         
-
 
 
         public virtual BodyType BodyType

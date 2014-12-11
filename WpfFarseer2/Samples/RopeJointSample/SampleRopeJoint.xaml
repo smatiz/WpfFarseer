@@ -8,7 +8,6 @@
              d:DesignHeight="600" d:DesignWidth="600">
     <Grid>
         <sm:FarseerPlayerControl x:Name="_farseerPlayer" Zoom="20" Debug="True">
-            <sm:FarseerPlayerControl.Farseer>
                 <sm:Farseer >
                     <sm:Body Id="b2" BodyType="Static">
                         <sm:Polygon Density="123"  Points="3,22,20,0,20,20" Fill="Gray"/>
@@ -26,7 +25,6 @@
                     <sm:RopeJointControl Id="jointC" TargetFlagIdA="x" TargetFlagIdB="y" />
 
                 </sm:Farseer>
-            </sm:FarseerPlayerControl.Farseer>
         </sm:FarseerPlayerControl>
         
     </Grid>

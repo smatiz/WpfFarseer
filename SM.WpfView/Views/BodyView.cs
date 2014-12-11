@@ -19,7 +19,7 @@ using System.Windows.Navigation;
 
 namespace SM.WpfView
 {
-    [ContentPropertyAttribute("Shapes")]
+    //[ContentPropertyAttribute("Shapes")]
     public class BodyView : BasicView, IBodyView
     {
         protected Canvas _canvas;

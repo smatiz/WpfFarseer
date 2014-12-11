@@ -8,33 +8,26 @@
              xmlns:sm="sm:farseer"
              xmlns:c="clr-namespace:System.Collections;assembly=mscorlib"
              x:Name="_this"
+             DataContext="{Binding ElementName=_this}"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <c:ArrayList x:Key="pos">
             <sm:transform2d>0,0</sm:transform2d>
             <sm:transform2d>100,0</sm:transform2d>
             <sm:transform2d>0,100</sm:transform2d>
+            <sm:transform2d>200,0</sm:transform2d>
+            <sm:transform2d>0,200</sm:transform2d>
         </c:ArrayList>
     </UserControl.Resources>
-    <Grid>
-        
         <sm:FarseerPlayerControl x:Name="_farseerPlayer"  Debug="True">
-            <sm:FarseerPlayerControl.Farseer>
                 <sm:Farseer >
-                    
-                    <sm:LayerTemplate  ItemsSource="{Binding Positions, ElementName=_this}">
+                    <sm:LayerTemplate  ItemsSource="{Binding Positions}">
                         <sm:LayerTemplate.DataTemplate>
                             <DataTemplate>
                                 <l:MyFirstFarseerUserControl UserTransform="{Binding}"></l:MyFirstFarseerUserControl>
                             </DataTemplate>
                         </sm:LayerTemplate.DataTemplate>
                     </sm:LayerTemplate>
-
                 </sm:Farseer>
-            </sm:FarseerPlayerControl.Farseer>
         </sm:FarseerPlayerControl>
-
-
-        <Canvas Name="_resultCanvas"></Canvas>
-    </Grid>
 </UserControl>

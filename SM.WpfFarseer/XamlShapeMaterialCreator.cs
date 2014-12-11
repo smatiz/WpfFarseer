@@ -126,7 +126,7 @@ namespace SM.WpfFarseer
             var skinned = shape as SkinnedShape;
             if (skinned != null)
             {
-                var polygonShapes = FindBorder(skinned.Content, skinned.PrecisionZoom).Select(x => x.Select(p => new float2(p.X, p.Y)));
+                var polygonShapes = FindBorder(skinned._Content_, skinned.PrecisionZoom).Select(x => x.Select(p => new float2(p.X, p.Y)));
                 polygons.AddRange(polygonShapes.Select(ps => new PolygonMaterial() { Density = skinned.Density, Points = ps.ToList() }));
                 return;
             }

@@ -8,6 +8,6 @@ namespace SM
 {
     public interface IContainer
     {
-        List<IDescriptor> Children { get; }
+        IEnumerable<IDescriptor> Descriptors { get; }
     }
 }
