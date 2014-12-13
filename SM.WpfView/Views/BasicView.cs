@@ -13,7 +13,6 @@ namespace SM.WpfView
     {
         private string _id;
         private CanvasId _canvasId;
-        private BasicView _parentView;
 
         public List<IFlagView> Flags { get; private set; }
 
@@ -26,22 +25,21 @@ namespace SM.WpfView
             _canvasId.Children.Remove(canvas);
         }
 
-        // RootView Constructor
-        protected BasicView(Canvas parentCanvas)
-        {
-            _canvasId = new CanvasId();
-            _parentView = null;
-            parentCanvas.Children.Add(_canvasId);
-        }
-        protected BasicView(BasicView parent, string id)
+        //// RootView Constructor
+        //protected BasicView(Canvas parentCanvas)
+        //{
+        //    _canvasId = new CanvasId();
+        //    parentCanvas.Children.Add(_canvasId);
+        //}
+        protected BasicView(Canvas parentCanvas, IContext context, string id)
         {
             Flags = new List<IFlagView>();
             _id = id;
             _canvasId = new CanvasId();
-            _parentView = parent;
-            if (_parentView != null)
+            Context = context;
+            //if (_parentView != null)
             {
-                _parentView._canvasId.Children.Add(_canvasId);
+                parentCanvas.Children.Add(_canvasId);
                 _canvasId.Id = _id;
                 bool loaded = false;
                 _canvasId.Loaded += (s, e) =>
@@ -56,7 +54,7 @@ namespace SM.WpfView
         protected virtual void OnFirstLoad() { }
         public abstract void Update();
 
-        public virtual IContext Context { get { return _parentView.Context; } }
+        public IContext Context;// { get { return _parentView.Context; } }
         public string Id
         {
             get

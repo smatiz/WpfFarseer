@@ -10,7 +10,7 @@
             <RowDefinition Height="47*"/>
         </Grid.RowDefinitions>
         <Button Grid.Row="1">x</Button>
-        <TabControl SelectedIndex="0" Grid.Row="0">
+        <TabControl SelectedIndex="1" Grid.Row="0">
             <TabControl.Items>
                 <TabItem Header="LayerTemplate">
                     <l:SampleLayerTemplate></l:SampleLayerTemplate>
@@ -23,7 +23,7 @@
                             </TabItem>
                         </TabControl.Items>
                     </TabControl>
-                </TabItem>
+                </TabItem>-->
 
                 <TabItem Header="Broken">
                     <TabControl SelectedIndex="0">
@@ -59,7 +59,7 @@
 
                 <TabItem Header="Simple">
                     <l:SampleSimple></l:SampleSimple>
-                </TabItem>-->
+                </TabItem>
                 <TabItem Header="____next">
                 </TabItem>
                 <TabItem Header="Test">

@@ -39,14 +39,14 @@ namespace SM.Xaml
         Info _farseerInfo;
         Views _farseerViews;
         Context _context;
-        RootView _root;
+        //RootView _root;
         void User_Refresh_DesignTime()
         {
             _context = new Context(DesignZoom);
             var c = new Canvas();
             //Content = c;
-            _root = new RootView(_context, c);
-            SM.WpfView.Helper.LoadFarseer(Id, Descriptors, _root, out _farseerInfo, out _farseerViews);
+            //_root = new RootView(_context, c);
+            //SM.WpfView.Helper.LoadFarseer(Id, Descriptors, _root, out _farseerInfo, out _farseerViews);
         }
         void User_Loaded(object sender, RoutedEventArgs e)
         {

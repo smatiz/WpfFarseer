@@ -12,8 +12,8 @@ namespace SM.WpfView
 {
     public abstract class BasicJointView : BasicView, IJointView
     {
-        public BasicJointView(BasicView parent, string id)
-            : base(parent, id)
+        public BasicJointView(Canvas parentCanvas, IContext parent, string id)
+            : base(parentCanvas,parent, id)
         {
         }
     }

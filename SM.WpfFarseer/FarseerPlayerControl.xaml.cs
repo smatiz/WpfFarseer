@@ -34,7 +34,7 @@ namespace SM.WpfFarseer
     {
         FarseerWorldManager _worldManager;
         Context _context;
-        RootView _root;
+        //RootView _root;
 
         string Id { get;set; }
 
@@ -77,9 +77,43 @@ namespace SM.WpfFarseer
 
         private void onFarseerChanged()
         {
+           
+        }
+        private void loadView()
+        {
+            _context = new Context(Zoom);
+            SM.WpfView.Helper.LoadFarseer(Id, Farseer.Descriptors, farseerCanvas, _context, out _farseerInfo, out _farseerViews);
+        }
+
+        Info _farseerInfo;
+        Views _farseerViews;
+
+        
+
+
+        public void AddBehaviour(IBehaviourView x)
+        {
             if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this)) return;
+            _worldManager.AddViewBehaviour(x);
+        }
+        public void AddBehaviour(IBehaviourMaterial x)
+        {
+            if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this)) return;
+            _worldManager.AddMaterialBehaviour(x);
+        }
+
+        bool oneTimeCalled = false;
+        private void FarseerPlayerControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (oneTimeCalled) return;
+            oneTimeCalled = true;
 
             loadView();
+
+            if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
+            {
+                return;
+            }
 
             World world = new World(new Vector2(0, 10));
 
@@ -102,10 +136,10 @@ namespace SM.WpfFarseer
                 var debugCanvas = new Canvas();
                 debugCanvas.IsHitTestVisible = false;
                 var debugTextBlock = new TextBlock();
+                debugCanvas.Children.Add(debugTextBlock);
                 debugCanvas.Width = Width;
                 debugCanvas.Height = Height;
                 farseerContainer.Children.Add(debugCanvas);
-                farseerContainer.Children.Add(debugTextBlock);
                 var debugView = new DebugViewWPF(debugCanvas, debugTextBlock, _worldManager.World);
                 debugView.ScaleTransform = new ScaleTransform(Zoom, Zoom);
                 var timer = new DispatcherTimer(DispatcherPriority.Render);
@@ -118,45 +152,8 @@ namespace SM.WpfFarseer
                 timer.Start();
             }
 #endif
-        }
-        private void loadView()
-        {
-            _context = new Context(Zoom);
-            _root = new RootView(_context, farseerCanvas);
-            farseerContainer.Children.Add(_root);
-            //Content = _root;
-            SM.WpfView.Helper.LoadFarseer(Id, Farseer.Descriptors, _root, out _farseerInfo, out _farseerViews);
-        }
 
-        Info _farseerInfo;
-        Views _farseerViews;
-
-        
-
-
-        public void AddBehaviour(IBehaviourView x)
-        {
-            if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this)) return;
-            _worldManager.AddViewBehaviour(x);
-        }
-        public void AddBehaviour(IBehaviourMaterial x)
-        {
-            if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this)) return;
-            _worldManager.AddMaterialBehaviour(x);
-        }
-
-        private void FarseerPlayerControl_Loaded(object sender, RoutedEventArgs e)
-        {
-            onFarseerChanged();
-            if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
-            {
-                _context = new Context(Zoom);
-                //_root = new RootView(_context, this);
-                if (Farseer == null) throw new Exception("Farseer == null");
-                SM.WpfView.Helper.LoadFarseer(Id, Farseer.Descriptors, _root, out _farseerInfo, out _farseerViews);
-
-            }
-            else if (MouseEnabled)
+            //else if (MouseEnabled)
             {
                 MouseDown += Farseer_MouseDown;
                 MouseUp += Farseer_MouseUp;

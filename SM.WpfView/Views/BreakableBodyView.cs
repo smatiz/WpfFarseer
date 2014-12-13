@@ -22,10 +22,11 @@ namespace SM.WpfView
     [ContentPropertyAttribute("Shapes")]
     public sealed class BreakableBodyView : BodyView, IBreakableBodyView
     {
-        public BreakableBodyView(BasicView parent, BodyInfo body, IShapeViewCreator shapeCreator)
-            : base(parent, body, shapeCreator)
+        Canvas _parentCanvas;
+        public BreakableBodyView(Canvas parentCanvas, IContext context, BodyInfo body, IShapeViewCreator shapeCreator)
+            : base(parentCanvas, context, body, shapeCreator)
         {
-
+            _parentCanvas = parentCanvas;
         }
 
         public IEnumerable<IBodyView> BreakAndGetPieces(IEnumerable<BodyPieceMaterial> pieces)
@@ -53,7 +54,7 @@ namespace SM.WpfView
                 polygon.Fill = vbClone;
                 var polyShape = new PolygonShapeView(Context, polygon);
 
-                var bc = BodyView.Create(this, piece.BodyMaterial.Id, polyShape);
+                var bc = BodyView.Create(_parentCanvas, this, piece.BodyMaterial.Id, polyShape);
                 bodies.Add(bc);
                 index++;
             }

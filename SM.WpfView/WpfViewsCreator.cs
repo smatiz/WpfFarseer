@@ -3,25 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace SM.WpfView
 {
     public class WpfViewsCreator : IViewCreator
     {
-        RootView _rootView;
-        public WpfViewsCreator(RootView rootView)
+        IContext _context;
+        Canvas _rootCanvas;
+        public WpfViewsCreator(Canvas rootCanvas, IContext context)
         {
-            _rootView = rootView;
+            _rootCanvas = rootCanvas;
+            _context = context;
         }
 
         public IBodyView CreateBody(BodyInfo body, IShapeViewCreator shapeCreator)
         {
-            return new BodyView(_rootView, body, shapeCreator);
+            return new BodyView(_rootCanvas, _context, body, shapeCreator);
         }
 
         public IBreakableBodyView CreateBreakableBody(BodyInfo body, IShapeViewCreator shapeCreator)
         {
-            return new BreakableBodyView(_rootView, body, shapeCreator);
+            return new BreakableBodyView(_rootCanvas, _context, body, shapeCreator);
         }
 
 
@@ -29,7 +32,7 @@ namespace SM.WpfView
         {
             if (joint.Joint is IRopeJoint)
             {
-                return new RopeJointView(_rootView, (IRopeJoint)joint.Joint, views);
+                return new RopeJointView(_rootCanvas, _context, (IRopeJoint)joint.Joint, views);
             }
 
             return null;
