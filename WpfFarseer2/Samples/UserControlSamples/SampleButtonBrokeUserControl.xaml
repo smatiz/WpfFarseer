@@ -10,8 +10,8 @@
     <Grid>
         <sm:FarseerPlayerControl x:Name="_farseerPlayer">
                 <sm:Farseer>
-                    <l:MyFirstFarseerUserControl Transform="50,0"></l:MyFirstFarseerUserControl>
-                    <!--<l:MyFirstFarseerUserControl Transform="0,0,30"></l:MyFirstFarseerUserControl>-->
+                    <l:MyFirstFarseerUserControl Transform="100,0"></l:MyFirstFarseerUserControl>
+                    <l:MyFirstFarseerUserControl Transform="20,0,30"></l:MyFirstFarseerUserControl>
                 </sm:Farseer>
         </sm:FarseerPlayerControl>
     </Grid>

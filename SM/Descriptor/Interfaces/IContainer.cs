@@ -6,8 +6,12 @@ using System.Threading.Tasks;
 
 namespace SM
 {
-    public interface ILayer : IContainer
+    public interface ITransformer 
     {
         transform2d Transform { get; }
+    }
+
+    public interface ILayer : IContainer, ITransformer
+    {
     }
 }

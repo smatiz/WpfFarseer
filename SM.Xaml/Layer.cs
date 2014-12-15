@@ -17,5 +17,7 @@ namespace SM.Xaml
         }
         public static readonly DependencyProperty TransformProperty =
             DependencyProperty.Register("Transform", typeof(transform2d), typeof(Layer), new PropertyMetadata(transform2d.Null));
+
+       
     }
 }

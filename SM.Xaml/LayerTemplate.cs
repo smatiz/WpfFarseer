@@ -8,7 +8,7 @@ using System.Windows.Controls;
 
 namespace SM.Xaml
 {
-    public class LayerTemplate : BasicContainer, ILayer
+    public class LayerTemplate : Layer
     {
         
         public LayerTemplate()
@@ -39,13 +39,13 @@ namespace SM.Xaml
             }
         }
 
-        public transform2d Transform
-        {
-            get { return (transform2d)GetValue(TransformProperty); }
-            set { SetValue(TransformProperty, value); }
-        }
-        public static readonly DependencyProperty TransformProperty =
-            DependencyProperty.Register("Transform", typeof(transform2d), typeof(LayerTemplate), new PropertyMetadata(transform2d.Null));
+        //public transform2d Transform
+        //{
+        //    get { return (transform2d)GetValue(TransformProperty); }
+        //    set { SetValue(TransformProperty, value); }
+        //}
+        //public static readonly DependencyProperty TransformProperty =
+        //    DependencyProperty.Register("Transform", typeof(transform2d), typeof(LayerTemplate), new PropertyMetadata(transform2d.Null));
 
         public System.Collections.IEnumerable ItemsSource
         {

@@ -22,7 +22,7 @@ namespace SM
         List<BodyInfo> _bodies = new List<BodyInfo>();
         List<JointInfo> _joints = new List<JointInfo>();
 
-        transform2d _currentTransform2d = transform2d.Null;
+       // transform2d _currentTransform2d = transform2d.Null;
 
         private void scan(IEnumerable<IEntity> objects)
         {
@@ -35,7 +35,7 @@ namespace SM
                     var body = child as IBody;
                     if (body != null)
                     {
-                        _bodies.Add(new BodyInfo(body, _currentTransform2d));
+                        _bodies.Add(new BodyInfo(body));
                         handled = true;
                     }
                 }
@@ -57,16 +57,7 @@ namespace SM
 
                     if (container != null)
                     {
-                        var layer = container as ILayer;
-
-                        var currentTransform2dSaved = _currentTransform2d;
-                        if (layer != null)
-                        {
-                            _currentTransform2d = layer.Transform * _currentTransform2d;
-                        }
-
                         scan(container.Entities);
-                        _currentTransform2d = currentTransform2dSaved;
                         handled = true;
                     }
 
