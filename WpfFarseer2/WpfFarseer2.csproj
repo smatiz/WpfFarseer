@@ -139,8 +139,8 @@
     <Compile Include="Samples\BrokeSamples\Sample3.xaml.cs">
       <DependentUpon>Sample3.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\BrokeSamples\Sample5.xaml.cs">
-      <DependentUpon>Sample5.xaml</DependentUpon>
+    <Compile Include="Samples\BrokeSamples\SamplePig.xaml.cs">
+      <DependentUpon>SamplePig.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\BrokeSamples\Sample7.xaml.cs">
       <DependentUpon>Sample7.xaml</DependentUpon>
@@ -197,7 +197,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Samples\BrokeSamples\Sample5.xaml">
+    <Page Include="Samples\BrokeSamples\SamplePig.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -2,3 +2,7 @@ ULTIMI BACHI
 * addBehaviour viene chiamaato troppo presto
 ***** il mouse joint non va piu
 * alcuni shape sembrano disegnarsi due volte (questo e probabilmente collegato al fatto che a design time aggiungo oggetti che non vanno aggiunti a runtime o qs del genere)
+
+
+* pulire il codice
+* vedere con snoop e wpf inspector che il tree visual e logical siano corretti

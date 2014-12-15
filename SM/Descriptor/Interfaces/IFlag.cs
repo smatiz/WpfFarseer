@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SM
 {
-    public interface IFlag : IDescriptor
+    public interface IFlag : IEntity
     {
         float X { get; }
         float Y { get; }

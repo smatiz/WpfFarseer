@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SM
 {
-    public interface IBody : IDescriptor
+    public interface IBody : IEntity
     {
         List<IFlag> Flags { get; }
 

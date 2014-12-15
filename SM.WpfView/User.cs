@@ -28,38 +28,38 @@ namespace SM.Xaml
     {
         public User()
         {
-            //Children = new List<IDescriptor>();
+            //Children = new List<IEntity>();
 
             //if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
-            {
-                Loaded += User_Loaded;
-            }
-        }
-
-        Info _farseerInfo;
-        Views _farseerViews;
-        Context _context;
-        //RootView _root;
-        void User_Refresh_DesignTime()
-        {
-            _context = new Context(DesignZoom);
-            var c = new Canvas();
-            //Content = c;
-            //_root = new RootView(_context, c);
-            //SM.WpfView.Helper.LoadFarseer(Id, Descriptors, _root, out _farseerInfo, out _farseerViews);
-        }
-        void User_Loaded(object sender, RoutedEventArgs e)
-        {
-            //var canvas = new Canvas();
-           // Content = canvas;
-            //if (Children != null)
             //{
-            //    foreach (var child in Children)
-            //    {
-            //        canvas.Children.Add((UserControl)child);
-            //    }
+            //    Loaded += User_Loaded;
             //}
         }
+
+        //Info _farseerInfo;
+        //Views _farseerViews;
+        //Context _context;
+        //RootView _root;
+        //void User_Refresh_DesignTime()
+        //{
+        //    _context = new Context(DesignZoom);
+        //    var c = new Canvas();
+        //    //Content = c;
+        //    //_root = new RootView(_context, c);
+        //    //SM.WpfView.Helper.LoadFarseer(Id, Descriptors, _root, out _farseerInfo, out _farseerViews);
+        //}
+        //void User_Loaded(object sender, RoutedEventArgs e)
+        //{
+        //    //var canvas = new Canvas();
+        //   // Content = canvas;
+        //    //if (Children != null)
+        //    //{
+        //    //    foreach (var child in Children)
+        //    //    {
+        //    //        canvas.Children.Add((UserControl)child);
+        //    //    }
+        //    //}
+        //}
 
         public string Id
         {
@@ -77,24 +77,24 @@ namespace SM.Xaml
         public static readonly DependencyProperty DesignZoomProperty =
             DependencyProperty.Register("DesignZoom", typeof(float), typeof(User), new PropertyMetadata(1f));
 
-        //public List<IDescriptor> Children
+        //public List<IEntity> Children
         //{
-        //    get { return (List<IDescriptor>)GetValue(FarseerObjectsProperty); }
+        //    get { return (List<IEntity>)GetValue(FarseerObjectsProperty); }
         //    set { SetValue(FarseerObjectsProperty, value); }
         //}
         //public static readonly DependencyProperty FarseerObjectsProperty =
-        //    DependencyProperty.Register("Children", typeof(List<IDescriptor>), typeof(User), new PropertyMetadata(null));
+        //    DependencyProperty.Register("Children", typeof(List<IEntity>), typeof(User), new PropertyMetadata(null));
 
 
 
 
-        //public List<IDescriptor> Children
+        //public List<IEntity> Children
         //{
-        //    get { return (List<IDescriptor>)GetValue(ChildrenProperty); }
+        //    get { return (List<IEntity>)GetValue(ChildrenProperty); }
         //    set { SetValue(ChildrenProperty, value); }
         //}
         //public static readonly DependencyProperty ChildrenProperty =
-        //    DependencyProperty.Register("Children", typeof(List<IDescriptor>), typeof(User), new PropertyMetadata(null, new PropertyChangedCallback(ChildrenPropertyChanged)));
+        //    DependencyProperty.Register("Children", typeof(List<IEntity>), typeof(User), new PropertyMetadata(null, new PropertyChangedCallback(ChildrenPropertyChanged)));
         //private static void ChildrenPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e) { ((User)obj).OnChildrenChanged(); }
         //private void OnChildrenChanged()
         //{
@@ -124,7 +124,7 @@ namespace SM.Xaml
         {
             if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
             {
-                User_Refresh_DesignTime();
+                //User_Refresh_DesignTime();
             }
         }
     }

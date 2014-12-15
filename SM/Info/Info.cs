@@ -24,7 +24,7 @@ namespace SM
 
         transform2d _currentTransform2d = transform2d.Null;
 
-        private void scan(IEnumerable<IDescriptor> objects)
+        private void scan(IEnumerable<IEntity> objects)
         {
             foreach (var child in objects)
             {
@@ -65,7 +65,7 @@ namespace SM
                             _currentTransform2d = layer.Transform * _currentTransform2d;
                         }
 
-                        scan(container.Descriptors);
+                        scan(container.Entities);
                         _currentTransform2d = currentTransform2dSaved;
                         handled = true;
                     }
@@ -76,10 +76,14 @@ namespace SM
 
 
 
-        public Info(string id, IEnumerable<IDescriptor> objects)
+        public Info(string id, IEnumerable<IEntity> objects)
             : base(id)
         {
             fillFlagInfoList(objects);
+
+           // var xxxx = objects.ToArray();
+
+
             scan(objects);
             //foreach (var child in objects)
             //{
@@ -108,7 +112,7 @@ namespace SM
 
         }
 
-        private void fillFlagInfoList(IEnumerable<IDescriptor> objects)
+        private void fillFlagInfoList(IEnumerable<IEntity> objects)
         {
             foreach (var child in objects)
             {
@@ -128,7 +132,7 @@ namespace SM
                 var c = child as IContainer;
                 if (c != null)
                 {
-                    fillFlagInfoList(c.Descriptors);
+                    fillFlagInfoList(c.Entities);
                 }
             }
 

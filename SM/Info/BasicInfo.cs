@@ -9,7 +9,7 @@ namespace SM
     public class BasicInfo
     {
         public string Id { get; private set; }
-        public BasicInfo(IDescriptor desc)
+        public BasicInfo(IEntity desc)
             : this(desc.Id)
         {
         }

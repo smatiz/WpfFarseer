@@ -20,15 +20,15 @@ namespace WpfFarseer
     /// <summary>
     /// Interaction logic for Sample5.xaml
     /// </summary>
-    public partial class Sample5 : UserControl
+    public partial class SamplePig : UserControl
     {
-        public Sample5()
+        public SamplePig()
         {
             InitializeComponent();
-            Loaded += Sample5_Loaded;
+            Loaded += SamplePig_Loaded;
         }
 
-        void Sample5_Loaded(object sender, RoutedEventArgs e)
+        void SamplePig_Loaded(object sender, RoutedEventArgs e)
         {
 
             //var img = new BitmapImage(new System.Uri(@"file://C:\Users\Developer\Desktop\TEMP\imm\aaa.bmp"));

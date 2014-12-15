@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SM
 {
-    public interface IJoint : IDescriptor
+    public interface IJoint : IEntity
     {
         bool CollideConnected { get; }
     }

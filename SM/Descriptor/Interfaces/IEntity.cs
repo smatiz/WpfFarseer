@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace SM
 {
-    public interface IContainer
+    public interface IEntity : IDescriptor
     {
-        IEnumerable<IEntity> Entities { get; }
     }
 }

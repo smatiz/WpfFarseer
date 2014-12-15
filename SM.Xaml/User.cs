@@ -38,8 +38,8 @@ namespace SM.Xaml
     //    }
     //    public static readonly DependencyProperty FarseerObjectsProperty =
     //        DependencyProperty.Register("Children", typeof(List<BasicControl>), typeof(User), new PropertyMetadata(null));
-    
-     ///   public IEnumerable<IDescriptor> Descriptors { get { return Children.Select(c => (IDescriptor)c); } }
+
+    ///   public IEnumerable<IEntity> Entities { get { return Children.Select(c => (IDescriptor)c); } }
       
     //}
 }

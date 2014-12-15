@@ -25,22 +25,22 @@ namespace SM.Xaml
     public abstract class BasicContainer : Panel, IContainer
     {
 
-        static IEnumerable<IDescriptor> GetAllDescriptors(BasicContainer container)
+        static IEnumerable<IEntity> GetAllIEntities(BasicContainer container)
         {
             var childrenLinq = container.Children.Cast<object>();
-            var descriptors = childrenLinq.Where(x => x is IDescriptor).Select(x => (IDescriptor)x);
+            var entities = childrenLinq.Where(x => x is IEntity).Select(x => (IEntity)x);
             foreach (var c in childrenLinq.Where(x => x is BasicContainer).Select(x => (BasicContainer)x))
             {
-              descriptors =  descriptors.Concat(GetAllDescriptors(c));
+                entities = entities.Concat(GetAllIEntities(c));
             }
-            return descriptors;
+            return entities;
         }
 
-        public IEnumerable<IDescriptor> Descriptors
+        public IEnumerable<IEntity> Entities
         {
             get
             {
-                return GetAllDescriptors(this);
+                return GetAllIEntities(this);
             }
         }
 

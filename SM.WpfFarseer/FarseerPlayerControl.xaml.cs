@@ -82,7 +82,8 @@ namespace SM.WpfFarseer
         private void loadView()
         {
             _context = new Context(Zoom);
-            SM.WpfView.Helper.LoadFarseer(Id, Farseer.Descriptors, farseerCanvas, _context, out _farseerInfo, out _farseerViews);
+
+            SM.WpfView.Helper.LoadFarseer(Id, Farseer.Entities, farseerCanvas, _context, out _farseerInfo, out _farseerViews);
         }
 
         Info _farseerInfo;
