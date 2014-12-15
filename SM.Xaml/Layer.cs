@@ -16,8 +16,26 @@ namespace SM.Xaml
             set { SetValue(TransformProperty, value); }
         }
         public static readonly DependencyProperty TransformProperty =
-            DependencyProperty.Register("Transform", typeof(transform2d), typeof(Layer), new PropertyMetadata(transform2d.Null));
+            DependencyProperty.Register("Transform", typeof(transform2d), typeof(Layer), new FrameworkPropertyMetadata(transform2d.Null, FrameworkPropertyMetadataOptions.AffectsRender));
 
+
+
+        //public transform2d Transform
+        //{
+        //    get { return (transform2d)GetValue(TransformProperty); }
+        //    set { SetValue(TransformProperty, value); }
+        //}
+        //public static readonly DependencyProperty TransformProperty =
+        //    DependencyProperty.Register("Transform", typeof(transform2d), typeof(User),
+        //    new FrameworkPropertyMetadata(transform2d.Null, FrameworkPropertyMetadataOptions.AffectsRender, new PropertyChangedCallback(TransformPropertyChanged)));
+        //private static void TransformPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e) { ((User)obj).OnTransformChanged(); }
+        //private void OnTransformChanged()
+        //{
+        //    if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
+        //    {
+        //        //User_Refresh_DesignTime();
+        //    }
+        //}
        
     }
 }
