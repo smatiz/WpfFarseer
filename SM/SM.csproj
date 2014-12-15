@@ -105,6 +105,8 @@
     <Compile Include="Info\BodyInfo.cs" />
     <Compile Include="Info\FlagInfo.cs" />
     <Compile Include="Info\JointInfo.cs" />
+    <Compile Include="ITransformable.cs" />
+    <Compile Include="ITransformer.cs" />
     <Compile Include="Materials\BodyPieceMaterial.cs" />
     <Compile Include="Materials\Interfaces\IMaterialCreator.cs" />
     <Compile Include="Materials\Interfaces\IShapeMaterialCreator.cs" />

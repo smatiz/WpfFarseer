@@ -50,7 +50,6 @@ namespace SM.Xaml
             {
                 entities = entities.Concat(GetAllIEntities(c, transform));
             }
-            transform = currentTransform2dSaved;
             return entities;
         }
 

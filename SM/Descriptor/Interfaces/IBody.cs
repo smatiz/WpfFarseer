@@ -6,12 +6,6 @@ using System.Threading.Tasks;
 
 namespace SM
 {
-    public interface ITransformable
-    {
-        transform2d Transform { get;  set; }
-    }
-
-
     public interface IBody : IEntity, ITransformable
     {
         List<IFlag> Flags { get; }
