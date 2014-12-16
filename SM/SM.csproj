@@ -115,6 +115,7 @@
     <Compile Include="Materials\Shape\PolygonMaterial.cs" />
     <Compile Include="Materials\Shape\CircleMaterial.cs" />
     <Compile Include="Materials\Shape\ShapesMaterial.cs" />
+    <Compile Include="Name.cs" />
     <Compile Include="Views\Interfaces\IFlagView.cs" />
     <Compile Include="Wpf\Transform2dConverter.cs" />
     <Compile Include="Views\BasicShapeView.cs" />

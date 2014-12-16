@@ -37,5 +37,10 @@ UML/MIND MAP
 USERCONTROL
 RIORDINare flagInfo e FlagView, Joint e FindFlag ecc
 
+e' giusto restituire tutto FarseerWorldManager nell'evento REady del FarseerPlayerControl?
+vedere con snoop e wpf inspector che il tree visual e logical siano corretti
 
-
+gli id mi servono per 
+- trovare l'elemento a codice (tipo unity 3d)
+- avere un nome univoco nel codeGenerator 
+- trovare l'elemento con il mouse

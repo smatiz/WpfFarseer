@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,9 @@ namespace SM.Wpf
 {
     public abstract class BasicControl : UserControl, IEntity
     {
+       // Name _name;
+        //public string Name { get; set; }
+        //public string Id { get { return _name.Id; } }
         public string Id { get; set; }
         static int i = 0;
         private static string GetAutoGenerateName()
@@ -20,7 +24,13 @@ namespace SM.Wpf
 
         public BasicControl()
         {
-            Id = GetAutoGenerateName();
+            //var parent = Parent as BasicContainer;
+            //if(parent != null)
+            //{
+            //    _name = new Name(null, Name);
+            //}
+
+            //Id = GetAutoGenerateName();
         }
     }
        

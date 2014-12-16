@@ -8,7 +8,7 @@
              xmlns:sm="sm:farseer"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <sm:FarseerPlayerControl x:Name="_farseerPlayer"  Debug="True">
+        <sm:FarseerPlayerControl x:Name="_farseerPlayer"  InDebug="True">
                 <sm:Farseer  >
                     <sm:Body BodyType="Breakable">
                         <!--<sm:PolygonControl Density="123"  >

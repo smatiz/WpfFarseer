@@ -11,9 +11,9 @@
             <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid Name="farseerContainer" Grid.Row="1">
-            <Canvas Name="farseerCanvas"></Canvas>
+        <Grid Name="_farseerContainer" Grid.Row="1">
+            <Canvas Name="_farseerCanvas"></Canvas>
         </Grid>
-        <sm:StepControl x:Name="stepControl"  Grid.Row="0"></sm:StepControl>
+        <sm:StepControl x:Name="_stepControl"  Grid.Row="0"></sm:StepControl>
     </Grid>
 </UserControl>

@@ -8,7 +8,7 @@
              xmlns:sm="sm:farseer"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <sm:FarseerPlayerControl x:Name="_farseerPlayer"  Zoom="20"  Debug="True">
+        <sm:FarseerPlayerControl x:Name="_farseerPlayer"  Zoom="20"  InDebug="True">
                 <sm:Farseer  Id="s9">
                     <sm:Body BodyType="Dynamic">
                         <sm:Polygon  Points="5,0,5,5,10,4" Fill="GreenYellow"  Stroke="Black" StrokeThickness="1">

@@ -14,6 +14,25 @@ namespace SM.WpfView
 #endif
         string _id;
 
+
+        public string FullId
+        {
+            get
+            {
+                List<CanvasId> names = new List<CanvasId>();
+                var n = this;
+                while (n != null)
+                {
+                    names.Add(n);
+                    n = n.Parent as CanvasId;
+                }
+                names.Reverse();
+                return names.Select(c => c.Id).Aggregate((s1, s2) => String.Format("{0}.{1}"));
+
+            }
+        }
+
+
         public string Id
         {
             get { return _id; }

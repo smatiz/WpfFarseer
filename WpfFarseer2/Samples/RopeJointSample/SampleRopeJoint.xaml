@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="600">
     <Grid>
-        <sm:FarseerPlayerControl x:Name="_farseerPlayer" Zoom="20" Debug="True">
+        <sm:FarseerPlayerControl x:Name="_farseerPlayer" Zoom="20" InDebug="True">
                 <sm:Farseer >
                     <sm:Body Id="b2" BodyType="Static">
                         <sm:Polygon Density="123"  Points="3,22,20,0,20,20" Fill="Gray"/>

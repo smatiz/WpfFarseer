@@ -26,19 +26,20 @@ using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
 using SM.Wpf;
 using System.Windows.Markup;
+using System.Diagnostics;
 
 namespace SM.WpfFarseer
 {
     [ContentPropertyAttribute("Farseer")]
     public partial class FarseerPlayerControl : UserControl
     {
+        public event Action<FarseerWorldManager> Ready;
+
         FarseerWorldManager _worldManager;
         Context _context;
-        //RootView _root;
+
 
         string Id { get;set; }
-
-
         public FarseerPlayerControl()
         {
             InitializeComponent();
@@ -49,7 +50,9 @@ namespace SM.WpfFarseer
             Settings.MaxPolygonVertices = 100;
         }
 
-        BasicContainer _farseer;
+        Info _farseerInfo;
+        Views _farseerViews;
+        private BasicContainer _farseer;
         public BasicContainer Farseer
         {
             get
@@ -60,56 +63,36 @@ namespace SM.WpfFarseer
             {
                 if (_farseer != value)
                 {
-                    farseerCanvas.Children.Remove(_farseer); 
+                    _farseerCanvas.Children.Remove(_farseer); 
                     _farseer = value;
-                    farseerCanvas.Children.Add(_farseer); 
+                    _farseerCanvas.Children.Add(_farseer); 
 
                 }
             }
 
         }
+
+
+        //public void AddBehaviour(IBehaviourView x)
         //{
-        //    get
-        //    {
-        //        return (BasicContainer)Content;
-        //    }
+        //    if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this)) return;
+        //    _worldManager.AddViewBehaviour(x);
+        //}
+        //public void AddBehaviour(IBehaviourMaterial x)
+        //{
+        //    if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this)) return;
+        //    _worldManager.AddMaterialBehaviour(x);
         //}
 
-        private void onFarseerChanged()
-        {
-           
-        }
-        private void loadView()
-        {
-            _context = new Context(Zoom);
-
-            SM.WpfView.Helper.LoadFarseer(Id, Farseer.Entities, farseerCanvas, _context, out _farseerInfo, out _farseerViews);
-        }
-
-        Info _farseerInfo;
-        Views _farseerViews;
-
-        
-
-
-        public void AddBehaviour(IBehaviourView x)
-        {
-            if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this)) return;
-            _worldManager.AddViewBehaviour(x);
-        }
-        public void AddBehaviour(IBehaviourMaterial x)
-        {
-            if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this)) return;
-            _worldManager.AddMaterialBehaviour(x);
-        }
-
-        bool oneTimeCalled = false;
+        private bool oneTimeCalled = false;
         private void FarseerPlayerControl_Loaded(object sender, RoutedEventArgs e)
         {
             if (oneTimeCalled) return;
             oneTimeCalled = true;
 
-            loadView();
+            _context = new Context(Zoom);
+
+            SM.WpfView.Helper.LoadFarseer(Id, Farseer.Entities, _farseerCanvas, _context, out _farseerInfo, out _farseerViews);
 
             if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
             {
@@ -129,10 +112,10 @@ namespace SM.WpfFarseer
 
             _worldManager = new FarseerWorldManager(Id, synchronizers, new WatchView(), world);
 
-            stepControl.DataContext = new StepViewModel(_worldManager);
+            _stepControl.DataContext = new StepViewModel(_worldManager);
 
 #if DEBUG
-            if (Debug)
+            if (InDebug)
             {
                 var debugCanvas = new Canvas();
                 debugCanvas.IsHitTestVisible = false;
@@ -140,7 +123,7 @@ namespace SM.WpfFarseer
                 debugCanvas.Children.Add(debugTextBlock);
                 debugCanvas.Width = Width;
                 debugCanvas.Height = Height;
-                farseerContainer.Children.Add(debugCanvas);
+                _farseerContainer.Children.Add(debugCanvas);
                 var debugView = new DebugViewWPF(debugCanvas, debugTextBlock, _worldManager.World);
                 debugView.ScaleTransform = new ScaleTransform(Zoom, Zoom);
                 var timer = new DispatcherTimer(DispatcherPriority.Render);
@@ -160,52 +143,79 @@ namespace SM.WpfFarseer
                 MouseUp += Farseer_MouseUp;
                 MouseMove += Farseer_MouseMove;
             }
+
+            if(Ready != null)
+            {
+                Ready(_worldManager);
+            }
         }
         private void Farseer_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            string id = getId(Mouse.DirectlyOver);
-            if (id == null) return;
-            var o = _worldManager.FindObject(id);
+            var canvas = getFirstCanvasId(Mouse.DirectlyOver as FrameworkElement);
+            if (canvas == null) return;
+            var o = _worldManager.FindObject(canvas.Id);
 
             fdyn.Body body;
             if (o is fdyn.Body)
             {
                 body = (fdyn.Body)o;
+                Debug.WriteLine("Mouse Down : Body {0} : FullId {1}", canvas.Id, canvas.FullId);
             }
             else if (o is fdyn.BreakableBody)
             {
                 body = ((fdyn.BreakableBody)o).MainBody;
+                Debug.WriteLine("Mouse Down : BreakableBody {0} : FullId {1}", canvas.Id, canvas.FullId);
             }
             else
             {
+                Debug.WriteLine("Mouse Down : null {0} : FullId {1}", canvas.Id, canvas.FullId);
                 return;
             }
-            _worldManager.StartMouseJoint(body, new xna.Vector2((float)Mouse.GetPosition(this).X / Zoom, (float)Mouse.GetPosition(this).Y / Zoom));
+
+            _worldManager.StartMouseJoint(body, new xna.Vector2((float)Mouse.GetPosition(_farseerCanvas).X / Zoom, (float)Mouse.GetPosition(_farseerCanvas).Y / Zoom));
 
         }
         private void Farseer_MouseMove(object sender, MouseEventArgs e)
         {
-            _worldManager.UpdateMouseJoint(new xna.Vector2((float)Mouse.GetPosition(this).X / Zoom, (float)Mouse.GetPosition(this).Y / Zoom));
+            _worldManager.UpdateMouseJoint(new xna.Vector2((float)Mouse.GetPosition(_farseerCanvas).X / Zoom, (float)Mouse.GetPosition(_farseerCanvas).Y / Zoom));
         }
         private void Farseer_MouseUp(object sender, MouseButtonEventArgs e)
         {
             _worldManager.StopMouseJoint();
         }
-        private string getId(object x)
+        private CanvasId getFirstCanvasId(FrameworkElement frameworkElement)
         {
-            var canvasId = x as CanvasId;
+            var canvasId = frameworkElement as CanvasId;
             if (canvasId != null)
             {
-                return canvasId.Id;
+                return canvasId;
             }
-            var frameworkElement = x as FrameworkElement;
             if (frameworkElement != null)
             {
-                return getId(frameworkElement.Parent);
+                var parentFrameworkElement = frameworkElement.Parent as FrameworkElement;
+                if (frameworkElement != null)
+                {
+                    return getFirstCanvasId(parentFrameworkElement);
+                }
             }
 
             return null;
         }
+        //private string getId(object x)
+        //{
+        //    var canvasId = x as CanvasId;
+        //    if (canvasId != null)
+        //    {
+        //        return canvasId.Id;
+        //    }
+        //    var frameworkElement = x as FrameworkElement;
+        //    if (frameworkElement != null)
+        //    {
+        //        return getId(frameworkElement.Parent);
+        //    }
+
+        //    return null;
+        //}
 
         public float Zoom
         {
@@ -215,13 +225,13 @@ namespace SM.WpfFarseer
         public static readonly DependencyProperty ZoomProperty =
             DependencyProperty.Register("Zoom", typeof(float), typeof(FarseerPlayerControl), new PropertyMetadata(1f));
 
-        public bool Debug
+        public bool InDebug
         {
-            get { return (bool)GetValue(DebugProperty); }
-            set { SetValue(DebugProperty, value); }
+            get { return (bool)GetValue(InDebugProperty); }
+            set { SetValue(InDebugProperty, value); }
         }
-        public static readonly DependencyProperty DebugProperty =
-            DependencyProperty.Register("Debug", typeof(bool), typeof(FarseerPlayerControl), new PropertyMetadata(false));
+        public static readonly DependencyProperty InDebugProperty =
+            DependencyProperty.Register("InDebug", typeof(bool), typeof(FarseerPlayerControl), new PropertyMetadata(false));
 
         public bool MouseEnabled
         {

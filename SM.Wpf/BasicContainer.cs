@@ -20,7 +20,7 @@ using System.Collections.ObjectModel;
 using System.Windows.Markup;
 using SM.Wpf;
 
-namespace SM.Xaml
+namespace SM.Wpf
 {
     public abstract class BasicContainer : Panel, IContainer
     {

@@ -15,7 +15,7 @@
                 <!--<TabItem Header="LayerTemplate">
                     <l:SampleLayerTemplate></l:SampleLayerTemplate>
                 </TabItem>-->
-                <!--<TabItem Header="Joint">
+                <TabItem Header="Joint">
                     <TabControl SelectedIndex="0">
                         <TabControl.Items>
                             <TabItem Header="RopeJoint">
@@ -23,7 +23,7 @@
                             </TabItem>
                         </TabControl.Items>
                     </TabControl>
-                </TabItem>-->
+                </TabItem>
 
                 <!--<TabItem Header="Broken">
                     <TabControl SelectedIndex="0">

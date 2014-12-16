@@ -8,7 +8,7 @@
             xmlns:l="clr-namespace:WpfFarseer"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <sm:FarseerPlayerControl x:Name="_farseerPlayer" Loaded="_farseerPlayer_Loaded"  Zoom="10" Debug="True">
+        <sm:FarseerPlayerControl x:Name="_farseerPlayer" Loaded="_farseerPlayer_Loaded"  Zoom="10" InDebug="True">
                 <sm:Farseer >
                     <sm:Body BodyType="Breakable" Id="Pig" >
                         <sm:SkinnedShape PrecisionZoom="10">

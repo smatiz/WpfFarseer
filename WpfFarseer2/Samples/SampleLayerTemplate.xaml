@@ -19,7 +19,7 @@
             <sm:transform2d>0,200</sm:transform2d>
         </c:ArrayList>
     </UserControl.Resources>
-        <sm:FarseerPlayerControl x:Name="_farseerPlayer"  Debug="True">
+        <sm:FarseerPlayerControl x:Name="_farseerPlayer"  InDebug="True">
                 <sm:Farseer >
                     <sm:LayerTemplate  ItemsSource="{Binding Positions}">
                         <sm:LayerTemplate.DataTemplate>
