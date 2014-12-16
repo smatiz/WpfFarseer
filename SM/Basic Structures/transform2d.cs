@@ -52,8 +52,6 @@ namespace SM
             }
         }
 
-
-
         public static transform2d operator *(transform2d t1, transform2d t2)
         {
             return (t1.ToMatrix() * t2.ToMatrix()).ToTransform2d();

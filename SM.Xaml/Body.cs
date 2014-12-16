@@ -20,7 +20,7 @@ using System.Windows.Shapes;
 namespace SM.Xaml
 {
     [ContentPropertyAttribute("Shapes")]
-    public class Body : BasicControl, IBody, IFlaggable
+    public class Body : BasicControl, IBody
     {
         public Body()
         {
@@ -41,17 +41,6 @@ namespace SM.Xaml
         public static readonly DependencyProperty FlagsProperty =
             DependencyProperty.Register("Flags", typeof(List<IFlag>), typeof(Body), new PropertyMetadata(null));
 
-        //public transform2d Transform
-        //{
-        //    get { return (transform2d)GetValue(TransformProperty); }
-        //    set { SetValue(TransformProperty, value); }
-        //}
-        //public static readonly DependencyProperty TransformProperty =
-        //    DependencyProperty.Register("Transform", typeof(transform2d), typeof(Body), new PropertyMetadata(transform2d.Null));
-
-
-
-
         public transform2d Transform
         {
             get { return (transform2d)GetValue(TransformProperty); }
@@ -64,8 +53,6 @@ namespace SM.Xaml
         {
 
         }
-        
-
 
         public virtual BodyType BodyType
         {

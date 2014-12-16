@@ -170,26 +170,56 @@ namespace SM
         {
             return new Transform2dString(s).GetTransform2d();
         }
+
+        public static rotoTranslation GetRotoTranslation(string s)
+        {
+            return Transform2dString.GetTransform2d(s as string).RotoTranslation;
+        }
+
+        public static float2 GetFloat2(string s)
+        {
+            return Transform2dString.GetRotoTranslation(s as string).Translation;
+        }
     }
 
-    public class Transform2dConverter : TypeConverter
+    public abstract class BasicTransformationConverter : TypeConverter
     {
+        Type _t;
+
+        public BasicTransformationConverter(Type t)
+        {
+            _t = t;
+        }
+
+        public override bool CanConvertTo(System.ComponentModel.ITypeDescriptorContext context, Type destinationType)
+        {
+            return destinationType == _t;
+        }
         public override bool CanConvertFrom(System.ComponentModel.ITypeDescriptorContext context, Type sourceType)
         {
             return sourceType == typeof(string);
         }
-        public override bool CanConvertTo(System.ComponentModel.ITypeDescriptorContext context, Type destinationType)
+
+        public override object ConvertTo(System.ComponentModel.ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value, Type destinationType)
         {
-            return destinationType == typeof(transform2d);
+            if (destinationType == null)
+                throw new ArgumentNullException("destinationType");
+
+            if (value.GetType().Equals(_t))
+            {
+                return ((rotoTranslation)value).ToString();
+            }
+
+            return "0,0,0";
         }
-        //Actual convertion from string to GeoPointItem
+
         public override object ConvertFrom(System.ComponentModel.ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value)
         {
             if (value is string)
             {
                 try
                 {
-                    return Transform2dString.GetTransform2d(value as string);
+                    return Transform2dString.GetRotoTranslation(value as string);
                 }
                 catch (Exception ex)
                 {
@@ -200,18 +230,42 @@ namespace SM
             return base.ConvertFrom(context, culture, value);
         }
 
-        //Actual convertion from GeoPointItem to string
-        public override object ConvertTo(System.ComponentModel.ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value, Type destinationType)
+        protected abstract object Get(string s);
+    }
+
+    public class Float2Converter : BasicTransformationConverter
+    {
+        public Float2Converter()
+            : base(typeof(float2))
+        { }
+
+        protected override object Get(string value)
         {
-            if (destinationType == null)
-                throw new ArgumentNullException("destinationType");
+            return Transform2dString.GetFloat2(value as string);
+        }
+    }
 
-            if (value.GetType().Equals(typeof(transform2d)))
-            {
-                return ((transform2d)value).ToString();
-            }
+    public class RotoTranslationConverter : BasicTransformationConverter
+    {
+        public RotoTranslationConverter()
+            : base(typeof(rotoTranslation))
+        { }
 
-            return "0,0,0,1";
+        protected override object Get(string value)
+        {
+            return Transform2dString.GetRotoTranslation(value as string);
+        }
+    }
+
+    public class Transform2dConverter : BasicTransformationConverter
+    {
+        public Transform2dConverter()
+            : base(typeof(transform2d))
+        { }
+
+        protected override object Get(string value)
+        {
+            return Transform2dString.GetTransform2d(value as string);
         }
     }
 }

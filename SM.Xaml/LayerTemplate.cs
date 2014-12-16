@@ -10,7 +10,6 @@ namespace SM.Xaml
 {
     public class LayerTemplate : Layer
     {
-        
         public LayerTemplate()
         {
             ItemsSource = new List<FrameworkElement>();
@@ -27,25 +26,13 @@ namespace SM.Xaml
             if (ItemsSource == null) return;
             if (Children == null) return;
             if (DataTemplate == null) return;
-            //Children.Clear();
-            //Canvas c = new Canvas();
-            //    Content = c;
             foreach (var item in ItemsSource)
             {
                 var dp = DataTemplate.LoadContent() as FrameworkElement;
-
                 dp.DataContext = item;
                 Children.Add(dp);
             }
         }
-
-        //public transform2d Transform
-        //{
-        //    get { return (transform2d)GetValue(TransformProperty); }
-        //    set { SetValue(TransformProperty, value); }
-        //}
-        //public static readonly DependencyProperty TransformProperty =
-        //    DependencyProperty.Register("Transform", typeof(transform2d), typeof(LayerTemplate), new PropertyMetadata(transform2d.Null));
 
         public System.Collections.IEnumerable ItemsSource
         {

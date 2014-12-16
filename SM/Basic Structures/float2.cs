@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace SM
 {
+    [TypeConverter(typeof(Float2Converter))]
     public struct float2
     {
         readonly float _x;

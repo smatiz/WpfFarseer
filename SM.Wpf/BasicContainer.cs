@@ -22,7 +22,7 @@ using SM.Wpf;
 
 namespace SM.Wpf
 {
-    public abstract class BasicContainer : Panel, IContainer
+    public abstract class BasicContainer : Panel, IContainer    
     {
         public IEnumerable<IEntity> Entities
         {
@@ -32,6 +32,5 @@ namespace SM.Wpf
             }
         }
 
-        public string Id { get; set; }
     }
 }

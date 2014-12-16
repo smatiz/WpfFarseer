@@ -18,7 +18,7 @@ namespace SM.Wpf
     {
          //int MaxWidth { get; }
          //int MaxHeight { get; }
-        Canvas _Content_ { get; }
+        Canvas Content { get; }
     }
 
     public interface IEllipse

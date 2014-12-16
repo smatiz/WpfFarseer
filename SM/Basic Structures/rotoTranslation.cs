@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace SM
 {
+    [TypeConverter(typeof(RotoTranslationConverter))]
     public struct rotoTranslation
     {
         const float AngleSubst = 180f / (float)Math.PI;

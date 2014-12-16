@@ -19,12 +19,12 @@ namespace SM.WpfView
             : base(context)
         {
             _canvas.Children.Clear();
-            var parent = shape._Content_.Parent as Canvas;
+            var parent = shape.Content.Parent as Canvas;
             if (parent != null)
             {
-                parent.Children.Remove(shape._Content_);
+                parent.Children.Remove(shape.Content);
             }
-            _canvas.Children.Add(shape._Content_);
+            _canvas.Children.Add(shape.Content);
             _canvas.RenderTransform = new ScaleTransform(Context.Zoom * scale, Context.Zoom * scale);
         }
 
