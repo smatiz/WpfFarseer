@@ -44,3 +44,5 @@ gli id mi servono per
 - trovare l'elemento a codice (tipo unity 3d)
 - avere un nome univoco nel codeGenerator 
 - trovare l'elemento con il mouse
+
+BasicContainer non deve contenere tutto quel codice che non dipende da wpf/xaml deve stare in SM.dll

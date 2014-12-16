@@ -1,0 +1,84 @@
+﻿<UserControl x:Class="SMS.UserControl4"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:lq="clr-namespace:System.Xml.Linq;assembly=System.Xml.Linq"
+             xmlns:l="clr-namespace:SMS"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.DataContext>
+        <l:ViewModel4></l:ViewModel4>
+    </UserControl.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="131*"/>
+            <ColumnDefinition Width="169*"/>
+            <ColumnDefinition Width="169*"/>
+        </Grid.ColumnDefinitions>
+        <TreeView ItemsSource="{Binding UserControlChildren}" Grid.Column="0">
+            <TreeView.Resources>
+                <HierarchicalDataTemplate  DataType="{x:Type l:Node}" ItemsSource="{Binding Children}">
+                    <TextBlock Foreground="Red" Text="{Binding Name}"></TextBlock>
+                </HierarchicalDataTemplate>
+                <HierarchicalDataTemplate  DataType="{x:Type l:Leaf}" >
+                    <TextBlock Text="{Binding Path=Name}"></TextBlock>
+                </HierarchicalDataTemplate>
+            </TreeView.Resources>
+        </TreeView>
+        <TreeView ItemsSource="{Binding UserControlChildren}"  Grid.Column="1" ItemTemplate="{x:Null}" >
+            <!--<TreeView.ItemTemplate>
+                <HierarchicalDataTemplate DataType="{x:Type Button}" ItemsSource="{Binding Children}" >
+                    <TextBlock Foreground="Blue" Text="{Binding Name}"></TextBlock>
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>-->
+            <TreeView.Resources>
+                <!--<HierarchicalDataTemplate DataType="{x:Type l:CanvasW}" ItemsSource="{Binding Path=Canvas.Children}" >
+                            <TextBlock Foreground="Green" Text="{Binding Path=Canvas.Name}"></TextBlock>
+                </HierarchicalDataTemplate>-->
+                <!--<HierarchicalDataTemplate  DataType="{x:Type Canvas}" ItemsSource="{Binding Children}" >
+                    <TextBlock Foreground="Red" Text="{Binding Name}"></TextBlock>
+                </HierarchicalDataTemplate>
+                <HierarchicalDataTemplate  DataType="{x:Type Button}"  >
+                    <TextBlock Foreground="Green" Text="{Binding Name}"></TextBlock>
+                </HierarchicalDataTemplate>-->
+                <!--<HierarchicalDataTemplate    >
+                    <HierarchicalDataTemplate.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Path=Name}"></TextBlock>
+                        </DataTemplate>
+                    </HierarchicalDataTemplate.ItemTemplate>
+                </HierarchicalDataTemplate>-->
+            </TreeView.Resources>
+        </TreeView>
+
+
+
+        <TreeView ItemsSource="{Binding XML}" Grid.Column="2">
+            <TreeView.Resources>
+                <HierarchicalDataTemplate DataType="Header" ItemsSource="{Binding XPath=Children}">
+                    <TextBlock Text="{Binding XPath=@Name}" Margin="3,0,0,0" />
+                </HierarchicalDataTemplate>
+                <HierarchicalDataTemplate DataType="UserControl4ForRead" ItemsSource="{Binding XPath=Header|Group|Item}">
+                    <TextBlock Text="{Binding XPath=@Name}" Margin="3,0,0,0" />
+                </HierarchicalDataTemplate>
+                <HierarchicalDataTemplate DataType="av:Grid" ItemsSource="{Binding XPath=Header|Group|Item}">
+                    <TextBlock Text="{Binding XPath=@Name}" Margin="3,0,0,0" />
+                </HierarchicalDataTemplate>
+                <HierarchicalDataTemplate DataType="av:Canvas" ItemsSource="{Binding XPath=Header|Group|Item}">
+                    <TextBlock Text="{Binding XPath=@Name}" Margin="3,0,0,0" />
+                </HierarchicalDataTemplate>
+                <!--<HierarchicalDataTemplate DataType="Group" ItemsSource="{Binding XPath=Item, Converter={StaticResource myConverter}, ConverterParameter=sortPos}">
+                    <TextBlock Text="{Binding XPath=@Name, Mode=TwoWay}" Margin="3,0,0,0" />
+                    <HierarchicalDataTemplate.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding XPath=@Name}" />
+                        </DataTemplate>
+                    </HierarchicalDataTemplate.ItemTemplate>
+                </HierarchicalDataTemplate>-->
+
+            </TreeView.Resources>
+        </TreeView>
+
+    </Grid>
+</UserControl>

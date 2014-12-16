@@ -8,5 +8,7 @@ namespace SM
 {
     public interface IEntity : IDescriptor
     {
+
+        
     }
 }

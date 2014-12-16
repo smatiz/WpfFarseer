@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace SM
 {
-    public interface IContainer
+    public interface ILayer : IContainer, ITransformer
     {
-        IEnumerable<IEntity> Entities { get; }
     }
+
 }

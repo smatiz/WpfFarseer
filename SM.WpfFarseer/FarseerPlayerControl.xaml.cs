@@ -159,16 +159,16 @@ namespace SM.WpfFarseer
             if (o is fdyn.Body)
             {
                 body = (fdyn.Body)o;
-                Debug.WriteLine("Mouse Down : Body {0} : FullId {1}", canvas.Id, canvas.FullId);
+                Debug.WriteLine("Mouse Down : Body {0} : FullId {1}", canvas.Id, canvas.Id);
             }
             else if (o is fdyn.BreakableBody)
             {
                 body = ((fdyn.BreakableBody)o).MainBody;
-                Debug.WriteLine("Mouse Down : BreakableBody {0} : FullId {1}", canvas.Id, canvas.FullId);
+                Debug.WriteLine("Mouse Down : BreakableBody {0} : FullId {1}", canvas.Id, canvas.Id);
             }
             else
             {
-                Debug.WriteLine("Mouse Down : null {0} : FullId {1}", canvas.Id, canvas.FullId);
+                Debug.WriteLine("Mouse Down : null {0} : FullId {1}", canvas.Id, canvas.Id);
                 return;
             }
 

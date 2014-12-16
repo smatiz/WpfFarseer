@@ -124,6 +124,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Helper.cs" />
+    <Compile Include="InfoTreeView.xaml.cs">
+      <DependentUpon>InfoTreeView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MyFirstFarseerUserControl.xaml.cs">
       <DependentUpon>MyFirstFarseerUserControl.xaml</DependentUpon>
     </Compile>
@@ -154,6 +158,11 @@
     <Compile Include="Samples\BrokeSamples\SampleButtonBroke.xaml.cs">
       <DependentUpon>SampleButtonBroke.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel4.cs" />
+    <Page Include="InfoTreeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MyFirstFarseerUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -216,6 +225,14 @@
     <Page Include="Samples\BrokeSamples\SampleButtonBroke.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControl4.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControl4ForRead.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
