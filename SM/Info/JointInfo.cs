@@ -6,13 +6,8 @@ using System.Threading.Tasks;
 
 namespace SM
 {
-    public class JointInfo : BasicInfo
+    public class JointInfo 
     {
-        public IJoint Joint { get; private set; }
-        public JointInfo(IJoint joint)
-            : base(joint)
-        {
-            Joint = joint;
-        }
+        public IJoint Joint { get; set; }
     }
 }

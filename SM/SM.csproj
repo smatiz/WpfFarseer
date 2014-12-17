@@ -99,6 +99,7 @@
   <ItemGroup>
     <Compile Include="Basic Structures\Matrix.cs" />
     <Compile Include="Descriptor\Interfaces\IEntity.cs" />
+    <Compile Include="Descriptor\Interfaces\IDescriptor.cs" />
     <Compile Include="Descriptor\Interfaces\ILayer.cs" />
     <Compile Include="Descriptor\Interfaces\IContainer.cs" />
     <Compile Include="Descriptor\ContainerHelper.cs" />
@@ -127,7 +128,7 @@
     <Compile Include="Synchronizers\Synchronizers.cs" />
     <Compile Include="Materials\Materials.cs" />
     <Compile Include="Static And Consts\Helper.cs" />
-    <Compile Include="Descriptor\Interfaces\IDescriptor.cs" />
+    <Compile Include="Descriptor\Interfaces\IIdentifiable.cs" />
     <Compile Include="Descriptor\Interfaces\IBody.cs" />
     <Compile Include="Materials\Interfaces\IBodyMaterial.cs" />
     <Compile Include="Views\Interfaces\IJointView.cs" />

@@ -8,6 +8,5 @@ namespace SM
 {
     public interface IDescriptor
     {
-        string Id { get; }
     }
 }

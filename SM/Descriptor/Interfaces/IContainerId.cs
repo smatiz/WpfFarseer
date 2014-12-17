@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace SM
 {
     // serve ???
-    public interface IContainerId : IContainer, IDescriptor
+    public interface IContainerId : IContainer, IIdentifiable
     {
     }
 }

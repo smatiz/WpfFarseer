@@ -24,45 +24,50 @@ namespace SM
 
        // transform2d _currentTransform2d = transform2d.Null;
 
-        private void scan(IEnumerable<IEntity> objects)
+        private void scan(IDescriptor descriptor, transform2d currentTransform, string currentId)
         {
-            foreach (var child in objects)
+            var container = descriptor as IContainer;
+            if (container != null)
             {
-                bool handled = false;
 
-                if (!handled)
+                var transformer = container as ITransformer;
+                if (transformer != null)
                 {
-                    var body = child as IBody;
-                    if (body != null)
-                    {
-                        _bodies.Add(new BodyInfo(body));
-                        handled = true;
-                    }
+                    currentTransform = transformer.Transform * currentTransform;
+                }
+                var newId = container as IIdentifiable;
+                if (newId != null)
+                {
+                    currentId = String.Format("{0}.{1}", newId.Id, currentId);
                 }
 
-                if (!handled)
+                foreach (var childDescriptor in container.Descriptors)
                 {
-                    var joint = child as IRopeJoint;
-                    if (joint != null)
-                    {
-                        _joints.Add(new JointInfo(joint));
-                        handled = true;
-                    }
+                    scan(childDescriptor, currentTransform, currentId);
                 }
 
-                if (!handled)
+                return;
+            }
+
+            var entity = descriptor as IEntity;
+            if (entity != null)
+            {
+
+                var body = entity as IBody;
+                if (body != null)
                 {
-                    var container = child as IContainer;
+                    // _bodies.Add(new BodyInfo(body));
+                    return;
+                }
 
-
-                    if (container != null)
-                    {
-                        scan(container.Entities);
-                        handled = true;
-                    }
-
+                var joint = entity as IRopeJoint;
+                if (joint != null)
+                {
+                    // _joints.Add(new JointInfo(joint));
+                    return;
                 }
             }
+
         }
 
 
@@ -76,27 +81,27 @@ namespace SM
 
         private void fillFlagInfoList(IEnumerable<IEntity> objects)
         {
-            foreach (var child in objects)
-            {
-                var fc = child as IFlag;
-                if (fc != null)
-                {
-                    _flags.Add(new FlagInfo(fc, null));
-                }
-                var fcp = child as IFlaggable;
-                if (fcp != null)
-                {
-                    foreach (var f in fcp.Flags)
-                    {
-                        _flags.Add(new FlagInfo(f, fcp.Id));
-                    }
-                }
-                var c = child as IContainer;
-                if (c != null)
-                {
-                    fillFlagInfoList(c.Entities);
-                }
-            }
+            //foreach (var child in objects)
+            //{
+            //    var fc = child as IFlag;
+            //    if (fc != null)
+            //    {
+            //       // _flags.Add(new FlagInfo(fc, null));
+            //    }
+            //    var fcp = child as IFlaggable;
+            //    if (fcp != null)
+            //    {
+            //        foreach (var f in fcp.Flags)
+            //        {
+            //            _flags.Add(new FlagInfo(f, fcp.Id));
+            //        }
+            //    }
+            //    var c = child as IContainer;
+            //    if (c != null)
+            //    {
+            //        fillFlagInfoList(c.Entities);
+            //    }
+            //}
 
         }
 

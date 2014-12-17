@@ -24,11 +24,11 @@ namespace SM.Wpf
 {
     public abstract class BasicContainer : Panel, IContainer    
     {
-        public IEnumerable<IEntity> Entities
+        public IEnumerable<IDescriptor> Descriptors
         {
             get
             {
-                return null;// ContainerHelper.GetAllIEntities(null);
+                return Children.Cast<IDescriptor>();
             }
         }
     }

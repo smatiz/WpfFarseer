@@ -23,7 +23,7 @@ using SM.Wpf;
 namespace SM.Xaml
 {
     //[ContentPropertyAttribute("Descriptors")]
-    public class User : Layer, IDescriptor
+    public class User : Layer, IIdentifiable
     {
         //static Dictionary<User, string> _idsMap = new Dictionary<User, string>();
         //static User()

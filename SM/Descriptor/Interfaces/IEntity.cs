@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SM
 {
-    public interface IEntity : IDescriptor
+    public interface IEntity : IIdentifiable
     {
 
         
