@@ -92,7 +92,7 @@ namespace SM.WpfFarseer
 
             _context = new Context(Zoom);
 
-            SM.WpfView.Helper.LoadFarseer(Id, Farseer.Entities, _farseerCanvas, _context, out _farseerInfo, out _farseerViews);
+            SM.WpfView.Helper.LoadFarseer(Farseer, _farseerCanvas, _context, out _farseerInfo, out _farseerViews);
 
             if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
             {

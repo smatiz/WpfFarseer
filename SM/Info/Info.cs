@@ -12,7 +12,7 @@ using System.Windows.Controls;
 
 namespace SM
 {
-    public class Info : BasicInfo
+    public class Info //: BasicInfo
     {
         public IEnumerable<FlagInfo> Flags { get { return _flags; } }
         public IEnumerable<BodyInfo> Bodies { get { return _bodies; } }
@@ -67,40 +67,11 @@ namespace SM
 
 
 
-        public Info(string id, IEnumerable<IEntity> objects)
-            : base(id)
+        public Info(IContainer container)
+          //  : base(id)
         {
-            fillFlagInfoList(objects);
-
-           // var xxxx = objects.ToArray();
-
-
-            scan(objects);
-            //foreach (var child in objects)
-            //{
-            //    bool handled = false;
-
-            //    if (!handled)
-            //    {
-            //        var body = child as IBody;
-            //        if (body != null)
-            //        {
-            //            _bodies.Add(new BodyInfo(body));
-            //            handled = true;
-            //        }
-            //    }
-
-            //    if (!handled)
-            //    {
-            //        var joint = child as IRopeJoint;
-            //        if (joint != null)
-            //        {
-            //            _joints.Add(new JointInfo(joint));
-            //            handled = true;
-            //        }
-            //    }
-            //}
-
+            //fillFlagInfoList(objects);
+            //scan(objects);
         }
 
         private void fillFlagInfoList(IEnumerable<IEntity> objects)

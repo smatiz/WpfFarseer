@@ -22,7 +22,7 @@ using SM.Wpf;
 
 namespace SM.Xaml
 {
-    public class Farseer : BasicContainer, IDescriptor
+    public sealed class Farseer : BasicContainer, IDescriptor
     {
         public string Id { get; set; }
     }

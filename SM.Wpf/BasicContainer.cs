@@ -28,9 +28,8 @@ namespace SM.Wpf
         {
             get
             {
-                return IContainerHelper.GetAllIEntities(this, transform2d.Null);
+                return null;// ContainerHelper.GetAllIEntities(null);
             }
         }
-
     }
 }

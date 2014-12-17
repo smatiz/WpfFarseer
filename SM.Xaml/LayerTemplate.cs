@@ -8,7 +8,7 @@ using System.Windows.Controls;
 
 namespace SM.Xaml
 {
-    public class LayerTemplate : Layer
+    public sealed class LayerTemplate : Layer
     {
         public LayerTemplate()
         {

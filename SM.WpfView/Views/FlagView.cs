@@ -17,7 +17,7 @@ using System.Windows.Shapes;
 
 namespace SM.WpfView
 {
-    public partial class FlagView : IFlagView
+    public class FlagView : IFlagView
     {
         public string Id 
         { 

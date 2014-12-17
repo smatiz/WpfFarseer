@@ -101,12 +101,14 @@
     <Compile Include="Descriptor\Interfaces\IEntity.cs" />
     <Compile Include="Descriptor\Interfaces\ILayer.cs" />
     <Compile Include="Descriptor\Interfaces\IContainer.cs" />
+    <Compile Include="Descriptor\ContainerHelper.cs" />
+    <Compile Include="Descriptor\Interfaces\IContainerId.cs" />
     <Compile Include="Info\BasicInfo.cs" />
     <Compile Include="Info\BodyInfo.cs" />
     <Compile Include="Info\FlagInfo.cs" />
     <Compile Include="Info\JointInfo.cs" />
-    <Compile Include="ITransformable.cs" />
-    <Compile Include="ITransformer.cs" />
+    <Compile Include="Descriptor\Interfaces\ITransformable.cs" />
+    <Compile Include="Descriptor\Interfaces\ITransformer.cs" />
     <Compile Include="Materials\BodyPieceMaterial.cs" />
     <Compile Include="Materials\Interfaces\IMaterialCreator.cs" />
     <Compile Include="Materials\Interfaces\IShapeMaterialCreator.cs" />
@@ -115,7 +117,6 @@
     <Compile Include="Materials\Shape\PolygonMaterial.cs" />
     <Compile Include="Materials\Shape\CircleMaterial.cs" />
     <Compile Include="Materials\Shape\ShapesMaterial.cs" />
-    <Compile Include="Name.cs" />
     <Compile Include="Views\Interfaces\IFlagView.cs" />
     <Compile Include="Wpf\Transform2dConverter.cs" />
     <Compile Include="Views\BasicShapeView.cs" />

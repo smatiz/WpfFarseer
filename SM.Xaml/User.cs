@@ -25,7 +25,45 @@ namespace SM.Xaml
     //[ContentPropertyAttribute("Descriptors")]
     public class User : Layer, IDescriptor
     {
-        public string Id { get; set; }
+        //static Dictionary<User, string> _idsMap = new Dictionary<User, string>();
+        //static User()
+        //{
+        //    _idsMap.Add(null, null);
+        //}
+        //public static bool IdsAreValid
+        //{
+        //    get
+        //    {
+        //        return _idsMap.Values.Distinct().Count() == _idsMap.Values.Count;
+        //    }
+        //}
+        string _id;
+        public string Id 
+        {
+            get
+            {
+                return _id;
+            }
+            set
+            {
+                if (_id != value)
+                {
+                    _id = value;
+                    //_idsMap[this] = value;
+                }
+            }
+        }
+
+        //public User()
+        //{
+        //    _idsMap.Add(this, null);
+        //}
+        //~User()
+        //{
+        //    _idsMap.Remove(this);
+        //}
+
+
         public float DesignZoom
         {
             get { return (float)GetValue(DesignZoomProperty); }
