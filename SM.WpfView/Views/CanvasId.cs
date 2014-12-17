@@ -12,28 +12,28 @@ namespace SM.WpfView
 #if DEBUG
         static List<string> IDS = new List<string>();
 #endif
-        string _id;
+        IdInfo _id;
 
 
-        public string FullId
-        {
-            get
-            {
-                List<CanvasId> names = new List<CanvasId>();
-                var n = this;
-                while (n != null)
-                {
-                    names.Add(n);
-                    n = n.Parent as CanvasId;
-                }
-                names.Reverse();
-                return names.Select(c => c.Id).Aggregate((s1, s2) => String.Format("{0}.{1}"));
+        //public string FullId
+        //{
+        //    get
+        //    {
+        //        List<CanvasId> names = new List<CanvasId>();
+        //        var n = this;
+        //        while (n != null)
+        //        {
+        //            names.Add(n);
+        //            n = n.Parent as CanvasId;
+        //        }
+        //        names.Reverse();
+        //        return names.Select(c => c.Id).Aggregate((s1, s2) => String.Format("{0}.{1}"));
 
-            }
-        }
+        //    }
+        //}
 
 
-        public string Id
+        public IdInfo Id
         {
             get { return _id; }
             set

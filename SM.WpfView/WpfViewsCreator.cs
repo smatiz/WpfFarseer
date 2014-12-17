@@ -28,12 +28,22 @@ namespace SM.WpfView
         }
 
 
+        //public IJointView CreateJoint(JointInfo joint, Views views)
+        //{
+        //    if (joint.Joint is IRopeJoint)
+        //    {
+        //        return new RopeJointView(_rootCanvas, _context, (IRopeJoint)joint.Joint, views);
+        //    }
+
+        //    return null;
+        //}
+
         public IJointView CreateJoint(JointInfo joint, Views views)
         {
-            if (joint.Joint is IRopeJoint)
-            {
-                return new RopeJointView(_rootCanvas, _context, (IRopeJoint)joint.Joint, views);
-            }
+            //if (joint.Joint is IRopeJoint)
+            //{
+            //    return new RopeJointView(_rootCanvas, _context, (IRopeJoint)joint.Joint, views);
+            //}
 
             return null;
         }

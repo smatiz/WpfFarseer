@@ -8,7 +8,7 @@ namespace SM
 {
     public interface IMaterial 
     {
-        string Id { get; }
+        IdInfo Id { get; }
         object Object { get; }
     }
 }

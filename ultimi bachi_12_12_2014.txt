@@ -1,5 +1,5 @@
 ULTIMI BACHI
-* addBehaviour viene chiamaato troppo presto
+***** addBehaviour viene chiamaato troppo presto
 ***** il mouse joint non va piu
 ***** alcuni shape sembrano disegnarsi due volte (questo e probabilmente collegato al fatto che a design time aggiungo oggetti che non vanno aggiunti a runtime o qs del genere)
 

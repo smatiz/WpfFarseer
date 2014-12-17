@@ -11,7 +11,7 @@ namespace SM.WpfView
 {
     public abstract class BasicView : UserControl, IView
     {
-        private string _id;
+        private IdInfo _id;
         private CanvasId _canvasId;
 
         public List<IFlagView> Flags { get; private set; }
@@ -31,7 +31,7 @@ namespace SM.WpfView
         //    _canvasId = new CanvasId();
         //    parentCanvas.Children.Add(_canvasId);
         //}
-        protected BasicView(Canvas parentCanvas, IContext context, string id)
+        protected BasicView(Canvas parentCanvas, IContext context, IdInfo id)
         {
             Flags = new List<IFlagView>();
             _id = id;
@@ -55,7 +55,7 @@ namespace SM.WpfView
         public abstract void Update();
 
         public IContext Context;// { get { return _parentView.Context; } }
-        public string Id
+        public IdInfo Id
         {
             get
             {

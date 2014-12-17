@@ -20,7 +20,7 @@ namespace SM.Farseer
                 return new rotoTranslation(new float2(q.X, q.Y), Body.Rotation);
             }
         }
-        public string Id { get { return (string)Body.UserData; } }
+        public IdInfo Id { get { return (IdInfo)Body.UserData; } }
 
         protected PolygonShape getPolygon(PolygonMaterial shape)
         {

@@ -15,23 +15,23 @@ namespace SM.Farseer
         RopeJoint _joint;
         IRopeJoint _ropeJoint;
         protected World _world;
-        protected string _id;
+        protected IdInfo _id;
 
         protected FlagInfo _flagA;
         protected FlagInfo _flagB;
 
-        public RopeJointMaterial(World world, JointInfo jointInfo, Info info)
+        public RopeJointMaterial(World world, RopeJointInfo jointInfo, Info info)
         {
             _world = world;
-            _ropeJoint = jointInfo.Joint as IRopeJoint;
-            var targetNameA = _ropeJoint.TargetFlagIdA;
-            var targetNameB = _ropeJoint.TargetFlagIdB;
-            _flagA = info.FindFlag(targetNameA);
-            _flagB = info.FindFlag(targetNameB);
+            //_ropeJoint = jointInfo.Joint as IRopeJoint;
+            var targetNameA = jointInfo.FlagA.Id;
+            var targetNameB = jointInfo.FlagB.Id;
+        //    _flagA = info.FindFlag(targetNameA);
+        //    _flagB = info.FindFlag(targetNameB);
             _id = jointInfo.Id;
         }
 
-        private Vector2 get(BasicManager basicManager, string name)
+        private Vector2 get(BasicManager basicManager, IdInfo name)
         {
             var flag = basicManager.FindObject<IFlag>(name);
             return new Vector2(flag.X, flag.Y);
@@ -39,9 +39,9 @@ namespace SM.Farseer
 
         public void Finalize(Materials material)
         {
-            _joint = JointFactory.CreateRopeJoint(_world, (Body)material.Find<BodyMaterial>(_flagA.ParentId).Object, (Body)material.Find<BodyMaterial>(_flagB.ParentId).Object, _flagA.P.ToFarseer(), _flagB.P.ToFarseer());
+       //    _joint = JointFactory.CreateRopeJoint(_world, (Body)material.Find<BodyMaterial>(_flagA.ParentId).Object, (Body)material.Find<BodyMaterial>(_flagB.ParentId).Object, _flagA.P.ToFarseer(), _flagB.P.ToFarseer());
 
-            _joint.CollideConnected = _ropeJoint.CollideConnected;
+       //    _joint.CollideConnected = _ropeJoint.CollideConnected;
         }
 
         public float MaxLength
@@ -78,7 +78,7 @@ namespace SM.Farseer
             }
         }
 
-        public string Id
+        public IdInfo Id
         {
             get
             {

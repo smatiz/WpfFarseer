@@ -1,4 +1,5 @@
-﻿using SM;
+﻿using FarseerPhysics.Dynamics.Joints;
+using SM;
 using SM.Farseer;
 using System;
 using System.Collections.Generic;
@@ -26,9 +27,11 @@ namespace WpfFarseer
             _farseerPlayer.Ready += _farseerPlayer_Ready;
         }
 
-        void _farseerPlayer_Ready(FarseerWorldManager farseerWorldManager)
+        void _farseerPlayer_Ready(FarseerWorldManager farseer)
         {
-            farseerWorldManager.AddViewBehaviour(new ShortTheRopeBehaviour());
+            farseer.AddViewBehaviour(new ShortTheRopeBehaviour(farseer.FindObject<RopeJoint>("jointC")));
+
+            //farseer.AddViewBehaviour(new ShortTheRopeBehaviour(farseer.jointC));
         }
     }
 }

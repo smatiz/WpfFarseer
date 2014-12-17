@@ -8,6 +8,14 @@ namespace SM
 {
     public class JointInfo 
     {
-        public IJoint Joint { get; set; }
+        public IdInfo Id { get; set; }
+        //public IJoint Joint { get; set; }
+    }
+
+    public class RopeJointInfo : JointInfo
+    {
+        public FlagInfo FlagA { get; set; }
+        public FlagInfo FlagB { get; set; }
+        
     }
 }

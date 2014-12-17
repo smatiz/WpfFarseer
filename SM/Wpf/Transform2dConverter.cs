@@ -182,6 +182,10 @@ namespace SM
         }
     }
 
+
+
+
+
     public abstract class BasicTransformationConverter : TypeConverter
     {
         Type _t;
@@ -219,7 +223,7 @@ namespace SM
             {
                 try
                 {
-                    return Transform2dString.GetRotoTranslation(value as string);
+                    return Get(value as string);
                 }
                 catch (Exception ex)
                 {

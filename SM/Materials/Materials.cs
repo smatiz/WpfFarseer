@@ -68,7 +68,7 @@ namespace SM
             }
         }
 
-        public object Find(string id) 
+        public object Find(IdInfo id) 
         {
             checkForBrokenBodies();
             foreach (var x in Bodies)
@@ -95,7 +95,7 @@ namespace SM
             return null;
         }
 
-        public T Find<T>(string name) where T : class
+        public T Find<T>(IdInfo name) where T : class
         {
             var y = Find(name);
             if (y == null) return null;

@@ -11,19 +11,23 @@ namespace SM.Farseer
 {
     public class ShortTheRopeBehaviour : IBehaviourView
     {
-        RopeJoint jointC;
+        RopeJoint _jointC;
 
         public IEnumerator<BasicCoroutine> Start(BasicManager farseerWorld)
         {
-            jointC = farseerWorld.FindObject<RopeJoint>("jointC");
             return null;
         }
 
         public IEnumerator<BasicCoroutine> Update()
         {
             yield return new WaitSecondsCoroutine(5);
-            jointC.MaxLength *= 0.4f;
+            _jointC.MaxLength *= 0.4f;
         }
 
+
+        public ShortTheRopeBehaviour(RopeJoint jointC)
+        {
+            _jointC = jointC;
+        }
     }
 }

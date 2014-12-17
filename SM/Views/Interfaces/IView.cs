@@ -8,7 +8,7 @@ namespace SM
 {
     public interface IView
     {
-        string Id { get; }
+        IdInfo Id { get; }
         void Update();
         List<IFlagView> Flags { get; }
     }

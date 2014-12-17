@@ -77,7 +77,7 @@ namespace SM
             bodyPiecesSynchronizers = _bodyPiecesSynchronizers;
             return _status == Status.Broken;
         }
-        public string Id
+        public IdInfo Id
         {
             get
             {

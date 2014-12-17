@@ -8,7 +8,6 @@ namespace SM
 {
     public interface IFlaggable 
     {
-        string Id { get; }
         List<IFlag> Flags { get; }
     }
 }

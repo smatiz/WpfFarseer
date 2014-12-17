@@ -27,7 +27,7 @@ namespace SM
             _bodyView.RotoTranslation = _rotoTranslationMem;
             _bodyView.Update();
         }
-        public string Id
+        public IdInfo Id
         {
             get
             {

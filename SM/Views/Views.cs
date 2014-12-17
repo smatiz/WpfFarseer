@@ -39,7 +39,7 @@ namespace SM
             Joints = joints;
         }
 
-        public IFlagView FindFlag(string id)
+        public IFlagView FindFlag(IdInfo id)
         {
             foreach (var x in Bodies)
             {

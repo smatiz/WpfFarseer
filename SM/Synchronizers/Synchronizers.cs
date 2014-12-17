@@ -21,11 +21,11 @@ namespace SM
             }
         }
 
-        public T Find<T>(string name) where T : class
+        public T Find<T>(IdInfo name) where T : class
         {
             return _materials.Find<T>(name);
         }
-        public object Find(string name) 
+        public object Find(IdInfo name) 
         {
             return _materials.Find(name);
         }

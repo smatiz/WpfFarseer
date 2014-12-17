@@ -8,7 +8,6 @@ namespace SM
 {
     public interface IBody : IEntity, ITransformable, IFlaggable
     {
-        List<IFlag> Flags { get; }
         BodyType BodyType { get; }
         List<IShape> Shapes { get; }
     }

@@ -33,7 +33,7 @@ namespace SM
             _jointView.Update();
         }
 
-        public string Id
+        public IdInfo Id
         {
             get
             {

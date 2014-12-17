@@ -8,7 +8,7 @@ namespace SM
 {
     public class FlagInfo 
     {
-        public string Id { get; set; }
+        public IdInfo Id { get; set; }
         public float2 P { get; set; }
     }
 }

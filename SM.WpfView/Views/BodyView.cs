@@ -30,7 +30,7 @@ namespace SM.WpfView
         //private List<FlagView> _flags = new List<FlagView>();
 
         // break constructor
-        private BodyView(Canvas parentCanvas, BodyView bodyView, string id, PolygonShapeView shape)
+        private BodyView(Canvas parentCanvas, BodyView bodyView, IdInfo id, PolygonShapeView shape)
             : base( parentCanvas,bodyView.Context, id)
         {
             BodyType = SM.BodyType.Dynamic;
@@ -38,7 +38,7 @@ namespace SM.WpfView
             Shapes = new List<BasicShapeView>() { shape };
             _canvas = new Canvas();
         }
-        protected static BodyView Create(Canvas parentCanvas, BodyView bodyView, string id, PolygonShapeView shape) { return new BodyView(parentCanvas, bodyView, id, shape); }
+        protected static BodyView Create(Canvas parentCanvas, BodyView bodyView, IdInfo id, PolygonShapeView shape) { return new BodyView(parentCanvas, bodyView, id, shape); }
 
         internal BodyView(Canvas parentCanvas, IContext context, BodyInfo bodyInfo, IShapeViewCreator shapeCreator)
             : base( parentCanvas,context, bodyInfo.Id)

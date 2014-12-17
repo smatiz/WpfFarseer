@@ -19,7 +19,7 @@ namespace SM.WpfView
 {
     public class FlagView : IFlagView
     {
-        public string Id 
+        public IdInfo Id 
         { 
             get
             {

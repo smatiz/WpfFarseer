@@ -38,11 +38,11 @@ namespace SM
         //    return _synchronizers.FindObject(name);
         //}
 
-        public object FindObject(string name) 
+        public object FindObject(IdInfo name) 
         {
             return ((IMaterial)_synchronizers.Find(name)).Object;
         }
-        public T FindObject<T>(string name) where T : class
+        public T FindObject<T>(IdInfo name) where T : class
         {
             return (T)FindObject(name);
         }

@@ -8,7 +8,7 @@ namespace SM
 {
     public interface ISynchronizer 
     {
-        string Id { get; }
+        IdInfo Id { get; }
         void UpdateMaterial();
         void UpdateView();
         object Object { get; }
