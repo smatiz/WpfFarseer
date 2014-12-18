@@ -27,7 +27,7 @@ namespace SM.WpfView
         protected TranslateTransform _traslation = new TranslateTransform();
 
         private BodyInfo _bodyInfo;
-        //private List<FlagView> _flags = new List<FlagView>();
+        private List<FlagView> _flags = new List<FlagView>();
 
         // break constructor
         private BodyView(Canvas parentCanvas, BodyView bodyView, IdInfo id, PolygonShapeView shape)
@@ -45,14 +45,14 @@ namespace SM.WpfView
         {
             _bodyInfo = bodyInfo;
 
-            BodyType = bodyInfo.BodyType;
-            Shapes = shapeCreator.Create(bodyInfo.Shapes, Context, bodyInfo.Transform.Scale);
+            BodyType = bodyInfo.Body.BodyType;
+            Shapes = shapeCreator.Create(bodyInfo.Body.Shapes, Context, bodyInfo.Transform.Scale);
 
             RotoTranslation = bodyInfo.Transform.RotoTranslation;
             _canvas = new Canvas();
-            foreach (var flag in _bodyInfo.Flags)
+            foreach (var flag in _bodyInfo.Body.Flags)
             {
-                Flags.Add(new FlagView(Context, _canvas, flag));
+                _flags.Add(new FlagView(Context, _canvas, flag));
             }
         }
 

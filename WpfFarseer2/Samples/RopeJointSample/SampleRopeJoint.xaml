@@ -22,7 +22,7 @@
                             <sm:Flag Id="x" X="10" Y="6"/>
                         </sm:Body.Flags>
                     </sm:Body>
-                    <sm:RopeJointControl Id="jointC" TargetFlagIdA="x" TargetFlagIdB="y" />
+                <sm:RopeJointControl Id="jointC" TargetFlagIdA="fallingBody.x" TargetFlagIdB="b2.y" />
 
                 </sm:Farseer>
         </sm:FarseerPlayerControl>

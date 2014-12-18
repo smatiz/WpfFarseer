@@ -23,11 +23,11 @@ namespace SM.Farseer
         public RopeJointMaterial(World world, JointInfo jointInfo, Info info)
         {
             _world = world;
-            //_ropeJoint = jointInfo.Joint as IRopeJoint;
+            _ropeJoint = jointInfo.Joint as IRopeJoint;
             var targetNameA = _ropeJoint.TargetFlagIdA;
             var targetNameB = _ropeJoint.TargetFlagIdB;
-        //    _flagA = info.FindFlag(targetNameA);
-        //    _flagB = info.FindFlag(targetNameB);
+             _flagA = info.FindFlag(targetNameA);
+             _flagB = info.FindFlag(targetNameB);
             _id = jointInfo.Id;
         }
 
@@ -37,11 +37,17 @@ namespace SM.Farseer
             return new Vector2(flag.X, flag.Y);
         }
 
+        Vector2 ToFarseer(FlagInfo f)
+        {
+            return new Vector2(f.Flag.X, f.Flag.Y);
+        }
+
+
         public void Finalize(Materials material)
         {
-       //    _joint = JointFactory.CreateRopeJoint(_world, (Body)material.Find<BodyMaterial>(_flagA.ParentId).Object, (Body)material.Find<BodyMaterial>(_flagB.ParentId).Object, _flagA.P.ToFarseer(), _flagB.P.ToFarseer());
+            _joint = JointFactory.CreateRopeJoint(_world, (Body)material.Find<BodyMaterial>(_flagA.Id.Parent).Object, (Body)material.Find<BodyMaterial>(_flagB.Id.Parent).Object, ToFarseer(_flagA), ToFarseer(_flagB));
 
-       //    _joint.CollideConnected = _ropeJoint.CollideConnected;
+           _joint.CollideConnected = _ropeJoint.CollideConnected;
         }
 
         public float MaxLength

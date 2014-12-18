@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace SM
 {
-    public interface IFlagView
-    {
-        float2 P { get; }
-        IdInfo Id { get; }
-    }
+    //public interface IFlagView
+    //{
+    //    float2 P { get; }
+    //    IdInfo Id { get; }
+    //}
 }

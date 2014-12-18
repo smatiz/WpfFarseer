@@ -27,7 +27,7 @@ namespace SM.Farseer
             _body = BodyFactory.CreateBody(world);
             _body.UserData = bodyInfo.Id;
             CodeGenerator.AddCode("Body {0} = BodyFactory.CreateBody(W);", _body.n());
-            _body.BodyType = (FarseerPhysics.Dynamics.BodyType)bodyInfo.BodyType;
+            _body.BodyType = (FarseerPhysics.Dynamics.BodyType)bodyInfo.Body.BodyType;
             CodeGenerator.AddCode(@"{0}.UserData = ""{1}"";", _body.n(), _body.UserData);
             CodeGenerator.AddCode("{0}.BodyType = BodyType.{1};", _body.n(), _body.BodyType.ToString());
             _body.Position = new Vector2(bodyInfo.Transform.RotoTranslation.Translation.X, bodyInfo.Transform.RotoTranslation.Translation.Y);
@@ -35,7 +35,7 @@ namespace SM.Farseer
             _body.Rotation = bodyInfo.Transform.RotoTranslation.Angle;
             CodeGenerator.AddCode("{0}.Rotation = {1}f;", _body.n(), bodyInfo.Transform.RotoTranslation.Angle);
 
-            var materialShape = shapeCreator.Create(bodyInfo.Shapes, bodyInfo.Transform.Scale);
+            var materialShape = shapeCreator.Create(bodyInfo.Body.Shapes, bodyInfo.Transform.Scale);
 
             foreach (var shape in materialShape.Polygons)
             {

@@ -17,7 +17,7 @@ namespace SM.Farseer
 
         public IMaterial Create(BodyInfo body, IShapeMaterialCreator shapeCreator)
         {
-            if (body.BodyType == BodyType.Breakable)
+            if (body.Body.BodyType == BodyType.Breakable)
             {
                 return new BreakableBodyMaterial(_world, body, shapeCreator);
             }

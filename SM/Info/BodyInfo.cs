@@ -9,10 +9,13 @@ namespace SM
     public class BodyInfo
     {
         public IdInfo Id { get; set; }
-        public IEnumerable<IShape> Shapes { get; set; }
-        public IEnumerable<IFlag> Flags { get; set; }
-
         public transform2d Transform { get; set; }
-        public BodyType BodyType { get; set; }
+        public IBody Body { get; set; }
+
+
+        //public IEnumerable<IShape> Shapes { get; set; }
+        //public IEnumerable<IFlag> Flags { get; set; }
+
+        //public BodyType BodyType { get; set; }
     }
 }

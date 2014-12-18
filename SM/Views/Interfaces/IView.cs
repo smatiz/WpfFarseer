@@ -10,6 +10,6 @@ namespace SM
     {
         IdInfo Id { get; }
         void Update();
-        List<IFlagView> Flags { get; }
+        //List<IFlagView> Flags { get; }
     }
 }

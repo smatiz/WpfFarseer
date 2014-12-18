@@ -27,7 +27,7 @@ namespace SM.Farseer
 
         public BreakableBodyMaterial(World world, BodyInfo bodyInfo, IShapeMaterialCreator shapeCreator)
         {
-            var materialShape = shapeCreator.Create(bodyInfo.Shapes, bodyInfo.Transform.Scale);
+            var materialShape = shapeCreator.Create(bodyInfo.Body.Shapes, bodyInfo.Transform.Scale);
             IEnumerable<Shape> allShapes = materialShape.Circles.Select(c => getCircle(c)).Concat<Shape>(materialShape.Polygons.Select(p => getPolygon(p)));
 
             _breakableBody = BodyFactory.CreateBreakableBody(world, allShapes);

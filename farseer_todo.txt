@@ -45,4 +45,32 @@ gli id mi servono per
 - avere un nome univoco nel codeGenerator 
 - trovare l'elemento con il mouse
 
-BasicContainer non deve contenere tutto quel codice che non dipende da wpf/xaml deve stare in SM.dll
+*** BasicContainer non deve contenere tutto quel codice che non dipende da wpf/xaml deve stare in SM.dll
+
+
+CAPIRE LE STRUCT
+CAPIRE LE STRUCT
+CAPIRE LE STRUCT
+CAPIRE LE STRUCT
+CAPIRE LE STRUCT
+CAPIRE LE STRUCT
+CAPIRE LE STRUCT
+CAPIRE LE STRUCT
+CAPIRE LE STRUCT
+CAPIRE LE STRUCT
+CAPIRE LE STRUCT
+CAPIRE LE STRUCT
+CAPIRE LE STRUCT
+CAPIRE LE STRUCT
+CAPIRE LE STRUCT
+CAPIRE LE STRUCT
+CAPIRE LE STRUCT
+CAPIRE LE STRUCT
+CAPIRE LE STRUCT
+CAPIRE LE STRUCT
+CAPIRE LE STRUCT
+CAPIRE LE STRUCT
+CAPIRE LE STRUCT
+CAPIRE LE STRUCT
+
+IdInfo deve essere una struct ?

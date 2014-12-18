@@ -14,7 +14,7 @@ namespace SM.WpfView
         private IdInfo _id;
         private CanvasId _canvasId;
 
-        public List<IFlagView> Flags { get; private set; }
+        //public List<IFlagView> Flags { get; private set; }
 
         protected void AddChild(Canvas canvas)
         {
@@ -33,7 +33,7 @@ namespace SM.WpfView
         //}
         protected BasicView(Canvas parentCanvas, IContext context, IdInfo id)
         {
-            Flags = new List<IFlagView>();
+            //Flags = new List<IFlagView>();
             _id = id;
             _canvasId = new CanvasId();
             Context = context;

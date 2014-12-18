@@ -14,7 +14,7 @@ namespace SM
 {
     public class Info //: BasicInfo
     {
-        public IEnumerable<FlagInfo> Flags { get { return _flags; } }
+        //public IEnumerable<FlagInfo> Flags { get { return _flags; } }
         public IEnumerable<BodyInfo> Bodies { get { return _bodies; } }
         public IEnumerable<JointInfo> Joints { get { return _joints; } }
         
@@ -45,8 +45,6 @@ namespace SM
                 {
                     scan(childDescriptor, currentTransform, currentId);
                 }
-
-                return;
             }
 
             var entity = descriptor as IEntity;
@@ -59,12 +57,12 @@ namespace SM
                     _bodies.Add(new BodyInfo()
                     {
                         Id = currentId + body.Id,
-                        BodyType = body.BodyType,
+                        //BodyType = body.BodyType,
                         Transform = currentTransform * body.Transform,
-                        Flags = body.Flags,
-                        Shapes = body.Shapes
+                        Body = body,
+                        //Flags = body.Flags,
+                        //Shapes = body.Shapes
                     });
-                    return;
                 }
 
                 var joint = entity as IRopeJoint;
@@ -73,21 +71,25 @@ namespace SM
                     _joints.Add(new JointInfo()
                     {
                         Id = currentId + joint.Id,
-                        //Joint = joint
+                        Joint = joint
                     });
-                    return;
                 }
 
-                var flag = entity as IFlag;
-                if (flag != null)
+                var flaggable = entity as IFlaggable;
+                if (flaggable != null)
                 {
-                    _flags.Add(new FlagInfo()
+                    var identifiable = entity as IIdentifiable;
+                    foreach (var flag in flaggable.Flags)
                     {
-                        Id = currentId + flag.Id,
-                        P = (currentTransform * body.Transform).RotoTranslation.Translation,
-                    });
-                    return;
+                        _flags.Add(new FlagInfo()
+                        {
+                            Id = (IdInfo)entity.Id + (IdInfo)flag.Id,
+                            Flag = flag,
+                        });
+                    }
                 }
+                    
+
             }
 
         }
@@ -130,17 +132,17 @@ namespace SM
 
 
 
-        //public FlagInfo FindFlag(string name)
-        //{
-        //    foreach (var f in Flags)
-        //    {
-        //        if (f.Id == name)
-        //        {
-        //            return f;
-        //        }
-        //    }
-        //    return null;
-        //}
+        public FlagInfo FindFlag(string name)
+        {
+            foreach (var f in _flags)
+            {
+                if (f.Id == name)
+                {
+                    return f;
+                }
+            }
+            return null;
+        }
     }
 
 

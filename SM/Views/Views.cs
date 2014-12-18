@@ -12,11 +12,14 @@ namespace SM
         public IEnumerable<IBreakableBodyView> BreakableBodies { get; private set; }
         public IEnumerable<IJointView> Joints { get; private set; }
 
-
+        Info _info;
         public Views(IViewCreator viewCreator, IShapeViewCreator shapeCreator, Info info)
         {
+
+            _info = info;
+
             var bodies = new List<IBodyView>();
-            foreach (var b in info.Bodies.Where(b => b.BodyType != BodyType.Breakable))
+            foreach (var b in info.Bodies.Where(b => b.Body.BodyType != BodyType.Breakable))
             {
                 var bv = viewCreator.CreateBody(b, shapeCreator);
                 bodies.Add(bv);
@@ -24,7 +27,7 @@ namespace SM
             Bodies = bodies;
 
             var breakableBodies = new List<IBreakableBodyView>();
-            foreach (var b in info.Bodies.Where(b => b.BodyType == BodyType.Breakable))
+            foreach (var b in info.Bodies.Where(b => b.Body.BodyType == BodyType.Breakable))
             {
                 breakableBodies.Add(viewCreator.CreateBreakableBody(b, shapeCreator));
             }
@@ -39,42 +42,43 @@ namespace SM
             Joints = joints;
         }
 
-        public IFlagView FindFlag(IdInfo id)
+        public FlagInfo FindFlag(string id)
         {
-            foreach (var x in Bodies)
-            {
-                foreach (var y in x.Flags)
-                {
-                    if (y.Id == id)
-                    {
-                        return y;
-                    }
-                }
-            }
-            foreach (var x in BreakableBodies)
-            {
-                foreach (var y in x.Flags)
-                {
-                    if (y.Id == id)
-                    {
-                        return y;
-                    }
-                }
-            }
-            if (Joints != null)
-            {
-                foreach (var x in Joints)
-                {
-                    foreach (var y in x.Flags)
-                    {
-                        if (y.Id == id)
-                        {
-                            return y;
-                        }
-                    }
-                }
-            }
-            return null;
+            return _info.FindFlag(id);
+            //foreach (var x in Bodies)
+            //{
+            //    foreach (var y in x.Flags)
+            //    {
+            //        if (y.Id == id)
+            //        {
+            //            return y;
+            //        }
+            //    }
+            //}
+            //foreach (var x in BreakableBodies)
+            //{
+            //    foreach (var y in x.Flags)
+            //    {
+            //        if (y.Id == id)
+            //        {
+            //            return y;
+            //        }
+            //    }
+            //}
+            //if (Joints != null)
+            //{
+            //    foreach (var x in Joints)
+            //    {
+            //        foreach (var y in x.Flags)
+            //        {
+            //            if (y.Id == id)
+            //            {
+            //                return y;
+            //            }
+            //        }
+            //    }
+            //}
+            //return null;
         }
 
     }
