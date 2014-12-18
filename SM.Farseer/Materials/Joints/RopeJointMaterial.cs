@@ -20,12 +20,12 @@ namespace SM.Farseer
         protected FlagInfo _flagA;
         protected FlagInfo _flagB;
 
-        public RopeJointMaterial(World world, RopeJointInfo jointInfo, Info info)
+        public RopeJointMaterial(World world, JointInfo jointInfo, Info info)
         {
             _world = world;
             //_ropeJoint = jointInfo.Joint as IRopeJoint;
-            var targetNameA = jointInfo.FlagA.Id;
-            var targetNameB = jointInfo.FlagB.Id;
+            var targetNameA = _ropeJoint.TargetFlagIdA;
+            var targetNameB = _ropeJoint.TargetFlagIdB;
         //    _flagA = info.FindFlag(targetNameA);
         //    _flagB = info.FindFlag(targetNameB);
             _id = jointInfo.Id;

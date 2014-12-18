@@ -27,22 +27,12 @@ namespace SM.Farseer
             }
         }
 
-        //public IJointMaterial Create(JointInfo joint, Info info)
-        //{
-        //    if(joint.Joint is IRopeJoint)
-        //    {
-        //        return new RopeJointMaterial(_world, joint, info);
-        //    }
-
-        //    return null;
-        //}
-
         public IJointMaterial Create(JointInfo joint, Info info)
         {
-            //if (joint.Joint is IRopeJoint)
-            //{
-            //    return new RopeJointMaterial(_world, joint, info);
-            //}
+            if(joint.Joint is IRopeJoint)
+            {
+                return new RopeJointMaterial(_world, joint, info);
+            }
 
             return null;
         }
