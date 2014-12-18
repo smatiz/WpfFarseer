@@ -47,6 +47,7 @@ namespace SM
             }
             return new IdInfo();
         }
+        
         public static bool operator ==(IdInfo idinfo1, IdInfo idinfo2)
         {
             return idinfo1.Equals(idinfo2);

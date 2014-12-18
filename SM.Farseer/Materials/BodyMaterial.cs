@@ -49,7 +49,7 @@ namespace SM.Farseer
         public BodyMaterial(Body body, string id)
         {
             _body = body;
-            _body.UserData = id;
+            _body.UserData = (IdInfo)id;
             _body.BodyType = FarseerPhysics.Dynamics.BodyType.Dynamic;
             CodeGenerator.AddCode("{0}.UserData = {1};", _body.n(), _body.UserData);
             CodeGenerator.AddCode("{0}.BodyType = FarseerPhysics.Dynamics.BodyType.Dynamic;", _body.n());

@@ -15,7 +15,6 @@ namespace SM.Farseer
     {
         private BreakableBody _breakableBody;
         IEnumerable<BodyPieceMaterial> _pieces;
-
         protected override Body Body
         {
             get
@@ -23,8 +22,6 @@ namespace SM.Farseer
                 return _breakableBody.MainBody;
             }
         }
-
-
         public BreakableBodyMaterial(World world, BodyInfo bodyInfo, IShapeMaterialCreator shapeCreator)
         {
             var materialShape = shapeCreator.Create(bodyInfo.Body.Shapes, bodyInfo.Transform.Scale);
@@ -39,7 +36,6 @@ namespace SM.Farseer
             Body.Rotation = bodyInfo.Transform.RotoTranslation.Angle;
             CodeGenerator.AddCode("{0}.Angle = {1};", Body.n(), bodyInfo.Transform.RotoTranslation.Angle);
         }
-
         public virtual object Object { get { return _breakableBody; } }
         public bool IsBroken
         {
@@ -48,7 +44,6 @@ namespace SM.Farseer
                 return _breakableBody.Broken;
             }
         }
-
         private List<BodyPieceMaterial> getPieces()
         {
             var result = new List<BodyPieceMaterial>();
@@ -64,8 +59,6 @@ namespace SM.Farseer
             }
             return result;
         }
-
-
         public IEnumerable<BodyPieceMaterial> GetPieces()
         {
             if(_pieces == null)

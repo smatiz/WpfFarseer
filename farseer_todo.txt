@@ -23,17 +23,22 @@
 * IDEARE UN OGGETTO (CONTEXT??) DEDICATO PER LA RICERCA DI ELEMENTI Find e Find<T> vedi RopeJointMaterial dove c'e' sia INFO che BASICMANAGER
 * BUG : NON TROVA PIU I PEZZI DI UN BREAKABLEBODY (colpa dei cambiamenti sul metodo Find<T> )
 
-*** BasicContainer non deve contenere tutto quel codice che non dipende da wpf/xaml deve stare in SM.dll
-
-come gestire gli id degli usercontrol
-vedere di fare in modo che l'aggiornamento dei xaml stringa sia immediato
-finire layerTemplate
+* BasicContainer non deve contenere tutto quel codice che non dipende da wpf/xaml deve stare in SM.dll
+* come gestire gli id degli usercontrol
 
 
 fare piu unit test
+finire layerTemplate
+vedere di fare in modo che l'aggiornamento dei xaml stringa sia immediato
+finire di sistemare i joint con T4 e refactoring
+
+
+
+
+
+
 code generator va isolato ?
 
-finire di sistemare i joint con T4 e refactoring
 
 UML/MIND MAP
 USERCONTROL
@@ -42,6 +47,8 @@ RIORDINare flagInfo e FlagView, Joint e FindFlag ecc
 e' giusto restituire tutto FarseerWorldManager nell'evento REady del FarseerPlayerControl?
 vedere con snoop e wpf inspector che il tree visual e logical siano corretti
 
+transformare IdInfo per accettare anche indici
+IdInfo e la dinamicita non gestisce il breaking
 
 ------------------------------------------------------
 gli id mi servono per 
