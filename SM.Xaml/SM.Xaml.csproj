@@ -89,7 +89,6 @@
     <Compile Include="Shapes\Ellipse.cs" />
     <Compile Include="Shapes\BasicShape.cs" />
     <Compile Include="Shapes\SkinnedShape.cs" />
-    <Compile Include="User.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SM.Wpf\SM.Wpf.csproj">

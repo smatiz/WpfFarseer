@@ -56,3 +56,4 @@ using System.Windows.Markup;
 [assembly: AssemblyFileVersion("1.0.0.0")]
 
 [assembly: XmlnsDefinition("sm:farseer", "SM.WpfFarseer")]
+[assembly: XmlnsDefinition("sm:farseer", "SM.Xaml")]

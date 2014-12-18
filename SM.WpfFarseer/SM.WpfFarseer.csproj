@@ -122,6 +122,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="User.cs" />
     <Compile Include="XamlShapeMaterialCreator.cs" />
     <Compile Include="WpfDebugView.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">

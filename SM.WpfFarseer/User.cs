@@ -22,21 +22,14 @@ using SM.Wpf;
 
 namespace SM.Xaml
 {
-    //[ContentPropertyAttribute("Descriptors")]
+    public class DesignerCanvas : Canvas, IDescriptor
+    {
+
+    }
+
+
     public class User : Layer, IIdentifiable
     {
-        //static Dictionary<User, string> _idsMap = new Dictionary<User, string>();
-        //static User()
-        //{
-        //    _idsMap.Add(null, null);
-        //}
-        //public static bool IdsAreValid
-        //{
-        //    get
-        //    {
-        //        return _idsMap.Values.Distinct().Count() == _idsMap.Values.Count;
-        //    }
-        //}
         string _id;
         public string Id 
         {
@@ -49,20 +42,9 @@ namespace SM.Xaml
                 if (_id != value)
                 {
                     _id = value;
-                    //_idsMap[this] = value;
                 }
             }
         }
-
-        //public User()
-        //{
-        //    _idsMap.Add(this, null);
-        //}
-        //~User()
-        //{
-        //    _idsMap.Remove(this);
-        //}
-
 
         public float DesignZoom
         {
@@ -71,5 +53,29 @@ namespace SM.Xaml
         }
         public static readonly DependencyProperty DesignZoomProperty =
             DependencyProperty.Register("DesignZoom", typeof(float), typeof(User), new PropertyMetadata(1f));
+
+        public User()
+        {
+            //if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
+            {
+                Loaded += User_Loaded;
+            }
+        }
+
+        Info _farseerInfo;
+        Views _farseerViews;
+        bool oneTimeCalled;
+        void User_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (oneTimeCalled) return;
+            oneTimeCalled = true;
+            var _context = new Context(DesignZoom);
+
+            var canvas = new DesignerCanvas();
+            canvas.Name = "cccc";
+            Children.Add(canvas);
+
+            SM.WpfView.Helper.LoadFarseer(this, canvas, _context, out _farseerInfo, out _farseerViews);
+        }
     }
 }

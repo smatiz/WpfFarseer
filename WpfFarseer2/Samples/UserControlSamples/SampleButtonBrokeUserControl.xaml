@@ -11,7 +11,7 @@
         <sm:FarseerPlayerControl x:Name="_farseerPlayer" InDebug="True">
                 <sm:Farseer>
                     <l:MyFirstFarseerUserControl Transform="0,0"></l:MyFirstFarseerUserControl>
-                    <l:MyFirstFarseerUserControl Transform="100,0,23"></l:MyFirstFarseerUserControl>
+                    <l:MyFirstFarseerUserControl Transform="200,0,23"></l:MyFirstFarseerUserControl>
                 </sm:Farseer>
         </sm:FarseerPlayerControl>
     </Grid>

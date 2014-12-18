@@ -170,7 +170,7 @@
     <Compile Include="InfoTreeView.xaml.cs">
       <DependentUpon>InfoTreeView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MyFirstFarseerUserControl.xaml.cs">
+    <Compile Include="Samples\UserControlSamples\MyFirstFarseerUserControl.xaml.cs">
       <DependentUpon>MyFirstFarseerUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\SampleLayerTemplate.xaml.cs">
@@ -205,7 +205,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MyFirstFarseerUserControl.xaml">
+    <Page Include="Samples\UserControlSamples\MyFirstFarseerUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -232,7 +232,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Pig.xaml">
+    <Page Include="Samples\BrokeSamples\Pig.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -278,7 +278,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Pig.xaml.cs">
+    <Compile Include="Samples\BrokeSamples\Pig.xaml.cs">
       <DependentUpon>Pig.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">

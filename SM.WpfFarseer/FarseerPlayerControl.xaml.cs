@@ -110,7 +110,7 @@ namespace SM.WpfFarseer
             // Synchronizers e' la struttura agnostica per tenere sincronizzato views e materials
             var synchronizers = new Synchronizers(_farseerViews, materials);
 
-            _worldManager = new FarseerWorldManager(Id, synchronizers,  _farseerInfo,new WatchView(), world);
+            _worldManager = new FarseerWorldManager(Id, synchronizers, _farseerInfo, new WatchView(), world);
 
             _stepControl.DataContext = new StepViewModel(_worldManager);
 
@@ -120,11 +120,14 @@ namespace SM.WpfFarseer
                 var debugCanvas = new Canvas();
                 debugCanvas.IsHitTestVisible = false;
                 var debugTextBlock = new TextBlock();
-                debugCanvas.Children.Add(debugTextBlock);
+                debugTextBlock.IsHitTestVisible = false;
+                debugTextBlock.Name = "debugTextBlock";
+                _farseerContainer.Children.Add(debugTextBlock);
                 debugCanvas.Width = Width;
                 debugCanvas.Height = Height;
                 _farseerContainer.Children.Add(debugCanvas);
                 var debugView = new DebugViewWPF(debugCanvas, debugTextBlock, _worldManager.World);
+                debugView.Flags = debugView.Flags | DebugViewFlags.DebugPanel;
                 debugView.ScaleTransform = new ScaleTransform(Zoom, Zoom);
                 var timer = new DispatcherTimer(DispatcherPriority.Render);
                 timer.Interval = TimeSpan.FromMilliseconds(300);
@@ -136,15 +139,11 @@ namespace SM.WpfFarseer
                 timer.Start();
             }
 #endif
+            MouseDown += Farseer_MouseDown;
+            MouseUp += Farseer_MouseUp;
+            MouseMove += Farseer_MouseMove;
 
-            //else if (MouseEnabled)
-            {
-                MouseDown += Farseer_MouseDown;
-                MouseUp += Farseer_MouseUp;
-                MouseMove += Farseer_MouseMove;
-            }
-
-            if(Ready != null)
+            if (Ready != null)
             {
                 Ready(_worldManager);
             }
