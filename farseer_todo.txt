@@ -23,6 +23,8 @@
 * IDEARE UN OGGETTO (CONTEXT??) DEDICATO PER LA RICERCA DI ELEMENTI Find e Find<T> vedi RopeJointMaterial dove c'e' sia INFO che BASICMANAGER
 * BUG : NON TROVA PIU I PEZZI DI UN BREAKABLEBODY (colpa dei cambiamenti sul metodo Find<T> )
 
+*** BasicContainer non deve contenere tutto quel codice che non dipende da wpf/xaml deve stare in SM.dll
+
 come gestire gli id degli usercontrol
 vedere di fare in modo che l'aggiornamento dei xaml stringa sia immediato
 finire layerTemplate
@@ -40,37 +42,11 @@ RIORDINare flagInfo e FlagView, Joint e FindFlag ecc
 e' giusto restituire tutto FarseerWorldManager nell'evento REady del FarseerPlayerControl?
 vedere con snoop e wpf inspector che il tree visual e logical siano corretti
 
+
+------------------------------------------------------
 gli id mi servono per 
 - trovare l'elemento a codice (tipo unity 3d)
 - avere un nome univoco nel codeGenerator 
 - trovare l'elemento con il mouse
+------------------------------------------------------
 
-*** BasicContainer non deve contenere tutto quel codice che non dipende da wpf/xaml deve stare in SM.dll
-
-
-CAPIRE LE STRUCT
-CAPIRE LE STRUCT
-CAPIRE LE STRUCT
-CAPIRE LE STRUCT
-CAPIRE LE STRUCT
-CAPIRE LE STRUCT
-CAPIRE LE STRUCT
-CAPIRE LE STRUCT
-CAPIRE LE STRUCT
-CAPIRE LE STRUCT
-CAPIRE LE STRUCT
-CAPIRE LE STRUCT
-CAPIRE LE STRUCT
-CAPIRE LE STRUCT
-CAPIRE LE STRUCT
-CAPIRE LE STRUCT
-CAPIRE LE STRUCT
-CAPIRE LE STRUCT
-CAPIRE LE STRUCT
-CAPIRE LE STRUCT
-CAPIRE LE STRUCT
-CAPIRE LE STRUCT
-CAPIRE LE STRUCT
-CAPIRE LE STRUCT
-
-IdInfo deve essere una struct ?

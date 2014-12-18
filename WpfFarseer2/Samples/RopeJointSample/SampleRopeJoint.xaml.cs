@@ -29,9 +29,9 @@ namespace WpfFarseer
 
         void _farseerPlayer_Ready(FarseerWorldManager farseer)
         {
-            farseer.AddViewBehaviour(new ShortTheRopeBehaviour(farseer.FindObject<RopeJoint>("jointC")));
+            //farseer.AddViewBehaviour(new ShortTheRopeBehaviour(farseer.FindObject<RopeJoint>("jointC")));
 
-            //farseer.AddViewBehaviour(new ShortTheRopeBehaviour(farseer.jointC));
+            farseer.AddViewBehaviour(new ShortTheRopeBehaviour( farseer.Entity.jointC));
         }
     }
 }

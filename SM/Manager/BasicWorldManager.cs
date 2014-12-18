@@ -8,8 +8,8 @@ namespace SM
 {
     public abstract class BasicWorldManager : BasicManager
     {
-        public BasicWorldManager(Synchronizers synchronizers, IWatchView viewWatch)
-            : base(synchronizers,viewWatch)
+        public BasicWorldManager(Synchronizers synchronizers, Info info, IWatchView viewWatch)
+            : base(synchronizers, info, viewWatch)
         {
         }
     }

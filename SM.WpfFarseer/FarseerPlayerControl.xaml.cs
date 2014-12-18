@@ -110,7 +110,7 @@ namespace SM.WpfFarseer
             // Synchronizers e' la struttura agnostica per tenere sincronizzato views e materials
             var synchronizers = new Synchronizers(_farseerViews, materials);
 
-            _worldManager = new FarseerWorldManager(Id, synchronizers, new WatchView(), world);
+            _worldManager = new FarseerWorldManager(Id, synchronizers,  _farseerInfo,new WatchView(), world);
 
             _stepControl.DataContext = new StepViewModel(_worldManager);
 

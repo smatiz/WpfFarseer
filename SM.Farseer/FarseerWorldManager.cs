@@ -56,8 +56,8 @@ namespace SM.Farseer
 
         }
 
-        public FarseerWorldManager(string id, Synchronizers synchronizers, IWatchView viewWatch, World world)
-            : base(synchronizers, viewWatch)
+        public FarseerWorldManager(string id, Synchronizers synchronizers, Info info, IWatchView viewWatch, World world)
+            : base(synchronizers, info, viewWatch)
         {
             Id = id;
             _world = world;

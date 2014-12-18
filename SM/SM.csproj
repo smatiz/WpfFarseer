@@ -105,10 +105,12 @@
     <Compile Include="Descriptor\ContainerHelper.cs" />
     <Compile Include="Descriptor\Interfaces\IContainerId.cs" />
     <Compile Include="IdInfoConverter.cs" />
-    <Compile Include="Info\BasicInfo.cs" />
+    <Compile Include="Info\BasicExpando.cs" />
     <Compile Include="Info\IdInfo.cs" />
     <Compile Include="Info\BodyInfo.cs" />
     <Compile Include="Info\FlagInfo.cs" />
+    <Compile Include="Info\IdInfoExpando.cs" />
+    <Compile Include="Info\IdInfoTree.cs" />
     <Compile Include="Info\JointInfo.cs" />
     <Compile Include="Descriptor\Interfaces\ITransformable.cs" />
     <Compile Include="Descriptor\Interfaces\ITransformer.cs" />

@@ -11,6 +11,8 @@ namespace SM
         private WatchMaterial _materialWatch;
         private IWatchView _viewWatch;
 
+        public dynamic Entity;
+
         bool _started = false;
 
         private Synchronizers _synchronizers;
@@ -20,17 +22,19 @@ namespace SM
         private List<BasicCoroutine> _startCoroutine = new List<BasicCoroutine>();
         private List<BasicCoroutine> _updateCoroutine = new List<BasicCoroutine>();
 
-        public BasicManager(Views views, Materials materials, IWatchView viewWatch)
-            : this(new Synchronizers(views, materials), viewWatch)
-        {
-        }
+        //public BasicManager(Views views, Materials materials, IWatchView viewWatch)
+        //    : this(new Synchronizers(views, materials), viewWatch)
+        //{
+        //}
 
-        public BasicManager(Synchronizers synchronizers, IWatchView viewWatch)
+        public BasicManager(Synchronizers synchronizers, Info info, IWatchView viewWatch)
         {
             _synchronizers = synchronizers;
             _materialWatch = new WatchMaterial(() => updateMaterial());
             _viewWatch = viewWatch;
             _viewWatch.Callback = () => updateView();
+
+            Entity = new IdInfoExpando(info.IdInfos, (s) => ((IMaterial)_synchronizers.Find(s)).Object);
         }
 
         //public object FindObject(string name)

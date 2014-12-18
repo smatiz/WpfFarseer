@@ -143,6 +143,21 @@ namespace SM
             }
             return null;
         }
+
+        public IEnumerable<IdInfo> IdInfos
+        {
+            get
+            {
+                foreach(var x in Bodies)
+                {
+                    yield return x.Id;
+                }
+                foreach (var x in Joints)
+                {
+                    yield return x.Id;
+                }
+            }
+        }
     }
 
 
