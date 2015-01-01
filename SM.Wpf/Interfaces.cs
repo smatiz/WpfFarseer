@@ -8,11 +8,12 @@ using System.Windows.Media;
 
 namespace SM.Wpf
 {
-    public interface ICircle
+    public interface ICircle 
     {
         float X { get; }
-        float Y { get;  }
+        float Y { get; }
         float Radius { get; }
+        Brush Fill { get; }
     }
     public interface ISkinnedShape
     {
@@ -27,6 +28,7 @@ namespace SM.Wpf
         float Y { get; }
         float RadiusX { get; }
         float RadiusY { get; }
+        Brush Fill { get; }
     }
 
     public interface IPolygon

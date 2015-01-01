@@ -170,6 +170,9 @@
     <Compile Include="InfoTreeView.xaml.cs">
       <DependentUpon>InfoTreeView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\CarSample\SampleCar.xaml.cs">
+      <DependentUpon>SampleCar.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\UserControlSamples\MyFirstFarseerUserControl.xaml.cs">
       <DependentUpon>MyFirstFarseerUserControl.xaml</DependentUpon>
     </Compile>
@@ -202,6 +205,10 @@
     </Compile>
     <Compile Include="ViewModel4.cs" />
     <Page Include="InfoTreeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\CarSample\SampleCar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -37,7 +37,6 @@ namespace SM.Xaml
         public static readonly DependencyProperty RadiusXProperty =
             DependencyProperty.Register("RadiusX", typeof(float), typeof(Ellipse), new PropertyMetadata(0f));
 
-
         public float RadiusY
         {
             get { return (float)GetValue(RadiusYProperty); }
@@ -45,5 +44,13 @@ namespace SM.Xaml
         }
         public static readonly DependencyProperty RadiusYProperty =
             DependencyProperty.Register("RadiusY", typeof(float), typeof(Ellipse), new PropertyMetadata(0f));
+
+        public Brush Fill
+        {
+            get { return (Brush)GetValue(FillProperty); }
+            set { SetValue(FillProperty, value); }
+        }
+        public static readonly DependencyProperty FillProperty =
+            DependencyProperty.Register("Fill", typeof(Brush), typeof(Ellipse), new PropertyMetadata(new SolidColorBrush(Colors.Black)));
     }
 }

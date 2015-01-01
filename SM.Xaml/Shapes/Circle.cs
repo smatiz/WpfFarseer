@@ -11,7 +11,7 @@ using System.Windows.Shapes;
 
 namespace SM.Xaml
 {
-    public class Circle : BasicShape, ICircle
+    public class Circle : BasicShape, SM.Wpf.ICircle
     {
         public float X
         {
@@ -36,5 +36,13 @@ namespace SM.Xaml
         }
         public static readonly DependencyProperty RadiusProperty =
             DependencyProperty.Register("Radius", typeof(float), typeof(Circle), new PropertyMetadata(0f));
+
+        public Brush Fill
+        {
+            get { return (Brush)GetValue(FillProperty); }
+            set { SetValue(FillProperty, value); }
+        }
+        public static readonly DependencyProperty FillProperty =
+            DependencyProperty.Register("Fill", typeof(Brush), typeof(Circle), new PropertyMetadata(new SolidColorBrush(Colors.Black)));
     }
 }

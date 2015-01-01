@@ -34,7 +34,7 @@ finire di sistemare i joint con T4 e refactoring
 
 
 
-
+la classe user non va a design time
 
 
 code generator va isolato ?

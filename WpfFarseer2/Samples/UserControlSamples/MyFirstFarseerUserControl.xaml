@@ -4,12 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:sm="sm:farseer"
-            x:Name="_this"
+            x:Name="_this" 
              mc:Ignorable="d" >
     <sm:Body BodyType="Breakable"  Transform="{Binding UserTransform, ElementName=_this}">
         <sm:SkinnedShape>
-            <Canvas >
-                <Button Background="Red"  Width="40" Height="40">ciao</Button>
+            <Canvas>
+                <Button  Background="Red"  Width="40" Height="40">ciao</Button>
                 <Button Background="Blue" Canvas.Left="20" Canvas.Top="10" Width="10" Height="40">ciao</Button>
             </Canvas>
         </sm:SkinnedShape>

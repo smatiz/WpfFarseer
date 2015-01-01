@@ -56,7 +56,7 @@ namespace SM.Xaml
 
         public User()
         {
-            //if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
+            if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
             {
                 Loaded += User_Loaded;
             }
@@ -72,10 +72,17 @@ namespace SM.Xaml
             var _context = new Context(DesignZoom);
 
             var canvas = new DesignerCanvas();
-            canvas.Name = "cccc";
-            Children.Add(canvas);
+            canvas.Width = 1000;
+            canvas.Height = 1000;
+            //Children.Add(canvas);
+
+
+            //canvas.Children.Add(this); 
+            //_farseerCanvas.Children.Add(_farseer); 
+            //SM.WpfView.Helper.LoadFarseer(Farseer, _farseerCanvas, _context, out _farseerInfo, out _farseerViews);
 
             SM.WpfView.Helper.LoadFarseer(this, canvas, _context, out _farseerInfo, out _farseerViews);
+            //MessageBox.Show("aaaaaaaa");
         }
     }
 }

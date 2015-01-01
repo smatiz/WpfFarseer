@@ -27,6 +27,13 @@ namespace SM.Farseer
             var materialShape = shapeCreator.Create(bodyInfo.Body.Shapes, bodyInfo.Transform.Scale);
             IEnumerable<Shape> allShapes = materialShape.Circles.Select(c => getCircle(c)).Concat<Shape>(materialShape.Polygons.Select(p => getPolygon(p)));
 
+            if (allShapes.Where(x=> x is CircleShape).Count() >0)
+            {
+                var c = allShapes.Where(x => x is CircleShape).First();
+                var d = c.Density;
+            }
+
+
             _breakableBody = BodyFactory.CreateBreakableBody(world, allShapes);
             Body.UserData = bodyInfo.Id;
             CodeGenerator.AddCode("var {0} = BodyFactory.CreateBreakableBody(W, allShapes);", Body.n());
@@ -51,11 +58,27 @@ namespace SM.Farseer
             _breakableBody.Update();
             foreach (var b in _breakableBody.Parts)
             {
-                result.Add(new BodyPieceMaterial()
+
+                var shape = b.Body.FixtureList.First().Shape;
+
+                if(shape is PolygonShape)
                 {
-                    BodyMaterial = new BodyMaterial(b.Body, String.Format("{0}_p{1}",Id, index++)),
-                    Polygon = ((PolygonShape)b.Body.FixtureList.First().Shape).Vertices.ToSM()
-                });
+                    result.Add(new PolygonPieceMaterial()
+                    {
+                        BodyMaterial = new BodyMaterial(b.Body, String.Format("{0}_p{1}", Id, index++)),
+                        Polygon = ((PolygonShape)b.Body.FixtureList.First().Shape).Vertices.ToSM()
+                    });
+                }
+                else if(shape is CircleShape)
+                {
+                    result.Add(new CirclePieceMaterial()
+                    {
+                        BodyMaterial = new BodyMaterial(b.Body, String.Format("{0}_p{1}", Id, index++)),
+                        Circle =  ((CircleShape)b.Body.FixtureList.First().Shape).ToSM()
+                    });
+                }
+
+
             }
             return result;
         }

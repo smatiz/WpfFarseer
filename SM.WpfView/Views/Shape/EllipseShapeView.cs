@@ -19,8 +19,11 @@ namespace SM.WpfView
             var ellipse = new System.Windows.Shapes.Ellipse() { Width = shape.RadiusX * context.Zoom * scale * 2, Height = shape.RadiusY * context.Zoom * scale * 2 };
             Canvas.SetLeft(ellipse, (shape.X - shape.RadiusX) * context.Zoom * scale);
             Canvas.SetTop(ellipse, (shape.Y - shape.RadiusY) * context.Zoom * scale);
+            ellipse.Fill = shape.Fill;
             UIElement = ellipse;
         }
+        
+       
 
         public UIElement UIElement { get; private set; }
     }

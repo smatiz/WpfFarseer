@@ -34,7 +34,14 @@ namespace SM.WpfView
             Rect maxbb = Rect.Empty;
             foreach (var piece in pieces)
             {
-                maxbb.Union(piece.Polygon.BBox());
+                if (piece is PolygonPieceMaterial)
+                {
+                    maxbb.Union(((PolygonPieceMaterial)piece).Polygon.BBox());
+                }
+                else if (piece is CirclePieceMaterial)
+                {
+                    maxbb.Union(((CirclePieceMaterial)piece).Circle.BBox());
+                }
             }
             var bodies = new List<BodyView>();
             _canvas.UpdateLayout();
@@ -45,17 +52,45 @@ namespace SM.WpfView
             int index = 1;
             foreach (var piece in pieces)
             {
-                var polygon = new System.Windows.Shapes.Polygon();
-                polygon.Points = piece.Polygon.ToWpf().Zoomed(Context.Zoom);
-                var vbClone = _visualBrush.Clone();
-                var polygonBB = piece.Polygon.BBox();
-                vbClone.Viewbox = new Rect((polygonBB.X - maxbb.X) / maxbb.Width, (polygonBB.Y - maxbb.Y) / maxbb.Height, polygonBB.Width / maxbb.Width, polygonBB.Height / maxbb.Height);
+                if (piece is PolygonPieceMaterial)
+                {
+                    var ppiece = (PolygonPieceMaterial)piece;
+                    var polygon = new System.Windows.Shapes.Polygon();
+                    polygon.Points = ppiece.Polygon.ToWpf().Zoomed(Context.Zoom);
+                    var vbClone = _visualBrush.Clone();
+                    var polygonBB = ppiece.Polygon.BBox();
+                    vbClone.Viewbox = new Rect((polygonBB.X - maxbb.X) / maxbb.Width, (polygonBB.Y - maxbb.Y) / maxbb.Height, polygonBB.Width / maxbb.Width, polygonBB.Height / maxbb.Height);
 
-                polygon.Fill = vbClone;
-                var polyShape = new PolygonShapeView(Context, polygon);
+                    polygon.Fill = vbClone;
+                    var polyShape = new PolygonShapeView(Context, polygon);
 
-                var bc = BodyView.Create(_parentCanvas, this, piece.BodyMaterial.Id, polyShape);
-                bodies.Add(bc);
+                    var bc = BodyView.Create(_parentCanvas, this, piece.BodyMaterial.Id, polyShape);
+                    bodies.Add(bc);
+                }
+                else if (piece is CirclePieceMaterial)
+                {
+                    var ppiece = (CirclePieceMaterial)piece;
+
+                    var ellipse = new System.Windows.Shapes.Ellipse() { Width = ppiece.Circle.Radius * Context.Zoom * 2, Height = ppiece.Circle.Radius * Context.Zoom * 2 };
+                    Canvas.SetLeft(ellipse, (ppiece.Circle.Center.X - ppiece.Circle.Radius) * Context.Zoom);
+                    Canvas.SetTop(ellipse, (ppiece.Circle.Center.Y - ppiece.Circle.Radius)* Context.Zoom);
+                  
+
+
+
+
+                    //var polygon = new System.Windows.Shapes.Ellipse();
+                    //polygon.Points = ppiece.Circle.ToWpf().Zoomed(Context.Zoom);
+                    var vbClone = _visualBrush.Clone();
+                    var polygonBB = ppiece.Circle.BBox();
+                    vbClone.Viewbox = new Rect((polygonBB.X - maxbb.X) / maxbb.Width, (polygonBB.Y - maxbb.Y) / maxbb.Height, polygonBB.Width / maxbb.Width, polygonBB.Height / maxbb.Height);
+
+                    ellipse.Fill = vbClone;
+                    var ellipseShape = new CircleShapeView(Context, ellipse);
+
+                    var bc = BodyView.Create(_parentCanvas, this, piece.BodyMaterial.Id, ellipseShape);
+                    bodies.Add(bc);
+                }
                 index++;
             }
             RemoveChild(_canvas);

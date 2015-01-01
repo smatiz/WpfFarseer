@@ -97,6 +97,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Basic Structures\Circle.cs" />
     <Compile Include="Basic Structures\Matrix.cs" />
     <Compile Include="Descriptor\Interfaces\IEntity.cs" />
     <Compile Include="Descriptor\Interfaces\IDescriptor.cs" />

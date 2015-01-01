@@ -6,9 +6,18 @@ using System.Threading.Tasks;
 
 namespace SM
 {
-    public class BodyPieceMaterial
+    public abstract class BodyPieceMaterial
+    {
+        public IBodyMaterial BodyMaterial { get; set; }
+    }
+
+    public class PolygonPieceMaterial : BodyPieceMaterial
     {
         public IEnumerable<float2> Polygon { get; set; }
-        public IBodyMaterial BodyMaterial { get; set; }
+    }
+
+    public class CirclePieceMaterial : BodyPieceMaterial
+    {
+        public _Circle Circle { get; set; }
     }
 }

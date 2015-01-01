@@ -60,6 +60,12 @@
                 <TabItem Header="Simple">
                     <l:SampleSimple></l:SampleSimple>
                 </TabItem>
+
+
+                <TabItem Header="Car">
+                    <l:SampleCar></l:SampleCar>
+                </TabItem>
+
                 <TabItem Header="____next">
                 </TabItem>
                 <TabItem Header="Test">

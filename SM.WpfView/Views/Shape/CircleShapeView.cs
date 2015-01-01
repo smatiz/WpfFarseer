@@ -17,8 +17,16 @@ namespace SM.WpfView
             : base(context)
         {
             var ellipse = new System.Windows.Shapes.Ellipse() { Width = shape.Radius * context.Zoom * 2 * scale, Height = shape.Radius * context.Zoom * 2 * scale };
+            ellipse.Fill = shape.Fill;
             Canvas.SetLeft(ellipse, (shape.X - shape.Radius) * context.Zoom * scale);
             Canvas.SetTop(ellipse, (shape.Y - shape.Radius) * context.Zoom * scale);
+            UIElement = ellipse;
+        }
+
+         // costructor for break 
+        public CircleShapeView(IContext context, Ellipse ellipse)
+            : base(context)
+        {
             UIElement = ellipse;
         }
 

@@ -14,7 +14,7 @@
                             <sm:Polygon.Fill>
                                 <VisualBrush>
                                     <VisualBrush.Visual>
-                                        <Button Background="Blue" Width="10" Height="10">ciao</Button>
+                                        <Button Background="Blue" Width="100" Height="100">ciao</Button>
                                     </VisualBrush.Visual>
                                 </VisualBrush>
                             </sm:Polygon.Fill>

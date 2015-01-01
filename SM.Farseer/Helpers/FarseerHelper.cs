@@ -38,6 +38,14 @@ namespace SM.Farseer
             }
             return list;
         }
+
+        public static _Circle ToSM(this FShape.CircleShape ps)
+        {
+            return new _Circle() { Center = ps.Position.ToSM(), Radius = ps.Radius };
+        }
+        
+
+
         
     }
 }

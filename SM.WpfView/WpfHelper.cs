@@ -29,6 +29,7 @@ namespace SM.WpfView
             }
             return poly;
         }
+     
         public static Rect BBox(this PointCollection ps)
         {
             Rect r = Rect.Empty;
@@ -54,6 +55,10 @@ namespace SM.WpfView
                 r.Union(p.ToWpf());
             }
             return r;
+        }
+        public static Rect BBox(this _Circle c)
+        {
+            return new Rect(c.Center.X - c.Radius, c.Center.Y - c.Radius, c.Center.X + c.Radius, c.Center.Y + c.Radius);
         }
         public static Rect BBox(this IEnumerable<IEnumerable<float2>> polys)
         {
