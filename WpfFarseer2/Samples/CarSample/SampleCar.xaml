@@ -12,7 +12,7 @@
                 <sm:Body Id="b" BodyType="Breakable">
                     <sm:Polygon Points="0 0,30 0,30 2,0 2" Fill="Black"></sm:Polygon>
                     <sm:Circle Radius="5" X="10" Y="10" ></sm:Circle>
-                    <sm:Circle Radius="5" X="20" Y="10" ></sm:Circle>
+                    <sm:Ellipse RadiusX="5" RadiusY="7" X="20" Y="10" ></sm:Ellipse>
                 </sm:Body>
                 <sm:Body Id="b2">
                     <sm:Polygon Density="123"  Points="0 20,30 20,15 25" Fill="Black">

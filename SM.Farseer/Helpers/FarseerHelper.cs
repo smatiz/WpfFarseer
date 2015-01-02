@@ -36,9 +36,9 @@ namespace SM.Farseer
             return list;
         }
 
-        public static _Circle ToSM(this FShape.CircleShape ps)
+        public static Circle2 ToSM(this FShape.CircleShape ps)
         {
-            return new _Circle() { Center = ps.Position.ToSM(), Radius = ps.Radius };
+            return new Circle2() { Center = ps.Position.ToSM(), Radius = ps.Radius };
         }
     }
 }

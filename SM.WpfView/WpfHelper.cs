@@ -56,7 +56,7 @@ namespace SM.WpfView
             }
             return r;
         }
-        public static Rect BBox(this _Circle c)
+        public static Rect BBox(this Circle2 c)
         {
             return new Rect(c.Center.X - c.Radius, c.Center.Y - c.Radius, 2f * c.Radius, 2f * c.Radius);
         }

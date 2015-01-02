@@ -18,6 +18,6 @@ namespace SM
 
     public class CirclePieceMaterial : BodyPieceMaterial
     {
-        public _Circle Circle { get; set; }
+        public Circle2 Circle { get; set; }
     }
 }

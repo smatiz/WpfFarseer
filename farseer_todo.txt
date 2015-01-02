@@ -25,16 +25,14 @@
 
 * BasicContainer non deve contenere tutto quel codice che non dipende da wpf/xaml deve stare in SM.dll
 * come gestire gli id degli usercontrol
+* finire layerTemplate
 
 
 fare piu unit test
-finire layerTemplate
+
 vedere di fare in modo che l'aggiornamento dei xaml stringa sia immediato
-finire di sistemare i joint con T4 e refactoring
-
-
-
-la classe user non va a design time
+vedere di fare in modo che l'aggiornamento del User si veda (la classe user non va a design time)
+finire di sistemare i joint (con T4 e refactoring?)
 
 
 code generator va isolato ?
