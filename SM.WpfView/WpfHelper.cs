@@ -58,7 +58,7 @@ namespace SM.WpfView
         }
         public static Rect BBox(this _Circle c)
         {
-            return new Rect(c.Center.X - c.Radius, c.Center.Y - c.Radius, c.Center.X + c.Radius, c.Center.Y + c.Radius);
+            return new Rect(c.Center.X - c.Radius, c.Center.Y - c.Radius, 2f * c.Radius, 2f * c.Radius);
         }
         public static Rect BBox(this IEnumerable<IEnumerable<float2>> polys)
         {

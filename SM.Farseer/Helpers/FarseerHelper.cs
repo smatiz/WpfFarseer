@@ -12,9 +12,6 @@ namespace SM.Farseer
     {
         public static int EllipseNumberOfEdges = 4;
 
-
-        
-
         public static F.Vertices ToFarseerVertices(this IEnumerable<SM.float2> points)
         {
             return new F.Vertices(from p in points select p.ToFarseer());
@@ -43,9 +40,5 @@ namespace SM.Farseer
         {
             return new _Circle() { Center = ps.Position.ToSM(), Radius = ps.Radius };
         }
-        
-
-
-        
     }
 }
