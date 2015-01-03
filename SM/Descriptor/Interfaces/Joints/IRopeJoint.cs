@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SM
 {
-    public partial interface IRopeJoint : IJoint
+    public interface IRopeJoint : IJoint
     {
         float MaxLength { get; }
         float MaxLengthFactor { get; }

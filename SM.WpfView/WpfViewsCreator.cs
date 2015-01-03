@@ -7,7 +7,7 @@ using System.Windows.Controls;
 
 namespace SM.WpfView
 {
-    public class WpfViewsCreator : IViewCreator
+    public partial class WpfViewsCreator : IViewCreator
     {
         IContext _context;
         Canvas _rootCanvas;
@@ -25,27 +25,6 @@ namespace SM.WpfView
         public IBreakableBodyView CreateBreakableBody(BodyInfo body, IShapeViewCreator shapeCreator)
         {
             return new BreakableBodyView(_rootCanvas, _context, body, shapeCreator);
-        }
-
-
-        //public IJointView CreateJoint(JointInfo joint, Views views)
-        //{
-        //    if (joint.Joint is IRopeJoint)
-        //    {
-        //        return new RopeJointView(_rootCanvas, _context, (IRopeJoint)joint.Joint, views);
-        //    }
-
-        //    return null;
-        //}
-
-        public IJointView CreateJoint(JointInfo joint, Views views)
-        {
-            if (joint.Joint is IRopeJoint)
-            {
-                return new RopeJointView(_rootCanvas, _context, (IRopeJoint)joint.Joint, views);
-            }
-
-            return null;
         }
     }
 }

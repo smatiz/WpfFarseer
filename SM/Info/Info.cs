@@ -65,7 +65,7 @@ namespace SM
                     });
                 }
 
-                var joint = entity as IRopeJoint;
+                var joint = entity as IJoint;
                 if (joint != null)
                 {
                     _joints.Add(new JointInfo()

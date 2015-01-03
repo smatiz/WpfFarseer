@@ -39,7 +39,6 @@ namespace SM.WpfView
 
             _line.X2 = AnchorB.X * Context.Zoom;
             _line.Y2 = AnchorB.Y * Context.Zoom;
-
         }
     }
 }

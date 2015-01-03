@@ -108,30 +108,6 @@ namespace SM.WpfView
         public static RenderTargetBitmap ToRenderTargetBitmap(this UIElement element)
         {
             return element.ToVisualBrush().ToRenderTargetBitmap(element.RenderSize.Width, element.RenderSize.Height);
-
-
-            //return null;
-            //element.UpdateLayout();
-            //var target = new RenderTargetBitmap((int)(element.RenderSize.Width), (int)(element.RenderSize.Height), 96, 96, PixelFormats.Pbgra32);
-            //var brush = new VisualBrush(element);
-            //brush.Stretch = Stretch.None;
-            //brush.TileMode = TileMode.None;
-            //brush.AlignmentX = AlignmentX.Left;
-            //brush.AlignmentY = AlignmentY.Top;
-            //var visual = new DrawingVisual();
-            
-            //var drawingContext = visual.RenderOpen();
-
-
-            //drawingContext.DrawRectangle(brush, null, new Rect(new Point(0, 0),
-            //new Point(element.RenderSize.Width, element.RenderSize.Height)));
-
-            //drawingContext.Close();
-
-            //target.Render(visual);
-
-
-            //return target;
         }
         public static void ForceUpdateLayout(this UIElement elem)
         {

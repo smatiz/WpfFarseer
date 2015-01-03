@@ -1,0 +1,54 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ assembly name="$(TargetDir)SM.dll" #>
+<#@ import namespace="SM" #>
+<#@ output extension=".cs" #>
+
+using System;
+using System.Windows;
+namespace SM.Xaml
+{
+<#
+    var tIJoint = typeof(SM.IJoint);
+    var ts = tIJoint.Assembly.GetTypes().Where(t => t.IsInterface).Where(t => t.Name != tIJoint.Name).Where(t => tIJoint.IsAssignableFrom(t));
+    foreach(var tJoint in ts)
+    {
+
+
+        //var tJoint = typeof(SM.IWheelJoint);
+        var nameJoint= tJoint.Name.Substring(1);
+#>
+    public partial class  <#=nameJoint#>Control : BasicJointControl, I<#=nameJoint#>
+    {
+<#
+            var tps = tJoint.GetProperties();
+            foreach(var t in tps)
+            {
+                var ptype = t.PropertyType.Name;
+                var pname = t.Name;
+                #>
+                  
+                public <#=ptype#> <#=pname#>
+                {
+                    get { return (<#=ptype#>)GetValue(<#=pname#>Property); }
+                    set { SetValue(<#=pname#>Property, value); }
+                }
+                public static readonly DependencyProperty <#=pname#>Property =
+                    DependencyProperty.Register("<#=pname#>", typeof(<#=ptype#>), typeof(<#=nameJoint#>Control));
+
+            <#
+            
+        }
+         #>
+    }
+
+            <#
+            
+        }
+         #>
+}
+
+ 

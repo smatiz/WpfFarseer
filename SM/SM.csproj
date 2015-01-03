@@ -97,7 +97,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Basic Structures\Circle.cs" />
+    <Compile Include="Basic Structures\Circle2.cs" />
     <Compile Include="Basic Structures\Matrix.cs" />
     <Compile Include="Descriptor\Interfaces\IEntity.cs" />
     <Compile Include="Descriptor\Interfaces\IDescriptor.cs" />
@@ -105,6 +105,7 @@
     <Compile Include="Descriptor\Interfaces\IContainer.cs" />
     <Compile Include="Descriptor\ContainerHelper.cs" />
     <Compile Include="Descriptor\Interfaces\IContainerId.cs" />
+    <Compile Include="Descriptor\Interfaces\Joints\IWheelJoint.cs" />
     <Compile Include="IdInfoConverter.cs" />
     <Compile Include="Info\BasicExpando.cs" />
     <Compile Include="Info\IdInfo.cs" />
@@ -141,8 +142,8 @@
     <Compile Include="IContext.cs" />
     <Compile Include="Descriptor\Interfaces\IFlag.cs" />
     <Compile Include="Descriptor\Interfaces\IFlaggable.cs" />
-    <Compile Include="Descriptor\Interfaces\IJoint.cs" />
-    <Compile Include="Descriptor\Interfaces\IRopeJoint.cs" />
+    <Compile Include="Descriptor\Interfaces\Joints\IJoint.cs" />
+    <Compile Include="Descriptor\Interfaces\Joints\IRopeJoint.cs" />
     <Compile Include="Basic Structures\transform2d.cs" />
     <Compile Include="Static And Consts\UnitSystem.cs" />
     <Compile Include="Views\Interfaces\IViewCreator.cs" />

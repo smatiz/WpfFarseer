@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SM.Farseer
 {
-    public class FarseerMaterialsCreator : IMaterialCreator
+    public partial class FarseerMaterialsCreator : IMaterialCreator
     {
         private World _world;
         public FarseerMaterialsCreator(World world)
@@ -25,16 +25,6 @@ namespace SM.Farseer
             {
                 return new BodyMaterial(_world, body, shapeCreator);
             }
-        }
-
-        public IJointMaterial Create(JointInfo joint, Info info)
-        {
-            if(joint.Joint is IRopeJoint)
-            {
-                return new RopeJointMaterial(_world, joint, info);
-            }
-
-            return null;
         }
     }
 }
