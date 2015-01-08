@@ -94,7 +94,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="JointFactory.cs">
+    <Compile Include="JointFactory1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>JointFactory.tt</DependentUpon>
@@ -125,7 +125,7 @@
   <ItemGroup>
     <None Include="JointFactory.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>JointFactory.cs</LastGenOutput>
+      <LastGenOutput>JointFactory1.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>

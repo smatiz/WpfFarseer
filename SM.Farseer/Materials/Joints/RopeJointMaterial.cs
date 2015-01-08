@@ -10,25 +10,23 @@ using System.Threading.Tasks;
 
 namespace SM.Farseer
 {
-    public class RopeJointMaterial :  IRopeJointMaterial
+    public class RopeJointMaterial : BasicJointMaterial, IRopeJointMaterial
     {
-        RopeJoint _joint;
-        IRopeJoint _ropeJoint;
-        protected World _world;
-        protected IdInfo _id;
-
         protected FlagInfo _flagA;
         protected FlagInfo _flagB;
 
         public RopeJointMaterial(World world, JointInfo jointInfo, Info info)
+            : base(world, jointInfo)
         {
-            _world = world;
-            _ropeJoint = jointInfo.Joint as IRopeJoint;
-            var targetNameA = _ropeJoint.TargetFlagIdA;
-            var targetNameB = _ropeJoint.TargetFlagIdB;
+            var targetNameA = ((IRopeJoint)_jointInfo).TargetFlagIdA;
+            var targetNameB = ((IRopeJoint)_jointInfo).TargetFlagIdB;
              _flagA = info.FindFlag(targetNameA);
              _flagB = info.FindFlag(targetNameB);
-            _id = jointInfo.Id;
+        }
+
+        protected override Joint CreateJoint(Materials material)
+        {
+            return JointFactory.CreateRopeJoint(_world, (Body)material.Find<BodyMaterial>(_flagA.Id.Parent).Object, (Body)material.Find<BodyMaterial>(_flagB.Id.Parent).Object, ToFarseer(_flagA), ToFarseer(_flagB));
         }
 
         private Vector2 get(BasicManager basicManager, IdInfo name)
@@ -43,24 +41,6 @@ namespace SM.Farseer
         }
 
 
-        public void Finalize(Materials material)
-        {
-            _joint = JointFactory.CreateRopeJoint(_world, (Body)material.Find<BodyMaterial>(_flagA.Id.Parent).Object, (Body)material.Find<BodyMaterial>(_flagB.Id.Parent).Object, ToFarseer(_flagA), ToFarseer(_flagB));
-
-           _joint.CollideConnected = _ropeJoint.CollideConnected;
-        }
-
-        public float MaxLength
-        {
-            get
-            {
-                return _joint.MaxLength;
-            }
-            set
-            {
-                _joint.MaxLength = value;
-            }
-        }
         public float2 AnchorA
         {
             get
@@ -73,46 +53,6 @@ namespace SM.Farseer
             get
             {
                 return _joint.WorldAnchorB.ToSM();
-            }
-        }
-
-        public object Object
-        {
-            get
-            {
-                return _joint;
-            }
-        }
-
-        public IdInfo Id
-        {
-            get
-            {
-                return _id;
-            }
-        }
-
-        public float Breakpoint
-        {
-            get
-            {
-                return _joint.Breakpoint;
-            }
-            set
-            {
-                _joint.Breakpoint = value;
-            }
-        }
-
-        public bool CollideConnected
-        {
-            get
-            {
-                return _joint.CollideConnected;
-            }
-            set
-            {
-                _joint.CollideConnected = value;
             }
         }
     }

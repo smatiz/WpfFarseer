@@ -29,8 +29,8 @@ namespace SM.WpfView
             Update();
         }
 
-        public float2 AnchorA { get; set; }
-        public float2 AnchorB { get; set; }
+        public float2 AnchorA { private get; set; }
+        public float2 AnchorB { private get; set; }
 
         public override void Update()
         {

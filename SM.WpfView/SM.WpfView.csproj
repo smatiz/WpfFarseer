@@ -99,9 +99,9 @@
   <ItemGroup>
     <Compile Include="Helper.cs" />
     <Compile Include="JointFactory.cs">
-      <DependentUpon>JointFactory.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <DependentUpon>JointFactory.tt</DependentUpon>
     </Compile>
     <Compile Include="Views\BreakableBodyView.cs">
       <Generator>MSBuild:Compile</Generator>

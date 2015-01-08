@@ -10,6 +10,65 @@ using System.Threading.Tasks;
 
 namespace SM.Farseer
 {
-    
-    
+    public abstract class BasicJointMaterial : IJointMaterial, IToBeFinalized
+    {
+
+        protected IJoint _jointInfo;
+        protected Joint _joint;
+        protected World _world;
+        protected IdInfo _id;
+        public BasicJointMaterial(World world, JointInfo jointInfo)
+        {
+            _jointInfo = jointInfo.Joint as IJoint;
+            _world = world;
+            _id = jointInfo.Id;
+        }
+
+        protected abstract Joint CreateJoint(Materials material);
+
+        public void Finalize(Materials material)
+        {
+            _joint = CreateJoint(material);
+            _joint.CollideConnected = _jointInfo.CollideConnected;
+        }
+
+
+        public object Object
+        {
+            get
+            {
+                return _joint;
+            }
+        }
+
+        public IdInfo Id
+        {
+            get
+            {
+                return _id;
+            }
+        }
+        public float Breakpoint
+        {
+            get
+            {
+                return _joint.Breakpoint;
+            }
+            set
+            {
+                _joint.Breakpoint = value;
+            }
+        }
+        public bool CollideConnected
+        {
+            get
+            {
+                return _joint.CollideConnected;
+            }
+            set
+            {
+                _joint.CollideConnected = value;
+            }
+        }
+    }
 }

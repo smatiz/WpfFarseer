@@ -33,7 +33,7 @@ fare piu unit test
 vedere di fare in modo che l'aggiornamento dei xaml stringa sia immediato
 vedere di fare in modo che l'aggiornamento del User si veda (la classe user non va a design time)
 finire di sistemare i joint (con T4 e refactoring?)
-
+pensare ad un sistema per cambiare certi parametri a runtime (+treeview)
 
 code generator va isolato ?
 

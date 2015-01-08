@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace SM
 {
-    public interface IRopeJointMaterial : IJointMaterial, IToBeFinalized
+    public interface IRopeJointMaterial : IJointMaterial
     {
-        float MaxLength { get; }
+        //float MaxLength { get; }
         float2 AnchorA { get; }
         float2 AnchorB { get; }
     }

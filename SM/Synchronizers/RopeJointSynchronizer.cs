@@ -33,22 +33,22 @@ namespace SM
             _jointView.Update();
         }
 
-        public IdInfo Id
-        {
-            get
-            {
-                return _jointView.Id;
-            }
-        }
+        //public IdInfo Id
+        //{
+        //    get
+        //    {
+        //        return _jointView.Id;
+        //    }
+        //}
 
 
-        public object Object
-        {
-            get
-            { 
-                return _jointMaterial.Object;
-            }
-        }
+        //public object Object
+        //{
+        //    get
+        //    { 
+        //        return _jointMaterial.Object;
+        //    }
+        //}
 
     }
 }

@@ -3,7 +3,7 @@
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
-<#@ assembly name="$(TargetDir)SM.dll" #>
+<#@ assembly name="$(SolutionDir)SM\bin\x86\Wpf\SM.dll" #>
 <#@ import namespace="SM" #>
 <#@ output extension=".cs" #>
 

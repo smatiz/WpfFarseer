@@ -3,26 +3,26 @@
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
-<#@ assembly name="$(TargetDir)SM.dll" #>
+<#@ assembly name="$(SolutionDir)SM\bin\x86\Wpf\SM.dll" #>
 <#@ import namespace="SM" #>
 <#@ output extension=".cs" #>
-
+ 
 namespace SM.WpfView
 {
     public partial class WpfViewsCreator 
-    {
+    { 
         public IJointView CreateJoint(JointInfo joint, Views views)
         {
-<#
+<# 
 
     var tIJoint = typeof(SM.IJoint);
     var ts = tIJoint.Assembly.GetTypes().Where(t => t.IsInterface).Where(t => t.Name != tIJoint.Name).Where(t => tIJoint.IsAssignableFrom(t));
     foreach(var t in ts)
     {
-        #>
+        #> 
             if(joint.Joint is <#=t.Name#>)
             {
-                return new <#=t.Name.Substring(1)#>View(_rootCanvas,_context, (<#=t.Name#>)joint, views);
+                return new <#=t.Name.Substring(1)#>View(_rootCanvas,_context, (<#=t.Name#>)joint.Joint, views);
             }
         
     <#
