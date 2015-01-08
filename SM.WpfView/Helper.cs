@@ -10,6 +10,7 @@ namespace SM.WpfView
 {
     public static class Helper
     {
+
         public static void LoadFarseer(IContainer container, Canvas rootCanvas, IContext context, out Info info, out Views views)
         {
             // prendo lo xaml e lo passo a Info che e' completamente agnostico

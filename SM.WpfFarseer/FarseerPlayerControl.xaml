@@ -4,16 +4,22 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:sm="sm:farseer"
+             xmlns:l="clr-namespace:SM.WpfFarseer"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="500">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid Name="_farseerContainer" Grid.Row="1">
+        <Grid Name="_farseerContainer" Grid.Row="1" Grid.Column="1">
             <Canvas Name="_farseerCanvas"></Canvas>
         </Grid>
-        <sm:StepControl x:Name="_stepControl"  Grid.Row="0"></sm:StepControl>
+        <sm:StepControl x:Name="_stepControl"  Grid.Row="0" Grid.Column="1"></sm:StepControl>
+        <l:PropertyControl Grid.RowSpan="2"></l:PropertyControl>
     </Grid>
 </UserControl>

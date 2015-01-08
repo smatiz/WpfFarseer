@@ -15,7 +15,6 @@ namespace SM.WpfFarseer
 {
     public class XamlShapeMaterialCreator : IShapeMaterialCreator
     {
-
         const double DefaultWidth = 3000;
         const double DefaultHeight = DefaultWidth;
 

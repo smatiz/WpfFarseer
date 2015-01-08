@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="WpfFarseer.SampleSimple2"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+            xmlns:l4="clr-namespace:SM.WpfView;assembly=SM.WpfView"
+             mc:Ignorable="d" 
+             xmlns:sm="sm:farseer"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <sm:FarseerPlayerControl x:Name="_farseerPlayer"  Zoom="20"  InDebug="True" >
+                <sm:Farseer  Id="s9">
+                <sm:Body BodyType="Dynamic" Id="x" Transform="-10,0">
+                        <sm:Polygon  Points="5,0,5,5,10,4" Fill="GreenYellow"  Stroke="Black" StrokeThickness="1">
+                        </sm:Polygon>
+                    </sm:Body>
+                    <sm:Body BodyType="Static">
+                        <sm:Polygon  Points="5,15,15,15,10,24" Fill="Red"  Stroke="Black" StrokeThickness="1">
+                        </sm:Polygon>
+                    </sm:Body>
+                </sm:Farseer>
+        </sm:FarseerPlayerControl>
+
+
+        <Canvas Name="_resultCanvas"></Canvas>
+    </Grid>
+</UserControl>

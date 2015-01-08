@@ -27,14 +27,14 @@ namespace SM
         //{
         //}
 
-        public BasicManager(Synchronizers synchronizers, Info info, IWatchView viewWatch)
+        public BasicManager(Synchronizers synchronizers, IEnumerable<IdInfo> idInfos, IWatchView viewWatch)
         {
             _synchronizers = synchronizers;
             _materialWatch = new WatchMaterial(() => updateMaterial());
             _viewWatch = viewWatch;
             _viewWatch.Callback = () => updateView();
 
-            Entity = new IdInfoExpando(info.IdInfos, (s) => ((IMaterial)_synchronizers.Find(s)).Object);
+            Entity = new IdInfoExpando(idInfos, (s) => ((IMaterial)_synchronizers.Find(s)).Object);
         }
 
         //public object FindObject(string name)

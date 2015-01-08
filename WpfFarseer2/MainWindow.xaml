@@ -58,7 +58,16 @@
 
 
                 <TabItem Header="Simple">
-                    <l:SampleSimple></l:SampleSimple>
+                    <TabControl SelectedIndex="0">
+                        <TabControl.Items>
+                            <TabItem Header="1">
+                                <l:SampleSimple></l:SampleSimple>
+                            </TabItem>
+                            <TabItem Header="2">
+                                <l:SampleSimple2></l:SampleSimple2>
+                            </TabItem>
+                        </TabControl.Items>
+                    </TabControl>
                 </TabItem>
 
 

@@ -173,6 +173,9 @@
     <Compile Include="Samples\CarSample\SampleCar.xaml.cs">
       <DependentUpon>SampleCar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\SampleSimple2.xaml.cs">
+      <DependentUpon>SampleSimple2.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\UserControlSamples\MyFirstFarseerUserControl.xaml.cs">
       <DependentUpon>MyFirstFarseerUserControl.xaml</DependentUpon>
     </Compile>
@@ -211,6 +214,10 @@
     <Page Include="Samples\CarSample\SampleCar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\SampleSimple2.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\UserControlSamples\MyFirstFarseerUserControl.xaml">
       <SubType>Designer</SubType>
