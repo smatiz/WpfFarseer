@@ -10,16 +10,15 @@ using System.Threading.Tasks;
 
 namespace SM.Farseer
 {
-    public abstract class BasicJointMaterial : IJointMaterial, IToBeFinalized
+    public abstract class BasicJointMaterial : IJointMaterial
     {
-
-        protected IJoint _jointInfo;
+        protected JointInfo _jointInfo;
         protected Joint _joint;
         protected World _world;
         protected IdInfo _id;
         public BasicJointMaterial(World world, JointInfo jointInfo)
         {
-            _jointInfo = jointInfo.Joint as IJoint;
+            _jointInfo = jointInfo;
             _world = world;
             _id = jointInfo.Id;
         }
@@ -28,8 +27,14 @@ namespace SM.Farseer
 
         public void Finalize(Materials material)
         {
-            _joint = CreateJoint(material);
-            _joint.CollideConnected = _jointInfo.CollideConnected;
+            if (_joint == null)
+            {
+                _joint = CreateJoint(material);
+                lock (_jointInfo)
+                {
+                    _joint.CollideConnected = _jointInfo.CollideConnected;
+                }
+            }
         }
 
 

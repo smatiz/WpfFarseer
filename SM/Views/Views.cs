@@ -8,78 +8,46 @@ namespace SM
 {
     public class Views
     {
-        public IEnumerable<IBodyView> Bodies { get; private set; }
+        public IEnumerable<IBodyView> Bodies { get { return _bodies; } }
         public IEnumerable<IBreakableBodyView> BreakableBodies { get; private set; }
         public IEnumerable<IJointView> Joints { get; private set; }
 
-        Info _info;
-        public Views(IViewCreator viewCreator, IShapeViewCreator shapeCreator, Info info)
+
+        List<IBodyView> _bodies = new List<IBodyView>();
+        List<IBreakableBodyView> _breakablebodies = new List<IBreakableBodyView>();
+        List<IJointView> _joints = new List<IJointView>();
+
+        IViewCreator _viewCreator;
+        IShapeViewCreator _shapeCreator;
+        public Views(IViewCreator viewCreator, IShapeViewCreator shapeCreator)
         {
-
-            _info = info;
-
-            var bodies = new List<IBodyView>();
-            foreach (var b in info.Bodies.Where(b => b.Body.BodyType != BodyType.Breakable))
-            {
-                var bv = viewCreator.CreateBody(b, shapeCreator);
-                bodies.Add(bv);
-            }
-            Bodies = bodies;
-
-            var breakableBodies = new List<IBreakableBodyView>();
-            foreach (var b in info.Bodies.Where(b => b.Body.BodyType == BodyType.Breakable))
-            {
-                breakableBodies.Add(viewCreator.CreateBreakableBody(b, shapeCreator));
-            }
-            BreakableBodies = breakableBodies;
-
-
-            var joints = new List<IJointView>();
-            foreach (var j in info.Joints)
-            {
-                joints.Add(viewCreator.CreateJoint(j, this));
-            }
-            Joints = joints;
+            _viewCreator = viewCreator;
+            _shapeCreator = shapeCreator;
+            
         }
 
-        public FlagInfo FindFlag(string id)
+        public IView Add(BodyInfo b)
         {
-            return _info.FindFlag(id);
-            //foreach (var x in Bodies)
-            //{
-            //    foreach (var y in x.Flags)
-            //    {
-            //        if (y.Id == id)
-            //        {
-            //            return y;
-            //        }
-            //    }
-            //}
-            //foreach (var x in BreakableBodies)
-            //{
-            //    foreach (var y in x.Flags)
-            //    {
-            //        if (y.Id == id)
-            //        {
-            //            return y;
-            //        }
-            //    }
-            //}
-            //if (Joints != null)
-            //{
-            //    foreach (var x in Joints)
-            //    {
-            //        foreach (var y in x.Flags)
-            //        {
-            //            if (y.Id == id)
-            //            {
-            //                return y;
-            //            }
-            //        }
-            //    }
-            //}
-            //return null;
+            IView result;
+            if (b.Body.BodyType != BodyType.Breakable)
+            {
+                result = _viewCreator.CreateBody(b, _shapeCreator);
+                _bodies.Add((IBodyView)result);
+            }
+            else
+            {
+                result = _viewCreator.CreateBreakableBody(b, _shapeCreator);
+                _breakablebodies.Add((IBreakableBodyView)result);
+            }
+            return result;
         }
 
+        public IView Add(JointInfo j, IEnumerable<FlagInfo> flagInfos)
+        {
+            IView result;
+            result = _viewCreator.CreateJoint(j, flagInfos);
+            _joints.Add((IJointView)result);
+            return result;
+        }
     }
 }

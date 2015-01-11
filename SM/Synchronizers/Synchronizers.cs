@@ -10,14 +10,42 @@ namespace SM
     {
         private List<ISynchronizer> _synchronizers = new List<ISynchronizer>();
         Materials _materials;
+        Views _views;
         public Synchronizers(Views views, Materials materials)
         {
 
+            _views = views;
             _materials = materials;
+        }
+
+        public void Add(Info info)
+        {
+            foreach (var b in info.Bodies)
             {
-                _synchronizers.AddRange(views.Bodies.Zip(materials.Bodies, (v, m) => new BodySynchronizer(v, m)));
-                _synchronizers.AddRange(views.BreakableBodies.Zip(materials.BreakableBodies, (v, m) => new BreakableBodySynchronizer(v, m)));
-                _synchronizers.AddRange(views.Joints.Zip(materials.Joints, (v, m) => new RopeJointSynchronizer((IRopeJointView)v, (IRopeJointMaterial)m)));
+                var v = _views.Add(b);
+                var m = _materials.Add(b);
+                if(v is IBreakableBodyView )
+                {
+                    _synchronizers.Add(new BreakableBodySynchronizer((IBreakableBodyView)v, (IBreakableBodyMaterial)m));
+                }
+                else //if (v is IBodyView)
+                {
+                    _synchronizers.Add(new BodySynchronizer((IBodyView)v, (IBodyMaterial)m));
+                }
+            }
+
+            foreach (var j in info.Joints)
+            {
+                var v = _views.Add(j, info.Flags);
+                var m = _materials.Add(j, info.Flags);
+                if (v is IRopeJointView)
+                {
+                    _synchronizers.Add(new RopeJointSynchronizer((IRopeJointView)v, (IRopeJointMaterial)m));
+                }
+                else
+                {
+                    throw new NotImplementedException();
+                }
             }
         }
 
@@ -37,6 +65,12 @@ namespace SM
                 List<BreakableBodySynchronizer> managersIdtoberemoved = new List<BreakableBodySynchronizer>();
                 foreach (var y in _synchronizers)
                 {
+                    var tobefinalized = y as IToBeFinalized;
+                    if (tobefinalized != null)
+                    {
+                        tobefinalized.Finalize(_materials);
+                    }
+
                     var x = y as ISynchronizer;
                     if (x != null)
                     {

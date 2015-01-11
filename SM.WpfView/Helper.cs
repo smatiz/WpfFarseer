@@ -21,9 +21,8 @@ namespace SM.WpfView
 
             var wpfViewsShapeCreator = new WpfShapeCreator();
 
-            //var ftools = new WpfFarseerTools();
             // Views e' completamente agnostico 
-            views = new Views(wpfViewsCreator, wpfViewsShapeCreator, info);
+            views = new Views(wpfViewsCreator, wpfViewsShapeCreator);
         }
     }
 }

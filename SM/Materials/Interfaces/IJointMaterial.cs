@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SM
 {
-    public interface IJointMaterial : IMaterial
+    public interface IJointMaterial : IMaterial, IToBeFinalized
     {
         float Breakpoint { get; set; }
         bool CollideConnected { get; set; }

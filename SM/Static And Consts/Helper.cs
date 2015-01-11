@@ -34,6 +34,20 @@ namespace SM
         {
             return new transform2d(m.mat[0, 2], m.mat[1, 2], GetAngle(m.mat[0, 0], m.mat[1, 0]), 1.0f / m.mat[2, 2]);
         }
+
+
+
+        public static FlagInfo FindFlagInfo(this IEnumerable<FlagInfo> flagInfos, string name)
+        {
+            foreach (var f in flagInfos)
+            {
+                if (f.Id == name)
+                {
+                    return f;
+                }
+            }
+            return null;
+        }
     }
 
     //    static float _zoom;

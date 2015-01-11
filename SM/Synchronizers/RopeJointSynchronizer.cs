@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SM
 {
-    public class RopeJointSynchronizer : ISynchronizer
+    public class RopeJointSynchronizer : ISynchronizer, IToBeFinalized
     {
         protected IRopeJointView _jointView;
         protected IRopeJointMaterial _jointMaterial;
@@ -33,22 +33,9 @@ namespace SM
             _jointView.Update();
         }
 
-        //public IdInfo Id
-        //{
-        //    get
-        //    {
-        //        return _jointView.Id;
-        //    }
-        //}
-
-
-        //public object Object
-        //{
-        //    get
-        //    { 
-        //        return _jointMaterial.Object;
-        //    }
-        //}
-
+        public void Finalize(Materials material)
+        {
+            _jointMaterial.Finalize(material);
+        }
     }
 }

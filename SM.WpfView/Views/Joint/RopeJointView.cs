@@ -15,7 +15,8 @@ namespace SM.WpfView
     {
         Line _line;
 
-        public RopeJointView(Canvas parentCanvas, IContext context, IRopeJoint joint, Views views)
+
+        public RopeJointView(Canvas parentCanvas, IContext context, RopeJointInfo joint, IEnumerable<FlagInfo> flagInfos)
             : base(parentCanvas, context, joint.Id)
         {
             _line = new Line();
@@ -24,8 +25,8 @@ namespace SM.WpfView
             var canvas = new Canvas();
             canvas.Children.Add(_line);
             AddChild(canvas);
-            AnchorA = views.FindFlag(joint.TargetFlagIdA).P;
-            AnchorB = views.FindFlag(joint.TargetFlagIdB).P;
+            AnchorA = flagInfos.FindFlagInfo(joint.TargetFlagIdA).P;
+            AnchorB = flagInfos.FindFlagInfo(joint.TargetFlagIdB).P;
             Update();
         }
 

@@ -50,7 +50,6 @@ namespace SM.WpfFarseer
         }
 
         Info _farseerInfo;
-        Views _farseerViews;
         private BasicContainer _farseer;
         public BasicContainer Farseer
         {
@@ -107,33 +106,45 @@ namespace SM.WpfFarseer
         {
             if (oneTimeCalled) return;
             oneTimeCalled = true;
-
-            Settings.MaxPolygonVertices = MaxPolygonVertices;
-
-
-
-
-            var context = new Context(Zoom);
-
-            SM.WpfView.Helper.LoadFarseer(Farseer, _farseerCanvas, context, out _farseerInfo, out _farseerViews);
-
             if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
             {
                 return;
             }
 
-            World world = new World(Gravity.ToFarseer());
+            Settings.MaxPolygonVertices = MaxPolygonVertices;
 
+            var context = new Context(Zoom);
+
+            // creo un wpf views creator che Views pilotera' e usera' per popolare le sue strutture a partire da info
+            var wpfViewsCreator = new WpfViewsCreator(_farseerCanvas, context);
+            var wpfViewsShapeCreator = new WpfShapeCreator();
+
+            World world = new World(Gravity.ToFarseer());
             // creo un farseer materials creator che Materials pilotera' e usera' per popolare le sue strutture a partire da info
             var farseerMaterialsCreator = new FarseerMaterialsCreator(world);
-
             var farseerMaterialsShapeCreator = new XamlShapeMaterialCreator(context);
+            // Views e' completamente agnostico 
+            var farseerViews = new Views(wpfViewsCreator, wpfViewsShapeCreator);
             // Materials e' completamente agnostico 
-            var materials = new Materials(farseerMaterialsCreator, farseerMaterialsShapeCreator, _farseerInfo);
-            // Synchronizers e' la struttura agnostica per tenere sincronizzato views e materials
-            var synchronizers = new Synchronizers(_farseerViews, materials);
+            var materials = new Materials(farseerMaterialsCreator, farseerMaterialsShapeCreator);
 
-            _worldManager = new FarseerWorldManager(Id, synchronizers, _farseerInfo.IdInfos, new WatchView(), world);
+            // Synchronizers e' la struttura agnostica per tenere sincronizzato views e materials
+            var synchronizers = new Synchronizers(farseerViews, materials);
+
+
+
+
+            // prendo lo xaml e lo passo a Info che e' completamente agnostico
+            _farseerInfo = new Info(Farseer);
+
+
+
+            //farseerViews.Add(_farseerInfo);
+            //materials.Add(_farseerInfo);
+
+            synchronizers.Add(_farseerInfo);
+
+            _worldManager = new FarseerWorldManager(Id, synchronizers, _farseerInfo.Bodies.Select(x=> x.Id).Concat(_farseerInfo.Joints.Select(x=> x.Id)), new WatchView(), world);
 
 
 

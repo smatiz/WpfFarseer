@@ -16,40 +16,40 @@ namespace SM
         public IEnumerable<IBreakableBodyMaterial> BreakableBodies { get { return _breakableBodies; } }
         public IEnumerable<IJointMaterial> Joints { get { return _joints; } }
 
-        public Materials(IMaterialCreator materiaCreator, IShapeMaterialCreator shapeCreator, Info info)
+        IMaterialCreator _materiaCreator;
+        IShapeMaterialCreator _shapeCreator;
+        public Materials(IMaterialCreator materiaCreator, IShapeMaterialCreator shapeCreator)
         {
+            _materiaCreator = materiaCreator;
+            _shapeCreator = shapeCreator;
             _bodies = new List<IBodyMaterial>();
             _breakableBodies = new List<IBreakableBodyMaterial>();
-            foreach (var b in info.Bodies)
-            {
-                var br = materiaCreator.Create(b, shapeCreator);
-                if (br is IBreakableBodyMaterial)
-                {
-                    _breakableBodies.Add((IBreakableBodyMaterial)br);
-                }
-                else
-                {
-                    _bodies.Add((IBodyMaterial)br);
-                }
-            }
-
             _joints = new List<IJointMaterial>();
-            foreach (var j in info.Joints)
+        }
+
+
+
+        public IMaterial Add(BodyInfo b)
+        {
+            IMaterial result;
+            result = _materiaCreator.Create(b, _shapeCreator);
+            if (result is IBreakableBodyMaterial)
             {
-                _joints.Add(materiaCreator.Create(j, info));
+                _breakableBodies.Add((IBreakableBodyMaterial)result);
             }
-
-
-
-
-            foreach (var j in Joints)
+            else
             {
-                if (j is IToBeFinalized)
-                {
-                    ((IToBeFinalized)j).Finalize(this);
-                }
-
+                _bodies.Add((IBodyMaterial)result);
             }
+            return result;
+        }
+
+        public IMaterial Add(JointInfo j, IEnumerable<FlagInfo> flagInfos)
+        {
+            IMaterial result;
+            result = _materiaCreator.Create(j, flagInfos);
+            _joints.Add((IJointMaterial)result);
+            return result;
         }
 
         private void checkForBrokenBodies()

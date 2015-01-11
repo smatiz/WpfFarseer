@@ -9,8 +9,12 @@ namespace SM
     public class JointInfo 
     {
         public IdInfo Id { get; set; }
-        public IJoint Joint { get; set; }
+        public bool CollideConnected { get; set; }
     }
 
- 
+    public class RopeJointInfo : JointInfo
+    {
+        public string TargetFlagIdA { get; set; }
+        public string TargetFlagIdB { get; set; }
+    }
 }

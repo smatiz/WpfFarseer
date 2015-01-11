@@ -1,15 +1,16 @@
 ﻿
+using System.Collections.Generic;
 namespace SM.Farseer
 {
     public partial class FarseerMaterialsCreator 
     {
-        public IJointMaterial Create(JointInfo joint, Info info)
+        public IJointMaterial Create(JointInfo joint, IEnumerable<FlagInfo> flagInfos)
         {
 
 
-            if(joint.Joint is IRopeJoint)
+            if(joint is RopeJointInfo)
             {
-                return new RopeJointMaterial(_world, joint, info);
+                return new RopeJointMaterial(_world, joint, flagInfos);
             }
         
     
