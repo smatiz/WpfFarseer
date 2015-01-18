@@ -59,7 +59,7 @@ namespace SM.WpfFarseer
             }
             set
             {
-                if (_farseer != value)
+                if (_farseer != value) 
                 {
                     _farseerCanvas.Children.Remove(_farseer); 
                     _farseer = value;
