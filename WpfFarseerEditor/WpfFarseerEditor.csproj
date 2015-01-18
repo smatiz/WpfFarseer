@@ -33,6 +33,26 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="ICSharpCode.TextEditor">
       <HintPath>C:\ROOT\OneDrive\NET_DLL\Kaxaml\ICSharpCode.TextEditor.dll</HintPath>
@@ -125,9 +145,37 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Farseer Physics Engine 3.5 Samples\Farseer Physics Engine 3.5\Farseer Physics XNA.csproj">
+      <Project>{0a850700-1abb-4288-a391-6726b90ebeb9}</Project>
+      <Name>Farseer Physics XNA</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SM.Farseer\SM.Farseer.csproj">
+      <Project>{f7b0cc38-539d-4c46-acc7-a51c41e23135}</Project>
+      <Name>SM.Farseer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SM.WpfFarseer\SM.WpfFarseer.csproj">
+      <Project>{5f029001-1bde-48f7-b714-42c9735b9993}</Project>
+      <Name>SM.WpfFarseer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SM.WpfView\SM.WpfView.csproj">
+      <Project>{1ebe41b7-ca6a-4540-b893-9e6a0366c534}</Project>
+      <Name>SM.WpfView</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SM.Wpf\SM.Wpf.csproj">
+      <Project>{e3c428d2-a846-484d-a1d0-8d573bd5130a}</Project>
+      <Name>SM.Wpf</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SM.Xaml\SM.Xaml.csproj">
+      <Project>{4e416f0f-518c-43a6-b93b-57d105d184e1}</Project>
+      <Name>SM.Xaml</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SM\SM.csproj">
       <Project>{397c97f4-df83-49ea-91d9-93c5c45b0025}</Project>
       <Name>SM</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WpfFarseer2\WpfFarseer2.csproj">
+      <Project>{9c9a4af7-8548-48d3-891a-cfb0ca07734e}</Project>
+      <Name>WpfFarseer2</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

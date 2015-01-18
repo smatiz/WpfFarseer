@@ -22,11 +22,11 @@ namespace SM.WpfView
     [ContentPropertyAttribute("Shapes")]
     public sealed class BreakableBodyView : BodyView, IBreakableBodyView
     {
-        Canvas _parentCanvas;
-        public BreakableBodyView(Canvas parentCanvas, IContext context, BodyInfo body, IShapeViewCreator shapeCreator)
-            : base(parentCanvas, context, body, shapeCreator)
+        Action<CanvasId> _created;
+        public BreakableBodyView(Action<CanvasId> created, IContext context, BodyInfo body, IShapeViewCreator shapeCreator)
+            : base(created, context, body, shapeCreator)
         {
-            _parentCanvas = parentCanvas;
+            _created = created;
         }
 
         public IEnumerable<IBodyView> BreakAndGetPieces(IEnumerable<BodyPieceMaterial> pieces)
@@ -64,7 +64,7 @@ namespace SM.WpfView
                     polygon.Fill = vbClone;
                     var polyShape = new PolygonShapeView(Context, polygon);
 
-                    var bc = BodyView.Create(_parentCanvas, this, piece.BodyMaterial.Id, polyShape);
+                    var bc = BodyView.Create(_created, this, piece.BodyMaterial.Id, polyShape);
                     bodies.Add(bc);
                 }
                 else if (piece is CirclePieceMaterial)
@@ -88,7 +88,7 @@ namespace SM.WpfView
                     ellipse.Fill = vbClone;
                     var ellipseShape = new CircleShapeView(Context, ellipse);
 
-                    var bc = BodyView.Create(_parentCanvas, this, piece.BodyMaterial.Id, ellipseShape);
+                    var bc = BodyView.Create(_created, this, piece.BodyMaterial.Id, ellipseShape);
                     bodies.Add(bc);
                 }
                 index++;

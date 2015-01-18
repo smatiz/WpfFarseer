@@ -8,13 +8,13 @@ namespace SM
 {
     public class Views
     {
-        public IEnumerable<IBodyView> Bodies { get { return _bodies; } }
-        public IEnumerable<IBreakableBodyView> BreakableBodies { get; private set; }
-        public IEnumerable<IJointView> Joints { get; private set; }
+       // public IEnumerable<IBodyView> Bodies { get { return _bodies; } }
+       // public IEnumerable<IBreakableBodyView> BreakableBodies { get { return _breakablebodies; } }
+        //public IEnumerable<IJointView> Joints { get { return _joints; } }
 
 
         List<IBodyView> _bodies = new List<IBodyView>();
-        List<IBreakableBodyView> _breakablebodies = new List<IBreakableBodyView>();
+        List<IBreakableBodyView> _breakableBodies = new List<IBreakableBodyView>();
         List<IJointView> _joints = new List<IJointView>();
 
         IViewCreator _viewCreator;
@@ -37,7 +37,7 @@ namespace SM
             else
             {
                 result = _viewCreator.CreateBreakableBody(b, _shapeCreator);
-                _breakablebodies.Add((IBreakableBodyView)result);
+                _breakableBodies.Add((IBreakableBodyView)result);
             }
             return result;
         }
@@ -48,6 +48,14 @@ namespace SM
             result = _viewCreator.CreateJoint(j, flagInfos);
             _joints.Add((IJointView)result);
             return result;
+        }
+
+
+        public void Clear()
+        {
+             _bodies.Clear();
+             _breakableBodies.Clear();
+             _joints.Clear();
         }
     }
 }

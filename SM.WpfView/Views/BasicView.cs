@@ -31,7 +31,7 @@ namespace SM.WpfView
         //    _canvasId = new CanvasId();
         //    parentCanvas.Children.Add(_canvasId);
         //}
-        protected BasicView(Canvas parentCanvas, IContext context, IdInfo id)
+        protected BasicView(Action<CanvasId> created, IContext context, IdInfo id)
         {
             //Flags = new List<IFlagView>();
             _id = id;
@@ -39,7 +39,7 @@ namespace SM.WpfView
             Context = context;
             //if (_parentView != null)
             {
-                parentCanvas.Children.Add(_canvasId);
+                created(_canvasId);
                 _canvasId.Id = _id;
                 bool loaded = false;
                 _canvasId.Loaded += (s, e) =>

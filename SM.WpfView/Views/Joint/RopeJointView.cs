@@ -16,8 +16,8 @@ namespace SM.WpfView
         Line _line;
 
 
-        public RopeJointView(Canvas parentCanvas, IContext context, RopeJointInfo joint, IEnumerable<FlagInfo> flagInfos)
-            : base(parentCanvas, context, joint.Id)
+        public RopeJointView(Action<CanvasId> created, IContext context, RopeJointInfo joint, IEnumerable<FlagInfo> flagInfos)
+            : base(created, context, joint.Id)
         {
             _line = new Line();
             _line.Stroke = new SolidColorBrush(Colors.Blue);

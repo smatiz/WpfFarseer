@@ -81,7 +81,7 @@ namespace SM.Xaml
             //_farseerCanvas.Children.Add(_farseer); 
             //SM.WpfView.Helper.LoadFarseer(Farseer, _farseerCanvas, _context, out _farseerInfo, out _farseerViews);
 
-            SM.WpfView.Helper.LoadFarseer(this, canvas, _context, out _farseerInfo, out _farseerViews);
+            SM.WpfView.Helper.LoadFarseer(c => { canvas.Children.Add(c); }, this, _context, out _farseerInfo, out _farseerViews);
             //MessageBox.Show("aaaaaaaa");
         }
     }

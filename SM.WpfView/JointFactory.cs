@@ -8,7 +8,7 @@ namespace SM.WpfView
         {
             if(joint is RopeJointInfo)
             {
-                return new RopeJointView(_rootCanvas, _context, (RopeJointInfo)joint, flagInfos);
+                return new RopeJointView(_created, _context, (RopeJointInfo)joint, flagInfos);
             }
     
             return null;

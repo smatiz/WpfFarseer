@@ -11,20 +11,23 @@ namespace SM.WpfView
     {
         IContext _context;
         Canvas _rootCanvas;
-        public WpfViewsCreator(Canvas rootCanvas, IContext context)
+
+        private Action<CanvasId> _created;
+
+        public WpfViewsCreator(Action<CanvasId> created, IContext context)
         {
-            _rootCanvas = rootCanvas;
+            _created = created;
             _context = context;
         }
 
         public IBodyView CreateBody(BodyInfo body, IShapeViewCreator shapeCreator)
         {
-            return new BodyView(_rootCanvas, _context, body, shapeCreator);
+            return new BodyView(_created, _context, body, shapeCreator);
         }
 
         public IBreakableBodyView CreateBreakableBody(BodyInfo body, IShapeViewCreator shapeCreator)
         {
-            return new BreakableBodyView(_rootCanvas, _context, body, shapeCreator);
+            return new BreakableBodyView(_created, _context, body, shapeCreator);
         }
     }
 }

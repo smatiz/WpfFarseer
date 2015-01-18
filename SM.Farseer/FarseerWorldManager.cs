@@ -46,6 +46,12 @@ namespace SM.Farseer
             }
         }
 
+        public override void Clear()
+        {
+            _world.Clear();
+            base.Clear();
+        }
+
         protected override void Step(float dt)
         {
             _world.Step(dt);
@@ -56,8 +62,8 @@ namespace SM.Farseer
 
         }
 
-        public FarseerWorldManager(string id, Synchronizers synchronizers, IEnumerable<IdInfo> idInfos, IWatchView viewWatch, World world)
-            : base(synchronizers, idInfos, viewWatch)
+        public FarseerWorldManager(string id, Synchronizers synchronizers, IWatchView viewWatch, World world)
+            : base(synchronizers, viewWatch)
         {
             Id = id;
             _world = world;
@@ -66,5 +72,6 @@ namespace SM.Farseer
         }
 
         public string Id { get; private set; }
+
     }
 }

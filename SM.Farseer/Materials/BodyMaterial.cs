@@ -45,6 +45,8 @@ namespace SM.Farseer
             {
                 _body.CreateFixture(getCircle(shape));
             }
+
+            
         }
         public BodyMaterial(Body body, string id)
         {

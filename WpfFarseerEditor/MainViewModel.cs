@@ -20,6 +20,30 @@ namespace WpfFarseerEditor.wpf
         public MainViewModel()
         {
             Code = "";
+
+
+            Code = @"
+        <Page
+            xmlns:mc=""http://schemas.openxmlformats.org/markup-compatibility/2006"" 
+            xmlns:d=""http://schemas.microsoft.com/expression/blend/2008""
+            xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
+            xmlns:sm=""clr-namespace:SM.Xaml;assembly=SM.Xaml""
+            xmlns:smf=""clr-namespace:SM.WpfFarseer;assembly=SM.WpfFarseer""
+            xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml"">
+          <Canvas>  
+            <Button>ciao</Button>
+                <smf:FarseerPlayerControl Gravity=""0,10"" x:Name=""_farseerPlayer""  Zoom=""20""  InDebug=""True"">
+                <sm:Farseer  Id=""s9"">
+                    <sm:Body BodyType=""Dynamic"">
+                        <sm:Polygon  Points=""5,0,5,5,10,4"" Fill=""GreenYellow""  Stroke=""Black"" StrokeThickness=""1""/>
+                    </sm:Body>
+                    <sm:Body BodyType=""Static"">
+                        <sm:Polygon  Points=""5,15,5,20,10,24"" Fill=""Red""  Stroke=""Black"" StrokeThickness=""1""/>
+                    </sm:Body>
+                </sm:Farseer>
+             </smf:FarseerPlayerControl>
+          </Canvas>
+        </Page>";
         }
 
         public Canvas Canvas
@@ -36,10 +60,18 @@ namespace WpfFarseerEditor.wpf
                 { 
                     try
                     {
-                       Canvas = System.Windows.Markup.XamlReader.Load(new MemoryStream(Encoding.UTF8.GetBytes(Code ?? ""))) as Canvas;
+                        //var x = new System.Windows.Markup.ParserContext();
+                        //x.XmlnsDictionary.Add("sm", "sm:farseer");
+
+
+                        var page = (Page)System.Windows.Markup.XamlReader.Load(new MemoryStream(Encoding.UTF8.GetBytes(Code ?? ""))) ;
+                        Canvas = page.Content as Canvas;
                         NotifyPropertyChanged(() => Canvas); 
                     }
-                    catch { }
+                    catch(Exception e)
+                    {
+                        string msg = e.Message;
+                    }
                 };
             }
         }

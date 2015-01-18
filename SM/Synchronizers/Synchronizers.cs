@@ -18,6 +18,12 @@ namespace SM
             _materials = materials;
         }
 
+        public void Clear()
+        {
+            _materials.Clear();
+            _views.Clear();
+        }
+
         public void Add(Info info)
         {
             foreach (var b in info.Bodies)
@@ -45,6 +51,15 @@ namespace SM
                 else
                 {
                     throw new NotImplementedException();
+                }
+            }
+
+            foreach (var y in _synchronizers)
+            {
+                var tobefinalized = y as IToBeFinalized;
+                if (tobefinalized != null)
+                {
+                    tobefinalized.Finalize(_materials);
                 }
             }
         }

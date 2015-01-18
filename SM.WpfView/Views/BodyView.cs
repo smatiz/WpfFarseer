@@ -27,20 +27,21 @@ namespace SM.WpfView
 
         private BodyInfo _bodyInfo;
         private List<FlagView> _flags = new List<FlagView>();
+       
 
         // break constructor
-        private BodyView(Canvas parentCanvas, BodyView bodyView, IdInfo id, BasicShapeView shape)
-            : base( parentCanvas,bodyView.Context, id)
+        private BodyView(Action<CanvasId> created, BodyView bodyView, IdInfo id, BasicShapeView shape)
+            : base( created,bodyView.Context, id)
         {
             BodyType = SM.BodyType.Dynamic;
             RotoTranslation = bodyView.RotoTranslation;
             Shapes = new List<BasicShapeView>() { shape };
             _canvas = new Canvas();
         }
-        protected static BodyView Create(Canvas parentCanvas, BodyView bodyView, IdInfo id, BasicShapeView shape) { return new BodyView(parentCanvas, bodyView, id, shape); }
+        protected static BodyView Create(Action<CanvasId> created, BodyView bodyView, IdInfo id, BasicShapeView shape) { return new BodyView(created, bodyView, id, shape); }
 
-        internal BodyView(Canvas parentCanvas, IContext context, BodyInfo bodyInfo, IShapeViewCreator shapeCreator)
-            : base( parentCanvas,context, bodyInfo.Id)
+        internal BodyView(Action<CanvasId> created, IContext context, BodyInfo bodyInfo, IShapeViewCreator shapeCreator)
+            : base(created, context, bodyInfo.Id)
         {
             _bodyInfo = bodyInfo;
 

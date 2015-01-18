@@ -102,5 +102,12 @@ namespace SM
             if (typeof(T) != y.GetType()) return null;
             return (T)y;
         }
+
+        public void Clear()
+        {
+            _bodies.Clear();
+            _breakableBodies.Clear();
+            _joints.Clear();
+        }
     }
 }

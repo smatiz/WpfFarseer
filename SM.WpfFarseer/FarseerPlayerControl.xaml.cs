@@ -19,25 +19,27 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
-using xna = Microsoft.Xna.Framework;
-using fdyn = FarseerPhysics.Dynamics;
 using SM.Xaml;
 using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
 using SM.Wpf;
 using System.Windows.Markup;
 using System.Diagnostics;
+using xna = Microsoft.Xna.Framework;
+using fdyn = FarseerPhysics.Dynamics;
 
 namespace SM.WpfFarseer
 {
+
+
+
+
     [ContentPropertyAttribute("Farseer")]
     public partial class FarseerPlayerControl : UserControl
     {
         public event Action<FarseerWorldManager> Ready;
 
-        FarseerWorldManager _worldManager;
-        //Context _context;
-
+        private FarseerXaml _farseerXaml;
         string Id { get;set; }
         public FarseerPlayerControl()
         {
@@ -48,8 +50,6 @@ namespace SM.WpfFarseer
            
             Settings.MaxPolygonVertices = 100;
         }
-
-        Info _farseerInfo;
         private BasicContainer _farseer;
         public BasicContainer Farseer
         {
@@ -63,15 +63,17 @@ namespace SM.WpfFarseer
                 {
                     _farseerCanvas.Children.Remove(_farseer); 
                     _farseer = value;
-                    _farseerCanvas.Children.Add(_farseer); 
-
+                    if (_farseer != null)
+                    {
+                        _farseerCanvas.Children.Add(_farseer);
+                    }
                 }
             }
 
         }
 
         [Conditional("DEBUG")]
-        void debugCanvas()
+        void debugCanvas(FarseerXaml fx)
         {
             if (InDebug)
             {
@@ -84,17 +86,7 @@ namespace SM.WpfFarseer
                 debugCanvas.Width = Width;
                 debugCanvas.Height = Height;
                 _farseerContainer.Children.Add(debugCanvas);
-                var debugView = new DebugViewWPF(debugCanvas, debugTextBlock, _worldManager.World);
-                debugView.Flags = debugView.Flags | DebugViewFlags.DebugPanel;
-                debugView.ScaleTransform = new ScaleTransform(Zoom, Zoom);
-                var timer = new DispatcherTimer(DispatcherPriority.Render);
-                timer.Interval = TimeSpan.FromMilliseconds(300);
-                timer.Tick += (_s, _e) =>
-                {
-                    debugCanvas.Children.Clear();
-                    debugView.DrawDebugData();
-                };
-                timer.Start();
+                fx.ActivateDebug(debugCanvas, debugTextBlock);
             }
         }
 
@@ -115,45 +107,95 @@ namespace SM.WpfFarseer
 
             var context = new Context(Zoom);
 
-            // creo un wpf views creator che Views pilotera' e usera' per popolare le sue strutture a partire da info
-            var wpfViewsCreator = new WpfViewsCreator(_farseerCanvas, context);
-            var wpfViewsShapeCreator = new WpfShapeCreator();
 
-            World world = new World(Gravity.ToFarseer());
-            // creo un farseer materials creator che Materials pilotera' e usera' per popolare le sue strutture a partire da info
-            var farseerMaterialsCreator = new FarseerMaterialsCreator(world);
-            var farseerMaterialsShapeCreator = new XamlShapeMaterialCreator(context);
-            // Views e' completamente agnostico 
-            var farseerViews = new Views(wpfViewsCreator, wpfViewsShapeCreator);
-            // Materials e' completamente agnostico 
-            var materials = new Materials(farseerMaterialsCreator, farseerMaterialsShapeCreator);
-
-            // Synchronizers e' la struttura agnostica per tenere sincronizzato views e materials
-            var synchronizers = new Synchronizers(farseerViews, materials);
+            _farseerXaml = new FarseerXaml(Id, Zoom, Gravity.ToFarseer(), _farseerResultContainers);
+            _stepControl.DataContext = _farseerXaml.StepViewModel;
 
 
+            //var x = new Action<CanvasId>(canvasId => { _farseerResultContainers.Children.Add(canvasId); });
+
+            //// creo un wpf views creator che Views pilotera' e usera' per popolare le sue strutture a partire da info
+            //var wpfViewsCreator = new WpfViewsCreator(x, context);
+            //var wpfViewsShapeCreator = new WpfShapeCreator();
+
+            //World world = new World(Gravity.ToFarseer());
+            //// creo un farseer materials creator che Materials pilotera' e usera' per popolare le sue strutture a partire da info
+            //var farseerMaterialsCreator = new FarseerMaterialsCreator(world);
+            //var farseerMaterialsShapeCreator = new XamlShapeMaterialCreator(context);
+
+            //// Views e' completamente agnostico 
+            //var farseerViews = new Views(wpfViewsCreator, wpfViewsShapeCreator);
+            //// Materials e' completamente agnostico 
+            //var materials = new Materials(farseerMaterialsCreator, farseerMaterialsShapeCreator);
+
+            //// Synchronizers e' la struttura agnostica per tenere sincronizzato views e materials
+            //var synchronizers = new Synchronizers(farseerViews, materials);
+
+            //_worldManager = new FarseerWorldManager(Id, synchronizers, new WatchView(), world);
+
+            //_stepControl.DataContext = new StepViewModel(_worldManager);
 
 
-            // prendo lo xaml e lo passo a Info che e' completamente agnostico
-            _farseerInfo = new Info(Farseer);
+            var Code = @"
+        <Page
+            xmlns:mc=""http://schemas.openxmlformats.org/markup-compatibility/2006"" 
+            xmlns:d=""http://schemas.microsoft.com/expression/blend/2008""
+            xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
+            xmlns:sm=""clr-namespace:SM.Xaml;assembly=SM.Xaml""
+            xmlns:smf=""clr-namespace:SM.WpfFarseer;assembly=SM.WpfFarseer""
+            xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml"">
+                <sm:Farseer  Id=""s9"">
+                    <sm:Body BodyType=""Dynamic"">
+                        <sm:Polygon  Points=""5,0,5,5,10,4"" Fill=""GreenYellow""  Stroke=""Black"" StrokeThickness=""1""/>
+                    </sm:Body>
+                    <sm:Body BodyType=""Static"">
+                        <sm:Polygon  Points=""5,15,5,20,10,24"" Fill=""Red""  Stroke=""Black"" StrokeThickness=""1""/>
+                    </sm:Body>
+                </sm:Farseer>
+        </Page>";
+            var page = (Page)System.Windows.Markup.XamlReader.Load(new System.IO.MemoryStream(Encoding.UTF8.GetBytes(Code ?? "")));
+            var farseer = page.Content as BasicContainer;
+
+            _farseerXaml.Add(page.Content as BasicContainer);
+            
+
+//            page.Content = null;
+//            Farseer = farseer;
+
+//            // prendo lo xaml e lo passo a Info che e' completamente agnostico
+//            _farseerInfo = new Info(Farseer);
+//            //synchronizers.Add(_farseerInfo);
+//            _worldManager.Add(_farseerInfo);
+
+//            _worldManager.Clear();
+//            _farseerResultContainers.Children.Clear();
 
 
-
-            //farseerViews.Add(_farseerInfo);
-            //materials.Add(_farseerInfo);
-
-            synchronizers.Add(_farseerInfo);
-
-            _worldManager = new FarseerWorldManager(Id, synchronizers, _farseerInfo.Bodies.Select(x=> x.Id).Concat(_farseerInfo.Joints.Select(x=> x.Id)), new WatchView(), world);
+//           _farseerInfo = new Info(Farseer);
+//           _worldManager.Add(_farseerInfo);
 
 
+//            Code = @"
+//        <Page
+//            xmlns:mc=""http://schemas.openxmlformats.org/markup-compatibility/2006"" 
+//            xmlns:d=""http://schemas.microsoft.com/expression/blend/2008""
+//            xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
+//            xmlns:sm=""clr-namespace:SM.Xaml;assembly=SM.Xaml""
+//            xmlns:smf=""clr-namespace:SM.WpfFarseer;assembly=SM.WpfFarseer""
+//            xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml"">
+//                <sm:Farseer  Id=""s9"">
+//                    <sm:Body BodyType=""Dynamic"">
+//                        <sm:Polygon  Points=""15,0,15,5,20,4"" Fill=""Blue""  Stroke=""Black"" StrokeThickness=""1""/>
+//                    </sm:Body>
+//                </sm:Farseer>
+//        </Page>";
+//            page = (Page)System.Windows.Markup.XamlReader.Load(new System.IO.MemoryStream(Encoding.UTF8.GetBytes(Code ?? "")));
+//            farseer = page.Content as BasicContainer;
+//            _farseerInfo = new Info(farseer);
+//            _worldManager.Add(_farseerInfo);
 
 
-
-
-            _stepControl.DataContext = new StepViewModel(_worldManager);
-
-            debugCanvas();
+            debugCanvas(_farseerXaml);
 
             MouseDown += Farseer_MouseDown;
             MouseUp += Farseer_MouseUp;
@@ -161,41 +203,20 @@ namespace SM.WpfFarseer
 
             if (Ready != null)
             {
-                Ready(_worldManager);
+                Ready(null);
             }
         }
         private void Farseer_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
             {
-                var canvas = getFirstCanvasId(Mouse.DirectlyOver as FrameworkElement);
-                if (canvas == null) return;
-                var o = _worldManager.FindObject(canvas.Id);
-
-                fdyn.Body body;
-                if (o is fdyn.Body)
-                {
-                    body = (fdyn.Body)o;
-                    Debug.WriteLine("Mouse Down : Body {0} : FullId {1}", canvas.Id, canvas.Id);
-                }
-                else if (o is fdyn.BreakableBody)
-                {
-                    body = ((fdyn.BreakableBody)o).MainBody;
-                    Debug.WriteLine("Mouse Down : BreakableBody {0} : FullId {1}", canvas.Id, canvas.Id);
-                }
-                else
-                {
-                    Debug.WriteLine("Mouse Down : null {0} : FullId {1}", canvas.Id, canvas.Id);
-                    return;
-                }
-
-                _worldManager.StartMouseJoint(body, new xna.Vector2((float)Mouse.GetPosition(_farseerCanvas).X / Zoom, (float)Mouse.GetPosition(_farseerCanvas).Y / Zoom));
+                _farseerXaml.StartMouseJoint();
             }
             else
             {
-                var canvas = getFirstCanvasId(Mouse.DirectlyOver as FrameworkElement);
+                var canvas = GetFirstCanvasId(Mouse.DirectlyOver as FrameworkElement);
                 if (canvas == null) return;
-                var o = _worldManager.FindObject(canvas.Id);
+                //var o = _worldManager.FindObject(canvas.Id);
 
             }
         }
@@ -203,18 +224,18 @@ namespace SM.WpfFarseer
         {
             if (e.LeftButton == MouseButtonState.Pressed)
             {
-                _worldManager.UpdateMouseJoint(new xna.Vector2((float)Mouse.GetPosition(_farseerCanvas).X / Zoom, (float)Mouse.GetPosition(_farseerCanvas).Y / Zoom));
+                _farseerXaml.UpdateMouseJoint();
             }
             else
             {
-                _worldManager.StopMouseJoint();
+                _farseerXaml.StopMouseJoint();
             }
         }
         private void Farseer_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            _worldManager.StopMouseJoint();
+            _farseerXaml.StopMouseJoint();
         }
-        private CanvasId getFirstCanvasId(FrameworkElement frameworkElement)
+        public static CanvasId GetFirstCanvasId(FrameworkElement frameworkElement)
         {
             var canvasId = frameworkElement as CanvasId;
             if (canvasId != null)
@@ -226,7 +247,7 @@ namespace SM.WpfFarseer
                 var parentFrameworkElement = frameworkElement.Parent as FrameworkElement;
                 if (frameworkElement != null)
                 {
-                    return getFirstCanvasId(parentFrameworkElement);
+                    return GetFirstCanvasId(parentFrameworkElement);
                 }
             }
 

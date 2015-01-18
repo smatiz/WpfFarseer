@@ -9,25 +9,36 @@ namespace SM
 {
     public class IdInfoExpando : BasicExpando
     {
-        private IEnumerable<IdInfoLeaf> _infos;
+
+        IdInfoNode _root;
         private Func<string, object> _finder;
-        public IdInfoExpando(IEnumerable<IdInfo> infos, Func<string, object> finder)
+        public IdInfoExpando(Func<string, object> finder)
         {
-            _infos = new IdInfoNode("", infos).Nodes;
+            _root = new IdInfoNode("");
+            //_infos = new List<IdInfo>();
             _finder = finder;
         }
-        IdInfoExpando(IEnumerable<IdInfoLeaf> infos)
+        IdInfoExpando(IdInfoNode root)
         {
-            _infos = infos;
+            _root = root;
+        }
+
+        public void Clear()
+        {
+            _root.Clear();
+        }
+        public void Add(IEnumerable<IdInfo> idinfos)
+        {
+            _root.Add(idinfos);
         }
 
         public override object Get(string name)
         {
-            var x = _infos.Where(l => l.Name == name).First();
+            var x = _root.Find(name);// _infos.Where(l => l.Name == name).First();
             var y = x as IdInfoNode;
             if (y != null)
             {
-                return new IdInfoExpando(y.Nodes);
+                return new IdInfoExpando(y);
             }
             else
             {

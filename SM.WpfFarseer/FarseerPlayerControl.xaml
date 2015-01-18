@@ -18,6 +18,7 @@
         </Grid.RowDefinitions>
         <Grid Name="_farseerContainer" Grid.Row="1" Grid.Column="1">
             <Canvas Name="_farseerCanvas"></Canvas>
+            <Canvas Name="_farseerResultContainers"></Canvas>
         </Grid>
         <sm:StepControl x:Name="_stepControl"  Grid.Row="0" Grid.Column="1"></sm:StepControl>
         <l:PropertyControl Grid.RowSpan="2"></l:PropertyControl>

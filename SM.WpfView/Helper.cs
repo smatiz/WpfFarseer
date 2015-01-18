@@ -11,13 +11,13 @@ namespace SM.WpfView
     public static class Helper
     {
 
-        public static void LoadFarseer(IContainer container, Canvas rootCanvas, IContext context, out Info info, out Views views)
+        public static void LoadFarseer(Action<CanvasId> created, IContainer container, IContext context, out Info info, out Views views)
         {
             // prendo lo xaml e lo passo a Info che e' completamente agnostico
             info = new Info(container);
 
             // creo un wpf views creator che Views pilotera' e usera' per popolare le sue strutture a partire da info
-            var wpfViewsCreator = new WpfViewsCreator(rootCanvas, context);
+            var wpfViewsCreator = new WpfViewsCreator(created, context);
 
             var wpfViewsShapeCreator = new WpfShapeCreator();
 
