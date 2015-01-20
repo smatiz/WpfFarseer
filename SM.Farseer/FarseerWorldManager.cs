@@ -16,14 +16,15 @@ using System.Threading.Tasks;
 
 namespace SM.Farseer
 {
-    public class FarseerWorldManager : BasicWorldManager
+    public class MouseJointManager
     {
         World _world;
         FixedMouseJoint _fixedMouseJoint = null;
 
-#if DEBUG
-        public World World { get { return _world; } }
-#endif
+        public MouseJointManager(World world)
+        {
+            _world = world;
+        }
 
         public void StartMouseJoint(Body body, Vector2 position)
         {
@@ -45,6 +46,31 @@ namespace SM.Farseer
                 _fixedMouseJoint = null;
             }
         }
+    }
+
+
+
+    public class FarseerWorldManager : BasicManager
+    {
+        World _world;
+        
+        [Conditional("DEBUG")]
+        public void GetWorld(ref World world) { world =  _world;  }
+
+
+        MouseJointManager _mouseJointManager = null;
+        public MouseJointManager MouseJointManager
+        {
+            get
+            {
+                if(_mouseJointManager == null)
+                {
+                    _mouseJointManager = new MouseJointManager(_world);
+                }
+                return _mouseJointManager;
+            }
+        }
+
 
         public override void Clear()
         {
@@ -67,8 +93,8 @@ namespace SM.Farseer
         {
             Id = id;
             _world = world;
-            var worldBody = BodyFactory.CreateBody(_world);
-            _fixedMouseJoint = new FixedMouseJoint(worldBody, worldBody.Position);
+            //var worldBody = BodyFactory.CreateBody(_world);
+            //_fixedMouseJoint = new FixedMouseJoint(worldBody, worldBody.Position);
         }
 
         public string Id { get; private set; }

@@ -30,10 +30,6 @@ using fdyn = FarseerPhysics.Dynamics;
 
 namespace SM.WpfFarseer
 {
-
-
-
-
     [ContentPropertyAttribute("Farseer")]
     public partial class FarseerPlayerControl : UserControl
     {
@@ -59,13 +55,15 @@ namespace SM.WpfFarseer
             }
             set
             {
-                if (_farseer != value) 
+                if (_farseer != value)
                 {
-                    _farseerCanvas.Children.Remove(_farseer); 
+                    //_farseerXaml.Clear();
+                    //_farseerCanvas.Children.Remove(_farseer); 
                     _farseer = value;
                     if (_farseer != null)
                     {
-                        _farseerCanvas.Children.Add(_farseer);
+                        //_farseerXaml.Add(_farseer);
+                        //_farseerCanvas.Children.Add(_farseer);
                     }
                 }
             }
@@ -90,9 +88,6 @@ namespace SM.WpfFarseer
             }
         }
 
-        WpfFarseerWorldManager _manager = new WpfFarseerWorldManager();
-
-
         private bool oneTimeCalled = false;
         private void FarseerPlayerControl_Loaded(object sender, RoutedEventArgs e)
         {
@@ -105,77 +100,13 @@ namespace SM.WpfFarseer
 
             Settings.MaxPolygonVertices = MaxPolygonVertices;
 
-            var context = new Context(Zoom);
-
+            //var context = new Context(Zoom);
 
             _farseerXaml = new FarseerXaml(Id, Zoom, Gravity.ToFarseer(), _farseerResultContainers);
             _stepControl.DataContext = _farseerXaml.StepViewModel;
 
-
-            //var x = new Action<CanvasId>(canvasId => { _farseerResultContainers.Children.Add(canvasId); });
-
-            //// creo un wpf views creator che Views pilotera' e usera' per popolare le sue strutture a partire da info
-            //var wpfViewsCreator = new WpfViewsCreator(x, context);
-            //var wpfViewsShapeCreator = new WpfShapeCreator();
-
-            //World world = new World(Gravity.ToFarseer());
-            //// creo un farseer materials creator che Materials pilotera' e usera' per popolare le sue strutture a partire da info
-            //var farseerMaterialsCreator = new FarseerMaterialsCreator(world);
-            //var farseerMaterialsShapeCreator = new XamlShapeMaterialCreator(context);
-
-            //// Views e' completamente agnostico 
-            //var farseerViews = new Views(wpfViewsCreator, wpfViewsShapeCreator);
-            //// Materials e' completamente agnostico 
-            //var materials = new Materials(farseerMaterialsCreator, farseerMaterialsShapeCreator);
-
-            //// Synchronizers e' la struttura agnostica per tenere sincronizzato views e materials
-            //var synchronizers = new Synchronizers(farseerViews, materials);
-
-            //_worldManager = new FarseerWorldManager(Id, synchronizers, new WatchView(), world);
-
-            //_stepControl.DataContext = new StepViewModel(_worldManager);
-
-
-            var Code = @"
-        <Page
-            xmlns:mc=""http://schemas.openxmlformats.org/markup-compatibility/2006"" 
-            xmlns:d=""http://schemas.microsoft.com/expression/blend/2008""
-            xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
-            xmlns:sm=""clr-namespace:SM.Xaml;assembly=SM.Xaml""
-            xmlns:smf=""clr-namespace:SM.WpfFarseer;assembly=SM.WpfFarseer""
-            xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml"">
-                <sm:Farseer  Id=""s9"">
-                    <sm:Body BodyType=""Dynamic"">
-                        <sm:Polygon  Points=""5,0,5,5,10,4"" Fill=""GreenYellow""  Stroke=""Black"" StrokeThickness=""1""/>
-                    </sm:Body>
-                    <sm:Body BodyType=""Static"">
-                        <sm:Polygon  Points=""5,15,5,20,10,24"" Fill=""Red""  Stroke=""Black"" StrokeThickness=""1""/>
-                    </sm:Body>
-                </sm:Farseer>
-        </Page>";
-            var page = (Page)System.Windows.Markup.XamlReader.Load(new System.IO.MemoryStream(Encoding.UTF8.GetBytes(Code ?? "")));
-            var farseer = page.Content as BasicContainer;
-
-            _farseerXaml.Add(page.Content as BasicContainer);
-            
-
-//            page.Content = null;
-//            Farseer = farseer;
-
-//            // prendo lo xaml e lo passo a Info che e' completamente agnostico
-//            _farseerInfo = new Info(Farseer);
-//            //synchronizers.Add(_farseerInfo);
-//            _worldManager.Add(_farseerInfo);
-
-//            _worldManager.Clear();
-//            _farseerResultContainers.Children.Clear();
-
-
-//           _farseerInfo = new Info(Farseer);
-//           _worldManager.Add(_farseerInfo);
-
-
-//            Code = @"
+            _farseerXaml.Add(Farseer);
+//            var Code = @"
 //        <Page
 //            xmlns:mc=""http://schemas.openxmlformats.org/markup-compatibility/2006"" 
 //            xmlns:d=""http://schemas.microsoft.com/expression/blend/2008""
@@ -185,15 +116,18 @@ namespace SM.WpfFarseer
 //            xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml"">
 //                <sm:Farseer  Id=""s9"">
 //                    <sm:Body BodyType=""Dynamic"">
-//                        <sm:Polygon  Points=""15,0,15,5,20,4"" Fill=""Blue""  Stroke=""Black"" StrokeThickness=""1""/>
+//                        <sm:Polygon  Points=""5,0,5,5,10,4"" Fill=""GreenYellow""  Stroke=""Black"" StrokeThickness=""1""/>
+//                    </sm:Body>
+//                    <sm:Body BodyType=""Static"">
+//                        <sm:Polygon  Points=""5,15,5,20,10,24"" Fill=""Red""  Stroke=""Black"" StrokeThickness=""1""/>
 //                    </sm:Body>
 //                </sm:Farseer>
 //        </Page>";
-//            page = (Page)System.Windows.Markup.XamlReader.Load(new System.IO.MemoryStream(Encoding.UTF8.GetBytes(Code ?? "")));
-//            farseer = page.Content as BasicContainer;
-//            _farseerInfo = new Info(farseer);
-//            _worldManager.Add(_farseerInfo);
+//            var page = (Page)System.Windows.Markup.XamlReader.Load(new System.IO.MemoryStream(Encoding.UTF8.GetBytes(Code ?? "")));
+//            var farseer = page.Content as BasicContainer;
 
+//           _farseerXaml.Add(page.Content as BasicContainer);
+            
 
             debugCanvas(_farseerXaml);
 
@@ -203,7 +137,7 @@ namespace SM.WpfFarseer
 
             if (Ready != null)
             {
-                Ready(null);
+                Ready(_farseerXaml. FarseerWorldManager);
             }
         }
         private void Farseer_MouseDown(object sender, MouseButtonEventArgs e)

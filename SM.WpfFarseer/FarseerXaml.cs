@@ -59,6 +59,7 @@ namespace SM.WpfFarseer
 
 
         public StepViewModel StepViewModel { get { return _stepViewModel; } }
+        public FarseerWorldManager FarseerWorldManager { get { return _worldManager; } }
 
 
         public void Add(BasicContainer farseerContainer)
@@ -72,9 +73,12 @@ namespace SM.WpfFarseer
             _farseerResultContainers.Children.Clear();
         }
 
+        [Conditional("DEBUG")]
         public void ActivateDebug(Canvas debugCanvas, TextBlock debugTextBlock)
         {
-            var debugView = new DebugViewWPF(debugCanvas, debugTextBlock, _worldManager.World);
+            World w = null;
+            _worldManager.GetWorld(ref w);
+            var debugView = new DebugViewWPF(debugCanvas, debugTextBlock, w);
             debugView.Flags = debugView.Flags | DebugViewFlags.DebugPanel;
             debugView.ScaleTransform = new ScaleTransform(_zoom, _zoom);
             var timer = new DispatcherTimer(DispatcherPriority.Render);
@@ -112,15 +116,15 @@ namespace SM.WpfFarseer
                 return;
             }
 
-            _worldManager.StartMouseJoint(body, new xna.Vector2((float)Mouse.GetPosition(_farseerResultContainers).X / _zoom, (float)Mouse.GetPosition(_farseerResultContainers).Y / _zoom));
+            _worldManager.MouseJointManager.StartMouseJoint(body, new xna.Vector2((float)Mouse.GetPosition(_farseerResultContainers).X / _zoom, (float)Mouse.GetPosition(_farseerResultContainers).Y / _zoom));
         }
         public void UpdateMouseJoint()
         {
-            _worldManager.UpdateMouseJoint(new xna.Vector2((float)Mouse.GetPosition(_farseerResultContainers).X / _zoom, (float)Mouse.GetPosition(_farseerResultContainers).Y / _zoom));
+            _worldManager.MouseJointManager.UpdateMouseJoint(new xna.Vector2((float)Mouse.GetPosition(_farseerResultContainers).X / _zoom, (float)Mouse.GetPosition(_farseerResultContainers).Y / _zoom));
         }
         public void StopMouseJoint()
         {
-            _worldManager.StopMouseJoint();
+            _worldManager.MouseJointManager.StopMouseJoint();
         }
     }
 }

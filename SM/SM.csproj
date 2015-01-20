@@ -150,7 +150,6 @@
     <Compile Include="Views\Interfaces\IShapeViewCreator.cs" />
     <Compile Include="Views\Views.cs" />
     <Compile Include="Wpf\BasicCommand.cs" />
-    <Compile Include="Manager\BasicWorldManager.cs" />
     <Compile Include="Basic Structures\BodyTypeEnum.cs" />
     <Compile Include="Basic Structures\float2.cs" />
     <Compile Include="Synchronizers\Interfaces\ISynchronizer.cs" />

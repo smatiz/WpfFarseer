@@ -129,7 +129,6 @@
       <DependentUpon>PropertyControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="User.cs" />
-    <Compile Include="WpfFarseerWorldManager.cs.cs" />
     <Compile Include="XamlShapeMaterialCreator.cs" />
     <Compile Include="WpfDebugView.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
