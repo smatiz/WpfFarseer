@@ -116,6 +116,7 @@
     <Compile Include="Info\JointInfo.cs" />
     <Compile Include="Descriptor\Interfaces\ITransformable.cs" />
     <Compile Include="Descriptor\Interfaces\ITransformer.cs" />
+    <Compile Include="Manager\Manager.cs" />
     <Compile Include="Materials\BodyPieceMaterial.cs" />
     <Compile Include="Materials\Interfaces\IMaterialCreator.cs" />
     <Compile Include="Materials\Interfaces\IShapeMaterialCreator.cs" />

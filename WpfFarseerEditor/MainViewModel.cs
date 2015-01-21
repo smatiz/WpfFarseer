@@ -1,4 +1,5 @@
 ﻿using SM;
+using SM.WpfFarseer;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -17,8 +18,22 @@ namespace WpfFarseerEditor.wpf
             set;
         }
 
+
+        public SM.BasicCommand Test
+        {
+            get
+            {
+                return new BasicCommand(() => _farseerXaml.Add(), () => true);
+            }
+        }
+
+        FarseerXaml _farseerXaml;
         public MainViewModel()
         {
+            Canvas = new Canvas();
+            _farseerXaml = new FarseerXaml("aaa", 10f, 100, new float2(0, 10).ToFarseer(), Canvas);
+
+
             Code = "";
 
 
@@ -64,9 +79,9 @@ namespace WpfFarseerEditor.wpf
                         //x.XmlnsDictionary.Add("sm", "sm:farseer");
 
 
-                        var page = (Page)System.Windows.Markup.XamlReader.Load(new MemoryStream(Encoding.UTF8.GetBytes(Code ?? ""))) ;
-                        Canvas = page.Content as Canvas;
-                        NotifyPropertyChanged(() => Canvas); 
+                        //var page = (Page)System.Windows.Markup.XamlReader.Load(new MemoryStream(Encoding.UTF8.GetBytes(Code ?? ""))) ;
+                        //Canvas = page.Content as Canvas;
+                        //NotifyPropertyChanged(() => Canvas); 
                     }
                     catch(Exception e)
                     {

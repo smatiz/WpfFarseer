@@ -26,20 +26,27 @@ namespace SM.WpfFarseer
         FarseerWorldManager _worldManager;
         StepViewModel _stepViewModel;
         Canvas _farseerResultContainers;
+        MouseJointManager _mouseJointManager = null;
         float _zoom;
-        public FarseerXaml(string id, float zoom, Vector2 gravity, Canvas farseerResultContainers)
+        public FarseerXaml(string id, float zoom, int maxPolygonVertices, Vector2 gravity, Canvas farseerResultContainers)
         {
+            Settings.MaxPolygonVertices = maxPolygonVertices;
+
             var context = new Context(zoom);
             _zoom = zoom;
             _farseerResultContainers = farseerResultContainers;
 
-            var canvasCreated = new Action<CanvasId>(canvasId => { farseerResultContainers.Children.Add(canvasId); });
+            var canvasCreated = new Action<CanvasId>(canvasId => { _farseerResultContainers.Children.Add(canvasId); });
 
             // creo un wpf views creator che Views pilotera' e usera' per popolare le sue strutture a partire da info
             var wpfViewsCreator = new WpfViewsCreator(canvasCreated, context);
             var wpfViewsShapeCreator = new WpfShapeCreator();
 
             World world = new World(gravity);
+
+            _mouseJointManager = new MouseJointManager(world);
+
+
             // creo un farseer materials creator che Materials pilotera' e usera' per popolare le sue strutture a partire da info
             var farseerMaterialsCreator = new FarseerMaterialsCreator(world);
             var farseerMaterialsShapeCreator = new XamlShapeMaterialCreator(context);
@@ -57,16 +64,20 @@ namespace SM.WpfFarseer
             _stepViewModel = new StepViewModel(_worldManager);
         }
 
-
         public StepViewModel StepViewModel { get { return _stepViewModel; } }
         public FarseerWorldManager FarseerWorldManager { get { return _worldManager; } }
-
 
         public void Add(BasicContainer farseerContainer)
         {
             _worldManager.Add(new Info(farseerContainer));
         }
+        public void Add(string xamlCode)
+        {
 
+            var xamlCodePage = String.Format("{0}{1}{2}", OpenXamlPage, xamlCode, CloseXamlPage);
+            var page = (Page)System.Windows.Markup.XamlReader.Load(new System.IO.MemoryStream(Encoding.UTF8.GetBytes(xamlCodePage ?? "")));
+            Add(page.Content as BasicContainer);
+        }
         public void Clear()
         {
             _worldManager.Clear();
@@ -91,11 +102,9 @@ namespace SM.WpfFarseer
             timer.Start();
         }
 
-
-
         public void StartMouseJoint()
         {
-            var canvas = FarseerPlayerControl.GetFirstCanvasId(Mouse.DirectlyOver as FrameworkElement);
+            var canvas = CanvasId.GetFirstCanvasId(Mouse.DirectlyOver as FrameworkElement);
             if (canvas == null) return;
             var o = _worldManager.FindObject(canvas.Id);
 
@@ -116,15 +125,56 @@ namespace SM.WpfFarseer
                 return;
             }
 
-            _worldManager.MouseJointManager.StartMouseJoint(body, new xna.Vector2((float)Mouse.GetPosition(_farseerResultContainers).X / _zoom, (float)Mouse.GetPosition(_farseerResultContainers).Y / _zoom));
+            _mouseJointManager.StartMouseJoint(body, new xna.Vector2((float)Mouse.GetPosition(_farseerResultContainers).X / _zoom, (float)Mouse.GetPosition(_farseerResultContainers).Y / _zoom));
         }
         public void UpdateMouseJoint()
         {
-            _worldManager.MouseJointManager.UpdateMouseJoint(new xna.Vector2((float)Mouse.GetPosition(_farseerResultContainers).X / _zoom, (float)Mouse.GetPosition(_farseerResultContainers).Y / _zoom));
+            _mouseJointManager.UpdateMouseJoint(new xna.Vector2((float)Mouse.GetPosition(_farseerResultContainers).X / _zoom, (float)Mouse.GetPosition(_farseerResultContainers).Y / _zoom));
         }
         public void StopMouseJoint()
         {
-            _worldManager.MouseJointManager.StopMouseJoint();
+            _mouseJointManager.StopMouseJoint();
+        }
+
+        public static string OpenXamlPage
+        {
+            get
+            {
+                return @"
+        <Page
+            xmlns:mc=""http://schemas.openxmlformats.org/markup-compatibility/2006"" 
+            xmlns:d=""http://schemas.microsoft.com/expression/blend/2008""
+            xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
+            xmlns:sm=""clr-namespace:SM.Xaml;assembly=SM.Xaml""
+            xmlns:smf=""clr-namespace:SM.WpfFarseer;assembly=SM.WpfFarseer""
+            xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml"">";
+            }
+        }
+
+        public static string CloseXamlPage
+        {
+            get
+            {
+                return @"</Page>";
+            }
+        }
+
+        public void Add()
+        {
+            Add(ExampleXamlCode());
+        }
+        static int x = 0;
+        public static string ExampleXamlCode()
+        {
+            x += 10;
+                return @"
+                <sm:Farseer  Id=""s9"">
+                    <sm:Layer Transform="""+x.ToString()+@",10"">
+                        <sm:Body BodyType=""Dynamic"">
+                            <sm:Polygon  Points=""5,0,5,5,10,4"" Fill=""GreenYellow""  Stroke=""Black"" StrokeThickness=""1""/>
+                        </sm:Body>
+                    </sm:Layer>
+                </sm:Farseer>";
         }
     }
 }

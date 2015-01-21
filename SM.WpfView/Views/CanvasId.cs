@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace SM.WpfView
@@ -47,6 +48,25 @@ namespace SM.WpfView
 #endif
                 _id = value;
             }
+        }
+
+        public static CanvasId GetFirstCanvasId(FrameworkElement frameworkElement)
+        {
+            var canvasId = frameworkElement as CanvasId;
+            if (canvasId != null)
+            {
+                return canvasId;
+            }
+            if (frameworkElement != null)
+            {
+                var parentFrameworkElement = frameworkElement.Parent as FrameworkElement;
+                if (frameworkElement != null)
+                {
+                    return GetFirstCanvasId(parentFrameworkElement);
+                }
+            }
+
+            return null;
         }
     }
 }

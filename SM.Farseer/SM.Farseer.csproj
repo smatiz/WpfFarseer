@@ -107,6 +107,7 @@
     <Compile Include="Helpers\FarseerHelper.cs" />
     <Compile Include="FarseerWorldManager.cs" />
     <Compile Include="Materials\Joints\BasicJointMaterial.cs" />
+    <Compile Include="MouseJointManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Materials\Joints\RopeJointMaterial.cs" />
     <Compile Include="ShortTheRopeBehaviour.cs" />

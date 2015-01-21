@@ -27,8 +27,6 @@ namespace SM
             _joints = new List<IJointMaterial>();
         }
 
-
-
         public IMaterial Add(BodyInfo b)
         {
             IMaterial result;

@@ -16,60 +16,13 @@ using System.Threading.Tasks;
 
 namespace SM.Farseer
 {
-    public class MouseJointManager
-    {
-        World _world;
-        FixedMouseJoint _fixedMouseJoint = null;
-
-        public MouseJointManager(World world)
-        {
-            _world = world;
-        }
-
-        public void StartMouseJoint(Body body, Vector2 position)
-        {
-            StopMouseJoint();
-            _fixedMouseJoint = JointFactory.CreateFixedMouseJoint(_world, body, position);
-        }
-        public void UpdateMouseJoint(Vector2 position)
-        {
-            if (_fixedMouseJoint != null)
-            {
-                _fixedMouseJoint.WorldAnchorB = position;
-            }
-        }
-        public void StopMouseJoint()
-        {
-            if (_fixedMouseJoint != null)
-            {
-                _world.RemoveJoint(_fixedMouseJoint);
-                _fixedMouseJoint = null;
-            }
-        }
-    }
-
-
-
+   
     public class FarseerWorldManager : BasicManager
     {
         World _world;
         
         [Conditional("DEBUG")]
         public void GetWorld(ref World world) { world =  _world;  }
-
-
-        MouseJointManager _mouseJointManager = null;
-        public MouseJointManager MouseJointManager
-        {
-            get
-            {
-                if(_mouseJointManager == null)
-                {
-                    _mouseJointManager = new MouseJointManager(_world);
-                }
-                return _mouseJointManager;
-            }
-        }
 
 
         public override void Clear()
@@ -85,7 +38,6 @@ namespace SM.Farseer
 
         protected override void Loop()
         {
-
         }
 
         public FarseerWorldManager(string id, Synchronizers synchronizers, IWatchView viewWatch, World world)
@@ -93,11 +45,16 @@ namespace SM.Farseer
         {
             Id = id;
             _world = world;
-            //var worldBody = BodyFactory.CreateBody(_world);
-            //_fixedMouseJoint = new FixedMouseJoint(worldBody, worldBody.Position);
         }
 
         public string Id { get; private set; }
 
+        //public static Materials CreateMaterials(World world, IShapeMaterialCreator farseerMaterialsShapeCreator)
+        //{
+        //    // creo un farseer materials creator che Materials pilotera' e usera' per popolare le sue strutture a partire da info
+        //    var farseerMaterialsCreator = new FarseerMaterialsCreator(world);
+        //    // Materials e' completamente agnostico 
+        //    return new Materials(farseerMaterialsCreator, farseerMaterialsShapeCreator);
+        //}
     }
 }

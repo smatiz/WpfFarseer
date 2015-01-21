@@ -110,6 +110,7 @@
     <Compile Include="FarseerResultContainer.cs" />
     <Compile Include="FarseerTools.cs" />
     <Compile Include="DebugViewWPF.cs" />
+    <Compile Include="WpfFarseerWorldManager.cs" />
     <Compile Include="FarseerXaml.cs" />
     <Compile Include="Helpers\WpfFarseerHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">

@@ -36,6 +36,11 @@ namespace SM.WpfFarseer
         public event Action<FarseerWorldManager> Ready;
 
         private FarseerXaml _farseerXaml;
+
+
+
+        public FarseerXaml FarseerXaml { get { return _farseerXaml; } }
+
         string Id { get;set; }
         public FarseerPlayerControl()
         {
@@ -98,36 +103,12 @@ namespace SM.WpfFarseer
                 return;
             }
 
-            Settings.MaxPolygonVertices = MaxPolygonVertices;
 
-            //var context = new Context(Zoom);
+            _farseerXaml = new FarseerXaml(Id, Zoom, MaxPolygonVertices, Gravity.ToFarseer(), _farseerResultContainers);
 
-            _farseerXaml = new FarseerXaml(Id, Zoom, Gravity.ToFarseer(), _farseerResultContainers);
             _stepControl.DataContext = _farseerXaml.StepViewModel;
 
             _farseerXaml.Add(Farseer);
-//            var Code = @"
-//        <Page
-//            xmlns:mc=""http://schemas.openxmlformats.org/markup-compatibility/2006"" 
-//            xmlns:d=""http://schemas.microsoft.com/expression/blend/2008""
-//            xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
-//            xmlns:sm=""clr-namespace:SM.Xaml;assembly=SM.Xaml""
-//            xmlns:smf=""clr-namespace:SM.WpfFarseer;assembly=SM.WpfFarseer""
-//            xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml"">
-//                <sm:Farseer  Id=""s9"">
-//                    <sm:Body BodyType=""Dynamic"">
-//                        <sm:Polygon  Points=""5,0,5,5,10,4"" Fill=""GreenYellow""  Stroke=""Black"" StrokeThickness=""1""/>
-//                    </sm:Body>
-//                    <sm:Body BodyType=""Static"">
-//                        <sm:Polygon  Points=""5,15,5,20,10,24"" Fill=""Red""  Stroke=""Black"" StrokeThickness=""1""/>
-//                    </sm:Body>
-//                </sm:Farseer>
-//        </Page>";
-//            var page = (Page)System.Windows.Markup.XamlReader.Load(new System.IO.MemoryStream(Encoding.UTF8.GetBytes(Code ?? "")));
-//            var farseer = page.Content as BasicContainer;
-
-//           _farseerXaml.Add(page.Content as BasicContainer);
-            
 
             debugCanvas(_farseerXaml);
 
@@ -140,6 +121,8 @@ namespace SM.WpfFarseer
                 Ready(_farseerXaml. FarseerWorldManager);
             }
         }
+
+
         private void Farseer_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
@@ -148,7 +131,7 @@ namespace SM.WpfFarseer
             }
             else
             {
-                var canvas = GetFirstCanvasId(Mouse.DirectlyOver as FrameworkElement);
+                var canvas = CanvasId.GetFirstCanvasId(Mouse.DirectlyOver as FrameworkElement);
                 if (canvas == null) return;
                 //var o = _worldManager.FindObject(canvas.Id);
 
@@ -169,24 +152,7 @@ namespace SM.WpfFarseer
         {
             _farseerXaml.StopMouseJoint();
         }
-        public static CanvasId GetFirstCanvasId(FrameworkElement frameworkElement)
-        {
-            var canvasId = frameworkElement as CanvasId;
-            if (canvasId != null)
-            {
-                return canvasId;
-            }
-            if (frameworkElement != null)
-            {
-                var parentFrameworkElement = frameworkElement.Parent as FrameworkElement;
-                if (frameworkElement != null)
-                {
-                    return GetFirstCanvasId(parentFrameworkElement);
-                }
-            }
-
-            return null;
-        }
+        
 
         public int MaxPolygonVertices
         {
