@@ -6,12 +6,16 @@ using System.Threading.Tasks;
 
 namespace SM
 {
+    // gestisce i tempi 
+    // gestisce la sincronizzazione tra material e view
+    // fornisce le coroutine
+    // fornisce un finder e un Entity per accedere agli oggetti
     public abstract class BasicManager
     {
         private WatchMaterial _materialWatch;
         private IWatchView _viewWatch;
 
-        public dynamic Entity;
+        public dynamic Entities;
 
         bool _started = false;
 
@@ -22,35 +26,26 @@ namespace SM
         private List<BasicCoroutine> _startCoroutine = new List<BasicCoroutine>();
         private List<BasicCoroutine> _updateCoroutine = new List<BasicCoroutine>();
 
-        //public BasicManager(Views views, Materials materials, IWatchView viewWatch)
-        //    : this(new Synchronizers(views, materials), viewWatch)
-        //{
-        //}
-
-        public BasicManager(Synchronizers synchronizers, IWatchView viewWatch)
+        public BasicManager(Views views, Materials materials, IWatchView viewWatch)
         {
-            _synchronizers = synchronizers;
+            _synchronizers = new Synchronizers(views, materials);
             _materialWatch = new WatchMaterial(() => updateMaterial());
             _viewWatch = viewWatch;
             _viewWatch.Callback = () => updateView();
 
-            Entity = new IdInfoExpando(s => ((IMaterial)_synchronizers.Find(s)).Object);
+            Entities = new IdInfoExpando(s => ((IMaterial)_synchronizers.Find(s)).Object);
         }
-
 
         public void Add(Info info)
         {
             _synchronizers.Add(info);
-            Entity.Add(info.Bodies.Select(x => x.Id).Concat(info.Joints.Select(x => x.Id)));
+            Entities.Add(info.Bodies.Select(x => x.Id).Concat(info.Joints.Select(x => x.Id)));
         }
-
         public virtual void Clear()
         {
             _synchronizers.Clear();
-            Entity.Clear();
+            Entities.Clear();
         }
-
-       
 
         public object FindObject(IdInfo name) 
         {
@@ -61,7 +56,6 @@ namespace SM
             return (T)FindObject(name);
         }
         
-
         public void AddMaterialBehaviour(IBehaviourMaterial x)
         {
             _materialLoopCoroutine.Add(new FuncCoroutine(x.Step));
@@ -101,7 +95,6 @@ namespace SM
             _synchronizers.UpdateMaterial();
 
         }
-
         private void updateView()
         {
             if(!_started)

@@ -46,20 +46,16 @@ namespace SM.WpfFarseer
 
             _mouseJointManager = new MouseJointManager(world);
 
-
             // creo un farseer materials creator che Materials pilotera' e usera' per popolare le sue strutture a partire da info
             var farseerMaterialsCreator = new FarseerMaterialsCreator(world);
             var farseerMaterialsShapeCreator = new XamlShapeMaterialCreator(context);
 
             // Views e' completamente agnostico 
-            var farseerViews = new Views(wpfViewsCreator, wpfViewsShapeCreator);
+            var views = new Views(wpfViewsCreator, wpfViewsShapeCreator);
             // Materials e' completamente agnostico 
             var materials = new Materials(farseerMaterialsCreator, farseerMaterialsShapeCreator);
 
-            // Synchronizers e' la struttura agnostica per tenere sincronizzato views e materials
-            var synchronizers = new Synchronizers(farseerViews, materials);
-
-            _worldManager = new FarseerWorldManager(id, synchronizers, new WatchView(), world);
+            _worldManager = new FarseerWorldManager(id, views, materials, new WatchView(), world);
 
             _stepViewModel = new StepViewModel(_worldManager);
         }
@@ -169,9 +165,9 @@ namespace SM.WpfFarseer
             x += 10;
                 return @"
                 <sm:Farseer  Id=""s9"">
-                    <sm:Layer Transform="""+x.ToString()+@",10"">
+                    <sm:Layer Transform="""+x.ToString()+ @",10"">
                         <sm:Body BodyType=""Dynamic"">
-                            <sm:Polygon  Points=""5,0,5,5,10,4"" Fill=""GreenYellow""  Stroke=""Black"" StrokeThickness=""1""/>
+                            <sm:Polygon Density=""10"" Points=""5,0,5,5,10,4"" Fill=""GreenYellow""  Stroke=""Black"" StrokeThickness=""1""/>
                         </sm:Body>
                     </sm:Layer>
                 </sm:Farseer>";

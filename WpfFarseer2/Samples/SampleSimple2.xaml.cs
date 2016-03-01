@@ -27,7 +27,7 @@ namespace WpfFarseer
 
         void _farseerPlayer_Ready(FarseerWorldManager farseer)
         {
-            var body = (Body)farseer.Entity.x;
+            var body = (Body)farseer.Entities.x;
             body.LinearVelocity = new Microsoft.Xna.Framework.Vector2(5, -10);
 
 

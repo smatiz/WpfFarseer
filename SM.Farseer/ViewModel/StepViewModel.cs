@@ -61,7 +61,7 @@ namespace  SM.Farseer
            // _worldManager.Build();
             string path = @"S:\ROOT\DROPBOX\Dropbox\DATI\PROGRAMMAZIONE\CSHARP\FARSEER_ALL\Farseer Physics Engine 3.5 Samples\Farseer Physics Samples 3.5\bin\x86\Debug\Samples XNA.exe";
             string pathT = @"S:\ROOT\DROPBOX\Dropbox\DATI\PROGRAMMAZIONE\CSHARP\FARSEER_ALL\Farseer Physics Engine 3.5 Samples\Farseer Physics Samples 3.5\bin\x86\Debug\script.txt";
-            CodeGenerator.Header = _worldManager.Id;
+            //CodeGenerator.Header = _worldManager.Id;
             string code = CodeGenerator.Code;
             File.WriteAllText(pathT, code);
             var process = new Process();

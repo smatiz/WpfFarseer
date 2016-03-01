@@ -31,7 +31,7 @@ namespace WpfFarseer
         {
             //farseer.AddViewBehaviour(new ShortTheRopeBehaviour(farseer.FindObject<RopeJoint>("jointC")));
 
-            farseer.AddViewBehaviour(new ShortTheRopeBehaviour(farseer.Entity.jointC));
+            farseer.AddViewBehaviour(new ShortTheRopeBehaviour(farseer.Entities.jointC));
         }
     }
 }

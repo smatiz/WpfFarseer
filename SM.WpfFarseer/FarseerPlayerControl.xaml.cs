@@ -62,14 +62,7 @@ namespace SM.WpfFarseer
             {
                 if (_farseer != value)
                 {
-                    //_farseerXaml.Clear();
-                    //_farseerCanvas.Children.Remove(_farseer); 
                     _farseer = value;
-                    if (_farseer != null)
-                    {
-                        //_farseerXaml.Add(_farseer);
-                        //_farseerCanvas.Children.Add(_farseer);
-                    }
                 }
             }
 
@@ -96,11 +89,12 @@ namespace SM.WpfFarseer
         private bool oneTimeCalled = false;
         private void FarseerPlayerControl_Loaded(object sender, RoutedEventArgs e)
         {
+          
             if (oneTimeCalled) return;
             oneTimeCalled = true;
             if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
             {
-                return;
+                //return;
             }
 
 

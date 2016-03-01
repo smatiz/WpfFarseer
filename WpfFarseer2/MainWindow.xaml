@@ -72,7 +72,7 @@
 
 
                 <TabItem Header="Car">
-                    <l:SampleCar></l:SampleCar>
+                    <l:MainSampleCar></l:MainSampleCar>
                 </TabItem>
 
                 <TabItem Header="____next">

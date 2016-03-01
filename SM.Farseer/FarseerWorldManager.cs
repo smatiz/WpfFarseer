@@ -40,21 +40,13 @@ namespace SM.Farseer
         {
         }
 
-        public FarseerWorldManager(string id, Synchronizers synchronizers, IWatchView viewWatch, World world)
-            : base(synchronizers, viewWatch)
+        public FarseerWorldManager(string id, Views views, Materials materials, IWatchView viewWatch, World world)
+            : base(views, materials, viewWatch)
         {
-            Id = id;
+            //Id = id;
             _world = world;
         }
 
-        public string Id { get; private set; }
-
-        //public static Materials CreateMaterials(World world, IShapeMaterialCreator farseerMaterialsShapeCreator)
-        //{
-        //    // creo un farseer materials creator che Materials pilotera' e usera' per popolare le sue strutture a partire da info
-        //    var farseerMaterialsCreator = new FarseerMaterialsCreator(world);
-        //    // Materials e' completamente agnostico 
-        //    return new Materials(farseerMaterialsCreator, farseerMaterialsShapeCreator);
-        //}
+        //public string Id { get; private set; }
     }
 }

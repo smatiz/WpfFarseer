@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SM
 {
-    public class Synchronizers
+    class Synchronizers
     {
         private List<ISynchronizer> _synchronizers = new List<ISynchronizer>();
         Materials _materials;

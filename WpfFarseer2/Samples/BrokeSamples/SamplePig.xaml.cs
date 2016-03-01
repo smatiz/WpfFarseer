@@ -24,13 +24,14 @@ namespace WpfFarseer
     {
         public SamplePig()
         {
+          //  SM.d.ping("uuuuuuu"); 
             InitializeComponent();
             Loaded += SamplePig_Loaded;
         }
 
         void SamplePig_Loaded(object sender, RoutedEventArgs e)
         {
-
+           // SM.d.ping("uuuuuuu"); 
             //var img = new BitmapImage(new System.Uri(@"file://C:\Users\Developer\Desktop\TEMP\imm\aaa.bmp"));
             //uint[] us = img.GetData();
             ////for (int i = 0; i < n; i++)

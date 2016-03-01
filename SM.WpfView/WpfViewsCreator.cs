@@ -10,7 +10,7 @@ namespace SM.WpfView
     public partial class WpfViewsCreator : IViewCreator
     {
         IContext _context;
-        Canvas _rootCanvas;
+        //Canvas _rootCanvas;
 
         private Action<CanvasId> _created;
 
@@ -22,6 +22,7 @@ namespace SM.WpfView
 
         public IBodyView CreateBody(BodyInfo body, IShapeViewCreator shapeCreator)
         {
+            //d.ping("uuuuuuu"); 
             return new BodyView(_created, _context, body, shapeCreator);
         }
 

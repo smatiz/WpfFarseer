@@ -10,6 +10,7 @@ using SM.WpfView;
 using System.Windows;
 using System.Windows.Media.Imaging;
 using System.IO;
+using SM.Farseer;
 
 
 namespace SM.WpfFarseer
@@ -107,10 +108,10 @@ namespace SM.WpfFarseer
         {
             return new F.Vertices(from p in points select p.ToFarseer());
         }
-        public static Xna.Vector2 ToFarseer(this SM.float2 p)
+        /*public static Xna.Vector2 ToFarseer(this SM.float2 p)
         {
             return new Xna.Vector2((float)p.X, (float)p.Y);
-        }
+        }*/
         public static F.Vertices ToFarseerVertices(this W.UIElement uielement, WShape.Shape shape)
         {
             if (shape is W.Shapes.Polygon)

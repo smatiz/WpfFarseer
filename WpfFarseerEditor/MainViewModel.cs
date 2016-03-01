@@ -1,4 +1,5 @@
 ﻿using SM;
+using SM.Farseer;
 using SM.WpfFarseer;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,15 @@ namespace WpfFarseerEditor.wpf
             get
             {
                 return new BasicCommand(() => _farseerXaml.Add(), () => true);
+            }
+        }
+
+
+        public StepViewModel StepViewModel
+        {
+            get
+            {
+                return _farseerXaml.StepViewModel;
             }
         }
 

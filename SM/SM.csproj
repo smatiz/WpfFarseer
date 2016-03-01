@@ -99,6 +99,7 @@
   <ItemGroup>
     <Compile Include="Basic Structures\Circle2.cs" />
     <Compile Include="Basic Structures\Matrix.cs" />
+    <Compile Include="Debug\d.cs" />
     <Compile Include="Descriptor\Interfaces\IEntity.cs" />
     <Compile Include="Descriptor\Interfaces\IDescriptor.cs" />
     <Compile Include="Descriptor\Interfaces\ILayer.cs" />
@@ -180,6 +181,7 @@
     <Compile Include="Materials\WatchMaterial.cs" />
     <Compile Include="Info\Info.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

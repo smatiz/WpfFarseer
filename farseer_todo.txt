@@ -37,13 +37,9 @@ pensare ad un sistema per cambiare certi parametri a runtime (+treeview)
 
 code generator va isolato ?
 
+aggiungere control vector2 per impulsi e forze
 
-UML/MIND MAP
-USERCONTROL
-RIORDINare flagInfo e FlagView, Joint e FindFlag ecc
 
-e' giusto restituire tutto FarseerWorldManager nell'evento REady del FarseerPlayerControl?
-vedere con snoop e wpf inspector che il tree visual e logical siano corretti
 
 transformare IdInfo per accettare anche indici
 IdInfo e la dinamicita non gestisce il breaking
@@ -54,4 +50,13 @@ gli id mi servono per
 - avere un nome univoco nel codeGenerator 
 - trovare l'elemento con il mouse
 ------------------------------------------------------
+
+
+per l'editor
+farseerxaml deve gestire
+* play/stop/..
+* set properties objects?
+* set properties zoom/..
+* add/remove objects
+
 

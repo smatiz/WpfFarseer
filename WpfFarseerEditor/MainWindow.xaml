@@ -12,12 +12,14 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="20"/>
-            <RowDefinition Height="113*"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Button Command="{Binding Test}" ></Button>
-        <l2:Screen Content="{Binding Canvas}"  x:Name="xxx" Grid.Row="1">
-         
+        <l2:Screen Content="{Binding Canvas}"  x:Name="xxx" Grid.Row="2">
+
         </l2:Screen>
+        <sm:StepControl DataContext="{Binding StepViewModel}"  Grid.Row="1" ></sm:StepControl>
 
         <!--<l2:XamlTextEditor
             Grid.Row="1"

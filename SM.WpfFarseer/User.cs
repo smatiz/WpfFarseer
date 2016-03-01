@@ -19,6 +19,8 @@ using System.Windows.Threading;
 using System.Collections.ObjectModel;
 using System.Windows.Markup;
 using SM.Wpf;
+using SM.WpfFarseer;
+using Microsoft.Xna.Framework;
 
 namespace SM.Xaml
 {
@@ -77,11 +79,23 @@ namespace SM.Xaml
             //Children.Add(canvas);
 
 
+
+            d.ping("aaaa");
+
             //canvas.Children.Add(this); 
             //_farseerCanvas.Children.Add(_farseer); 
             //SM.WpfView.Helper.LoadFarseer(Farseer, _farseerCanvas, _context, out _farseerInfo, out _farseerViews);
 
-            SM.WpfView.Helper.LoadFarseer(c => { canvas.Children.Add(c); }, this, _context, out _farseerInfo, out _farseerViews);
+            //SM.WpfView.Helper.LoadFarseer(c =>
+            //{
+            //    canvas.Children.Add(c);
+
+            //}, this, _context, out _farseerInfo, out _farseerViews);
+
+            var f = new FarseerXaml("designer", DesignZoom, 100, Vector2.Zero, canvas);
+            d.ping("bbbb");
+            f.Add(this);
+            d.ping("cccc");
             //MessageBox.Show("aaaaaaaa");
         }
     }

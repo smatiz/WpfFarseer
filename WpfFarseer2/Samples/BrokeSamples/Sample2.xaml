@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:sm="sm:farseer"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="3000" d:DesignWidth="3000">
     <Grid>
         <sm:FarseerPlayerControl x:Name="_farseerPlayer" InDebug="True">
                 <sm:Farseer >

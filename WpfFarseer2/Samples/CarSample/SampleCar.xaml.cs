@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SM.Xaml;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,7 +19,7 @@ namespace WpfFarseer
     /// <summary>
     /// Interaction logic for SampleCar.xaml
     /// </summary>
-    public partial class SampleCar : UserControl
+    public partial class SampleCar : User
     {
         public SampleCar()
         {
